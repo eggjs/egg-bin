@@ -93,7 +93,7 @@ TEST_TIMEOUT=2000 egg-bin test
 
 支持的表报有 text-summary，json，lcov，并通过 [alicov] 上传。
 
-## 定制属于你团队的 egg-bin
+## 定制属于你团队的 egg-bin
 
 如果你的团队已经基于 egg 开发了属于自己的框架，那么很可能你会需要在 egg-bin 上做更多自定义功能。
 egg-bin 已经早为此做好准备，通过实现 [Program](lib/Program.js) 的子类，
