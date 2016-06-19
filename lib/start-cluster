@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const commander = require('commander');
+
+commander
+  .option('--eggPath [eggPath]')
+  .option('--baseDir [baseDir]')
+  .option('--port [port]')
+  .option('--cluster [workers]')
+  .parse(process.argv);
+
+const baseDir = commander.baseDir;
+const workers = commander.cluster ? Number(commander.cluster) : 1;
+
+const options = {
+  baseDir: baseDir,
+  port: commander.port,
+  workers: workers,
+};
+
+require(commander.eggPath).startCluster(options);

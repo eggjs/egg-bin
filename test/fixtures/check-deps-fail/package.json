@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "aliyun-egg": "^1.0.0"
+  },
+  "engines": {
+    "install-node": "1.0.0"
+  }
+}

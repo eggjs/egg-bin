@@ -1,0 +1,7 @@
+{
+  "name": "my-egg-bin",
+  "version": "1.0.0",
+  "bin": {
+    "my-egg-bin": "bin/my-egg-bin.js"
+  }
+}

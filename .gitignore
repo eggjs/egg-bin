@@ -1,0 +1,4 @@
+node_modules/
+coverage/
+!test/fixtures/**/node_modules/aliyun-egg/
+.tmp
