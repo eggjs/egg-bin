@@ -20,7 +20,7 @@ describe('egg-bin debug', () => {
       cwd: appdir,
       autoCoverage: true,
     })
-    .debug()
+    // .debug()
     .expect('stdout', /,"workers":1}/)
     .expect('code', 0)
     .end(done);
@@ -31,7 +31,7 @@ describe('egg-bin debug', () => {
       cwd: appdir,
       autoCoverage: true,
     })
-    .debug()
+    // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","port":"6001","workers":1}\n`)
     .expect('code', 0)
     .end(done);
