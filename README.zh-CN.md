@@ -99,8 +99,8 @@ TEST_TIMEOUT=2000 egg-bin test
 ## 定制属于你团队的 egg-bin
 
 如果你的团队已经基于 egg 开发了属于自己的框架，那么很可能你会需要在 egg-bin 上做更多自定义功能。
-egg-bin 已经早为此做好准备，通过实现 [Program](lib/Program.js) 的子类，
-可以添加新的 [Command](lib/Command.js)，或者覆盖现有的 Command 来实现自定义功能。
+egg-bin 已经早为此做好准备，通过实现 [Program](lib/program.js) 的子类，
+可以添加新的 [Command](lib/command.js)，或者覆盖现有的 Command 来实现自定义功能。
 
 ### 示例：增加 [nsp] 安全扫描命令
 
@@ -109,7 +109,7 @@ egg-bin 已经早为此做好准备，通过实现 [Program](lib/Program.js) 的
 
 - 完整示例代码：[my-egg-bin](test/fixtures/my-egg-bin)
 
-#### [MyProgram.js](test/fixtures/my-egg-bin/lib/MyProgram.js)
+#### [MyProgram](test/fixtures/my-egg-bin/lib/my_program.js)
 
 ```js
 const Program = require('egg-bin').Program;
@@ -119,14 +119,14 @@ class MyProgram extends Program {
     super();
     this.version = require('../package.json').version;
 
-    this.addCommand('nsp', path.join(__dirname, 'NspCommand.js'));
+    this.addCommand('nsp', path.join(__dirname, 'nsp_command.js'));
   }
 }
 
 module.exports = MyProgram;
 ```
 
-#### [NspCommand.js](test/fixtures/my-egg-bin/lib/NspCommand.js)
+#### [NspCommand](test/fixtures/my-egg-bin/lib/nsp_command.js)
 
 ```js
 const Command = require('egg-bin').Command;
@@ -153,7 +153,7 @@ module.exports = NspCommand;
 
 const run = require('egg-bin').run;
 
-run(require('../lib/MyProgram'));
+run(require('../lib/my_program'));
 ```
 
 #### 运行结果

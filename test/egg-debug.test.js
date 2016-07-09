@@ -18,7 +18,6 @@ describe('egg-bin debug', () => {
   it('should startCluster success', done => {
     coffee.fork(eggBin, ['debug'], {
       cwd: appdir,
-      autoCoverage: true,
     })
     // .debug()
     .expect('stdout', /,"workers":1}/)
@@ -29,7 +28,6 @@ describe('egg-bin debug', () => {
   it('should startCluster with port', done => {
     coffee.fork(eggBin, ['debug', '--port', '6001'], {
       cwd: appdir,
-      autoCoverage: true,
     })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","port":"6001","workers":1}\n`)

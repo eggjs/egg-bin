@@ -54,7 +54,7 @@ Add `egg-bin` to `package.json` scripts:
 
 ### dev
 
-Start dev cluster on `local` env, it will start a master, a agent and a worker.
+Start dev cluster on `local` env, it will start a master, an agent and a worker.
 
 ```bash
 $ egg-bin dev
@@ -101,8 +101,8 @@ Coverage reporter will output text-summary, json and lcov.
 You maybe need a custom egg-bin to implement more custom features
 if your team has develop a framework base on egg.
 
-Now you can implement a [Program](lib/Program.js) sub class,
-and [Command](lib/Command.js) sub class to do that.
+Now you can implement a [Program](lib/program.js) sub class,
+and [Command](lib/command.js) sub class to do that.
 Or you can just override the exists command.
 
 ### Example: Add [nsp] for security scan
@@ -114,7 +114,7 @@ to create a new `egg-bin` tool.
 
 - Full demo: [my-egg-bin](test/fixtures/my-egg-bin)
 
-#### [MyProgram.js](test/fixtures/my-egg-bin/lib/MyProgram.js)
+#### [MyProgram](test/fixtures/my-egg-bin/lib/my_program.js)
 
 ```js
 const Program = require('egg-bin').Program;
@@ -131,7 +131,7 @@ class MyProgram extends Program {
 module.exports = MyProgram;
 ```
 
-#### [NspCommand.js](test/fixtures/my-egg-bin/lib/NspCommand.js)
+#### [NspCommand](test/fixtures/my-egg-bin/lib/nsp_command.js)
 
 ```js
 const Command = require('egg-bin').Command;
@@ -158,7 +158,7 @@ module.exports = NspCommand;
 
 const run = require('egg-bin').run;
 
-run(require('../lib/MyProgram'));
+run(require('../lib/my_program'));
 ```
 
 #### Run result

@@ -5,7 +5,7 @@ const assert = require('assert');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe('my-egg-bin', () => {
+describe('custom egg-bin: my-egg-bin', () => {
   const eggBin = require.resolve('./fixtures/my-egg-bin/bin/my-egg-bin.js');
 
   afterEach(mm.restore);
@@ -14,7 +14,6 @@ describe('my-egg-bin', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, ['test'], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
-      autoCoverage: true,
     })
     // .debug()
     .expect('stdout', /✓ should success/)
@@ -31,7 +30,6 @@ describe('my-egg-bin', () => {
   it('should my-egg-bin nsp success', done => {
     coffee.fork(eggBin, ['nsp'], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
-      autoCoverage: true,
     })
     // .debug()
     .expect('stdout', /run nsp check at/)
@@ -42,7 +40,6 @@ describe('my-egg-bin', () => {
   it('should show help message', done => {
     coffee.fork(eggBin, ['-h'], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
-      autoCoverage: true,
     })
     // .debug()
     .expect('stdout', /nsp - nsp check/)
@@ -53,7 +50,6 @@ describe('my-egg-bin', () => {
   it('should show version 2.0.0', done => {
     coffee.fork(eggBin, ['--version'], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
-      autoCoverage: true,
     })
     // .debug()
     .expect('stdout', '2.0.0\n')
