@@ -4,4 +4,4 @@
 
 const run = require('../lib/run');
 
-run(require('../lib/Program'));
+run(require('../lib/program'));

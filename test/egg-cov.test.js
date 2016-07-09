@@ -16,8 +16,8 @@ describe('egg-bin cov', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, ['cov'], {
       cwd: appdir,
-      autoCoverage: true,
     })
+    .coverage(false)
     // .debug()
     .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
     .expect('stdout', /✓ should success/)
@@ -43,8 +43,8 @@ describe('egg-bin cov', () => {
     mm(process.env, 'TESTS', 'test/fail.js');
     coffee.fork(eggBin, ['cov'], {
       cwd: appdir,
-      autoCoverage: true,
     })
+    .coverage(false)
     // .debug()
     .expect('stdout', /1\) should fail/)
     .expect('stdout', /1 failing/)

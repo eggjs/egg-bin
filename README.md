@@ -54,7 +54,7 @@ Add `egg-bin` to `package.json` scripts:
 
 ### dev
 
-以 local 环境模式启动当前应用，将启动一个 master，一个 agent，一个 worker。
+Start dev cluster on `local` env, it will start a master, an agent and a worker.
 
 ```bash
 $ egg-bin dev
@@ -62,7 +62,7 @@ $ egg-bin dev
 
 ### debug
 
-使用 iron-node 调试工具启动应用。
+Debug egg app with Chrome Developer Tools by [iron-node].
 
 ```bash
 $ egg-bin debug
@@ -70,21 +70,21 @@ $ egg-bin debug
 
 ### test
 
-测试工具，使用 [mocha]，支持 [thunk-mocha] 扩展。
+Using [mocha] with [thunk-mocha] to run test.
 
-可通过 `TESTS` 环境变量指定具体文件，支持 [glob]。
+You can set `TESTS` env to set the tests directory, it support [glob] grammar.
 
 ```bash
 TESTS=test/a.test.js egg-bin test
 ```
 
-通过 `TEST_REPORTER` 环境变量指定 reporter，默认为 spec。
+And the reporter can set by the `TEST_REPORTER` env, default is `spec`.
 
 ```bash
 TEST_REPORTER=doc egg-bin test
 ```
 
-通过 `TEST_TIMEOUT` 环境变量指定超时时间，默认 30000ms。
+The test timeout can set by `TEST_TIMEOUT` env, default is `30000` ms.
 
 ```bash
 TEST_TIMEOUT=2000 egg-bin test
@@ -92,24 +92,29 @@ TEST_TIMEOUT=2000 egg-bin test
 
 ### cov
 
-覆盖率工具，使用 [istanbul]，支持 test 所有参数。
+Using [istanbul] to run code coverage, it support all test params above.
 
-支持的表报有 text-summary，json，lcov，并通过 [alicov] 上传。
+Coverage reporter will output text-summary, json and lcov.
 
-## 定制属于你团队的 egg-bin
+## Custom egg-bin for your team
 
-如果你的团队已经基于 egg 开发了属于自己的框架，那么很可能你会需要在 egg-bin 上做更多自定义功能。
-egg-bin 已经早为此做好准备，通过实现 [Program](lib/Program.js) 的子类，
-可以添加新的 [Command](lib/Command.js)，或者覆盖现有的 Command 来实现自定义功能。
+You maybe need a custom egg-bin to implement more custom features
+if your team has develop a framework base on egg.
 
-### 示例：增加 [nsp] 安全扫描命令
+Now you can implement a [Program](lib/program.js) sub class,
+and [Command](lib/command.js) sub class to do that.
+Or you can just override the exists command.
 
-[nsp] 提供了一个非常有用的依赖模块安全扫描功能，
-这个例子将展示如何通过添加新的 NspCommand 类和 MyProgram 类来实现一个新的 egg-bin 工具。
+### Example: Add [nsp] for security scan
 
-- 完整示例代码：[my-egg-bin](test/fixtures/my-egg-bin)
+[nsp] has provide a useful security scan feature.
 
-#### [MyProgram.js](test/fixtures/my-egg-bin/lib/MyProgram.js)
+This example will show you how to add a new `NspCommand` and `MyProgram`
+to create a new `egg-bin` tool.
+
+- Full demo: [my-egg-bin](test/fixtures/my-egg-bin)
+
+#### [MyProgram](test/fixtures/my-egg-bin/lib/my_program.js)
 
 ```js
 const Program = require('egg-bin').Program;
@@ -126,7 +131,7 @@ class MyProgram extends Program {
 module.exports = MyProgram;
 ```
 
-#### [NspCommand.js](test/fixtures/my-egg-bin/lib/NspCommand.js)
+#### [NspCommand](test/fixtures/my-egg-bin/lib/nsp_command.js)
 
 ```js
 const Command = require('egg-bin').Command;
@@ -153,10 +158,10 @@ module.exports = NspCommand;
 
 const run = require('egg-bin').run;
 
-run(require('../lib/MyProgram'));
+run(require('../lib/my_program'));
 ```
 
-#### 运行结果
+#### Run result
 
 ```bash
 $ my-egg-bin nsp
@@ -174,3 +179,4 @@ run nsp check at /foo/bar with []
 [glob]: https://github.com/isaacs/node-glob
 [istanbul]: https://github.com/gotwarlost/istanbul
 [nsp]: https://npmjs.com/thunk-mocha
+[iron-node]: https://github.com/s-a/iron-node

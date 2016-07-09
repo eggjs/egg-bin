@@ -56,6 +56,17 @@ describe('egg-bin test', () => {
     });
   });
 
+  it('should use process.env.TEST_TIMEOUT', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    mm(process.env, 'TEST_TIMEOUT', '60000');
+    coffee.fork(eggBin, ['test'], {
+      cwd: path.join(__dirname, 'fixtures/test-files'),
+    })
+    .expect('stdout', /✓ should success/)
+    .expect('code', 0)
+    .end(done);
+  });
+
   it.skip('should check node dependencies fail', done => {
     coffee.fork(eggBin, ['test'], {
       cwd: path.join(__dirname, 'fixtures/check-deps-fail'),

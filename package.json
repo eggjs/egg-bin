@@ -16,13 +16,13 @@
     "glob": "^5.0.15",
     "istanbul": "^0.4.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.5.1",
+    "mocha": "^2.5.3",
     "rimraf": "~2.4.3",
     "thunk-mocha": "^1.0.3"
   },
   "devDependencies": {
     "autod": "2",
-    "coffee": "1",
+    "coffee": "3",
     "egg-ci": "1",
     "eslint": "2",
     "eslint-config-egg": "2",
@@ -35,7 +35,7 @@
   "homepage": "https://github.com/eggjs/egg-bin",
   "author": "fengmk2 <fengmk2@gmail.com> (https://fengmk2.com)",
   "scripts": {
-    "lint": "eslint bin lib test index.js",
+    "lint": "eslint bin lib test *.js",
     "test": "TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js test",
     "cov": "TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js cov",
     "ci": "npm run lint && npm run cov",
