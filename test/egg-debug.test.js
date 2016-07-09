@@ -19,7 +19,7 @@ describe('egg-bin debug', () => {
     coffee.fork(eggBin, ['debug'], {
       cwd: appdir,
     })
-    // .debug()
+    .debug()
     .expect('stdout', /,"workers":1}/)
     .expect('code', 0)
     .end(done);
@@ -29,7 +29,7 @@ describe('egg-bin debug', () => {
     coffee.fork(eggBin, ['debug', '--port', '6001'], {
       cwd: appdir,
     })
-    // .debug()
+    .debug()
     .expect('stdout', `{"baseDir":"${appdir}","port":"6001","workers":1}\n`)
     .expect('code', 0)
     .end(done);
