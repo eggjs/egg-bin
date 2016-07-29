@@ -2,6 +2,6 @@
 
 'use strict';
 
-const run = require('../lib/run');
+const run = require('common-bin').run;
 
 run(require('../lib/program'));

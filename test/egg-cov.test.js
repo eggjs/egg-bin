@@ -14,16 +14,16 @@ describe('egg-bin cov', () => {
 
   it('should success', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    coffee.fork(eggBin, ['cov'], {
+    coffee.fork(eggBin, [ 'cov' ], {
       cwd: appdir,
     })
     .coverage(false)
     // .debug()
     .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
     .expect('stdout', /✓ should success/)
-    .expect('stdout', /a.test.js/)
-    .expect('stdout', /b\/b.test.js/)
-    .expect('stdout', /Statements\ \ \ :\ 75% \(\ 3\/4\ \)/)
+    .expect('stdout', /a\.test\.js/)
+    .expect('stdout', /b\/b\.test\.js/)
+    .expect('stdout', /Statements {3}: 75% \( 3\/4 \)/)
     .expect('code', 0)
     .end((err, res) => {
       assert.ifError(err);
@@ -41,7 +41,7 @@ describe('egg-bin cov', () => {
 
   it('should fail when test fail', done => {
     mm(process.env, 'TESTS', 'test/fail.js');
-    coffee.fork(eggBin, ['cov'], {
+    coffee.fork(eggBin, [ 'cov' ], {
       cwd: appdir,
     })
     .coverage(false)

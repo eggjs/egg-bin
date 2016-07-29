@@ -8,7 +8,7 @@ describe('egg-bin dev', () => {
   const appdir = path.join(__dirname, 'fixtures/demo-app');
 
   it('should startCluster success', done => {
-    coffee.fork(eggBin, ['dev'], {
+    coffee.fork(eggBin, [ 'dev' ], {
       cwd: appdir,
     })
     // .debug()
@@ -18,7 +18,7 @@ describe('egg-bin dev', () => {
   });
 
   it('should startCluster with port', done => {
-    coffee.fork(eggBin, ['dev', '--port', '6001'], {
+    coffee.fork(eggBin, [ 'dev', '--port', '6001' ], {
       cwd: appdir,
     })
     // .debug()

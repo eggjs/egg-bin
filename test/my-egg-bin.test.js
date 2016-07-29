@@ -12,7 +12,7 @@ describe('custom egg-bin: my-egg-bin', () => {
 
   it('should my-egg-bin test success', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    coffee.fork(eggBin, ['test'], {
+    coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     // .debug()
@@ -28,7 +28,7 @@ describe('custom egg-bin: my-egg-bin', () => {
   });
 
   it('should my-egg-bin nsp success', done => {
-    coffee.fork(eggBin, ['nsp'], {
+    coffee.fork(eggBin, [ 'nsp' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     // .debug()
@@ -38,7 +38,7 @@ describe('custom egg-bin: my-egg-bin', () => {
   });
 
   it('should show help message', done => {
-    coffee.fork(eggBin, ['-h'], {
+    coffee.fork(eggBin, [ '-h' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     // .debug()
@@ -48,7 +48,7 @@ describe('custom egg-bin: my-egg-bin', () => {
   });
 
   it('should show version 2.0.0', done => {
-    coffee.fork(eggBin, ['--version'], {
+    coffee.fork(eggBin, [ '--version' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     // .debug()

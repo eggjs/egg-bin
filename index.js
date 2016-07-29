@@ -1,6 +1,6 @@
 'use strict';
 
-exports.run = require('./lib/run');
+exports.run = require('common-bin').run;
 exports.Program = require('./lib/program');
 exports.Command = require('./lib/command');
 exports.CovCommand = require('./lib/cov_command');
