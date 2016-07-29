@@ -16,7 +16,7 @@ describe('egg-bin debug', () => {
   afterEach(mm.restore);
 
   it('should startCluster success', done => {
-    coffee.fork(eggBin, ['debug'], {
+    coffee.fork(eggBin, [ 'debug' ], {
       cwd: appdir,
     })
     .debug()
@@ -26,7 +26,7 @@ describe('egg-bin debug', () => {
   });
 
   it('should startCluster with port', done => {
-    coffee.fork(eggBin, ['debug', '--port', '6001'], {
+    coffee.fork(eggBin, [ 'debug', '--port', '6001' ], {
       cwd: appdir,
     })
     .debug()

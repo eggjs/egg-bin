@@ -3,7 +3,6 @@
 module.exports = condition => {
   if (condition) {
     return 'a';
-  } else {
-    return 'b';
   }
+  return 'b';
 };

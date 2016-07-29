@@ -12,12 +12,12 @@ describe('egg-bin test', () => {
 
   it('should success', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    coffee.fork(eggBin, ['test'], {
+    coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     .expect('stdout', /✓ should success/)
-    .expect('stdout', /a.test.js/)
-    .expect('stdout', /b\/b.test.js/)
+    .expect('stdout', /a\.test\.js/)
+    .expect('stdout', /b\/b\.test\.js/)
     .expect('code', 0)
     .end((err, res) => {
       assert.ifError(err);
@@ -28,11 +28,11 @@ describe('egg-bin test', () => {
 
   it('should only test files specified by TESTS', done => {
     mm(process.env, 'TESTS', 'test/a.test.js');
-    coffee.fork(eggBin, ['test'], {
+    coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     .expect('stdout', /✓ should success/)
-    .expect('stdout', /a.test.js/)
+    .expect('stdout', /a\.test\.js/)
     .expect('code', 0)
     .end((err, res) => {
       assert.ifError(err);
@@ -44,14 +44,14 @@ describe('egg-bin test', () => {
   it('should use process.env.TEST_REPORTER', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'TEST_REPORTER', 'dot');
-    coffee.fork(eggBin, ['test'], {
+    coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
-    .expect('stdout', /\․\․\n/)
+    .expect('stdout', /․․\n/)
     .expect('code', 0)
     .end((err, res) => {
       assert.ifError(err);
-      assert.ok(!/b\/b.test.js/.test(res.stdout));
+      assert.ok(!/b\/b\.test\.js/.test(res.stdout));
       done();
     });
   });
@@ -59,7 +59,7 @@ describe('egg-bin test', () => {
   it('should use process.env.TEST_TIMEOUT', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'TEST_TIMEOUT', '60000');
-    coffee.fork(eggBin, ['test'], {
+    coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     .expect('stdout', /✓ should success/)
@@ -68,7 +68,7 @@ describe('egg-bin test', () => {
   });
 
   it.skip('should check node dependencies fail', done => {
-    coffee.fork(eggBin, ['test'], {
+    coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, 'fixtures/check-deps-fail'),
     })
     .expect('stderr', /AssertionError: /)

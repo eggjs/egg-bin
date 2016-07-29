@@ -2,6 +2,6 @@
 
 'use strict';
 
-const run = require('../../../../lib/run');
+const run = require('../../../..').run;
 
 run(require('../lib/my_program'));
