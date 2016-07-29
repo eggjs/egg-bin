@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const assert = require('assert');
+const assert = require('power-assert');
 const coffee = require('coffee');
 const mm = require('mm');
 
@@ -48,6 +48,20 @@ describe('egg-bin cov', () => {
     // .debug()
     .expect('stdout', /1\) should fail/)
     .expect('stdout', /1 failing/)
+    .expect('code', 1)
+    .end(done);
+  });
+
+  it('should fail when test fail with power-assert', done => {
+    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+    coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], {
+      cwd: appdir,
+    })
+    .coverage(false)
+    // .debug()
+    .expect('stdout', /1\) should fail/)
+    .expect('stdout', /1 failing/)
+    .expect('stdout', /assert\(1 === 2\)/)
     .expect('code', 1)
     .end(done);
   });
