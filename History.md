@@ -1,4 +1,10 @@
 
+1.1.0 / 2016-07-29
+==================
+
+  * feat: support mocha custom require args (#5)
+  * refactor: use common-bin (#4)
+
 1.0.2 / 2016-07-12
 ==================
 
