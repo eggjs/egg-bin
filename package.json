@@ -7,18 +7,16 @@
     "egg-bin": "bin/egg-bin.js"
   },
   "dependencies": {
-    "chalk": "^1.1.1",
     "childprocess": "^2.0.0",
-    "co": "^4.6.0",
     "commander": "^2.9.0",
     "common-bin": "^1.0.0",
     "debug": "^2.2.0",
     "egg-utils": "^1.0.0",
-    "glob": "^5.0.15",
+    "glob": "^7.0.5",
     "istanbul": "^0.4.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.5.3",
-    "rimraf": "~2.4.3",
+    "mocha": "^3.0.0",
+    "rimraf": "^2.5.4",
     "thunk-mocha": "^1.0.3"
   },
   "devDependencies": {
