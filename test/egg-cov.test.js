@@ -28,13 +28,35 @@ describe('egg-bin cov', () => {
     .end((err, res) => {
       assert.ifError(err);
       assert.ok(!/a.js/.test(res.stdout));
-      // 测试 report json
       assert.ok(fs.existsSync(path.join(appdir, 'coverage/coverage-final.json')));
-      // 测试 report lcov
       assert.ok(fs.existsSync(path.join(appdir, 'coverage/lcov-report/index.html')));
       assert.ok(fs.existsSync(path.join(appdir, 'coverage/lcov.info')));
-      // 已删除
       assert.ok(!fs.existsSync(path.join(appdir, '.tmp')));
+      done();
+    });
+  });
+
+  it('should success with COV_EXCLUDES', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    mm(process.env, 'COV_EXCLUDES', 'lib/*');
+    coffee.fork(eggBin, [ 'cov' ], {
+      cwd: appdir,
+    })
+    .coverage(false)
+    // .debug()
+    .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
+    .expect('stdout', /✓ should success/)
+    .expect('stdout', /a\.test\.js/)
+    .expect('stdout', /b\/b\.test\.js/)
+    .expect('stdout', /Statements {3}: 100% \( 0\/0 \)/)
+    .expect('code', 0)
+    .end((err, res) => {
+      assert(!err);
+      assert(!/a.js/.test(res.stdout));
+      assert(fs.existsSync(path.join(appdir, 'coverage/coverage-final.json')));
+      assert(fs.existsSync(path.join(appdir, 'coverage/lcov-report/index.html')));
+      assert(fs.existsSync(path.join(appdir, 'coverage/lcov.info')));
+      assert(!fs.existsSync(path.join(appdir, '.tmp')));
       done();
     });
   });

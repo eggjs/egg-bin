@@ -96,6 +96,14 @@ TEST_TIMEOUT=2000 egg-bin test
 
 支持的表报有 text-summary，json，lcov，并通过 [alicov] 上传。
 
+#### excludes
+
+可以通过设置 `COV_EXCLUDES` 环境变量忽略对指定目录的代码覆盖率测试。
+
+```bash
+$ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
+```
+
 ## 定制属于你团队的 egg-bin
 
 如果你的团队已经基于 egg 开发了属于自己的框架，那么很可能你会需要在 egg-bin 上做更多自定义功能。
