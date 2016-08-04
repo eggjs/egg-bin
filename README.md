@@ -96,6 +96,14 @@ Using [istanbul] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
+#### excludes
+
+You can set `COV_EXCLUDES` env to add dir ignore coverage.
+
+```bash
+$ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
+```
+
 ## Custom egg-bin for your team
 
 You maybe need a custom egg-bin to implement more custom features
