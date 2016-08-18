@@ -7,7 +7,7 @@
     "egg-bin": "bin/egg-bin.js"
   },
   "dependencies": {
-    "childprocess": "^2.0.0",
+    "childprocess": "^2.0.2",
     "commander": "^2.9.0",
     "common-bin": "^1.0.0",
     "debug": "^2.2.0",
@@ -20,13 +20,13 @@
     "thunk-mocha": "^1.0.3"
   },
   "devDependencies": {
-    "autod": "2",
-    "coffee": "3",
+    "autod": "^2.7.0",
+    "coffee": "^3.2.4",
     "egg-ci": "1",
     "eslint": "3",
     "eslint-config-egg": "3",
     "intelli-espower-loader": "^1.0.1",
-    "mm": "1",
+    "mm": "^2.0.0",
     "power-assert": "^1.4.1"
   },
   "repository": {
@@ -40,7 +40,7 @@
     "test": "TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js test -r intelli-espower-loader",
     "cov": "TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js cov -r intelli-espower-loader",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod -e test/fixtures -f '^' -w"
+    "autod": "autod"
   },
   "engines": {
     "node": ">= 4.0.0"
