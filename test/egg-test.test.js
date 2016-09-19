@@ -60,6 +60,16 @@ describe('egg-bin test', () => {
     .end(done);
   });
 
+  it('should auto require intelli-espower-loader', done => {
+    mm(process.env, 'TESTS', 'test/power-assert.js');
+    coffee.fork(eggBin, [ 'cov' ], { cwd })
+      .coverage(false)
+      // .debug()
+      .expect('stdout', /✓ should success/)
+      .expect('code', 0)
+      .end(done);
+  });
+
   it('should fail when test fail with power-assert', done => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd })
