@@ -13,6 +13,7 @@
     "debug": "^2.2.0",
     "egg-utils": "^1.0.0",
     "glob": "^7.0.5",
+    "intelli-espower-loader": "^1.0.1",
     "istanbul": "^0.4.0",
     "mkdirp": "^0.5.1",
     "mocha": "^3.0.0",
@@ -25,7 +26,6 @@
     "egg-ci": "1",
     "eslint": "3",
     "eslint-config-egg": "3",
-    "intelli-espower-loader": "^1.0.1",
     "mm": "^2.0.0",
     "power-assert": "^1.4.1"
   },
