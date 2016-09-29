@@ -9,6 +9,7 @@ commander
   .option('--baseDir [baseDir]')
   .option('--port [port]')
   .option('--cluster [workers]')
+  .allowUnknownOption(true)
   .parse(process.argv);
 
 const baseDir = commander.baseDir;
