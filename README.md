@@ -60,6 +60,12 @@ Start dev cluster on `local` env, it will start a master, an agent and a worker.
 $ egg-bin dev
 ```
 
+##### options
+- `--eggPath` egg web framework root path.No default value, must supply.
+- `--baseDir` application's root path.default to `process.cwd()`.
+- `--port` server port.default to 7001.
+- `--cluster` worker process number.default to 1.
+
 ### debug
 
 Debug egg app with Chrome Developer Tools by [iron-node].
