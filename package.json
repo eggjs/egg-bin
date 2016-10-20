@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {
     "egg-bin": "bin/egg-bin.js",
-    "mocha": "node_modules/.bin/mocha"
+    "mocha": "bin/mocha.js"
   },
   "dependencies": {
     "childprocess": "^2.0.2",
