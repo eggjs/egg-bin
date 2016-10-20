@@ -1,4 +1,10 @@
 
+1.5.1 / 2016-10-20
+==================
+
+  * fix: link mocha bin from inner file (#15)
+  * docs:add egg-bin dev options doc (#14)
+
 1.5.0 / 2016-10-16
 ==================
 
