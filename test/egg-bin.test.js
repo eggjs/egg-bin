@@ -22,7 +22,7 @@ describe('egg-bin --version, --help', () => {
       cwd: appdir,
     })
     // .debug()
-    .expect('stdout', /Usage: .*egg-bin.* \[command\] \[options\]/)
+    .expect('stdout', /Usage: .*egg-bin.* \[command] \[options]/)
     .expect('code', 0)
     .end(done);
   });
@@ -32,7 +32,7 @@ describe('egg-bin --version, --help', () => {
       cwd: appdir,
     })
     // .debug()
-    .expect('stdout', /cov \- Run test with coverage/)
+    .expect('stdout', /cov - Run test with coverage/)
     .expect('code', 0)
     .end(done);
   });

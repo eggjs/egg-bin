@@ -30,7 +30,7 @@ describe('egg-bin debug', () => {
       cwd: appdir,
     })
     .debug()
-    .expect('stdout', `{"baseDir":"${appdir}","port":"6001","workers":1}\n`)
+    .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"6001"}\n`)
     .expect('code', 0)
     .end(done);
   });

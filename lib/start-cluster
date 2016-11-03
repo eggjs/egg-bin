@@ -7,7 +7,7 @@ const assert = require('assert');
 const commander = require('commander');
 
 commander
-  .option('--eggPath <eggPath>')
+  .option('--eggPath [eggPath]')
   .option('--baseDir [baseDir]')
   .option('--port [port]')
   .option('--cluster [workers]')
