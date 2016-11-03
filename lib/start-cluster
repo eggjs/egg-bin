@@ -2,6 +2,8 @@
 
 'use strict';
 
+const debug = require('debug')('egg-bin:start-cluster');
+const assert = require('assert');
 const commander = require('commander');
 
 commander
@@ -14,11 +16,17 @@ commander
 
 const baseDir = commander.baseDir;
 const workers = commander.cluster ? Number(commander.cluster) : 1;
+const port = commander.port;
+const eggPath = commander.eggPath;
+
+assert(eggPath, 'eggPath required, missing any egg frameworks?');
 
 const options = {
-  baseDir: baseDir,
-  port: commander.port,
-  workers: workers,
+  baseDir,
+  workers,
+  port,
 };
 
-require(commander.eggPath).startCluster(options);
+debug('eggPath:%s options:%j', eggPath, options);
+
+require(eggPath).startCluster(options);
