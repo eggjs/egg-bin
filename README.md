@@ -78,6 +78,8 @@ $ egg-bin debug
 
 Using [mocha] with [thunk-mocha] to run test.
 
+[power-assert] is recommend to used as `assert` library, and [intelli-espower-loader] will be auotoload.
+
 You can set `TESTS` env to set the tests directory, it support [glob] grammar.
 
 ```bash
@@ -194,3 +196,5 @@ run nsp check at /foo/bar with []
 [istanbul]: https://github.com/gotwarlost/istanbul
 [nsp]: https://npmjs.com/thunk-mocha
 [iron-node]: https://github.com/s-a/iron-node
+[intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
+[power-assert]: https://github.com/power-assert-js/power-assert

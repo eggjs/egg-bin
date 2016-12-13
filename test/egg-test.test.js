@@ -62,9 +62,22 @@ describe('egg-bin test', () => {
 
   it('should fail when test fail with power-assert', done => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+    coffee.fork(eggBin, [ 'cov' ], { cwd })
+    .coverage(false)
+    // .debug()
+    .expect('stdout', /1\) should fail/)
+    .expect('stdout', /assert\(1 === 2\)/)
+    .expect('stdout', /1 failing/)
+    .expect('code', 1)
+    .end(done);
+  });
+
+  it('should warn when require intelli-espower-loader', done => {
+    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd })
     .coverage(false)
     // .debug()
+    .expect('stderr', /manually require `intelli-espower-loader`/)
     .expect('stdout', /1\) should fail/)
     .expect('stdout', /assert\(1 === 2\)/)
     .expect('stdout', /1 failing/)
