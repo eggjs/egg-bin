@@ -18,6 +18,7 @@
     "istanbul": "^0.4.5",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
+    "power-assert": "^1.4.2",
     "rimraf": "^2.5.4",
     "semver": "^5.3.0",
     "thunk-mocha": "^1.0.8"
@@ -28,8 +29,7 @@
     "egg-ci": "^1.1.0",
     "eslint": "^3.12.1",
     "eslint-config-egg": "^3.2.0",
-    "mm": "^2.0.0",
-    "power-assert": "^1.4.2"
+    "mm": "^2.0.0"
   },
   "repository": {
     "type": "git",
