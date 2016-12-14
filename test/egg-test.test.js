@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const assert = require('power-assert');
+const assert = require('assert');
 const coffee = require('coffee');
 const mm = require('mm');
 
@@ -20,7 +20,7 @@ describe('egg-bin test', () => {
     .expect('code', 0)
     .end((err, res) => {
       assert.ifError(err);
-      assert.ok(!/a\.js/.test(res.stdout));
+      assert(!/a\.js/.test(res.stdout));
       done();
     });
   });

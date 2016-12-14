@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const assert = require('power-assert');
+const assert = require('assert');
 const coffee = require('coffee');
 const mm = require('mm');
 

@@ -72,7 +72,8 @@ $ egg-bin debug
 
 测试工具，使用 [mocha]，支持 [thunk-mocha] 扩展。
 
-内置了 [intelli-espower-loader] 并推荐使用 [power-assert] 作为断言库, 具体参见 https://github.com/atian25/blog/issues/16
+内置了 [intelli-espower-loader] 并使用 [power-assert] 作为断言库，具体参见 https://github.com/atian25/blog/issues/16 。
+在测试代码中只需要 `require('assert')` 即可享受 [power-assert] 带来的体验提升。
 
 可通过 `TESTS` 环境变量指定具体文件，支持 [glob]。
 

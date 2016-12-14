@@ -78,7 +78,7 @@ $ egg-bin debug
 
 Using [mocha] with [thunk-mocha] to run test.
 
-[power-assert] is recommend to used as `assert` library, and [intelli-espower-loader] will be auotoload.
+[power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
 
 You can set `TESTS` env to set the tests directory, it support [glob] grammar.
 
