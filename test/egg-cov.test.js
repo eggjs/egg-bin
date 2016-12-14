@@ -63,9 +63,7 @@ describe('egg-bin cov', () => {
 
   it('should fail when test fail', done => {
     mm(process.env, 'TESTS', 'test/fail.js');
-    coffee.fork(eggBin, [ 'cov' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'cov' ], { cwd: appdir })
     .coverage(false)
     // .debug()
     .expect('stdout', /1\) should fail/)
@@ -76,9 +74,7 @@ describe('egg-bin cov', () => {
 
   it('should fail when test fail with power-assert', done => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    coffee.fork(eggBin, [ 'cov' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'cov' ], { cwd: appdir })
     .coverage(false)
     // .debug()
     .expect('stdout', /1\) should fail/)
@@ -90,9 +86,7 @@ describe('egg-bin cov', () => {
 
   it('should warn when require intelli-espower-loader', done => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd: appdir })
     .coverage(false)
     // .debug()
     .expect('stderr', /manually require `intelli-espower-loader`/)

@@ -11,7 +11,8 @@
     "childprocess": "^2.0.2",
     "commander": "^2.9.0",
     "common-bin": "^1.0.0",
-    "debug": "^2.3.3",
+    "debug": "^2.4.4",
+    "detect-port": "^1.0.7",
     "egg-utils": "^1.0.0",
     "glob": "^7.1.1",
     "intelli-espower-loader": "^1.0.1",
@@ -27,7 +28,7 @@
     "autod": "^2.7.1",
     "coffee": "^3.3.0",
     "egg-ci": "^1.1.0",
-    "eslint": "^3.12.1",
+    "eslint": "^3.12.2",
     "eslint-config-egg": "^3.2.0",
     "mm": "^2.0.0"
   },
