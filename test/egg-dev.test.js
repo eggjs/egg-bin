@@ -27,7 +27,7 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
-  it('should startCluster with execArgv --debug', done => {
+  it.skip('should startCluster with execArgv --debug', done => {
     coffee.fork(eggBin, [ 'dev', '--debug=7000' ], {
       cwd: appdir,
     })
