@@ -9,6 +9,7 @@ class MyProgram extends Program {
     this.version = require('../package.json').version;
 
     this.addCommand('nsp', path.join(__dirname, 'nsp_command.js'));
+    this.addCommand('dev', path.join(__dirname, 'dev_command.js'));
   }
 }
 
