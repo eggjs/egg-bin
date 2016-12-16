@@ -2,15 +2,14 @@
 
 const path = require('path');
 const coffee = require('coffee');
+const net = require('net');
 
 describe('egg-bin dev', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
   const appdir = path.join(__dirname, 'fixtures/demo-app');
 
   it('should startCluster success', done => {
-    coffee.fork(eggBin, [ 'dev' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'dev' ], { cwd: appdir })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1}\n`)
     .expect('code', 0)
@@ -18,19 +17,34 @@ describe('egg-bin dev', () => {
   });
 
   it('should startCluster with port', done => {
-    coffee.fork(eggBin, [ 'dev', '--port', '6001' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'dev', '--port', '6001' ], { cwd: appdir })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"6001"}\n`)
     .expect('code', 0)
     .end(done);
   });
 
+  describe('auto detect available port', () => {
+    let server;
+    before(done => {
+      server = net.createServer();
+      server.listen(7001, done);
+    });
+
+    after(() => server.close());
+
+    it('should auto detect available port', done => {
+      coffee.fork(eggBin, [ 'dev' ], { cwd: appdir })
+      // .debug()
+      .expect('stdout', `{"baseDir":"${appdir}","workers":1}\n`)
+      .expect('stderr', /\[egg-bin] server port 7001 is in use/)
+      .expect('code', 0)
+      .end(done);
+    });
+  });
+
   it.skip('should startCluster with execArgv --debug', done => {
-    coffee.fork(eggBin, [ 'dev', '--debug=7000' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'dev', '--debug=7000' ], { cwd: appdir })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1}\n`)
     .expect('stderr', /Debugger listening on .*7000/)
@@ -39,9 +53,7 @@ describe('egg-bin dev', () => {
   });
 
   it.skip('should startCluster with execArgv --inspect', done => {
-    coffee.fork(eggBin, [ 'dev', '--inspect=7000' ], {
-      cwd: appdir,
-    })
+    coffee.fork(eggBin, [ 'dev', '--inspect=7000' ], { cwd: appdir })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1}\n`)
     .expect('stderr', /Debugger listening on .*7000/)
