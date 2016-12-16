@@ -37,6 +37,16 @@ describe('custom egg-bin: my-egg-bin', () => {
     .end(done);
   });
 
+  it('should my-egg-bin dev success', done => {
+    coffee.fork(eggBin, [ 'dev' ], {
+      cwd: path.join(__dirname, 'fixtures/test-files'),
+    })
+    // .debug()
+    .expect('stdout', /run dev with eggPath: empty/)
+    .expect('code', 0)
+    .end(done);
+  });
+
   it('should show help message', done => {
     coffee.fork(eggBin, [ '-h' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
