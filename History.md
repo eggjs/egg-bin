@@ -1,4 +1,9 @@
 
+1.9.1 / 2016-12-16
+==================
+
+  * fix: make sure dev command eggPath can be override (#23)
+
 1.9.0 / 2016-12-16
 ==================
 
