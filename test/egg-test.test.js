@@ -72,17 +72,28 @@ describe('egg-bin test', () => {
     .end(done);
   });
 
-  it('should warn when require intelli-espower-loader', done => {
+  it('should warn when require intelli-espower-loader', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd })
-    .coverage(false)
+    return coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd })
+      .coverage(false)
+      // .debug()
+      .expect('stderr', /manually require `intelli-espower-loader`/)
+      .expect('stdout', /1\) should fail/)
+      .expect('stdout', /assert\(1 === 2\)/)
+      .expect('stdout', /1 failing/)
+      .expect('code', 1)
+      .end();
+  });
+
+  it('should auto require test/.setup.js', () => {
+    // example: https://github.com/lelandrichardson/enzyme-example-mocha
+    return coffee.fork(eggBin, [ 'test' ], {
+      cwd: path.join(__dirname, 'fixtures/enzyme-example-mocha'),
+    })
     // .debug()
-    .expect('stderr', /manually require `intelli-espower-loader`/)
-    .expect('stdout', /1\) should fail/)
-    .expect('stdout', /assert\(1 === 2\)/)
-    .expect('stdout', /1 failing/)
-    .expect('code', 1)
-    .end(done);
+    .expect('stdout', /3 passing/)
+    .expect('code', 0)
+    .end();
   });
 
   it.skip('should check node dependencies fail', done => {
