@@ -11,7 +11,7 @@
     "childprocess": "^2.0.2",
     "commander": "^2.9.0",
     "common-bin": "^1.0.0",
-    "debug": "^2.4.4",
+    "debug": "^2.5.2",
     "detect-port": "^1.0.7",
     "egg-utils": "^1.0.0",
     "glob": "^7.1.1",
