@@ -26,11 +26,19 @@
   },
   "devDependencies": {
     "autod": "^2.7.1",
+    "babel": "^6.3.26",
+    "babel-preset-airbnb": "^1.0.1",
+    "babel-register": "^6.4.3",
     "coffee": "^3.3.0",
     "egg-ci": "^1.1.0",
+    "enzyme": "^2.0.0",
     "eslint": "^3.12.2",
     "eslint-config-egg": "^3.2.0",
-    "mm": "^2.0.0"
+    "jsdom": "^8.0.1",
+    "mm": "^2.0.0",
+    "react": "^0.14.7",
+    "react-addons-test-utils": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "repository": {
     "type": "git",

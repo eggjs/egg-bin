@@ -112,6 +112,16 @@ You can set `COV_EXCLUDES` env to add dir ignore coverage.
 $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 ```
 
+### auto require `test/.setup.js`
+
+If `test/.setup.js` file exists, it will be auto require on `test` and `cov` command.
+
+```js
+test
+    ├── .setup.js
+    └── foo.test.js
+```
+
 ## Custom egg-bin for your team
 
 You maybe need a custom egg-bin to implement more custom features
