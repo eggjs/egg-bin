@@ -17,16 +17,17 @@ commander
 const baseDir = commander.baseDir;
 const workers = commander.cluster ? Number(commander.cluster) : 1;
 const port = commander.port;
-const eggPath = commander.eggPath;
+const customEgg = commander.eggPath;
 
-assert(eggPath, 'eggPath required, missing any egg frameworks?');
+assert(customEgg, 'eggPath required, missing any egg frameworks?');
 
 const options = {
   baseDir,
   workers,
   port,
+  customEgg,
 };
 
-debug('eggPath:%s options:%j', eggPath, options);
+debug('eggPath:%s options:%j', customEgg, options);
 
-require(eggPath).startCluster(options);
+require(customEgg).startCluster(options);
