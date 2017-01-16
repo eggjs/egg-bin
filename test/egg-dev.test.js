@@ -25,6 +25,16 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
+  it('should startCluster with custom yadan framework', done => {
+    const baseDir = path.join(__dirname, 'fixtures/custom-framework-app');
+    const customEgg = path.join(baseDir, 'node_modules', 'yadan');
+    coffee.fork(eggBin, [ 'dev' ], { cwd: baseDir })
+    // .debug()
+    .expect('stdout', `yadan start: {"baseDir":"${baseDir}","workers":1,"customEgg":"${customEgg}"}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
   describe('auto detect available port', () => {
     let server;
     before(done => {
