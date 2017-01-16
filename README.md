@@ -37,7 +37,7 @@ Add `egg-bin` to `package.json` scripts:
 ```json
 {
   "devDependencies": {
-    "egg-bin": "1"
+    "egg-bin": "2"
   },
   "scripts": {
     "dev": "egg-bin dev",
@@ -61,6 +61,7 @@ $ egg-bin dev
 ```
 
 ##### options
+
 - `--eggPath` egg web framework root path.No default value, must supply.
 - `--baseDir` application's root path.default to `process.cwd()`.
 - `--port` server port.default to 7001.
@@ -68,7 +69,7 @@ $ egg-bin dev
 
 ### debug
 
-Debug egg app with Chrome Developer Tools by [iron-node].
+Debug egg app with [V8 Inspector Integration](https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js).
 
 ```bash
 $ egg-bin debug
