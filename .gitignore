@@ -1,4 +1,4 @@
-/node_modules/
+node_modules/
 coverage/
-!test/fixtures/**/node_modules/
+!test/fixtures/custom-framework-app/node_modules/
 .tmp

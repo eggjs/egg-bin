@@ -17,8 +17,16 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
-  it('should startCluster with port', done => {
+  it('should startCluster with --port', done => {
     coffee.fork(eggBin, [ 'dev', '--port', '6001' ], { cwd: appdir })
+    // .debug()
+    .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"6001","customEgg":"${customEgg}"}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
+  it.only('should startCluster with -p', done => {
+    coffee.fork(eggBin, [ 'dev', '-p', '6001' ], { cwd: appdir })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"6001","customEgg":"${customEgg}"}\n`)
     .expect('code', 0)
