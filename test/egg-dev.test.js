@@ -25,7 +25,7 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
-  it.only('should startCluster with -p', done => {
+  it('should startCluster with -p', done => {
     coffee.fork(eggBin, [ 'dev', '-p', '6001' ], { cwd: appdir })
     // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"6001","customEgg":"${customEgg}"}\n`)
@@ -55,7 +55,7 @@ describe('egg-bin dev', () => {
     it('should auto detect available port', done => {
       coffee.fork(eggBin, [ 'dev' ], { cwd: appdir })
       // .debug()
-      .expect('stdout', `{"baseDir":"${appdir}","workers":1,"customEgg":"${customEgg}"}\n`)
+      .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"7002","customEgg":"${customEgg}"}\n`)
       .expect('stderr', /\[egg-bin] server port 7001 is in use/)
       .expect('code', 0)
       .end(done);
