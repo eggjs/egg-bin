@@ -9,7 +9,7 @@ const commander = require('commander');
 commander
   .option('--eggPath [eggPath]')
   .option('--baseDir [baseDir]')
-  .option('--port [port]')
+  .option('-p, --port [port]')
   .option('--cluster [workers]')
   .allowUnknownOption(true)
   .parse(process.argv);
