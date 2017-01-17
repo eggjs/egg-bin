@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "1.10.1",
+  "version": "1.10.2",
   "description": "egg developer tool",
   "main": "index.js",
   "bin": {
@@ -64,5 +64,8 @@
   ],
   "ci": {
     "version": "4, 6, 7"
+  },
+  "publishConfig": {
+    "tag": "release-1"
   }
 }
