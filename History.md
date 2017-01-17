@@ -1,4 +1,10 @@
 
+2.0.1 / 2017-01-17
+==================
+
+  * fix: should support -p (#27)
+  * docs: use V8 Inspector Integration for debug
+
 2.0.0 / 2017-01-16
 ==================
 
