@@ -17,4 +17,11 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
+global.assert = require('assert');
+
 documentRef = document;
+
+before(done => {
+  console.log('before hook: delay 10ms');
+  setTimeout(done, 10);
+});
