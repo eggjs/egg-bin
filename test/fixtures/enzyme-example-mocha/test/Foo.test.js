@@ -1,5 +1,4 @@
 import React from 'react';
-import assert from 'assert';
 import { shallow, mount, render } from 'enzyme';
 import Foo from '../src/Foo';
 

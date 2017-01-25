@@ -91,6 +91,7 @@ describe('egg-bin test', () => {
       cwd: path.join(__dirname, 'fixtures/enzyme-example-mocha'),
     })
     // .debug()
+    .expect('stdout', /before hook: delay 10ms/)
     .expect('stdout', /3 passing/)
     .expect('code', 0)
     .end();
