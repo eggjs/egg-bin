@@ -66,6 +66,7 @@ $ egg-bin dev
 - `--baseDir` application's root path.default to `process.cwd()`.
 - `--port` server port.default to 7001.
 - `--cluster` worker process number.default to 1.
+- `--sticky` start a sticky cluster server.
 
 ### debug
 

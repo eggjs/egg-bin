@@ -25,6 +25,13 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
+  it('should startCluster with --sticky', done => {
+    coffee.fork(eggBin, [ 'dev', '--port', '6001', '--sticky' ], { cwd: appdir })
+    .expect('stdout', `{"baseDir":"${appdir}","workers":1,"port":"6001","customEgg":"${customEgg}","sticky":true}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
   it('should startCluster with -p', done => {
     coffee.fork(eggBin, [ 'dev', '-p', '6001' ], { cwd: appdir })
     // .debug()
