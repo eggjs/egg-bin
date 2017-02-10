@@ -11,7 +11,7 @@ commander
   .option('--baseDir [baseDir]')
   .option('-p, --port [port]')
   .option('--cluster [workers]')
-  .option('--sticky [sticky]')
+  .option('--sticky')
   .allowUnknownOption(true)
   .parse(process.argv);
 
