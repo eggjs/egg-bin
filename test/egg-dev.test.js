@@ -69,7 +69,7 @@ describe('egg-bin dev', () => {
 
     it('should auto detect available port', done => {
       coffee.fork(eggBin, [ 'dev' ], { cwd: appdir })
-      .debug()
+      // .debug()
       .expect('stderr', /\[egg-bin] server port 7001 is in use, now using port \d+/)
       .expect('code', 0)
       .end(done);
