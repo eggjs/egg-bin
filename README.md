@@ -52,6 +52,17 @@ Add `egg-bin` to `package.json` scripts:
 
 ## Command
 
+All the commands support these specific v8 options:
+
+- `--debug`
+- `--inspect`
+- `--harmony*`
+- `--es_staging`
+
+```bash
+$ egg-bin [command] --debug --es_staging
+```
+
 ### dev
 
 Start dev cluster on `local` env, it will start a master, an agent and a worker.
