@@ -70,7 +70,7 @@ $ egg-bin dev
 
 ### debug
 
-使用 iron-node 调试工具启动应用。
+使用 [V8 Inspector Integration](https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js) 调试应用。
 
 ```bash
 $ egg-bin debug
