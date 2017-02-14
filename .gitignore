@@ -2,3 +2,4 @@ node_modules/
 coverage/
 !test/fixtures/custom-framework-app/node_modules/
 .tmp
+.vscode

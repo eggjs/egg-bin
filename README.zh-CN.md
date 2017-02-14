@@ -60,6 +60,14 @@ $ npm i egg-bin --save-dev
 $ egg-bin dev
 ```
 
+##### options
+
+- `--eggPath` egg web 框架根目录。必须设置。
+- `--baseDir` 应用根目录，默认为 `process.cwd()`。
+- `--port` 服务端口，默认为 `7001`。
+- `--cluster` 工作进程数量。默认为 `1`.
+- `--sticky` 启动 `sticky` 模式服务。默认为 `false`。
+
 ### debug
 
 使用 iron-node 调试工具启动应用。
