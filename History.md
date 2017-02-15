@@ -1,4 +1,10 @@
 
+2.2.0 / 2017-02-15
+==================
+
+  * feat: commands support specific execArgv(harmony) (#33)
+  * docs: missing debug description for zh-cn (#34)
+
 2.1.0 / 2017-02-14
 ==================
 
