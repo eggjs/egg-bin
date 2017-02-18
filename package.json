@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "egg developer tool",
   "main": "index.js",
   "bin": {
@@ -53,7 +53,7 @@
     "autod": "autod"
   },
   "engines": {
-    "node": ">= 6.3.0"
+    "node": ">= 4.0.0"
   },
   "files": [
     "bin",
