@@ -48,6 +48,38 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
+  it('should startCluster with --cluster 2', done => {
+    coffee.fork(eggBin, [ 'dev', '--cluster', '2' ], { cwd: appdir })
+    // .debug()
+    .expect('stdout', `{"baseDir":"${appdir}","workers":2,"customEgg":"${customEgg}"}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
+  it('should startCluster with --cluster=2', done => {
+    coffee.fork(eggBin, [ 'dev', '--cluster=2' ], { cwd: appdir })
+    // .debug()
+    .expect('stdout', `{"baseDir":"${appdir}","workers":2,"customEgg":"${customEgg}"}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
+  it('should startCluster with --baseDir base', done => {
+    coffee.fork(eggBin, [ 'dev', '--baseDir', 'base' ], { cwd: appdir })
+    // .debug()
+    .expect('stdout', `{"baseDir":"base","workers":1,"customEgg":"${customEgg}"}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
+  it('should startCluster with --baseDir=base', done => {
+    coffee.fork(eggBin, [ 'dev', '--baseDir=base' ], { cwd: appdir })
+    // .debug()
+    .expect('stdout', `{"baseDir":"base","workers":1,"customEgg":"${customEgg}"}\n`)
+    .expect('code', 0)
+    .end(done);
+  });
+
   it('should startCluster with custom yadan framework', done => {
     const baseDir = path.join(__dirname, 'fixtures/custom-framework-app');
     const customEgg = path.join(baseDir, 'node_modules', 'yadan');
