@@ -78,7 +78,7 @@ $ egg-bin debug
 
 ### test
 
-测试工具，使用 [mocha]，支持 [thunk-mocha] 扩展。
+测试工具，使用 [mocha]，支持 [co-mocha] 扩展。
 
 内置了 [intelli-espower-loader] 并使用 [power-assert] 作为断言库，具体参见 https://github.com/atian25/blog/issues/16 。
 在测试代码中只需要 `require('assert')` 即可享受 [power-assert] 带来的体验提升。
@@ -189,9 +189,9 @@ run nsp check at /foo/bar with []
 
 
 [mocha]: https://mochajs.org
-[thunk-mocha]: https://npmjs.com/thunk-mocha
+[co-mocha]: https://npmjs.com/co-mocha
 [glob]: https://github.com/isaacs/node-glob
 [istanbul]: https://github.com/gotwarlost/istanbul
-[nsp]: https://npmjs.com/thunk-mocha
+[nsp]: https://npmjs.com/nsp
 [intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
 [power-assert]: https://github.com/power-assert-js/power-assert

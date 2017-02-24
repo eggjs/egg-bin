@@ -89,7 +89,7 @@ $ egg-bin debug
 
 ### test
 
-Using [mocha] with [thunk-mocha] to run test.
+Using [mocha] with [co-mocha] to run test.
 
 [power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
 
@@ -214,10 +214,10 @@ run nsp check at /foo/bar with []
 
 
 [mocha]: https://mochajs.org
-[thunk-mocha]: https://npmjs.com/thunk-mocha
+[co-mocha]: https://npmjs.com/co-mocha
 [glob]: https://github.com/isaacs/node-glob
 [istanbul]: https://github.com/gotwarlost/istanbul
-[nsp]: https://npmjs.com/thunk-mocha
+[nsp]: https://npmjs.com/nsp
 [iron-node]: https://github.com/s-a/iron-node
 [intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
 [power-assert]: https://github.com/power-assert-js/power-assert
