@@ -20,7 +20,8 @@
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
     "power-assert": "^1.4.2",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "ypkgfiles": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^2.7.1",
