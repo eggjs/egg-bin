@@ -115,6 +115,14 @@ TEST_TIMEOUT=2000 egg-bin test
 $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 ```
 
+### pkgfiles
+
+在 npm publish 之前使用 pkgfiles 自动生成 `pkg.files`， 更多查看 [ypkgfiles]
+
+```bash
+$ egg-bin pkgfiles
+```
+
 ## 定制属于你团队的 egg-bin
 
 如果你的团队已经基于 egg 开发了属于自己的框架，那么很可能你会需要在 egg-bin 上做更多自定义功能。
@@ -195,3 +203,4 @@ run nsp check at /foo/bar with []
 [nsp]: https://npmjs.com/nsp
 [intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
 [power-assert]: https://github.com/power-assert-js/power-assert
+[ypkgfiles]: https://github.com/popomore/ypkgfiles
