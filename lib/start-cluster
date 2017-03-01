@@ -2,5 +2,22 @@
 
 'use strict';
 
-const options = JSON.parse(process.argv.slice(2));
+const debug = require('debug')('egg-bin:start-cluster');
+const assert = require('assert');
+
+
+const options = require('yargs')
+.alias('p', 'port')
+.alias('workers', 'cluster')
+.default('cluster', 1)
+.argv;
+
+delete options._;
+delete options.$0;
+delete options.p;
+delete options.cluster;
+
+assert(options.framework, 'framework required');
+debug('eggPath:%s options:%j', options.framework, options);
+
 require(options.framework).startCluster(options);
