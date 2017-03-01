@@ -19,6 +19,6 @@ delete options.cluster;
 
 assert(options.baseDir, 'baseDir required');
 options.framework = utils.getFrameworkPath(options);
-debug('eggPath:%s options:%j', options.framework, options);
+debug('framework path:%s options:%j', options.framework, options);
 
 require(options.framework).startCluster(options);
