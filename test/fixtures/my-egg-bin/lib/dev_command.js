@@ -3,7 +3,11 @@
 const DevCommand = require('../../../..').DevCommand;
 
 class MyDevCommand extends DevCommand {
-  * run(cwd) {
+  constructor() {
+    super();
+    this.name = 'dev';
+  }
+  * run({ cwd }) {
     console.log('run dev with eggPath: %s', this.getFrameworkOrEggPath(cwd) || 'empty');
   }
 }

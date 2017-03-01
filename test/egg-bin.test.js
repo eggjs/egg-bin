@@ -27,13 +27,13 @@ describe('egg-bin --version, --help', () => {
     .end(done);
   });
 
-  it('should show help when command not exists', done => {
+  it.only('should show help when command not exists', done => {
     coffee.fork(eggBin, [ 'not-exists' ], {
       cwd: appdir,
     })
-    // .debug()
-    .expect('stdout', /cov - Run test with coverage/)
-    .expect('code', 0)
+    .debug()
+    .expect('stderr', /Usage: egg-bin/)
+    .expect('code', 1)
     .end(done);
   });
 });

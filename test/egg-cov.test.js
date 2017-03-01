@@ -88,7 +88,7 @@ describe('egg-bin cov', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd: appdir })
     .coverage(false)
-    // .debug()
+    .debug()
     .expect('stderr', /manually require `intelli-espower-loader`/)
     .expect('stdout', /1\) should fail/)
     .expect('stdout', /1 failing/)

@@ -52,7 +52,7 @@ describe('custom egg-bin: my-egg-bin', () => {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     // .debug()
-    .expect('stdout', /nsp - nsp check/)
+    .expect('stdout', /nsp\s*nsp check/)
     .expect('code', 0)
     .end(done);
   });
