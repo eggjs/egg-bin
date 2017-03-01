@@ -5,7 +5,7 @@ const assert = require('assert');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe('custom egg-bin: my-egg-bin', () => {
+describe.only('custom egg-bin: my-egg-bin', () => {
   const eggBin = require.resolve('./fixtures/my-egg-bin/bin/my-egg-bin.js');
 
   afterEach(mm.restore);
@@ -52,7 +52,7 @@ describe('custom egg-bin: my-egg-bin', () => {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
     // .debug()
-    .expect('stdout', /nsp - nsp check/)
+    .expect('stdout', /nsp\s*nsp check/)
     .expect('code', 0)
     .end(done);
   });

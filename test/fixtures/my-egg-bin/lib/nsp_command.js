@@ -3,12 +3,13 @@
 const Command = require('../../../..').Command;
 
 class NspCommand extends Command {
-  * run(cwd, args) {
-    console.log('run nsp check at %s with %j', cwd, args);
+  constructor() {
+    super();
+    this.name = 'nsp';
+    this.description = 'nsp check';
   }
-
-  help() {
-    return 'nsp check';
+  * run({ cwd, argv }) {
+    console.log('run nsp check at %s with %j', cwd, argv);
   }
 }
 
