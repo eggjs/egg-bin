@@ -31,9 +31,9 @@ describe('egg-bin --version, --help', () => {
     coffee.fork(eggBin, [ 'not-exists' ], {
       cwd: appdir,
     })
-    // .debug()
-    .expect('stdout', /cov - Run test with coverage/)
-    .expect('code', 0)
+    .debug()
+    .expect('stderr', /Unknown argument: not-exists/)
+    .expect('code', 1)
     .end(done);
   });
 });

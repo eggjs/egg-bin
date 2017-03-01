@@ -64,7 +64,7 @@ describe('egg-bin test', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     coffee.fork(eggBin, [ 'cov' ], { cwd })
     .coverage(false)
-    // .debug()
+    .debug()
     .expect('stdout', /1\) should fail/)
     .expect('stdout', /assert\(1 === 2\)/)
     .expect('stdout', /1 failing/)
