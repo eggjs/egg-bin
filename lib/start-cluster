@@ -4,7 +4,7 @@
 
 const debug = require('debug')('egg-bin:start-cluster');
 const assert = require('assert');
-
+const utils = require('egg-utils');
 
 const options = require('yargs')
 .alias('p', 'port')
@@ -17,7 +17,8 @@ delete options.$0;
 delete options.p;
 delete options.cluster;
 
-assert(options.framework, 'framework required');
+assert(options.baseDir, 'baseDir required');
+options.framework = utils.getFrameworkPath(options);
 debug('eggPath:%s options:%j', options.framework, options);
 
 require(options.framework).startCluster(options);

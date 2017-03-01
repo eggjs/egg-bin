@@ -64,18 +64,18 @@ describe('egg-bin dev', () => {
     .end(done);
   });
 
-  it('should startCluster with --baseDir base', done => {
-    coffee.fork(eggBin, [ 'dev', '--baseDir', 'base' ], { cwd: appdir })
-    // .debug()
-    .expect('stdout', `{"baseDir":"base","workers":1,"framework":"${framework}"}\n`)
+  it('should startCluster with --baseDir root', done => {
+    coffee.fork(eggBin, [ 'dev', '--baseDir', appdir ])
+    .debug()
+    .expect('stdout', `{"baseDir":"${appdir}","workers":1,"framework":"${framework}"}\n`)
     .expect('code', 0)
     .end(done);
   });
 
-  it('should startCluster with --baseDir=base', done => {
-    coffee.fork(eggBin, [ 'dev', '--baseDir=base' ], { cwd: appdir })
+  it('should startCluster with --baseDir=root', done => {
+    coffee.fork(eggBin, [ 'dev', `--baseDir=${appdir}` ])
     // .debug()
-    .expect('stdout', `{"baseDir":"base","workers":1,"framework":"${framework}"}\n`)
+    .expect('stdout', `{"baseDir":"${appdir}","workers":1,"framework":"${framework}"}\n`)
     .expect('code', 0)
     .end(done);
   });

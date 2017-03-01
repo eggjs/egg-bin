@@ -12,7 +12,7 @@
     "common-bin": "^1.0.1",
     "debug": "^2.6.1",
     "detect-port": "^1.1.0",
-    "egg-utils": "^1.1.0",
+    "egg-utils": "^2.0.0",
     "glob": "^7.1.1",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "^0.4.5",
