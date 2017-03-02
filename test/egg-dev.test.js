@@ -43,7 +43,7 @@ describe('egg-bin dev', () => {
   it('should startCluster with -p', done => {
     coffee.fork(eggBin, [ 'dev', '-p', '6001' ], { cwd: appdir })
     // .debug()
-    .expect('stdout', `{"port":6001,"baseDir":"${appdir}","workers":1,"framework":"${framework}"}\n`)
+    .expect('stdout', `{"baseDir":"${appdir}","workers":1,"framework":"${framework}","port":6001}\n`)
     .expect('code', 0)
     .end(done);
   });
@@ -51,7 +51,7 @@ describe('egg-bin dev', () => {
   it('should startCluster with --cluster 2', done => {
     coffee.fork(eggBin, [ 'dev', '--cluster', '2' ], { cwd: appdir })
     // .debug()
-    .expect('stdout', `{"workers":2,"baseDir":"${appdir}","framework":"${framework}"}\n`)
+    .expect('stdout', `{"baseDir":"${appdir}","workers":2,"framework":"${framework}"}\n`)
     .expect('code', 0)
     .end(done);
   });
@@ -59,14 +59,14 @@ describe('egg-bin dev', () => {
   it('should startCluster with --cluster=2', done => {
     coffee.fork(eggBin, [ 'dev', '--cluster=2' ], { cwd: appdir })
     // .debug()
-    .expect('stdout', `{"workers":2,"baseDir":"${appdir}","framework":"${framework}"}\n`)
+    .expect('stdout', `{"baseDir":"${appdir}","workers":2,"framework":"${framework}"}\n`)
     .expect('code', 0)
     .end(done);
   });
 
   it('should startCluster with --baseDir root', done => {
     coffee.fork(eggBin, [ 'dev', '--baseDir', appdir ])
-    .debug()
+    // .debug()
     .expect('stdout', `{"baseDir":"${appdir}","workers":1,"framework":"${framework}"}\n`)
     .expect('code', 0)
     .end(done);
