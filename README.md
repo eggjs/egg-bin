@@ -125,6 +125,14 @@ You can set `COV_EXCLUDES` env to add dir ignore coverage.
 $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 ```
 
+### pkgfiles
+
+Generate `pkg.files` automatically before npm publish, see [ypkgfiles] for detail
+
+```bash
+$ egg-bin pkgfiles
+```
+
 ### auto require `test/.setup.js`
 
 If `test/.setup.js` file exists, it will be auto require on `test` and `cov` command.
@@ -221,3 +229,4 @@ run nsp check at /foo/bar with []
 [iron-node]: https://github.com/s-a/iron-node
 [intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
 [power-assert]: https://github.com/power-assert-js/power-assert
+[ypkgfiles]: https://github.com/popomore/ypkgfiles
