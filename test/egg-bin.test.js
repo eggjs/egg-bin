@@ -3,7 +3,7 @@
 const path = require('path');
 const coffee = require('coffee');
 
-describe('egg-bin --version, --help', () => {
+describe('egg-bin', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
   const appdir = path.join(__dirname, 'fixtures/test-files');
 
@@ -18,7 +18,7 @@ describe('egg-bin --version, --help', () => {
   });
 
   it('should show help', done => {
-    coffee.fork(eggBin, [ '-h' ], {
+    coffee.fork(eggBin, [ '--help' ], {
       cwd: appdir,
     })
     // .debug()
@@ -32,7 +32,7 @@ describe('egg-bin --version, --help', () => {
       cwd: appdir,
     })
     // .debug()
-    .expect('stdout', /cov - Run test with coverage/)
+    .expect('stdout', /Usage: .*egg-bin.* \[command] \[options]/)
     .expect('code', 0)
     .end(done);
   });

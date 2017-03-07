@@ -48,14 +48,15 @@
   "homepage": "https://github.com/eggjs/egg-bin",
   "author": "fengmk2 <fengmk2@gmail.com> (https://fengmk2.com)",
   "scripts": {
-    "lint": "eslint bin lib test *.js",
-    "test": "cross-env TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js test",
+    "lint": "eslint .",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "cross-env TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js test",
     "cov": "cross-env TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js cov",
     "ci": "npm run lint && npm run cov",
     "autod": "autod"
   },
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 6.0.0"
   },
   "files": [
     "bin",
