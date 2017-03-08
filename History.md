@@ -1,4 +1,11 @@
 
+2.3.0 / 2017-03-08
+==================
+
+  * fix: add missing deps (#42)
+  * feat: update pkg.files that if file exists (#37)
+  * refactor: use framework (#39)
+
 2.2.3 / 2017-02-25
 ==================
 
