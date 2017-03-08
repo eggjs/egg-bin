@@ -18,10 +18,11 @@
     "istanbul": "^0.4.5",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
+    "mz": "^2.6.0",
     "power-assert": "^1.4.2",
     "rimraf": "^2.6.1",
-    "ypkgfiles": "^1.1.0",
-    "yargs": "^6.6.0"
+    "yargs": "^6.6.0",
+    "ypkgfiles": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^2.7.1",
