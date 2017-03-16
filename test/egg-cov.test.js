@@ -96,4 +96,23 @@ describe('egg-bin cov', () => {
     .expect('code', 1)
     .end(done);
   });
+
+  if (process.platform === 'win32') {
+    it('should exec test instead of cov in win32', done => {
+      mm(process, 'platform', 'win32');
+      mm(process.env, 'TESTS', 'test/**/*.test.js');
+      coffee.fork(eggBin, [ 'cov' ], { cwd: appdir })
+        // .debug()
+        .expect('stdout', /✓ should success/)
+        .expect('stdout', /a\.test\.js/)
+        .expect('stdout', /b\/b\.test\.js/)
+        .notExpect('stdout', /Coverage summary/)
+        .expect('code', 0)
+        .end((err, res) => {
+          assert.ifError(err);
+          assert(!/a\.js/.test(res.stdout));
+          done();
+        });
+    });
+  }
 });

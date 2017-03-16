@@ -14,6 +14,7 @@ describe('egg-bin test', () => {
   it('should success', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd })
+    .debug()
     .expect('stdout', /✓ should success/)
     .expect('stdout', /a\.test\.js/)
     .expect('stdout', /b\/b\.test\.js/)

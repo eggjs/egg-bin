@@ -3,10 +3,8 @@
 const Command = require('../../../..');
 
 class NspCommand extends Command {
-  constructor() {
-    super();
-    this.name = 'nsp';
-    this.description = 'nsp check';
+  get description() {
+    return 'nsp check';
   }
 
   * run({ cwd, rawArgv }) {

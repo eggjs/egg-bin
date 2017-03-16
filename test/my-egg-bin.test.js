@@ -37,7 +37,7 @@ describe('custom egg-bin: my-egg-bin', () => {
     .end(done);
   });
 
-  it.only('should my-egg-bin dev success', done => {
+  it('should my-egg-bin dev success', done => {
     coffee.fork(eggBin, [ 'dev' ], {
       cwd: path.join(__dirname, 'fixtures/test-files'),
     })
