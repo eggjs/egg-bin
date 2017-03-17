@@ -18,18 +18,18 @@ describe('egg-bin debug', () => {
 
   it('should startCluster success', done => {
     coffee.fork(eggBin, [ 'debug' ], { cwd: appdir })
-    // .debug()
-    .expect('stdout', /,"workers":1,/)
-    .expect('code', 0)
-    .end(done);
+      // .debug()
+      .expect('stdout', /"workers":1/)
+      .expect('code', 0)
+      .end(done);
   });
 
   it('should startCluster with port', done => {
     coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd: appdir })
-    // .debug()
-    .expect('stdout', `{"port":6001,"baseDir":"${appdir}","workers":1,"framework":"${framework}"}\nprocess.execArgv: [ '--inspect' ]\n`)
-    .expect('code', 0)
-    .end(done);
+      // .debug()
+      .expect('stdout', `{"port":6001,"baseDir":"${appdir}","framework":"${framework}","workers":1}\nprocess.execArgv: [ '--inspect' ]\n`)
+      .expect('code', 0)
+      .end(done);
   });
 
   describe('auto detect available port', () => {
@@ -44,7 +44,7 @@ describe('egg-bin debug', () => {
     it('should auto detect available port', done => {
       coffee.fork(eggBin, [ 'debug' ], { cwd: appdir })
       // .debug()
-      .expect('stdout', /,"workers":1,/)
+      .expect('stdout', /,"workers":1/)
       .expect('stderr', /\[egg-bin] server port 7001 is in use/)
       .expect('code', 0)
       .end(done);
