@@ -1,18 +1,15 @@
 'use strict';
 
 const path = require('path');
-const helper = require('./lib/helper');
-const Command = require('common-bin');
+const Command = require('./lib/command.js');
 
 class MainCommand extends Command {
-  constructor() {
-    super();
+  constructor(rawArgv) {
+    super(rawArgv);
     this.usage = 'Usage: egg-bin [command] [options]';
 
-    Object.assign(this.helper, helper);
-
     // load directory
-    this.load(path.join(__dirname, 'lib/command'));
+    this.load(path.join(__dirname, 'lib/cmd'));
 
     if (process.platform === 'win32') {
       console.warn('`cov` is replaced with `test` at windows');
@@ -23,7 +20,7 @@ class MainCommand extends Command {
 
 module.exports = exports = MainCommand;
 exports.Command = Command;
-exports.CovCommand = require('./lib/command/cov');
-exports.DevCommand = require('./lib/command/dev');
-exports.TestCommand = require('./lib/command/test');
-exports.DebugCommand = require('./lib/command/debug');
+exports.CovCommand = require('./lib/cmd/cov');
+exports.DevCommand = require('./lib/cmd/dev');
+exports.TestCommand = require('./lib/cmd/test');
+exports.DebugCommand = require('./lib/cmd/debug');

@@ -8,8 +8,10 @@
     "mocha": "bin/mocha.js"
   },
   "dependencies": {
+    "change-case": "^3.0.1",
     "co-mocha": "^1.2.0",
-    "common-bin": "^2.0.0",
+    "common-bin": "^2.1.0",
+    "dargs": "^5.1.0",
     "debug": "^2.6.3",
     "detect-port": "^1.1.0",
     "egg-utils": "^2.1.0",

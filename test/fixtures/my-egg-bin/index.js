@@ -4,8 +4,8 @@ const path = require('path');
 const Command = require('../../..');
 
 class MainCommand extends Command {
-  constructor() {
-    super();
+  constructor(rawArgv) {
+    super(rawArgv);
     this.usage = 'Usage: egg-bin [command] [options]';
 
     // load directory
