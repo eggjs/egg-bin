@@ -63,7 +63,7 @@ describe('egg-bin test', () => {
       .end(done);
   });
 
-  it.only('should warn when require intelli-espower-loader', () => {
+  it('should warn when require intelli-espower-loader', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     return coffee.fork(eggBin, [ 'test', '-r', 'intelli-espower-loader' ], { cwd })
       .coverage(false)
