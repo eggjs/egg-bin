@@ -12,7 +12,6 @@ describe('egg-bin debug', () => {
   const framework = path.join(appdir, 'node_modules/aliyun-egg');
 
   before(() => {
-    rimraf.sync(path.join(appdir, 'node_modules/iron-node'));
     rimraf.sync(path.join(appdir, 'node_modules/.npminstall'));
   });
   afterEach(mm.restore);
