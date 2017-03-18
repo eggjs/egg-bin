@@ -4,7 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const net = require('net');
 
-describe('egg-bin dev', () => {
+describe('test/egg-dev.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
   const cwd = path.join(__dirname, 'fixtures/demo-app');
   const framework = path.join(cwd, 'node_modules/aliyun-egg');

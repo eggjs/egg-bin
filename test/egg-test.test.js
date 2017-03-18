@@ -4,7 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe('egg-bin test', () => {
+describe('test/egg-test.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
   const cwd = path.join(__dirname, 'fixtures/test-files');
 
@@ -86,14 +86,5 @@ describe('egg-bin test', () => {
     .expect('stdout', /3 passing/)
     .expect('code', 0)
     .end();
-  });
-
-  it.skip('should check node dependencies fail', done => {
-    coffee.fork(eggBin, [ 'test' ], {
-      cwd: path.join(__dirname, 'fixtures/check-deps-fail'),
-    })
-    .expect('stderr', /AssertionError: /)
-    .expect('code', 1)
-    .end(done);
   });
 });

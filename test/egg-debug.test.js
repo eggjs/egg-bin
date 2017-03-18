@@ -3,21 +3,17 @@
 const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
-const rimraf = require('rimraf');
 const net = require('net');
 
-describe('egg-bin debug', () => {
+describe('test/egg-debug.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
-  const appdir = path.join(__dirname, 'fixtures/demo-app');
-  const framework = path.join(appdir, 'node_modules/aliyun-egg');
+  const cwd = path.join(__dirname, 'fixtures/demo-app');
+  const framework = path.join(cwd, 'node_modules/aliyun-egg');
 
-  before(() => {
-    rimraf.sync(path.join(appdir, 'node_modules/.npminstall'));
-  });
   afterEach(mm.restore);
 
   it('should startCluster success', done => {
-    coffee.fork(eggBin, [ 'debug' ], { cwd: appdir })
+    coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
@@ -25,9 +21,9 @@ describe('egg-bin debug', () => {
   });
 
   it('should startCluster with port', done => {
-    coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd: appdir })
+    coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
       // .debug()
-      .expect('stdout', `{"port":6001,"baseDir":"${appdir}","framework":"${framework}","workers":1}\nprocess.execArgv: [ '--inspect' ]\n`)
+      .expect('stdout', `{"port":6001,"baseDir":"${cwd}","framework":"${framework}","workers":1}\nprocess.execArgv: [ '--inspect' ]\n`)
       .expect('code', 0)
       .end(done);
   });
@@ -42,7 +38,7 @@ describe('egg-bin debug', () => {
     after(() => server.close());
 
     it('should auto detect available port', done => {
-      coffee.fork(eggBin, [ 'debug' ], { cwd: appdir })
+      coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
       .expect('stdout', /,"workers":1/)
       .expect('stderr', /\[egg-bin] server port 7001 is in use/)

@@ -3,7 +3,7 @@
 const path = require('path');
 const coffee = require('coffee');
 
-describe('egg-bin', () => {
+describe('test/egg-bin.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
   const cwd = path.join(__dirname, 'fixtures/test-files');
 

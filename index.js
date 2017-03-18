@@ -1,9 +1,9 @@
 'use strict';
 
 const path = require('path');
-const Command = require('./lib/command.js');
+const Command = require('./lib/command');
 
-class MainCommand extends Command {
+class EggBin extends Command {
   constructor(rawArgv) {
     super(rawArgv);
     this.usage = 'Usage: egg-bin [command] [options]';
@@ -18,7 +18,7 @@ class MainCommand extends Command {
   }
 }
 
-module.exports = exports = MainCommand;
+module.exports = exports = EggBin;
 exports.Command = Command;
 exports.CovCommand = require('./lib/cmd/cov');
 exports.DevCommand = require('./lib/cmd/dev');
