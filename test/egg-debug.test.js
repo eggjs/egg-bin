@@ -8,7 +8,6 @@ const net = require('net');
 describe('test/egg-debug.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin.js');
   const cwd = path.join(__dirname, 'fixtures/demo-app');
-  const framework = path.join(cwd, 'node_modules/aliyun-egg');
 
   afterEach(mm.restore);
 
@@ -23,7 +22,11 @@ describe('test/egg-debug.test.js', () => {
   it('should startCluster with port', done => {
     coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
       // .debug()
-      .expect('stdout', `{"port":6001,"baseDir":"${cwd}","framework":"${framework}","workers":1}\nprocess.execArgv: [ '--inspect' ]\n`)
+      .expect('stdout', /"port":6001/)
+      .expect('stdout', /"workers":1/)
+      .expect('stdout', /"baseDir":".*?demo-app"/)
+      .expect('stdout', /"framework":".*?aliyun-egg"/)
+      .expect('stdout', /--inspect/)
       .expect('code', 0)
       .end(done);
   });

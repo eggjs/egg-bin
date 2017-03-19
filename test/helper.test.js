@@ -13,9 +13,9 @@ describe('test/helper.test.js', () => {
     '--es_staging', '--harmony', '--harmony_default_parameters',
   ];
 
-  it('extractArgv', () => {
+  it('extractArgs', () => {
     const argv = yargs.parse(args);
-    const execArgv = helper.extractArgv(argv, {
+    const execArgv = helper.extractArgs(argv, {
       includes: [ 'debug', /^harmony.*/ ],
     });
 
@@ -24,9 +24,9 @@ describe('test/helper.test.js', () => {
     assert.deepEqual(execArgv, [ '--debug=5555', '--harmony', '--harmony_default_parameters' ]);
   });
 
-  it('extractArgv with remove', () => {
+  it('extractArgs with remove', () => {
     const argv = yargs.parse(args);
-    const execArgv = helper.extractArgv(argv, {
+    const execArgv = helper.extractArgs(argv, {
       includes: [ 'debug', /^harmony.*/ ],
       remove: true,
     });

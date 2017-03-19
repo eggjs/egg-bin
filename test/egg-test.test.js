@@ -14,7 +14,7 @@ describe('test/egg-test.test.js', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd })
       // .debug()
-      .expect('stdout', /✓ should success/)
+      .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b\/b\.test\.js/)
       .notExpect('stdout', /\ba\.js/)
@@ -26,8 +26,8 @@ describe('test/egg-test.test.js', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, 'fixtures/test-files-glob') })
       // .debug()
-      .expect('stdout', /✓ should test index/)
-      .expect('stdout', /✓ should test sub/)
+      .expect('stdout', /should test index/)
+      .expect('stdout', /should test sub/)
       .notExpect('stdout', /no-load\.test\.js/)
       .expect('code', 0)
       .end(done);
@@ -36,7 +36,7 @@ describe('test/egg-test.test.js', () => {
   it('should only test files specified by TESTS', done => {
     mm(process.env, 'TESTS', 'test/a.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      .expect('stdout', /✓ should success/)
+      .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .notExpect('stdout', /b\/b.test.js/)
       .expect('code', 0)
@@ -46,7 +46,7 @@ describe('test/egg-test.test.js', () => {
   it('should only test files specified by TESTS argv', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test', 'test/a.test.js' ], { cwd })
-      .expect('stdout', /✓ should success/)
+      .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .notExpect('stdout', /b\/b.test.js/)
       .expect('code', 0)
@@ -55,10 +55,11 @@ describe('test/egg-test.test.js', () => {
 
   it('should use process.env.TEST_REPORTER', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'TEST_REPORTER', 'dot');
+    mm(process.env, 'TEST_REPORTER', 'json');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      .expect('stdout', /․․\n/)
-      .notExpect('stdout', /b\/b.test.js/)
+      .debug()
+      .expect('stdout', /"stats":/)
+      .expect('stdout', /"tests":/)
       .expect('code', 0)
       .end(done);
   });
@@ -67,7 +68,7 @@ describe('test/egg-test.test.js', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'TEST_TIMEOUT', '60000');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      .expect('stdout', /✓ should success/)
+      .expect('stdout', /should success/)
       .expect('code', 0)
       .end(done);
   });

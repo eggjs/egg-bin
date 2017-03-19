@@ -27,5 +27,4 @@ describe('test/egg-pkgfiles.test.js', () => {
       'app.js',
     ]);
   });
-
 });

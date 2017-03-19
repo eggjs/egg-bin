@@ -22,7 +22,7 @@
     "mocha": "^3.2.0",
     "mz-modules": "^1.0.0",
     "power-assert": "^1.4.2",
-    "ypkgfiles": "^1.3.0"
+    "ypkgfiles": "^1.3.1"
   },
   "devDependencies": {
     "autod": "^2.7.1",
