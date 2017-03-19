@@ -22,9 +22,30 @@ describe('test/egg-test.test.js', () => {
       .end(done);
   });
 
+  it('should ignore node_modules and fixtures', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, 'fixtures/test-files-glob') })
+      // .debug()
+      .expect('stdout', /✓ should test index/)
+      .expect('stdout', /✓ should test sub/)
+      .notExpect('stdout', /no-load\.test\.js/)
+      .expect('code', 0)
+      .end(done);
+  });
+
   it('should only test files specified by TESTS', done => {
     mm(process.env, 'TESTS', 'test/a.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd })
+      .expect('stdout', /✓ should success/)
+      .expect('stdout', /a\.test\.js/)
+      .notExpect('stdout', /b\/b.test.js/)
+      .expect('code', 0)
+      .end(done);
+  });
+
+  it('should only test files specified by TESTS argv', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    coffee.fork(eggBin, [ 'test', 'test/a.test.js' ], { cwd })
       .expect('stdout', /✓ should success/)
       .expect('stdout', /a\.test\.js/)
       .notExpect('stdout', /b\/b.test.js/)

@@ -16,6 +16,7 @@
     "detect-port": "^1.1.0",
     "egg-utils": "^2.1.0",
     "glob": "^7.1.1",
+    "globby": "^6.1.0",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^3.2.0",
@@ -50,8 +51,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "cross-env TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js test",
-    "cov": "cross-env TEST_TIMEOUT=3600000 TESTS=test/*.test.js bin/egg-bin.js cov",
+    "test-local": "cross-env TEST_TIMEOUT=3600000 bin/egg-bin.js test",
+    "cov": "cross-env TEST_TIMEOUT=3600000 bin/egg-bin.js cov",
     "ci": "npm run lint && npm run cov",
     "autod": "autod"
   },
