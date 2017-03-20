@@ -1,6 +1,6 @@
 'use strict';
 
-const DevCommand = require('../../../..').DevCommand;
+const DevCommand = require('../../../../../').DevCommand;
 
 class MyDevCommand extends DevCommand {
   * run({ cwd }) {

@@ -4,9 +4,9 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe('test/egg-test.test.js', () => {
-  const eggBin = require.resolve('../bin/egg-bin.js');
-  const cwd = path.join(__dirname, 'fixtures/test-files');
+describe('test/lib/cmd/test.test.js', () => {
+  const eggBin = require.resolve('../../../bin/egg-bin.js');
+  const cwd = path.join(__dirname, '../../fixtures/test-files');
 
   afterEach(mm.restore);
 
@@ -24,7 +24,7 @@ describe('test/egg-test.test.js', () => {
 
   it('should ignore node_modules and fixtures', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, 'fixtures/test-files-glob') })
+    coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/test-files-glob') })
       // .debug()
       .expect('stdout', /should test index/)
       .expect('stdout', /should test sub/)
@@ -57,7 +57,7 @@ describe('test/egg-test.test.js', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'TEST_REPORTER', 'json');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /"stats":/)
       .expect('stdout', /"tests":/)
       .expect('code', 0)
@@ -100,10 +100,8 @@ describe('test/egg-test.test.js', () => {
 
   it('should auto require test/.setup.js', () => {
     // example: https://github.com/lelandrichardson/enzyme-example-mocha
-    return coffee.fork(eggBin, [ 'test' ], {
-      cwd: path.join(__dirname, 'fixtures/enzyme-example-mocha'),
-    })
-    .debug()
+    return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/enzyme-example-mocha') })
+    // .debug()
     .expect('stdout', /before hook: delay 10ms/)
     .expect('stdout', /3 passing/)
     .expect('code', 0)

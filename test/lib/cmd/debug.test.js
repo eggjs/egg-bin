@@ -5,9 +5,9 @@ const coffee = require('coffee');
 const mm = require('mm');
 const net = require('net');
 
-describe('test/egg-debug.test.js', () => {
-  const eggBin = require.resolve('../bin/egg-bin.js');
-  const cwd = path.join(__dirname, 'fixtures/demo-app');
+describe('test/lib/cmd/debug.test.js', () => {
+  const eggBin = require.resolve('../../../bin/egg-bin.js');
+  const cwd = path.join(__dirname, '../../fixtures/demo-app');
 
   afterEach(mm.restore);
 

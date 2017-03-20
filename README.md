@@ -20,7 +20,7 @@
 [download-image]: https://img.shields.io/npm/dm/egg-bin.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-bin
 
-egg developer tool
+egg developer tool, extends [common-bin].
 
 ---
 
@@ -36,13 +36,11 @@ Add `egg-bin` to `package.json` scripts:
 
 ```json
 {
-  "devDependencies": {
-    "egg-bin": "2"
-  },
   "scripts": {
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
-    "test": "egg-bin test",
+    "test-local": "egg-bin test",
+    "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov"
@@ -73,11 +71,11 @@ $ egg-bin dev
 
 ##### options
 
-- `--eggPath` egg web framework root path.No default value, must supply.
-- `--baseDir` application's root path.default to `process.cwd()`.
-- `--port` server port.default to `7001`.
-- `--cluster` worker process number.default to `1`.
-- `--sticky` start a sticky cluster server.default to `false`.
+- `--framework` egg web framework root path.
+- `--baseDir` application's root path, default to `process.cwd()`.
+- `--port` server port, default to `7001`.
+- `--cluster` worker process number, skip this argvs will start only `1` worker, provide this without value will start `cpu` count worker.
+- `--sticky` start a sticky cluster server, default to `false`.
 
 ### debug
 
@@ -92,6 +90,36 @@ $ egg-bin debug
 Using [mocha] with [co-mocha] to run test.
 
 [power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
+
+```bash
+$ egg-bin test [files] [options]
+```
+
+- `files` is optional, default to `test/**/*.test.js`
+- `test/fixtures`, `test/node_modules` is always exclude.
+
+
+#### auto require `test/.setup.js`
+
+If `test/.setup.js` file exists, it will be auto require.
+
+```js
+test
+  ├── .setup.js
+  └── foo.test.js
+```
+
+#### options
+
+You can pass any mocha argv.
+
+- `--require` require the given module
+- `--timeout` milliseconds, default to 30000
+- see more at https://mochajs.org/#usage
+
+#### environment
+
+Environment is also support, will use it if options not provide.
 
 You can set `TESTS` env to set the tests directory, it support [glob] grammar.
 
@@ -117,7 +145,16 @@ Using [istanbul] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
-#### excludes
+**NOTIFY: `cov` is replaced with `test` at win32 system.**
+
+#### options
+
+You can pass any mocha argv.
+
+- `-x` add dir ignore coverage, support multiple argv
+- also support all test params above.
+
+#### environment
 
 You can set `COV_EXCLUDES` env to add dir ignore coverage.
 
@@ -133,62 +170,52 @@ Generate `pkg.files` automatically before npm publish, see [ypkgfiles] for detai
 $ egg-bin pkgfiles
 ```
 
-### auto require `test/.setup.js`
-
-If `test/.setup.js` file exists, it will be auto require on `test` and `cov` command.
-
-```js
-test
-    ├── .setup.js
-    └── foo.test.js
-```
-
 ## Custom egg-bin for your team
 
-You maybe need a custom egg-bin to implement more custom features
-if your team has develop a framework base on egg.
+You maybe need a custom egg-bin to implement more custom features if your team has develop a framework base on egg.
 
-Now you can implement a [Program](lib/program.js) sub class,
-and [Command](lib/command.js) sub class to do that.
+Now you can implement a [Command](lib/command.js) sub class to do that.
 Or you can just override the exists command.
+
+See more at [common-bin].
 
 ### Example: Add [nsp] for security scan
 
 [nsp] has provide a useful security scan feature.
 
-This example will show you how to add a new `NspCommand` and `MyProgram`
-to create a new `egg-bin` tool.
+This example will show you how to add a new `NspCommand` to create a new `egg-bin` tool.
 
 - Full demo: [my-egg-bin](test/fixtures/my-egg-bin)
 
-#### [MyProgram](test/fixtures/my-egg-bin/lib/my_program.js)
+#### [MyProgram](test/fixtures/my-egg-bin/index.js)
 
 ```js
-const Program = require('egg-bin').Program;
+const Program = require('egg-bin');
 
-class MyProgram extends Program {
-  constructor() {
-    super();
-    this.version = require('../package.json').version;
+class MyEggBinCommand extends Command {
+  constructor(rawArgv) {
+    super(rawArgv);
+    this.usage = 'Usage: egg-bin [command] [options]';
 
-    this.addCommand('nsp', path.join(__dirname, 'NspCommand.js'));
+    // load directory
+    this.load(path.join(__dirname, 'lib/cmd'));
   }
 }
 
-module.exports = MyProgram;
+module.exports = MyEggBinCommand;
 ```
 
-#### [NspCommand](test/fixtures/my-egg-bin/lib/nsp_command.js)
+#### [NspCommand](test/fixtures/my-egg-bin/lib/cmd/nsp.js)
 
 ```js
 const Command = require('egg-bin').Command;
 
 class NspCommand extends Command {
-  * run(cwd, args) {
-    console.log('run nsp check at %s with %j', cwd, args);
+  * run({ cwd, argv }) {
+    console.log('run nsp check at %s with %j', cwd, argv);
   }
 
-  help() {
+  description() {
     return 'nsp check';
   }
 }
@@ -202,10 +229,8 @@ module.exports = NspCommand;
 #!/usr/bin/env node
 
 'use strict';
-
-const run = require('egg-bin').run;
-
-run(require('../lib/my_program'));
+const Command = require('..');
+new Command().start();
 ```
 
 #### Run result
@@ -213,7 +238,7 @@ run(require('../lib/my_program'));
 ```bash
 $ my-egg-bin nsp
 
-run nsp check at /foo/bar with []
+run nsp check at /foo/bar with {}
 ```
 
 ## License
@@ -230,3 +255,4 @@ run nsp check at /foo/bar with []
 [intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
 [power-assert]: https://github.com/power-assert-js/power-assert
 [ypkgfiles]: https://github.com/popomore/ypkgfiles
+[common-bin]: https://github.com/node-modules/common-bin

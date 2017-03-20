@@ -1,10 +1,10 @@
 'use strict';
 
-const helper = require('../lib/helper');
+const helper = require('../../lib/helper');
 const yargs = require('yargs');
 const assert = require('assert');
 
-describe('test/helper.test.js', () => {
+describe('test/lib/helper.test.js', () => {
   const args = [
     'echo',
     '--baseDir=./dist',

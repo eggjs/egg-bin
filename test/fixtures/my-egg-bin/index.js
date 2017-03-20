@@ -3,14 +3,14 @@
 const path = require('path');
 const Command = require('../../..');
 
-class MainCommand extends Command {
+class MyEggBinCommand extends Command {
   constructor(rawArgv) {
     super(rawArgv);
     this.usage = 'Usage: egg-bin [command] [options]';
 
     // load directory
-    this.load(path.join(__dirname, 'command'));
+    this.load(path.join(__dirname, 'lib/cmd'));
   }
 }
 
-module.exports = MainCommand;
+module.exports = MyEggBinCommand;
