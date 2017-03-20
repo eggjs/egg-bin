@@ -15,6 +15,22 @@ describe('test/lib/helper.test.js', () => {
 
   it('extractArgs', () => {
     const argv = yargs.parse(args);
+    argv.$0 = undefined;
+    const execArgv = helper.extractArgs(argv);
+
+    assert(argv.debug);
+    assert(argv.baseDir);
+    assert.deepEqual(execArgv, [
+      '--base-dir=./dist',
+      '--debug=5555', '--debug-brk',
+      '--inspect=6666', '--inspect-brk',
+      '--es_staging', '--harmony', '--harmony_default_parameters',
+      'echo',
+    ]);
+  });
+
+  it('extractArgs with includes', () => {
+    const argv = yargs.parse(args);
     const execArgv = helper.extractArgs(argv, {
       includes: [ 'debug', /^harmony.*/ ],
     });

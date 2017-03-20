@@ -14,6 +14,7 @@ describe('test/lib/cmd/debug.test.js', () => {
   it('should startCluster success', done => {
     coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
+      .expect('stderr', /Debugger listening/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
       .end(done);
@@ -22,6 +23,7 @@ describe('test/lib/cmd/debug.test.js', () => {
   it('should startCluster with port', done => {
     coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
       // .debug()
+      .expect('stderr', /Debugger listening/)
       .expect('stdout', /"port":6001/)
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)

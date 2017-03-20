@@ -98,7 +98,6 @@ $ egg-bin test [files] [options]
 - `files` is optional, default to `test/**/*.test.js`
 - `test/fixtures`, `test/node_modules` is always exclude.
 
-
 #### auto require `test/.setup.js`
 
 If `test/.setup.js` file exists, it will be auto require.
@@ -114,6 +113,7 @@ test
 You can pass any mocha argv.
 
 - `--require` require the given module
+- `--grep` only run tests matching <pattern>
 - `--timeout` milliseconds, default to 30000
 - see more at https://mochajs.org/#usage
 
