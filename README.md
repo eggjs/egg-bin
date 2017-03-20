@@ -100,7 +100,7 @@ $ egg-bin test [files] [options]
 
 #### auto require `test/.setup.js`
 
-If `test/.setup.js` file exists, it will be auto require.
+If `test/.setup.js` file exists, it will be auto require as the first test file.
 
 ```js
 test
@@ -145,7 +145,7 @@ Using [istanbul] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
-**NOTIFY: `cov` is replaced with `test` at win32 system.**
+**NOTE: `cov` is replaced with `test` at win32 system.**
 
 #### options
 
@@ -187,12 +187,12 @@ This example will show you how to add a new `NspCommand` to create a new `egg-bi
 
 - Full demo: [my-egg-bin](test/fixtures/my-egg-bin)
 
-#### [MyProgram](test/fixtures/my-egg-bin/index.js)
+#### [my-egg-bin](test/fixtures/my-egg-bin/index.js)
 
 ```js
-const Program = require('egg-bin');
+const EggBinCommand = require('egg-bin');
 
-class MyEggBinCommand extends Command {
+class MyEggBinCommand extends EggBinCommand {
   constructor(rawArgv) {
     super(rawArgv);
     this.usage = 'Usage: egg-bin [command] [options]';
