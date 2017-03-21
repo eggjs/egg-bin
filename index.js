@@ -1,9 +1,27 @@
 'use strict';
 
-exports.run = require('common-bin').run;
-exports.Program = require('./lib/program');
-exports.Command = require('./lib/command');
-exports.CovCommand = require('./lib/cov_command');
-exports.DevCommand = require('./lib/dev_command');
-exports.TestCommand = require('./lib/test_command');
-exports.DebugCommand = require('./lib/debug_command');
+const path = require('path');
+const Command = require('./lib/command');
+
+class EggBin extends Command {
+  constructor(rawArgv) {
+    super(rawArgv);
+    this.usage = 'Usage: egg-bin [command] [options]';
+
+    // load directory
+    this.load(path.join(__dirname, 'lib/cmd'));
+
+    /* istanbul ignore if */
+    if (process.platform === 'win32') {
+      console.warn('`cov` is replaced with `test` at windows');
+      this.alias('cov', 'test');
+    }
+  }
+}
+
+module.exports = exports = EggBin;
+exports.Command = Command;
+exports.CovCommand = require('./lib/cmd/cov');
+exports.DevCommand = require('./lib/cmd/dev');
+exports.TestCommand = require('./lib/cmd/test');
+exports.DebugCommand = require('./lib/cmd/debug');

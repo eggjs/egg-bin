@@ -2,6 +2,6 @@
 
 'use strict';
 
-const run = require('common-bin').run;
+const Command = require('..');
 
-run(require('../lib/program'));
+new Command().start();
