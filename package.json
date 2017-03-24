@@ -58,9 +58,9 @@
     "node": ">= 6.0.0"
   },
   "files": [
-    "bin",
+    "index.js",
     "lib",
-    "index.js"
+    "bin"
   ],
   "ci": {
     "version": "6, 7"

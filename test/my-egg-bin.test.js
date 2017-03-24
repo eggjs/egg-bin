@@ -59,6 +59,7 @@ describe('test/my-egg-bin.test.js', () => {
       'echo',
       '--baseDir=./dist',
       '--debug=5555', '--debug-brk',
+      '--expose_debug_as=v8debug',
       '--inspect', '6666', '--inspect-brk',
       '--es_staging', '--harmony', '--harmony_default_parameters',
     ];
@@ -66,7 +67,7 @@ describe('test/my-egg-bin.test.js', () => {
       // .debug()
       .expect('stdout', /"baseDir":".\/dist"/)
       .notExpect('stdout', /"debugBrk":true/)
-      .expect('stdout', /"execArgv":\["--debug=5555","--debug-brk","--inspect=6666","--inspect-brk","--es_staging","--harmony","--harmony_default_parameters"]/)
+      .expect('stdout', /"execArgv":\["--debug=5555","--debug-brk","--expose_debug_as=v8debug","--inspect=6666","--inspect-brk","--es_staging","--harmony","--harmony_default_parameters"]/)
       .expect('code', 0)
       .end(done);
   });
