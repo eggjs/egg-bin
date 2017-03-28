@@ -13,8 +13,8 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   it('should startCluster success', done => {
     coffee.fork(eggBin, [ 'debug' ], { cwd })
-      // .debug()
       .expect('stderr', /Debugger listening/)
+      .expect('stderr', /chrome-devtools:/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
       .end(done);

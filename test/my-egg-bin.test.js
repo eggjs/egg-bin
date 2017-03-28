@@ -58,7 +58,7 @@ describe('test/my-egg-bin.test.js', () => {
     const args = [
       'echo',
       '--baseDir=./dist',
-      '--debug=5555', '--debug-brk',
+      '--debug', '--debug-brk=5555',
       '--expose_debug_as=v8debug',
       '--inspect', '6666', '--inspect-brk',
       '--es_staging', '--harmony', '--harmony_default_parameters',
@@ -66,8 +66,25 @@ describe('test/my-egg-bin.test.js', () => {
     coffee.fork(eggBin, args, { cwd })
       // .debug()
       .expect('stdout', /"baseDir":".\/dist"/)
+      .expect('stdout', /"debug":6666/)
       .notExpect('stdout', /"debugBrk":true/)
-      .expect('stdout', /"execArgv":\["--debug=5555","--debug-brk","--expose_debug_as=v8debug","--inspect=6666","--inspect-brk","--es_staging","--harmony","--harmony_default_parameters"]/)
+      .expect('stdout', /"execArgv":\["--debug","--debug-brk=5555","--expose_debug_as=v8debug","--inspect=6666","--inspect-brk","--es_staging","--harmony","--harmony_default_parameters"]/)
+      .expect('code', 0)
+      .end(done);
+  });
+
+  it('should add no-timeouts at test when debug enabled', done => {
+    const args = [
+      'test-debug',
+      '--baseDir=./dist',
+      '--debug', '--debug-brk=5555',
+      '--expose_debug_as=v8debug',
+      '--inspect', '6666', '--inspect-brk',
+    ];
+    coffee.fork(eggBin, args, { cwd })
+      // .debug()
+      .expect('stdout', /"--no-timeouts",/)
+      .notExpect('stdout', /"--timeout=/)
       .expect('code', 0)
       .end(done);
   });
