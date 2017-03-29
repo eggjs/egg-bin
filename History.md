@@ -1,4 +1,10 @@
 
+3.2.0 / 2017-03-29
+==================
+
+  * feat: extractArgv refactor & extract debug port
+  * feat: extractArgv support expose_debug_as
+
 3.1.0 / 2017-03-21
 ==================
 
