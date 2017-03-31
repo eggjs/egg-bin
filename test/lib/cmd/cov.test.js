@@ -25,7 +25,7 @@ describe('test/lib/cmd/cov.test.js', () => {
           .expect('stdout', /a\.test\.js/)
           .expect('stdout', /b\/b\.test\.js/)
           .notExpect('stdout', /a.js/)
-          .expect('stdout', /Statements {3}: 75% \( 3\/4 \)/)
+          .expect('stdout', /Statements {3}: 80% \( 4\/5 \)/)
           .expect('code', 0)
           .end(err => {
             assert.ifError(err);
@@ -37,10 +37,10 @@ describe('test/lib/cmd/cov.test.js', () => {
           });
       });
 
-      it('should success with COV_EXCLUDES', done => {
+      it('should success with COV_EXCLUDES', function* () {
         mm(process.env, 'TESTS', 'test/**/*.test.js');
-        mm(process.env, 'COV_EXCLUDES', 'lib/*');
-        coffee.fork(eggBin, [ 'cov' ], { cwd })
+        mm(process.env, 'COV_EXCLUDES', 'ignore/*');
+        yield coffee.fork(eggBin, [ 'cov' ], { cwd })
           .coverage(false)
           // .debug()
           .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
@@ -48,16 +48,35 @@ describe('test/lib/cmd/cov.test.js', () => {
           .expect('stdout', /a\.test\.js/)
           .expect('stdout', /b\/b\.test\.js/)
           .notExpect('stdout', /a.js/)
-          .expect('stdout', /Statements {3}: Unknown% \( 0\/0 \)/)
+          .expect('stdout', /Statements {3}: 75% \( 3\/4 \)/)
           .expect('code', 0)
-          .end(err => {
-            assert(!err);
-            assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-            assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-            assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-            assert(!fs.existsSync(path.join(cwd, '.tmp')));
-            done();
-          });
+          .end();
+        assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+        assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
+        assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+        assert(!fs.existsSync(path.join(cwd, '.tmp')));
+        const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+        assert(!/ignore\/a.js/.test(lcov));
+      });
+
+      it('should success with -x to ignore files', function* () {
+        yield coffee.fork(eggBin, [ 'cov', '-x', 'ignore/*', 'test/**/*.test.js' ], { cwd })
+          .coverage(false)
+          // .debug()
+          .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
+          .expect('stdout', /should success/)
+          .expect('stdout', /a\.test\.js/)
+          .expect('stdout', /b\/b\.test\.js/)
+          .notExpect('stdout', /a.js/)
+          .expect('stdout', /Statements {3}: 75% \( 3\/4 \)/)
+          .expect('code', 0)
+          .end();
+        assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+        assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
+        assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+        assert(!fs.existsSync(path.join(cwd, '.tmp')));
+        const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+        assert(!/ignore\/a.js/.test(lcov));
       });
 
       it('should fail when test fail', done => {
