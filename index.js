@@ -10,12 +10,6 @@ class EggBin extends Command {
 
     // load directory
     this.load(path.join(__dirname, 'lib/cmd'));
-
-    /* istanbul ignore if */
-    if (process.platform === 'win32') {
-      console.warn('`cov` is replaced with `test` at windows');
-      this.alias('cov', 'test');
-    }
   }
 }
 
