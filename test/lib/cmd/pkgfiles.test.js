@@ -33,7 +33,7 @@ describe('test/lib/cmd/pkgfiles.test.js', () => {
     yield fs.writeFile(path.join(cwd, 'package.json'), '{}');
 
     yield coffee.fork(eggBin, [ 'pkgfiles', '--check' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stderr', /pkg.files should equal to \[ app, config, app.js ], but got \[ {2}]/)
       .expect('code', 1)
       .end();
