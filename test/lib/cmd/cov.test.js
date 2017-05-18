@@ -148,4 +148,21 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('should set EGG_BIN_PREREQUIRE', function* () {
+    const cwd = path.join(__dirname, '../../fixtures/prerequire');
+    yield coffee.fork(eggBin, [ 'cov' ], { cwd })
+      // .debug()
+      .coverage(false)
+      .expect('stdout', /EGG_BIN_PREREQUIRE undefined/)
+      .expect('code', 0)
+      .end();
+
+    yield coffee.fork(eggBin, [ 'cov', '--prerequire' ], { cwd })
+      // .debug()
+      .coverage(false)
+      .expect('stdout', /EGG_BIN_PREREQUIRE true/)
+      .expect('code', 0)
+      .end();
+  });
 });
