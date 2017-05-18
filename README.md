@@ -152,6 +152,7 @@ Coverage reporter will output text-summary, json and lcov.
 You can pass any mocha argv.
 
 - `-x` add dir ignore coverage, support multiple argv
+- `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
 - also support all test params above.
 
 #### environment
