@@ -131,6 +131,16 @@ describe('test/lib/cmd/cov.test.js', () => {
           .expect('code', 0)
           .end();
       });
+
+      it('should run cov when no test files', function* () {
+        mm(process.env, 'TESTS', 'noexist.js');
+        const cwd = path.join(__dirname, '../../fixtures/prerequire');
+        yield coffee.fork(eggBin, [ 'cov' ], { cwd })
+          .debug()
+          .coverage(false)
+          .expect('code', 0)
+          .end();
+      });
     });
   } else {
     it('should exec test instead of cov in win32', done => {
