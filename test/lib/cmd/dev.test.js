@@ -3,19 +3,36 @@
 const path = require('path');
 const coffee = require('coffee');
 const net = require('net');
+const mm = require('mm');
 
 describe('test/lib/cmd/dev.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
   const cwd = path.join(__dirname, '../../fixtures/demo-app');
 
-  it('should startCluster success', done => {
-    coffee.fork(eggBin, [ 'dev' ], { cwd })
+  afterEach(mm.restore);
+
+  it('should startCluster success', () => {
+    mm(process.env, 'NODE_ENV', 'development');
+    return coffee.fork(eggBin, [ 'dev' ], { cwd })
       // .debug()
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)
       .expect('stdout', /"framework":".*?aliyun-egg"/)
+      .expect('stdout', /NODE_ENV: development/)
       .expect('code', 0)
-      .end(done);
+      .end();
+  });
+
+  it('should dev start with custom NODE_ENV', () => {
+    mm(process.env, 'NODE_ENV', 'prod');
+    return coffee.fork(eggBin, [ 'dev' ], { cwd })
+      // .debug()
+      .expect('stdout', /"workers":1/)
+      .expect('stdout', /"baseDir":".*?demo-app"/)
+      .expect('stdout', /"framework":".*?aliyun-egg"/)
+      .expect('stdout', /NODE_ENV: prod/)
+      .expect('code', 0)
+      .end();
   });
 
   it('should startCluster with --harmony success', done => {
