@@ -44,6 +44,9 @@
     "type": "git",
     "url": "https://github.com/eggjs/egg-bin.git"
   },
+  "bug": {
+    "url": "https://github.com/eggjs/egg/issues"
+  },
   "homepage": "https://github.com/eggjs/egg-bin",
   "author": "fengmk2 <fengmk2@gmail.com> (https://fengmk2.com)",
   "scripts": {
