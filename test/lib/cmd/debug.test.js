@@ -11,13 +11,15 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   afterEach(mm.restore);
 
-  it('should startCluster success', done => {
-    coffee.fork(eggBin, [ 'debug' ], { cwd })
+  it('should startCluster success', () => {
+    return coffee.fork(eggBin, [ 'debug' ], { cwd })
+      .debug()
       .expect('stderr', /Debugger listening/)
-      .expect('stderr', /chrome-devtools:/)
+      // node 8 missing "chrome-devtools" url
+      // .expect('stderr', /chrome-devtools:/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
-      .end(done);
+      .end();
   });
 
   it('should startCluster with port', done => {
