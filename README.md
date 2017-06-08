@@ -115,6 +115,7 @@ You can pass any mocha argv.
 - `--require` require the given module
 - `--grep` only run tests matching <pattern>
 - `--timeout` milliseconds, default to 30000
+- `--full-trace` display the full stack trace, default to false.
 - see more at https://mochajs.org/#usage
 
 #### environment

@@ -3,6 +3,7 @@
 const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
+const assert = require('assert');
 
 describe('test/lib/cmd/test.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -106,5 +107,64 @@ describe('test/lib/cmd/test.test.js', () => {
     .expect('stdout', /3 passing/)
     .expect('code', 0)
     .end();
+  });
+
+  describe('simplify mocha error stack', () => {
+    const cwd = path.join(__dirname, '../../fixtures/test-files-stack');
+
+    it('should clean assert error stack', done => {
+      mm(process.env, 'TESTS', 'test/assert.test.js');
+      coffee.fork(eggBin, [ 'test' ], { cwd })
+        // .debug()
+        .end((err, { stdout, code }) => {
+          assert(stdout.match(/AssertionError/));
+          assert(stdout.match(/at forEach .*assert.test.js:\d+:\d+/));
+          assert(stdout.match(/at Context.it .*assert.test.js:\d+:\d+/));
+          assert(stdout.match(/\bat\s+/g).length === 3);
+          assert(code === 1);
+          done(err);
+        });
+    });
+
+    it('should should show full stack trace', done => {
+      mm(process.env, 'TESTS', 'test/assert.test.js');
+      coffee.fork(eggBin, [ 'test', '--full-trace' ], { cwd })
+        // .debug()
+        .end((err, { stdout, code }) => {
+          assert(stdout.match(/AssertionError/));
+          assert(stdout.match(/at .*node_modules.*mocha/));
+          assert(stdout.match(/\bat\s+/g).length > 10);
+          assert(code === 1);
+          done(err);
+        });
+    });
+
+    it('should clean co error stack', done => {
+      mm(process.env, 'TESTS', 'test/promise.test.js');
+      coffee.fork(eggBin, [ 'test' ], { cwd })
+        // .debug()
+        .end((err, { stdout, code }) => {
+          assert(stdout.match(/Error: this is an error/));
+          assert(stdout.match(/at Promise .*promise.test.js:\d+:\d+/));
+          assert(stdout.match(/at Context\.<anonymous> .*promise.test.js:\d+:\d+/));
+          assert(stdout.match(/\bat\s+/g).length === 3);
+          assert(code === 1);
+          done(err);
+        });
+    });
+
+    it('should clean callback error stack', done => {
+      mm(process.env, 'TESTS', 'test/sleep.test.js');
+      coffee.fork(eggBin, [ 'test' ], { cwd })
+        // .debug()
+        .end((err, { stdout, code }) => {
+          assert(stdout.match(/Error: this is an error/));
+          assert(stdout.match(/at sleep .*sleep.test.js:\d+:\d+/));
+          assert(stdout.match(/at Timeout.setTimeout .*node_modules.*my-sleep.*index.js:\d+:\d+/));
+          assert(stdout.match(/\bat\s+/g).length === 2);
+          assert(code === 1);
+          done(err);
+        });
+    });
   });
 });

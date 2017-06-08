@@ -3,6 +3,7 @@ coverage/
 !test/fixtures/custom-framework-app/node_modules/
 !test/fixtures/demo-app/node_modules/aliyun-egg/node_modules/
 !test/fixtures/test-files-glob/**
+!test/fixtures/test-files-stack/node_modules/
 .tmp
 .vscode
 *.log
