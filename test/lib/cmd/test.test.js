@@ -4,6 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 const assert = require('assert');
+const semver = require('semver');
 
 describe('test/lib/cmd/test.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -118,9 +119,12 @@ describe('test/lib/cmd/test.test.js', () => {
         // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/AssertionError/));
-          assert(stdout.match(/at forEach .*assert.test.js:\d+:\d+/));
-          assert(stdout.match(/at Context.it .*assert.test.js:\d+:\d+/));
-          assert(stdout.match(/\bat\s+/g).length === 3);
+          if (semver.satisfies(process.version, '^6.0.0')) {
+            // assert stack missing these three lines on node >= 7.0.0
+            assert(stdout.match(/at forEach .*assert.test.js:\d+:\d+/));
+            assert(stdout.match(/at Context.it .*assert.test.js:\d+:\d+/));
+            assert(stdout.match(/\bat\s+/g).length === 3);
+          }
           assert(code === 1);
           done(err);
         });
@@ -132,8 +136,10 @@ describe('test/lib/cmd/test.test.js', () => {
         // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/AssertionError/));
-          assert(stdout.match(/at .*node_modules.*mocha/));
-          assert(stdout.match(/\bat\s+/g).length > 10);
+          if (semver.satisfies(process.version, '^6.0.0')) {
+            assert(stdout.match(/at .*node_modules.*mocha/));
+            assert(stdout.match(/\bat\s+/g).length > 10);
+          }
           assert(code === 1);
           done(err);
         });
