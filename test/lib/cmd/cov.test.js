@@ -12,159 +12,27 @@ describe('test/lib/cmd/cov.test.js', () => {
 
   afterEach(mm.restore);
 
-  // `cov` is replace with `test` at win32, so we need to skip it
-  if (process.platform !== 'win32') {
-    describe('cov at not-win32', () => {
-      it('should success', done => {
-        mm(process.env, 'TESTS', 'test/**/*.test.js');
-        coffee.fork(eggBin, [ 'cov' ], { cwd })
-          .coverage(false)
-          // .debug()
-          .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
-          .expect('stdout', /should success/)
-          .expect('stdout', /a\.test\.js/)
-          .expect('stdout', /b\/b\.test\.js/)
-          .notExpect('stdout', /a.js/)
-          .expect('stdout', /Statements {3}: 80% \( 4\/5 \)/)
-          .expect('code', 0)
-          .end(err => {
-            assert.ifError(err);
-            assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-            assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-            assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-            assert.ok(!fs.existsSync(path.join(cwd, '.tmp')));
-            done();
-          });
+  it('should success', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    coffee.fork(eggBin, [ 'cov' ], { cwd })
+      .coverage(false)
+      // .debug()
+      .expect('stdout', /[\/|\\]test[\/|\\]fixtures[\/|\\]test-files[\/|\\]\.tmp true/)
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b[\/|\\]b\.test\.js/)
+      .notExpect('stdout', /a.js/)
+      .expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/)
+      .expect('code', 0)
+      .end(err => {
+        assert.ifError(err);
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+        assert.ok(!fs.existsSync(path.join(cwd, '.tmp')));
+        done();
       });
-
-      it('should success with COV_EXCLUDES', function* () {
-        mm(process.env, 'TESTS', 'test/**/*.test.js');
-        mm(process.env, 'COV_EXCLUDES', 'ignore/*');
-        yield coffee.fork(eggBin, [ 'cov' ], { cwd })
-          .coverage(false)
-          // .debug()
-          .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
-          .expect('stdout', /should success/)
-          .expect('stdout', /a\.test\.js/)
-          .expect('stdout', /b\/b\.test\.js/)
-          .notExpect('stdout', /a.js/)
-          .expect('stdout', /Statements {3}: 75% \( 3\/4 \)/)
-          .expect('code', 0)
-          .end();
-        assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-        assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-        assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-        assert(!fs.existsSync(path.join(cwd, '.tmp')));
-        const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-        assert(!/ignore\/a.js/.test(lcov));
-      });
-
-      it('should success with -x to ignore files', function* () {
-        yield coffee.fork(eggBin, [ 'cov', '-x', 'ignore/*', 'test/**/*.test.js' ], { cwd })
-          .coverage(false)
-          // .debug()
-          .expect('stdout', /\/test\/fixtures\/test-files\/\.tmp true/)
-          .expect('stdout', /should success/)
-          .expect('stdout', /a\.test\.js/)
-          .expect('stdout', /b\/b\.test\.js/)
-          .notExpect('stdout', /a.js/)
-          .expect('stdout', /Statements {3}: 75% \( 3\/4 \)/)
-          .expect('code', 0)
-          .end();
-        assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-        assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-        assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-        assert(!fs.existsSync(path.join(cwd, '.tmp')));
-        const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-        assert(!/ignore\/a.js/.test(lcov));
-      });
-
-      it('should fail when test fail', done => {
-        mm(process.env, 'TESTS', 'test/fail.js');
-        coffee.fork(eggBin, [ 'cov' ], { cwd })
-          .coverage(false)
-          // .debug()
-          .expect('stdout', /1\) should fail/)
-          .expect('stdout', /1 failing/)
-          .expect('code', 1)
-          .end(done);
-      });
-
-      it('should fail when test fail with power-assert', done => {
-        mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-        coffee.fork(eggBin, [ 'cov' ], { cwd })
-          .coverage(false)
-          // .debug()
-          .expect('stdout', /1\) should fail/)
-          .expect('stdout', /1 failing/)
-          .expect('stdout', /assert\(1 === 2\)/)
-          .expect('code', 1)
-          .end(done);
-      });
-
-      it('should warn when require intelli-espower-loader', done => {
-        mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-        coffee.fork(eggBin, [ 'cov', '-r', 'intelli-espower-loader' ], { cwd })
-          .coverage(false)
-          // .debug()
-          .expect('stderr', /manually require `intelli-espower-loader`/)
-          .expect('stdout', /1\) should fail/)
-          .expect('stdout', /1 failing/)
-          .expect('stdout', /assert\(1 === 2\)/)
-          .expect('code', 1)
-          .end(done);
-      });
-
-      it('should set EGG_BIN_PREREQUIRE', function* () {
-        const cwd = path.join(__dirname, '../../fixtures/prerequire');
-        yield coffee.fork(eggBin, [ 'cov' ], { cwd })
-          .debug()
-          .coverage(false)
-          .expect('stdout', /EGG_BIN_PREREQUIRE undefined/)
-          .expect('code', 0)
-          .end();
-
-        yield coffee.fork(eggBin, [ 'cov', '--prerequire' ], { cwd })
-          .debug()
-          .coverage(false)
-          .expect('stdout', /EGG_BIN_PREREQUIRE true/)
-          .expect('code', 0)
-          .end();
-      });
-
-      it('should run cov when no test files', function* () {
-        mm(process.env, 'TESTS', 'noexist.js');
-        const cwd = path.join(__dirname, '../../fixtures/prerequire');
-        yield coffee.fork(eggBin, [ 'cov' ], { cwd })
-          // .debug()
-          .coverage(false)
-          .expect('code', 0)
-          .end();
-      });
-    });
-  } else {
-    it('should exec test instead of cov in win32', done => {
-      mm(process, 'platform', 'win32');
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
-      coffee.fork(eggBin, [ 'cov' ], { cwd })
-        .coverage(false)
-        // .debug()
-        .expect('stdout', /[\/|\\]test[\/|\\]fixtures[\/|\\]test-files[\/|\\]\.tmp true/)
-        .expect('stdout', /should success/)
-        .expect('stdout', /a\.test\.js/)
-        .expect('stdout', /b[\/|\\]b\.test\.js/)
-        .notExpect('stdout', /a.js/)
-        .expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/)
-        .expect('code', 0)
-        .end(err => {
-          assert.ifError(err);
-          assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-          assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-          assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-          assert.ok(!fs.existsSync(path.join(cwd, '.tmp')));
-          done();
-        });
-    });
+  });
 
   it('should success with COV_EXCLUDES', function* () {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
@@ -185,7 +53,7 @@ describe('test/lib/cmd/cov.test.js', () => {
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
     assert(!fs.existsSync(path.join(cwd, '.tmp')));
     const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-    assert(!/ignore\/a.js/.test(lcov));
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
   it('should success with -x to ignore files', function* () {
@@ -205,7 +73,7 @@ describe('test/lib/cmd/cov.test.js', () => {
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
     assert(!fs.existsSync(path.join(cwd, '.tmp')));
     const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-    assert(!/ignore\/a.js/.test(lcov));
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
   it('should fail when test fail', done => {
@@ -242,5 +110,32 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /assert\(1 === 2\)/)
       .expect('code', 1)
       .end(done);
+  });
+
+  it('should set EGG_BIN_PREREQUIRE', function* () {
+    const cwd = path.join(__dirname, '../../fixtures/prerequire');
+    yield coffee.fork(eggBin, [ 'cov' ], { cwd })
+      .debug()
+      .coverage(false)
+      .expect('stdout', /EGG_BIN_PREREQUIRE undefined/)
+      .expect('code', 0)
+      .end();
+
+    yield coffee.fork(eggBin, [ 'cov', '--prerequire' ], { cwd })
+      .debug()
+      .coverage(false)
+      .expect('stdout', /EGG_BIN_PREREQUIRE true/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('should run cov when no test files', function* () {
+    mm(process.env, 'TESTS', 'noexist.js');
+    const cwd = path.join(__dirname, '../../fixtures/prerequire');
+    yield coffee.fork(eggBin, [ 'cov' ], { cwd })
+      // .debug()
+      .coverage(false)
+      .expect('code', 0)
+      .end();
   });
 });
