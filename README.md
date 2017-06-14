@@ -146,8 +146,6 @@ Using [istanbul] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
-**NOTE: `cov` is replaced with `test` at win32 system.**
-
 #### options
 
 You can pass any mocha argv.
