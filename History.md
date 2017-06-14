@@ -1,4 +1,11 @@
 
+3.6.0 / 2017-06-14
+==================
+
+  * feat: support cov command  in win32 (#52)
+  * test: skip assert error stack on node >= 7.0.0 (#61)
+  * fix: clean more mocha error stack (#60)
+
 3.5.0 / 2017-06-08
 ==================
 
