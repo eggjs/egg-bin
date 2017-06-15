@@ -48,7 +48,7 @@ describe('egg-bin cov', () => {
     .expect('stdout', /✓ should success/)
     .expect('stdout', /a\.test\.js/)
     .expect('stdout', /b\/b\.test\.js/)
-    .expect('stdout', /Statements {3}: Unknown% \( 0\/0 \)/)
+    .expect('stdout', /Statements {3}: 100% \( 0\/0 \)/)
     .expect('code', 0)
     .end((err, res) => {
       assert(!err);
