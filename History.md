@@ -1,4 +1,8 @@
 
+1.11.1 / 2017-06-15
+==================
+  * revert 1.11.0, 1.11.0 has been unpubished https://github.com/eggjs/egg-bin/pull/51#issuecomment-299775338
+
 1.10.3 / 2017-01-25
 ==================
 
