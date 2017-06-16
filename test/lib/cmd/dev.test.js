@@ -109,7 +109,7 @@ describe('test/lib/cmd/dev.test.js', () => {
       .expect('stdout', /"baseDir":".*?custom-framework-app"/)
       .expect('stdout', /"framework":".*?yadan"/)
       .expect('code', 0)
-     .end(done);
+      .end(done);
   });
 
   describe('auto detect available port', () => {
@@ -124,9 +124,9 @@ describe('test/lib/cmd/dev.test.js', () => {
     it('should auto detect available port', done => {
       coffee.fork(eggBin, [ 'dev' ], { cwd })
       // .debug()
-      .expect('stderr', /\[egg-bin] server port 7001 is in use, now using port \d+/)
-      .expect('code', 0)
-      .end(done);
+        .expect('stderr', /\[egg-bin] server port 7001 is in use, now using port \d+/)
+        .expect('code', 0)
+        .end(done);
     });
   });
 
