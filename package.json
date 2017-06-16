@@ -20,6 +20,7 @@
     "mz-modules": "^1.0.0",
     "nyc": "^11.0.2",
     "power-assert": "^1.4.4",
+    "test-exclude": "^4.1.1",
     "ypkgfiles": "^1.4.0"
   },
   "devDependencies": {
