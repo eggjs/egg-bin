@@ -56,7 +56,7 @@
     "pkgfiles": "node bin/egg-bin.js pkgfiles --check",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "node bin/egg-bin.js test -t 3600000",
-    "cov": "./bin/egg-bin.js cov -t 3600000",
+    "cov": "node bin/egg-bin.js cov -t 3600000",
     "ci": "npm run lint && npm run pkgfiles && npm run cov",
     "autod": "autod"
   },
