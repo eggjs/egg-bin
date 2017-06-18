@@ -8,7 +8,7 @@ describe('test/egg-bin.test.js', () => {
   const cwd = path.join(__dirname, 'fixtures/test-files');
 
   describe('global options', () => {
-    it.only('should show version', done => {
+    it('should show version', done => {
       coffee.fork(eggBin, [ '--version' ], { cwd })
         .debug()
         .expect('stdout', /\d+\.\d+\.\d+/)
