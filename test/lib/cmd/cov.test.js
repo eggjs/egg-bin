@@ -27,6 +27,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       .end(err => {
         assert.ifError(err);
         assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-summary.json')));
         assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
         assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
         assert.ok(!fs.existsSync(path.join(cwd, '.tmp')));
