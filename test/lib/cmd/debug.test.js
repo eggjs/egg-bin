@@ -47,10 +47,10 @@ describe('test/lib/cmd/debug.test.js', () => {
     it('should auto detect available port', done => {
       coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
-      .expect('stdout', /,"workers":1/)
-      .expect('stderr', /\[egg-bin] server port 7001 is in use/)
-      .expect('code', 0)
-      .end(done);
+        .expect('stdout', /,"workers":1/)
+        .expect('stderr', /\[egg-bin] server port 7001 is in use/)
+        .expect('code', 0)
+        .end(done);
     });
   });
 });

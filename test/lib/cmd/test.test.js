@@ -104,10 +104,10 @@ describe('test/lib/cmd/test.test.js', () => {
     // example: https://github.com/lelandrichardson/enzyme-example-mocha
     return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/enzyme-example-mocha') })
     // .debug()
-    .expect('stdout', /before hook: delay 10ms/)
-    .expect('stdout', /3 passing/)
-    .expect('code', 0)
-    .end();
+      .expect('stdout', /before hook: delay 10ms/)
+      .expect('stdout', /3 passing/)
+      .expect('code', 0)
+      .end();
   });
 
   describe('simplify mocha error stack', () => {
