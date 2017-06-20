@@ -1,4 +1,9 @@
 
+4.0.3 / 2017-06-21
+==================
+
+  * fix: There is a case sensitive issue from spawn-wrap  on Windows (#67)
+
 4.0.2 / 2017-06-20
 ==================
 
