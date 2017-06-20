@@ -62,7 +62,29 @@ describe('test/lib/cmd/cov.test.js', () => {
     assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
-  it('should success with -x to ignore files', function* () {
+  it('should success with -x to ignore one dirs', function* () {
+    const child = coffee.fork(eggBin, [ 'cov', '-x', 'ignore/', 'test/**/*.test.js' ], { cwd })
+      // .debug()
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b[\/|\\]b\.test\.js/)
+      .notExpect('stdout', /a.js/);
+
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
+    }
+
+    yield child.expect('code', 0)
+      .end();
+    assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+    assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
+    assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
+  });
+
+  it('should success with -x to ignore multi dirs', function* () {
     const child = coffee.fork(eggBin, [ 'cov', '-x', 'ignore2/*', '-x', 'ignore/', 'test/**/*.test.js' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
