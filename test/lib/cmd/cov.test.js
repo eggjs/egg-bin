@@ -28,6 +28,7 @@ describe('test/lib/cmd/cov.test.js', () => {
     }
 
     child.expect('code', 0)
+      .expect('stderr', /\[egg-bin] hotfix spawn-wrap/)
       .end(err => {
         assert.ifError(err);
         assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
