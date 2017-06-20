@@ -57,7 +57,8 @@
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "node bin/egg-bin.js test -t 3600000",
     "cov": "nyc -r lcov -r text-summary npm run test-local",
-    "ci": "npm run lint && npm run pkgfiles && npm run cov",
+    "ci-test-only": "TESTS=test/lib/cmd/cov.test.js npm run test-local",
+    "ci": "npm run lint && npm run pkgfiles && npm run ci-test-only && npm run cov",
     "autod": "autod"
   },
   "engines": {

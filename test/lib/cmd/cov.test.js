@@ -15,14 +15,19 @@ describe('test/lib/cmd/cov.test.js', () => {
   it('should success', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
-    coffee.fork(eggBin, [ 'cov' ], { cwd })
-      // .debug()
+    const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
+      .debug()
       .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
-      .notExpect('stdout', /a.js/)
-      // .expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/)
-      .expect('code', 0)
+      .notExpect('stdout', /a.js/);
+
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
+    }
+
+    child.expect('code', 0)
       .end(err => {
         assert.ifError(err);
         assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
@@ -36,14 +41,19 @@ describe('test/lib/cmd/cov.test.js', () => {
   it('should success with COV_EXCLUDES', function* () {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'COV_EXCLUDES', 'ignore/*');
-    yield coffee.fork(eggBin, [ 'cov' ], { cwd })
+    const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
-      .notExpect('stdout', /a.js/)
-      // .expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/)
-      .expect('code', 0)
+      .notExpect('stdout', /a.js/);
+
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
+    }
+
+    yield child.expect('code', 0)
       .end();
     assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
