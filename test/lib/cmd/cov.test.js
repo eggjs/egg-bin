@@ -27,8 +27,11 @@ describe('test/lib/cmd/cov.test.js', () => {
       child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
     }
 
+    if (process.platform === 'win32') {
+      child.expect('stderr', /\[egg-bin] hotfix spawn-wrap/);
+    }
+
     child.expect('code', 0)
-      .expect('stderr', /\[egg-bin] hotfix spawn-wrap/)
       .end(err => {
         assert.ifError(err);
         assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
