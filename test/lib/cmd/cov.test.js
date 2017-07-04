@@ -42,6 +42,33 @@ describe('test/lib/cmd/cov.test.js', () => {
       });
   });
 
+  it('should hotfixSpawnWrap success on mock windows', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    mm(process.env, 'NYC_CWD', cwd);
+    const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
+      .debug()
+      .beforeScript(path.join(__dirname, 'mock-win32.js'))
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b[\/|\\]b\.test\.js/)
+      .notExpect('stdout', /a.js/);
+
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
+    }
+    child.expect('stderr', /\[egg-bin] hotfix spawn-wrap/);
+    child.expect('code', 0)
+      .end(err => {
+        assert.ifError(err);
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-summary.json')));
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
+        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+        done();
+      });
+  });
+
   it('should success with COV_EXCLUDES', function* () {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'COV_EXCLUDES', 'ignore/*');
