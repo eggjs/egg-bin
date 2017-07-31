@@ -57,7 +57,7 @@ describe('test/lib/cmd/cov.test.js', () => {
     if (!process.env.NYC_ROOT_ID) {
       child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
     }
-    child.expect('stderr', /\[egg-bin] hotfix spawn-wrap/);
+    // child.expect('stderr', /\[egg-bin] hotfix spawn-wrap/);
     child.expect('code', 0)
       .end(err => {
         assert.ifError(err);

@@ -22,7 +22,6 @@
     "mz-modules": "^1.0.0",
     "nyc": "^11.1.0",
     "power-assert": "^1.4.4",
-    "spawn-wrap": "^1.3.8",
     "test-exclude": "^4.1.1",
     "ypkgfiles": "^1.4.0"
   },
@@ -59,7 +58,7 @@
     "test-local": "node bin/egg-bin.js test -t 3600000",
     "cov": "nyc -r lcov -r text-summary npm run test-local",
     "ci-test-only": "TESTS=test/lib/cmd/cov.test.js npm run test-local",
-    "ci": "npm run lint && npm run pkgfiles && npm run autod && npm run ci-test-only && npm run cov",
+    "ci": "npm run lint && npm run pkgfiles && npm run ci-test-only && npm run cov",
     "autod": "node bin/egg-bin.js autod --check"
   },
   "engines": {
