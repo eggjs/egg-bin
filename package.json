@@ -53,13 +53,13 @@
   "author": "fengmk2 <fengmk2@gmail.com> (https://fengmk2.com)",
   "scripts": {
     "lint": "eslint .",
-    "pkgfiles": "node bin/egg-bin.js pkgfiles --check",
+    "pkgfiles": "node bin/egg-bin.js pkgfiles",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "node bin/egg-bin.js test -t 3600000",
     "cov": "nyc -r lcov -r text-summary npm run test-local",
     "ci-test-only": "TESTS=test/lib/cmd/cov.test.js npm run test-local",
-    "ci": "npm run lint && npm run pkgfiles && npm run ci-test-only && npm run cov",
-    "autod": "node bin/egg-bin.js autod --check"
+    "ci": "npm run lint && npm run pkgfiles -- --check && npm run autod -- --check && npm run ci-test-only && npm run cov",
+    "autod": "node bin/egg-bin.js autod"
   },
   "engines": {
     "node": ">= 6.0.0"

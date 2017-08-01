@@ -43,9 +43,9 @@ Add `egg-bin` to `package.json` scripts:
     "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov",
     "lint": "eslint .",
-    "pkgfiles": "egg-bin pkgfiles --check",
-    "autod": "egg-bin autod --check",
-    "ci": "npm run lint && npm run autod && npm run pkgfiles && npm run cov"
+    "pkgfiles": "egg-bin pkgfiles",
+    "autod": "egg-bin autod",
+    "ci": "npm run lint && npm run autod -- --check && npm run pkgfiles -- --check && npm run cov"
   }
 }
 ```
@@ -169,7 +169,7 @@ $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 Generate `pkg.files` automatically before npm publish, see [ypkgfiles] for detail
 
 ```bash
-$ egg-bin pkgfiles --check
+$ egg-bin pkgfiles
 ```
 
 ### autod
@@ -177,7 +177,7 @@ $ egg-bin pkgfiles --check
 Generate `pkg.dependencies` and `pkg.devDependencies` automatically, see [autod] for detail
 
 ```bash
-$ egg-bin autod --check
+$ egg-bin autod
 ```
 
 ## Custom egg-bin for your team
