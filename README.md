@@ -43,7 +43,9 @@ Add `egg-bin` to `package.json` scripts:
     "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov",
     "lint": "eslint .",
-    "ci": "npm run lint && npm run cov"
+    "pkgfiles": "egg-bin pkgfiles",
+    "autod": "egg-bin autod",
+    "ci": "npm run lint && npm run autod -- --check && npm run pkgfiles -- --check && npm run cov"
   }
 }
 ```
@@ -170,6 +172,14 @@ Generate `pkg.files` automatically before npm publish, see [ypkgfiles] for detai
 $ egg-bin pkgfiles
 ```
 
+### autod
+
+Generate `pkg.dependencies` and `pkg.devDependencies` automatically, see [autod] for detail
+
+```bash
+$ egg-bin autod
+```
+
 ## Custom egg-bin for your team
 
 You maybe need a custom egg-bin to implement more custom features if your team has develop a framework base on egg.
@@ -256,3 +266,4 @@ run nsp check at /foo/bar with {}
 [power-assert]: https://github.com/power-assert-js/power-assert
 [ypkgfiles]: https://github.com/popomore/ypkgfiles
 [common-bin]: https://github.com/node-modules/common-bin
+[autod]: https://github.com/node-modules/autod
