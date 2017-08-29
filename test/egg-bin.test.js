@@ -10,7 +10,7 @@ describe('test/egg-bin.test.js', () => {
   describe('global options', () => {
     it('should show version', done => {
       coffee.fork(eggBin, [ '--version' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /\d+\.\d+\.\d+/)
         .expect('code', 0)
         .end(done);
