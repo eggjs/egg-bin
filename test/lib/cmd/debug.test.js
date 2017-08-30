@@ -11,19 +11,19 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   afterEach(mm.restore);
 
-  it('should startCluster success', done => {
-    coffee.fork(eggBin, [ 'debug' ], { cwd })
+  it('should startCluster success', () => {
+    return coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
       .expect('stderr', /Debugger listening/)
       // node 8 missing "chrome-devtools" url
       // .expect('stderr', /chrome-devtools:/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
-      .end(done);
+      .end();
   });
 
-  it('should startCluster with port', done => {
-    coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
+  it('should startCluster with port', () => {
+    return coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
       // .debug()
       .expect('stderr', /Debugger listening/)
       .expect('stdout', /"port":6001/)
@@ -31,17 +31,17 @@ describe('test/lib/cmd/debug.test.js', () => {
       .expect('stdout', /"baseDir":".*?demo-app"/)
       .expect('stdout', /"framework":".*?aliyun-egg"/)
       .expect('code', 0)
-      .end(done);
+      .end();
   });
 
-  it('should debug with $NODE_DEBUG_OPTION', done => {
+  it('should debug with $NODE_DEBUG_OPTION', () => {
     const env = Object.assign({}, process.env, { NODE_DEBUG_OPTION: '--inspect=5555' });
-    coffee.fork(eggBin, [ 'debug' ], { cwd, env })
+    return coffee.fork(eggBin, [ 'debug' ], { cwd, env })
       .debug()
       .expect('stderr', /Debugger listening.*5555/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
-      .end(done);
+      .end();
   });
 
   describe('auto detect available port', () => {
@@ -53,13 +53,13 @@ describe('test/lib/cmd/debug.test.js', () => {
 
     after(() => server.close());
 
-    it('should auto detect available port', done => {
-      coffee.fork(eggBin, [ 'debug' ], { cwd })
+    it('should auto detect available port', () => {
+      return coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
         .expect('stdout', /,"workers":1/)
         .expect('stderr', /\[egg-bin] server port 7001 is in use/)
         .expect('code', 0)
-        .end(done);
+        .end();
     });
   });
 });
