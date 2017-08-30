@@ -13,7 +13,7 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   it('should startCluster success', () => {
     return coffee.fork(eggBin, [ 'debug' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stderr', /Debugger listening/)
       // node 8 missing "chrome-devtools" url
       // .expect('stderr', /chrome-devtools:/)
@@ -22,17 +22,26 @@ describe('test/lib/cmd/debug.test.js', () => {
       .end();
   });
 
-  it('should startCluster with port', done => {
-    coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
+  it('should startCluster with port', () => {
+    return coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
       // .debug()
       .expect('stderr', /Debugger listening/)
       .expect('stdout', /"port":6001/)
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)
       .expect('stdout', /"framework":".*?aliyun-egg"/)
-      .expect('stdout', /--inspect/)
       .expect('code', 0)
-      .end(done);
+      .end();
+  });
+
+  it('should debug with $NODE_DEBUG_OPTION', () => {
+    const env = Object.assign({}, process.env, { NODE_DEBUG_OPTION: '--inspect=5555' });
+    return coffee.fork(eggBin, [ 'debug' ], { cwd, env })
+      // .debug()
+      .expect('stderr', /Debugger listening.*5555/)
+      .expect('stdout', /"workers":1/)
+      .expect('code', 0)
+      .end();
   });
 
   describe('auto detect available port', () => {
@@ -44,13 +53,13 @@ describe('test/lib/cmd/debug.test.js', () => {
 
     after(() => server.close());
 
-    it('should auto detect available port', done => {
-      coffee.fork(eggBin, [ 'debug' ], { cwd })
+    it('should auto detect available port', () => {
+      return coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
         .expect('stdout', /,"workers":1/)
         .expect('stderr', /\[egg-bin] server port 7001 is in use/)
         .expect('code', 0)
-        .end(done);
+        .end();
     });
   });
 });

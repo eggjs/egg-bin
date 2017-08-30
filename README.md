@@ -63,6 +63,8 @@ All the commands support these specific v8 options:
 $ egg-bin [command] --debug --es_staging
 ```
 
+if `process.env.NODE_DEBUG_OPTION` is provided (WebStorm etc), will use it as debug options.
+
 ### dev
 
 Start dev cluster on `local` env, it will start a master, an agent and a worker.
