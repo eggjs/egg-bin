@@ -42,7 +42,7 @@ describe('test/lib/cmd/cov.test.js', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
     const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
-      .debug()
+      // .debug()
       .beforeScript(path.join(__dirname, 'mock-win32.js'))
       .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
@@ -79,8 +79,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
     }
 
-    yield child.expect('code', 0)
-      .end();
+    yield child.expect('code', 0).end();
     assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
@@ -101,8 +100,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
     }
 
-    yield child.expect('code', 0)
-      .end();
+    yield child.expect('code', 0).end();
     assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
@@ -123,8 +121,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
     }
 
-    yield child.expect('code', 0)
-      .end();
+    yield child.expect('code', 0).end();
     assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
     assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));

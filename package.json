@@ -11,7 +11,7 @@
     "autod": "^2.9.0",
     "change-case": "^3.0.1",
     "co-mocha": "^1.2.0",
-    "common-bin": "^2.6.0",
+    "common-bin": "^2.6.1",
     "debug": "^3.0.1",
     "detect-port": "^1.2.1",
     "egg-utils": "^2.2.0",

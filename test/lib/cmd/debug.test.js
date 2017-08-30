@@ -37,7 +37,7 @@ describe('test/lib/cmd/debug.test.js', () => {
   it('should debug with $NODE_DEBUG_OPTION', () => {
     const env = Object.assign({}, process.env, { NODE_DEBUG_OPTION: '--inspect=5555' });
     return coffee.fork(eggBin, [ 'debug' ], { cwd, env })
-      .debug()
+      // .debug()
       .expect('stderr', /Debugger listening.*5555/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
