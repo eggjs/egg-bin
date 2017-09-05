@@ -13,11 +13,64 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   it('should startCluster success', () => {
     return coffee.fork(eggBin, [ 'debug' ], { cwd })
+      .debug()
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debug":true/)
+      .notExpect('stdout', /process.execArgv:/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('--debug-port=7777', () => {
+    return coffee.fork(eggBin, [ 'debug', '--debug-port=7777' ], { cwd })
       // .debug()
-      .expect('stderr', /Debugger listening/)
-      // node 8 missing "chrome-devtools" url
-      // .expect('stderr', /chrome-devtools:/)
-      .expect('stdout', /"workers":1/)
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debug":7777/)
+      .notExpect('stdout', /process.execArgv:/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('--inspect=7777', () => {
+    return coffee.fork(eggBin, [ 'debug', '--inspect=7777' ], { cwd })
+      // .debug()
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debug":7777/)
+      .notExpect('stdout', /options: {.*"inspect"/)
+      .notExpect('stdout', /process.execArgv:/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('--debug-brk --debug-agent --debug-agent-brk --inspect-brk', () => {
+    return coffee.fork(eggBin, [ 'debug', '--debug-brk', '--debug-agent', '--debug-agent-brk', '--inspect-brk' ], { cwd })
+      // .debug()
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debugBrk":true,"debugAgent":true,"debugAgentBrk":true,"debug":true/)
+      .notExpect('stdout', /options: {.*"inspect"/)
+      .notExpect('stdout', /process.execArgv:/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('--brk --agent', () => {
+    return coffee.fork(eggBin, [ 'debug', '--brk', '--agent' ], { cwd })
+      // .debug()
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debugBrk":true,"debugAgent":true,"debug":true/)
+      .notExpect('stdout', /options: {.*"inspect"/)
+      .notExpect('stdout', /process.execArgv:/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('--agent=6666', () => {
+    return coffee.fork(eggBin, [ 'debug', '--agent=6666' ], { cwd })
+      // .debug()
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {"debugAgent":6666,"debug":true/)
+      .notExpect('stdout', /options: {.*"inspect"/)
+      .notExpect('stdout', /process.execArgv:/)
       .expect('code', 0)
       .end();
   });
@@ -25,7 +78,8 @@ describe('test/lib/cmd/debug.test.js', () => {
   it('should startCluster with port', () => {
     return coffee.fork(eggBin, [ 'debug', '--port', '6001' ], { cwd })
       // .debug()
-      .expect('stderr', /Debugger listening/)
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debug":true/)
       .expect('stdout', /"port":6001/)
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)
@@ -35,10 +89,12 @@ describe('test/lib/cmd/debug.test.js', () => {
   });
 
   it('should debug with $NODE_DEBUG_OPTION', () => {
-    const env = Object.assign({}, process.env, { NODE_DEBUG_OPTION: '--inspect=5555' });
+    const env = Object.assign({}, process.env, { NODE_DEBUG_OPTION: '--inspect-brk=6666' });
     return coffee.fork(eggBin, [ 'debug' ], { cwd, env })
-      // .debug()
-      .expect('stderr', /Debugger listening.*5555/)
+      .debug()
+      .notExpect('stderr', /Debugger listening/)
+      .expect('stdout', /options: {.*"debug":6666/)
+      .expect('stdout', /options: {.*"debugBrk":true/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
       .end();
