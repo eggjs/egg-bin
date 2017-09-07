@@ -1,4 +1,12 @@
 
+4.3.0 / 2017-09-07
+==================
+
+**others**
+  * [[`83afba3`](http://github.com/eggjs/egg-bin/commit/83afba3a43e9e7d233263f6deba792d1f4c1a1d9)] - deps: update common-bin (TZ <<atian25@qq.com>>)
+  * [[`f7628b2`](http://github.com/eggjs/egg-bin/commit/f7628b22042168d522b9b69344c9a54ab1fa1305)] - refactor: egg-bin debug pass debugOptions to startCluster (TZ <<atian25@qq.com>>)
+  * [[`831c77d`](http://github.com/eggjs/egg-bin/commit/831c77d3d0a269e1ab1243471ef34bb53df0fb80)] - refactor: use common-bin parse execArgv (TZ <<atian25@qq.com>>)
+
 4.2.0 / 2017-08-30
 ==================
 
