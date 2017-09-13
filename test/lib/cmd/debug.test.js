@@ -4,6 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('egg-mock');
 const net = require('net');
+const semver = require('semver');
 
 describe('test/lib/cmd/debug.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -65,21 +66,24 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   describe('real egg', () => {
     const cwd = path.join(__dirname, '../../fixtures/example');
+    const newDebugger = semver.gte(process.version, '8.0.0');
 
-    it('should proxy', () => {
-      return coffee.fork(eggBin, [ 'debug' ], { cwd })
-        // .debug()
-        .expect('stderr', /Debugger listening/)
-        .expect('stdout', /DevTools → chrome-devtools:.*:9999/)
+    it('should proxy', function* () {
+      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
+      // app.debug();
+      if (newDebugger) app.expect('stdout', /DevTools → chrome-devtools:.*:9999/);
+      yield app.expect('stderr', /Debugger listening/)
+        .expect('stdout', /Debug Proxy online, now you could attach to 9999/)
         .expect('code', 0)
         .end();
     });
 
-    it('should proxy with port', () => {
-      return coffee.fork(eggBin, [ 'debug', '--proxy=6666' ], { cwd })
-        // .debug()
-        .expect('stderr', /Debugger listening/)
-        .expect('stdout', /DevTools → chrome-devtools:.*:6666/)
+    it('should proxy with port', function* () {
+      const app = coffee.fork(eggBin, [ 'debug', '--proxy=6666' ], { cwd });
+      // app.debug();
+      if (newDebugger) app.expect('stdout', /DevTools → chrome-devtools:.*:6666/);
+      yield app.expect('stderr', /Debugger listening/)
+        .expect('stdout', /Debug Proxy online, now you could attach to 6666/)
         .expect('code', 0)
         .end();
     });
