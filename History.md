@@ -1,4 +1,18 @@
 
+4.3.1 / 2017-09-13
+==================
+
+**features**
+  * [[`678b83d`](http://github.com/eggjs/egg-bin/commit/678b83d64ad850ac390607ee281e5336473da808)] - feat: debug proxy support (TZ <<atian25@qq.com>>)
+  * [[`c65a00d`](http://github.com/eggjs/egg-bin/commit/c65a00dc69fbca3924bcd848c94bc0b11a3ee17a)] - feat: revert to 4.2.0 (TZ <<atian25@qq.com>>)
+
+**fixes**
+  * [[`469739f`](http://github.com/eggjs/egg-bin/commit/469739f1b494c647fcb06e0db432d435ed9e1805)] - fix: debug at 6.x (TZ <<atian25@qq.com>>)
+
+**others**
+  * [[`2be5245`](http://github.com/eggjs/egg-bin/commit/2be52459ed22dd3c0a22b080f7e29ae876d2914f)] - docs: add readme (TZ <<atian25@qq.com>>)
+  * [[`3e8ce0d`](http://github.com/eggjs/egg-bin/commit/3e8ce0d3aaaea793f466b768f45f77e4fcc7b001)] - refactor: use common-bin parse execArgv (TZ <<atian25@qq.com>>)
+
 4.3.0 / 2017-09-07
 ==================
 
