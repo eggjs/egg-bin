@@ -85,19 +85,9 @@ $ egg-bin dev
 
 Debug egg app with [V8 Inspector Integration](https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js).
 
-automatically detect the protocol used by the targeted runtime, 8.0+ the new 'inspector' protocol is used.
-
 ```bash
 $ egg-bin debug
 ```
-
-##### options
-
-- all `egg-bin dev` options is accepted.
-- `--debug-port=6666` worker debug port, default to 9229(inspect) or 5858(debug), also has `--inspect` alias.
-- `--debug-brk` whether stop at the top of worker initial script, also has `--brk` alias.
-- `--debug-agent=7777` whether debug agent, could pass Number as debugPort, default to 9227(inspect) or 5856(debug), also has `--agent` alias.
-- `--debug-agent-brk` whether stop at the top of agent initial script.
 
 ### test
 
