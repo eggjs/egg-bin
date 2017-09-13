@@ -130,14 +130,6 @@ describe('test/lib/cmd/dev.test.js', () => {
     });
   });
 
-  it.skip('should startCluster with execArgv --debug', done => {
-    coffee.fork(eggBin, [ 'dev', '--debug=7000' ], { cwd })
-      .debug()
-      .expect('stderr', /Debugger listening on .*7000/)
-      .expect('code', 0)
-      .end(done);
-  });
-
   it('should startCluster with execArgv --inspect', done => {
     coffee.fork(eggBin, [ 'dev', '--inspect=7000' ], { cwd })
       // .debug()

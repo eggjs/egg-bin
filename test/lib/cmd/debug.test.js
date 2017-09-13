@@ -2,7 +2,7 @@
 
 const path = require('path');
 const coffee = require('coffee');
-const mm = require('mm');
+const mm = require('egg-mock');
 const net = require('net');
 
 describe('test/lib/cmd/debug.test.js', () => {
@@ -58,6 +58,28 @@ describe('test/lib/cmd/debug.test.js', () => {
       // .debug()
         .expect('stdout', /,"workers":1/)
         .expect('stderr', /\[egg-bin] server port 7001 is in use/)
+        .expect('code', 0)
+        .end();
+    });
+  });
+
+  describe('real egg', () => {
+    const cwd = path.join(__dirname, '../../fixtures/example');
+
+    it('should proxy', () => {
+      return coffee.fork(eggBin, [ 'debug' ], { cwd })
+        // .debug()
+        .expect('stderr', /Debugger listening/)
+        .expect('stdout', /DevTools → chrome-devtools:.*:9999/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should proxy with port', () => {
+      return coffee.fork(eggBin, [ 'debug', '--proxy=6666' ], { cwd })
+        // .debug()
+        .expect('stderr', /Debugger listening/)
+        .expect('stdout', /DevTools → chrome-devtools:.*:6666/)
         .expect('code', 0)
         .end();
     });

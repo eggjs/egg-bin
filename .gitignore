@@ -4,6 +4,8 @@ coverage/
 !test/fixtures/demo-app/node_modules/aliyun-egg/node_modules/
 !test/fixtures/test-files-glob/**
 !test/fixtures/test-files-stack/node_modules/
+!test/fixtures/example/node_modules/
+**/run/*.json
 .tmp
 .vscode
 *.log
