@@ -66,7 +66,7 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   describe('real egg', () => {
     const cwd = path.join(__dirname, '../../fixtures/example');
-    const newDebugger = semver.gte(process.version, '8.0.0');
+    const newDebugger = semver.gte(process.version, '7.0.0');
 
     it('should proxy', function* () {
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
