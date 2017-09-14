@@ -85,7 +85,7 @@ $ egg-bin dev
 
 Debug egg app with [V8 Inspector Integration](https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js).
 
-automatically detect the protocol used by the targeted runtime, 8.0+ the new 'inspector' protocol is used.
+automatically detect the protocol, use the new `inspector` when the targeted runtime >=7.0.0 .
 
 use [inspector-proxy](https://github.com/whxaxes/inspector-proxy) to proxy worker debug, so you don't need to worry about reload.
 
