@@ -1,4 +1,10 @@
 
+4.3.2 / 2017-09-14
+==================
+
+**fixes**
+  * [[`2e3498e`](http://github.com/eggjs/egg-bin/commit/2e3498e6ca1b81814a2d1a4db4a8a37fb0d6d880)] - fix: use inspector at 7.x+ (#74) (TZ | 天猪 <<atian25@qq.com>>)
+
 4.3.1 / 2017-09-13
 ==================
 
