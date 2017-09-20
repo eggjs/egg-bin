@@ -69,6 +69,7 @@ describe('test/lib/cmd/debug.test.js', () => {
     const newDebugger = semver.gte(process.version, '7.0.0');
 
     it('should proxy', function* () {
+      mm(process.env, 'VSCODE_CLI', '');
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
       // app.debug();
       if (newDebugger) app.expect('stdout', /DevTools → chrome-devtools:.*:9999/);
@@ -79,11 +80,23 @@ describe('test/lib/cmd/debug.test.js', () => {
     });
 
     it('should proxy with port', function* () {
+      mm(process.env, 'VSCODE_CLI', '');
       const app = coffee.fork(eggBin, [ 'debug', '--proxy=6666' ], { cwd });
       // app.debug();
       if (newDebugger) app.expect('stdout', /DevTools → chrome-devtools:.*:6666/);
       yield app.expect('stderr', /Debugger listening/)
         .expect('stdout', /Debug Proxy online, now you could attach to 6666/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should not print devtools at vscode', function* () {
+      mm(process.env, 'VSCODE_CLI', '1');
+      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
+      app.debug();
+      if (newDebugger) app.notExpect('stdout', /DevTools → chrome-devtools:.*:9999/);
+      yield app.expect('stderr', /Debugger listening/)
+        .expect('stdout', /Debug Proxy online, now you could attach to 9999/)
         .expect('code', 0)
         .end();
     });
