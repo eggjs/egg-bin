@@ -2,6 +2,8 @@
 4.3.4 / 2017-10-09
 ==================
 
+Upgrade mocha@4, see https://boneskull.com/mocha-v4-nears-release
+
 **fixes**
   * [[`e3c33e9`](http://github.com/eggjs/egg-bin/commit/e3c33e9fbc8c67ce733237ff7c0c41f35654712f)] - fix: package.json to reduce vulnerabilities (#81) (Snyk bot <<snyk-bot@users.noreply.github.com>>)
 
