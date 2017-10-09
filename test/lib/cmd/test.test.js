@@ -110,7 +110,7 @@ describe('test/lib/cmd/test.test.js', () => {
       .end();
   });
 
-  it.only('should force exit', () => {
+  it('should force exit', () => {
     const cwd = path.join(__dirname, '../../fixtures/no-exit');
     return coffee.fork(eggBin, [ 'test' ], { cwd })
       .debug()
