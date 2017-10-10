@@ -1,4 +1,13 @@
 
+4.3.5 / 2017-10-10
+==================
+
+**fixes**
+  * [[`7386194`](http://github.com/eggjs/egg-bin/commit/7386194d94ec8b0d0faee766fe98f0f4f2ece8a2)] - fix: force exit when runner complete (#83) (Haoliang Gao <<sakura9515@gmail.com>>)
+
+**others**
+  * [[`a7c4b53`](http://github.com/eggjs/egg-bin/commit/a7c4b53c3aab8ee4a7c3c65e39f6480de97a9ea1)] - chore: remove incorrect history (#82) (Haoliang Gao <<sakura9515@gmail.com>>)
+
 4.3.4 / 2017-10-09
 ==================
 
