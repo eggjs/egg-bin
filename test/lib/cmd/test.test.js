@@ -110,6 +110,14 @@ describe('test/lib/cmd/test.test.js', () => {
       .end();
   });
 
+  it('should force exit', () => {
+    const cwd = path.join(__dirname, '../../fixtures/no-exit');
+    return coffee.fork(eggBin, [ 'test' ], { cwd })
+      .debug()
+      .expect('code', 0)
+      .end();
+  });
+
   describe('simplify mocha error stack', () => {
     const cwd = path.join(__dirname, '../../fixtures/test-files-stack');
 
