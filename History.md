@@ -2,36 +2,10 @@
 4.3.4 / 2017-10-09
 ==================
 
-**features**
-  * [[`678b83d`](http://github.com/eggjs/egg-bin/commit/678b83d64ad850ac390607ee281e5336473da808)] - feat: debug proxy support (TZ <<atian25@qq.com>>)
-  * [[`c65a00d`](http://github.com/eggjs/egg-bin/commit/c65a00dc69fbca3924bcd848c94bc0b11a3ee17a)] - feat: revert to 4.2.0 (TZ <<atian25@qq.com>>)
-  * [[`1340ce7`](http://github.com/eggjs/egg-bin/commit/1340ce7b6e6a326fde794d9567e5ece88ff1945b)] - feat: support $NODE_DEBUG_OPTION (#71) (TZ | 天猪 <<atian25@qq.com>>)
-  * [[`0f0c7ab`](http://github.com/eggjs/egg-bin/commit/0f0c7ab8a38f05db5d78f8e94c71894eea137155)] - feat: add `egg-bin autod --check` command (#70) (fengmk2 <<fengmk2@gmail.com>>)
+Upgrade mocha@4, see https://boneskull.com/mocha-v4-nears-release
 
 **fixes**
   * [[`e3c33e9`](http://github.com/eggjs/egg-bin/commit/e3c33e9fbc8c67ce733237ff7c0c41f35654712f)] - fix: package.json to reduce vulnerabilities (#81) (Snyk bot <<snyk-bot@users.noreply.github.com>>)
-  * [[`2e3498e`](http://github.com/eggjs/egg-bin/commit/2e3498e6ca1b81814a2d1a4db4a8a37fb0d6d880)] - fix: use inspector at 7.x+ (#74) (TZ | 天猪 <<atian25@qq.com>>)
-  * [[`469739f`](http://github.com/eggjs/egg-bin/commit/469739f1b494c647fcb06e0db432d435ed9e1805)] - fix: debug at 6.x (TZ <<atian25@qq.com>>)
-
-**others**
-  * [[`b55c96f`](http://github.com/eggjs/egg-bin/commit/b55c96f1f534572dbdb939f719d525e9ec4f477b)] - chore: dont print devtools link at vscode (#75) (TZ | 天猪 <<atian25@qq.com>>)
-  * [[`2be5245`](http://github.com/eggjs/egg-bin/commit/2be52459ed22dd3c0a22b080f7e29ae876d2914f)] - docs: add readme (TZ <<atian25@qq.com>>)
-  * [[`3e8ce0d`](http://github.com/eggjs/egg-bin/commit/3e8ce0d3aaaea793f466b768f45f77e4fcc7b001)] - refactor: use common-bin parse execArgv (TZ <<atian25@qq.com>>)
-  * [[`83afba3`](http://github.com/eggjs/egg-bin/commit/83afba3a43e9e7d233263f6deba792d1f4c1a1d9)] - deps: update common-bin (TZ <<atian25@qq.com>>)
-  * [[`f7628b2`](http://github.com/eggjs/egg-bin/commit/f7628b22042168d522b9b69344c9a54ab1fa1305)] - refactor: egg-bin debug pass debugOptions to startCluster (TZ <<atian25@qq.com>>)
-  * [[`831c77d`](http://github.com/eggjs/egg-bin/commit/831c77d3d0a269e1ab1243471ef34bb53df0fb80)] - refactor: use common-bin parse execArgv (TZ <<atian25@qq.com>>)
- * [new branch]      debug             -> origin/debug
- * [new branch]      snyk-fix-2e1f9b2f -> origin/snyk-fix-2e1f9b2f
- * [new branch]      snyk-fix-3ae887f5 -> origin/snyk-fix-3ae887f5
- * [new branch]      snyk-fix-9f4fff4b -> origin/snyk-fix-9f4fff4b
- * [new branch]      snyk-fix-b1bc908b -> origin/snyk-fix-b1bc908b
- * [new tag]         4.0.4             -> 4.0.4
- * [new tag]         4.1.0             -> 4.1.0
- * [new tag]         4.2.0             -> 4.2.0
- * [new tag]         4.3.0             -> 4.3.0
- * [new tag]         4.3.1             -> 4.3.1
- * [new tag]         4.3.2             -> 4.3.2
- * [new tag]         4.3.3             -> 4.3.3
 
 
 4.3.3 / 2017-09-21
