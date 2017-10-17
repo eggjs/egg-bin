@@ -161,7 +161,7 @@ describe('test/lib/cmd/test.test.js', () => {
           assert(stdout.match(/Error: this is an error/));
           assert(stdout.match(/at Promise .*promise.test.js:\d+:\d+/));
           assert(stdout.match(/at Context\.<anonymous> .*promise.test.js:\d+:\d+/));
-          assert(stdout.match(/\bat\s+/g).length > 3);
+          assert(stdout.match(/\bat\s+/g).length >= 3);
           assert(code === 1);
           done(err);
         });
