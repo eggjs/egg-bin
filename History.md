@@ -1,4 +1,10 @@
 
+4.3.7 / 2017-12-13
+==================
+
+**fixes**
+  * [[`6689962`](http://github.com/eggjs/egg-bin/commit/6689962082fb86591adfcaf0d85687096cdb851d)] - fix: make sure files sort in all platforms (#86) (fengmk2 <<fengmk2@gmail.com>>)
+
 4.3.6 / 2017-11-30
 ==================
 
