@@ -202,10 +202,6 @@ $ egg-bin check
 ### Rules:
 - [eslint-plugin-eggache](https://github.com/eggjs/eslint-plugin-eggache)
 
-#### options
-
-You can pass any [eslint](https://eslint.org/docs/user-guide/command-line-interface) argv.
-
 ## Custom egg-bin for your team
 
 You maybe need a custom egg-bin to implement more custom features if your team has develop a framework base on egg.
