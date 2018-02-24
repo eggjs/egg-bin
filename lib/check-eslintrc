@@ -1,0 +1,6 @@
+{
+  "extends": "plugin:eggache/recommended",
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
+}

@@ -1,3 +1,4 @@
 node_modules/
 coverage/
 test/fixtures/enzyme-example-mocha/
+test/fixtures/check-eggache/
