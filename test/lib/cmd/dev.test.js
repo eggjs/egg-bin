@@ -137,4 +137,14 @@ describe('test/lib/cmd/dev.test.js', () => {
       .expect('code', 0)
       .end(done);
   });
+
+  it('should support --require', () => {
+    const script = path.join(__dirname, '../../fixtures/require-script');
+    mm(process.env, 'NODE_ENV', 'development');
+    return coffee.fork(eggBin, [ 'dev', '--require', script ], { cwd })
+      // .debug()
+      .expect('stdout', /hey, you require me by --require/)
+      .expect('code', 0)
+      .end();
+  });
 });
