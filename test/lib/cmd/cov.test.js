@@ -14,7 +14,14 @@ describe('test/lib/cmd/cov.test.js', () => {
   beforeEach(() => rimraf(path.join(cwd, 'coverage')));
   afterEach(mm.restore);
 
-  it('should success', done => {
+  function assertCoverage(cwd) {
+    assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
+    assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-summary.json')));
+    assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
+    assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+  }
+
+  it('should success', function* () {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
     const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
@@ -29,18 +36,12 @@ describe('test/lib/cmd/cov.test.js', () => {
       child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
     }
 
-    child.expect('code', 0)
-      .end(err => {
-        assert.ifError(err);
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-summary.json')));
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-        done();
-      });
+    yield child.expect('code', 0).end();
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
   });
 
-  it('should hotfixSpawnWrap success on mock windows', done => {
+  it('should hotfixSpawnWrap success on mock windows', function* () {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
     const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
@@ -55,15 +56,10 @@ describe('test/lib/cmd/cov.test.js', () => {
     if (!process.env.NYC_ROOT_ID) {
       child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
     }
-    child.expect('code', 0)
-      .end(err => {
-        assert.ifError(err);
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-summary.json')));
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-        assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-        done();
-      });
+
+    yield child.expect('code', 0).end();
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
   });
 
   it('should success with COV_EXCLUDES', function* () {
@@ -82,11 +78,12 @@ describe('test/lib/cmd/cov.test.js', () => {
     }
 
     yield child.expect('code', 0).end();
-    assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-    assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-    assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-    assert(!/ignore[\/|\\]a.js/.test(lcov));
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      assertCoverage(cwd);
+      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+      assert(!/ignore[\/|\\]a.js/.test(lcov));
+    }
   });
 
   it('should success with -x to ignore one dirs', function* () {
@@ -103,11 +100,12 @@ describe('test/lib/cmd/cov.test.js', () => {
     }
 
     yield child.expect('code', 0).end();
-    assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-    assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-    assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-    assert(!/ignore[\/|\\]a.js/.test(lcov));
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      assertCoverage(cwd);
+      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+      assert(!/ignore[\/|\\]a.js/.test(lcov));
+    }
   });
 
   it('should success with -x to ignore multi dirs', function* () {
@@ -124,11 +122,12 @@ describe('test/lib/cmd/cov.test.js', () => {
     }
 
     yield child.expect('code', 0).end();
-    assert(fs.existsSync(path.join(cwd, 'coverage/coverage-final.json')));
-    assert(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
-    assert(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
-    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-    assert(!/ignore[\/|\\]a.js/.test(lcov));
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) {
+      assertCoverage(cwd);
+      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+      assert(!/ignore[\/|\\]a.js/.test(lcov));
+    }
   });
 
   it('should fail when test fail', done => {
