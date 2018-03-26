@@ -192,16 +192,6 @@ Generate `pkg.dependencies` and `pkg.devDependencies` automatically, see [autod]
 $ egg-bin autod
 ```
 
-## check
-
-Check egg project for collect useful infomation to report issue.
-
-```bash
-$ egg-bin check
-```
-### Rules:
-- [eslint-plugin-eggache](https://github.com/eggjs/eslint-plugin-eggache)
-
 ## Custom egg-bin for your team
 
 You maybe need a custom egg-bin to implement more custom features if your team has develop a framework base on egg.

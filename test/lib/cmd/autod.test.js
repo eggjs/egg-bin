@@ -18,9 +18,9 @@ describe('test/lib/cmd/autod.test.js', () => {
   it('should autod check fail', function* () {
     const cwd = path.join(__dirname, '../../fixtures/autod-missing');
     yield coffee.fork(eggBin, [ 'autod', '--check' ], { cwd })
-      // .debug()
+      .debug()
       .expect('code', 1)
-      .expect('stderr', /\[ERROR\] Missing dependencies: \["urllib"\]/)
+      .expect('stderr', /\[ERROR\].*Missing dependencies: \["urllib"\]/)
       .end();
   });
 
