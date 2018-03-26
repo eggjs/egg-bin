@@ -5,11 +5,13 @@ const path = require('path');
 const assert = require('assert');
 const coffee = require('coffee');
 const mm = require('mm');
+const rimraf = require('mz-modules/rimraf');
 
 describe('test/lib/cmd/cov.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
   const cwd = path.join(__dirname, '../../fixtures/test-files');
 
+  beforeEach(() => rimraf(path.join(cwd, 'coverage')));
   afterEach(mm.restore);
 
   it('should success', done => {
