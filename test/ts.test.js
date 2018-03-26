@@ -35,7 +35,7 @@ describe('test/ts.test.js', () => {
   });
 
   it('should start app', () => {
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') { // eslint-disable-line eqeqeq
+    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
       console.log('skip egg@1');
       return;
     }
