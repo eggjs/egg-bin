@@ -17,7 +17,7 @@ describe('test/ts.test.js', () => {
       .debug()
       .expect('stdout', /### egg from ts/)
       .expect('stdout', /options.typescript=true/)
-      .expect('stdout', /egg started/)
+      .expect('stdout', /started/)
       .expect('code', 0)
       .end();
   });
@@ -43,7 +43,7 @@ describe('test/ts.test.js', () => {
     return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
       .debug()
       .expect('stdout', /hi, egg, 12345/)
-      .expect('stdout', /egg started/)
+      .expect('stdout', /started/)
       .expect('code', 0)
       .end();
   });
