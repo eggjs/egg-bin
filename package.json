@@ -48,7 +48,8 @@
     "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
-    "semver": "^5.4.1"
+    "semver": "^5.4.1",
+    "typescript": "^2.7.2"
   },
   "repository": {
     "type": "git",
