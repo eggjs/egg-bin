@@ -13,10 +13,10 @@ describe('test/index.test.ts', () => {
   });
   after(() => app.close());
   it('should work', async () => {
-    // await app
-    //   .httpRequest()
-    //   .get('/')
-    //   .expect('hi, egg')
-    //   .expect(200);
+    await app
+      .httpRequest()
+      .get('/')
+      .expect('hi, egg')
+      .expect(200);
   });
 });

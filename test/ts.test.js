@@ -56,8 +56,8 @@ describe('test/ts.test.js', () => {
     cwd = path.join(__dirname, './fixtures/example-ts');
     return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
       .debug()
-      // .expect('stdout', /hi, egg, 12345/)
-      // .expect('stdout', /egg started/)
+      .expect('stdout', /hi, egg, 12345/)
+      .expect('stdout', /egg started/)
       .expect('code', 0)
       .end();
   });
