@@ -7,7 +7,6 @@ import * as path from 'path';
 describe('test/index.test.ts', () => {
   let app: BaseMockApplication<Application, Context>;
   before(() => {
-    // tslint:disable-next-line
     app = mock.app({ typescript: true } as MockOption);
     return app.ready();
   });
