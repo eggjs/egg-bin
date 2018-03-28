@@ -33,36 +33,41 @@ describe('test/ts.test.js', () => {
       .end();
   });
 
-  it('should start app', () => {
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-      console.log('skip egg@1');
-      return;
-    }
-    cwd = path.join(__dirname, './fixtures/example-ts');
-    return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
-      // .debug()
-      .expect('stdout', /hi, egg, 12345/)
-      .expect('stdout', /started/)
-      .expect('code', 0)
-      .end();
-  });
+  describe('real application', () => {
+    before(() => {
+      cwd = path.join(__dirname, './fixtures/example-ts');
+    });
+    it('should start app', () => {
+      if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
+        console.log('skip egg@1');
+        return;
+      }
+      return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
+        // .debug()
+        .expect('stdout', /hi, egg, 12345/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
 
-  it('should test app', () => {
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-      console.log('skip egg@1');
-      return;
-    }
-    cwd = path.join(__dirname, './fixtures/example-ts');
-    return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
-      // .debug()
-      .expect('stdout', /hi, egg, 123456/)
-      .expect('stdout', /should work/)
-      .expect('code', 0)
-      .end();
+    it('should test app', () => {
+      if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
+        console.log('skip egg@1');
+        return;
+      }
+      return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
+        // .debug()
+        .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', /should work/)
+        .expect('code', 0)
+        .end();
+    });
   });
 
   describe('egg.typescript = true', () => {
-    cwd = path.join(__dirname, './fixtures/example-ts-pkg');
+    before(() => {
+      cwd = path.join(__dirname, './fixtures/example-ts-pkg');
+    });
 
     it('should start app', () => {
       if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
