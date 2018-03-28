@@ -80,6 +80,8 @@ $ egg-bin dev
 - `--port` server port, default to `7001`.
 - `--cluster` worker process number, skip this argvs will start only `1` worker, provide this without value will start `cpu` count worker.
 - `--sticky` start a sticky cluster server, default to `false`.
+- `--typescript` / `--ts` enable typescript support, default to `false`.
+- `--require` will add to `execArgv`, support multiple.
 
 ### debug
 
@@ -130,6 +132,7 @@ You can pass any mocha argv.
 - `--grep` only run tests matching <pattern>
 - `--timeout` milliseconds, default to 30000
 - `--full-trace` display the full stack trace, default to false.
+- `--typescript` / `--ts` enable typescript support, default to `false`.
 - see more at https://mochajs.org/#usage
 
 #### environment
