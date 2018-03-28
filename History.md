@@ -1,4 +1,10 @@
 
+4.5.0 / 2018-03-28
+==================
+
+  * feat: support typescript (#89)
+  * feat: set EGG_MASTER_CLOSE_TIMEOUT when run dev (#88)
+
 4.4.1 / 2018-03-26
 ==================
 
