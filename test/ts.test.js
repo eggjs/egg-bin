@@ -15,7 +15,6 @@ describe('test/ts.test.js', () => {
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'dev', '--typescript' ], { cwd })
       // .debug()
-      .expect('stdout', /### egg from ts/)
       .expect('stdout', /options.typescript=true/)
       .expect('stdout', /started/)
       .expect('code', 0)
@@ -69,10 +68,9 @@ describe('test/ts.test.js', () => {
     }
     cwd = path.join(__dirname, './fixtures/example-ts');
     return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
-      // .debug()
+      .debug()
       .expect('stdout', /hi, egg, 123456/)
-      .expect('stdout', /should work/)
-      .expect('stdout', /Statements.*100%/)
+      .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
       .expect('code', 0)
       .end();
   });
