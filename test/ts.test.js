@@ -61,4 +61,19 @@ describe('test/ts.test.js', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('should cov app', () => {
+    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
+      console.log('skip egg@1');
+      return;
+    }
+    cwd = path.join(__dirname, './fixtures/example-ts');
+    return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
+      // .debug()
+      .expect('stdout', /hi, egg, 123456/)
+      .expect('stdout', /should work/)
+      .expect('stdout', /Statements.*100%/)
+      .expect('code', 0)
+      .end();
+  });
 });

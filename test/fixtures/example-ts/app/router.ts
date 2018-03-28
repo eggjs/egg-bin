@@ -1,9 +1,7 @@
 'use strict';
 
-import { Application, Context } from 'egg';
+import { Application } from 'egg';
 
 export default (app: Application) => {
-  app.router.get('/', function* (this: Context) {
-    this.body = `hi, egg`;
-  });
+  app.router.get('/', app.controller.home.index);
 };
