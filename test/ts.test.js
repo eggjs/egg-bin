@@ -14,7 +14,7 @@ describe('test/ts.test.js', () => {
     cwd = path.join(__dirname, './fixtures/ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'dev', '--typescript' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /### egg from ts/)
       .expect('stdout', /options.typescript=true/)
       .expect('stdout', /started/)
@@ -26,7 +26,7 @@ describe('test/ts.test.js', () => {
     cwd = path.join(__dirname, './fixtures/ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
-      .debug()
+      // .debug()
       .notExpect('stdout', /false == true/)
       .notExpect('stdout', /should not load js files/)
       .expect('stdout', /--- \[string\] 'wrong assert ts'/)
@@ -41,7 +41,7 @@ describe('test/ts.test.js', () => {
     }
     cwd = path.join(__dirname, './fixtures/example-ts');
     return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /hi, egg, 12345/)
       .expect('stdout', /started/)
       .expect('code', 0)
@@ -55,7 +55,7 @@ describe('test/ts.test.js', () => {
     }
     cwd = path.join(__dirname, './fixtures/example-ts');
     return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /hi, egg, 123456/)
       .expect('stdout', /should work/)
       .expect('code', 0)
