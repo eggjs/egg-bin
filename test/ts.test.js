@@ -34,14 +34,16 @@ describe('test/ts.test.js', () => {
   });
 
   describe('real application', () => {
+    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
+      console.log('skip egg@1');
+      return;
+    }
+
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts');
     });
+
     it('should start app', () => {
-      if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-        console.log('skip egg@1');
-        return;
-      }
       return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 12345/)
@@ -51,10 +53,6 @@ describe('test/ts.test.js', () => {
     });
 
     it('should test app', () => {
-      if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-        console.log('skip egg@1');
-        return;
-      }
       return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
@@ -62,18 +60,28 @@ describe('test/ts.test.js', () => {
         .expect('code', 0)
         .end();
     });
+
+    it('should cov app', () => {
+      return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
+        .debug()
+        .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('code', 0)
+        .end();
+    });
   });
 
   describe('egg.typescript = true', () => {
+    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
+      console.log('skip egg@1');
+      return;
+    }
+
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts-pkg');
     });
 
     it('should start app', () => {
-      if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-        console.log('skip egg@1');
-        return;
-      }
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 12345/)
@@ -83,13 +91,18 @@ describe('test/ts.test.js', () => {
     });
 
     it('should test app', () => {
-      if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-        console.log('skip egg@1');
-        return;
-      }
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should cov app', () => {
+      return coffee.fork(eggBin, [ 'cov' ], { cwd })
+        .debug()
+        .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
     });
