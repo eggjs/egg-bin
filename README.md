@@ -159,7 +159,7 @@ TEST_TIMEOUT=2000 egg-bin test
 
 ### cov
 
-Using [istanbul] to run code coverage, it support all test params above.
+Using [nyc] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
@@ -169,6 +169,7 @@ You can pass any mocha argv.
 
 - `-x` add dir ignore coverage, support multiple argv
 - `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
+- `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
 - also support all test params above.
 
 #### environment
