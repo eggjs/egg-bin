@@ -1,4 +1,11 @@
 
+4.6.0 / 2018-03-30
+==================
+
+  * chore: don't need to log at vscode and webstorm (#93)
+  * feat: support egg.typescript (#92)
+  * feat: cov support typescript (#91)
+
 4.5.0 / 2018-03-28
 ==================
 
