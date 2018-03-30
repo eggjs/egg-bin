@@ -93,10 +93,21 @@ describe('test/lib/cmd/debug.test.js', () => {
     it('should not print devtools at vscode', function* () {
       mm(process.env, 'VSCODE_CLI', '1');
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
-      app.debug();
-      if (newDebugger) app.notExpect('stdout', /DevTools → chrome-devtools:.*:9999/);
+      // app.debug();
       yield app.expect('stderr', /Debugger listening/)
-        .expect('stdout', /Debug Proxy online, now you could attach to 9999/)
+        .notExpect('stdout', /DevTools → chrome-devtools:.*:9999/)
+        .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should not print devtools at webstorm', function* () {
+      mm(process.env, 'NODE_DEBUG_OPTION', '--debug-port=5555');
+      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
+      // app.debug();
+      yield app.expect('stderr', /Debugger listening/)
+        .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
+        .notExpect('stdout', /DevTools → chrome-devtools:.*:9999/)
         .expect('code', 0)
         .end();
     });

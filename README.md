@@ -89,7 +89,7 @@ Debug egg app with [V8 Inspector Integration](https://nodejs.org/api/debugger.ht
 
 automatically detect the protocol, use the new `inspector` when the targeted runtime >=7.0.0 .
 
-use [inspector-proxy](https://github.com/whxaxes/inspector-proxy) to proxy worker debug, so you don't need to worry about reload.
+if running without `VSCode` or `WebStorm`, we will use [inspector-proxy](https://github.com/whxaxes/inspector-proxy) to proxy worker debug, so you don't need to worry about reload.
 
 ```bash
 $ egg-bin debug --debug-port=9229 --proxy=9999
