@@ -63,7 +63,7 @@ describe('test/ts.test.js', () => {
 
     it('should cov app', () => {
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
