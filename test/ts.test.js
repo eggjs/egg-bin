@@ -90,6 +90,15 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
+    it('should start app with relative path', () => {
+      return coffee.fork(eggBin, [ 'dev', './example-ts-pkg' ], { cwd: path.dirname(cwd) })
+        // .debug()
+        .expect('stdout', /hi, egg, 12345/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should test app', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
