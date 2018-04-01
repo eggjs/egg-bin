@@ -1,4 +1,11 @@
 
+4.6.2 / 2018-04-02
+==================
+
+**fixes**
+  * [[`e73c569`](http://github.com/eggjs/egg-bin/commit/e73c56952cdbd0f925e8aea1ad1b3098e9ccc90e)] - fix: should ignore fixtures and node_modules (#96) (Haoliang Gao <<sakura9515@gmail.com>>)
+  * [[`7531faa`](http://github.com/eggjs/egg-bin/commit/7531faaae98e126ec0151721a5fbf7a73b6246b3)] - fix: support relative path (#95) (TZ | 天猪 <<atian25@qq.com>>)
+
 4.6.1 / 2018-03-31
 ==================
 
