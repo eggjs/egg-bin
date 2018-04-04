@@ -2,7 +2,6 @@
 
 import { Application, Context } from 'egg';
 import { default as mock, MockOption, BaseMockApplication } from 'egg-mock';
-import * as path from 'path';
 
 describe('test/index.test.ts', () => {
   let app: BaseMockApplication<Application, Context>;
