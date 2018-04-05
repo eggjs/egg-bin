@@ -1,4 +1,9 @@
 
+4.6.3 / 2018-04-05
+==================
+
+  * fix: should only read pkg if argv.typescript not pass (#97)
+
 4.6.2 / 2018-04-02
 ==================
 
