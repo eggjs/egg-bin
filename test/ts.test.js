@@ -90,6 +90,15 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
+    it('should fail start app with --no-ts', () => {
+      return coffee.fork(eggBin, [ 'dev', '--no-ts' ], { cwd })
+        // .debug()
+        .expect('stdout', /agent.options.typescript = false/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should start app with relative path', () => {
       return coffee.fork(eggBin, [ 'dev', './example-ts-pkg' ], { cwd: path.dirname(cwd) })
         // .debug()
