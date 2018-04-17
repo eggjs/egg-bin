@@ -17,6 +17,7 @@ describe('test/ts.test.js', () => {
       // .debug()
       .expect('stdout', /options.typescript=true/)
       .expect('stdout', /started/)
+      .expect('stdout', /ts env: true/)
       .expect('code', 0)
       .end();
   });
