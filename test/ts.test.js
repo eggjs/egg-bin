@@ -4,7 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe.only('test/ts.test.js', () => {
+describe('test/ts.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin');
   let cwd;
 
