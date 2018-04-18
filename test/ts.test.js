@@ -47,6 +47,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 12345/)
+        .expect('stdout', /ts env: true/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -56,6 +57,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', /ts env: true/)
         .expect('stdout', /should work/)
         .expect('code', 0)
         .end();
@@ -65,6 +67,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', /ts env: true/)
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
@@ -85,6 +88,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 12345/)
+        .expect('stdout', /ts env: true/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -103,6 +107,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'dev', './example-ts-pkg' ], { cwd: path.dirname(cwd) })
         // .debug()
         .expect('stdout', /hi, egg, 12345/)
+        .expect('stdout', /ts env: true/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -112,6 +117,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', /ts env: true/)
         .expect('code', 0)
         .end();
     });
@@ -120,6 +126,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd })
         .debug()
         .expect('stdout', /hi, egg, 123456/)
+        .expect('stdout', /ts env: true/)
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
