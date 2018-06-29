@@ -182,6 +182,7 @@ describe('test/lib/cmd/cov.test.js', () => {
   });
 
   it('should set EGG_BIN_PREREQUIRE', function* () {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
     const cwd = path.join(__dirname, '../../fixtures/prerequire');
     yield coffee.fork(eggBin, [ 'cov' ], { cwd })
       // .debug()
