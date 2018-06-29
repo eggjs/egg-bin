@@ -41,6 +41,15 @@ describe('test/lib/cmd/cov.test.js', () => {
     if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
   });
 
+  it('should exit when not test files', done => {
+    mm(process.env, 'NYC_CWD', cwd);
+    coffee.fork(eggBin, [ 'cov', 'test/**/*.nth.js' ], { cwd })
+      // .debug()
+      .expect('stdout', /No test files found/)
+      .expect('code', 0)
+      .end(done);
+  });
+
   it('should hotfixSpawnWrap success on mock windows', function* () {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
@@ -173,6 +182,7 @@ describe('test/lib/cmd/cov.test.js', () => {
   });
 
   it('should set EGG_BIN_PREREQUIRE', function* () {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
     const cwd = path.join(__dirname, '../../fixtures/prerequire');
     yield coffee.fork(eggBin, [ 'cov' ], { cwd })
       // .debug()

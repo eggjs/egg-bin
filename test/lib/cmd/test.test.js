@@ -55,6 +55,14 @@ describe('test/lib/cmd/test.test.js', () => {
       .end(done);
   });
 
+  it('should exit when not test files', done => {
+    coffee.fork(eggBin, [ 'test', 'test/**/*.nth.js' ], { cwd })
+      // .debug()
+      .expect('stdout', /No test files found/)
+      .expect('code', 0)
+      .end(done);
+  });
+
   it('should use process.env.TEST_REPORTER', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'TEST_REPORTER', 'json');
