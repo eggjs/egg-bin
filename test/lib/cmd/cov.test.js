@@ -41,20 +41,13 @@ describe('test/lib/cmd/cov.test.js', () => {
     if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
   });
 
-  it('should exit when not test files', function* () {
+  it('should exit when not test files', done => {
     mm(process.env, 'NYC_CWD', cwd);
-    const child = coffee.fork(eggBin, [ 'cov', 'test/**/*.nth.js' ], { cwd })
+    coffee.fork(eggBin, [ 'cov', 'test/**/*.nth.js' ], { cwd })
       // .debug()
-      .expect('stdout', /No test files found/);
-
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
-    }
-
-    yield child.expect('code', 0).end();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
+      .expect('stdout', /No test files found/)
+      .expect('code', 0)
+      .end(done);
   });
 
   it('should hotfixSpawnWrap success on mock windows', function* () {
