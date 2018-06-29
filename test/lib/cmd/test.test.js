@@ -56,8 +56,7 @@ describe('test/lib/cmd/test.test.js', () => {
   });
 
   it('should exit when not test files', done => {
-    mm(process.env, 'TESTS', 'test/**/*.noth.js');
-    coffee.fork(eggBin, [ 'test' ], { cwd })
+    coffee.fork(eggBin, [ 'test', 'test/**/*.nth.js' ], { cwd })
       // .debug()
       .expect('stdout', /No test files found/)
       .expect('code', 0)

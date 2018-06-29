@@ -42,9 +42,8 @@ describe('test/lib/cmd/cov.test.js', () => {
   });
 
   it('should exit when not test files', function* () {
-    mm(process.env, 'TESTS', 'test/**/*.nth.js');
     mm(process.env, 'NYC_CWD', cwd);
-    const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
+    const child = coffee.fork(eggBin, [ 'cov', 'test/**/*.nth.js' ], { cwd })
       // .debug()
       .expect('stdout', /No test files found/);
 
