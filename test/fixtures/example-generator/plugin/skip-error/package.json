@@ -1,0 +1,7 @@
+{
+  "name": "skip-error",
+  "version": "1.0.0",
+  "eggPlugin": {
+    "name": "skip-error"
+  }
+}

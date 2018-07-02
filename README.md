@@ -180,6 +180,44 @@ You can set `COV_EXCLUDES` env to add dir ignore coverage.
 $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 ```
 
+### generator
+
+Run generators at `{framework/plugins/app}/generator/index.js` according to the order of loadUnit.
+
+```bash
+$ egg-bin generator
+```
+
+#### options
+
+- `--env` egg server env, default to `prod`
+
+#### Write Generators
+
+```js
+module.exports = class Generator {
+  /**
+   * @param {Object} options
+   * @param {String} options.baseDir - base dir of application
+   * @param {String} options.framework - framework path
+   * @param {String} options.env - egg server env
+   * @param {Array} options.loadUnit - egg loadUnit, [{ path, type }]
+   * @param {Object} options.config - egg config
+   * @param {Object} options.plugins - egg plugin config
+   * @param {Object} options.argv - command argv, object style
+   */
+  constructor(options) {
+    this.options = options;
+  }
+
+  // async function or generator function
+  * generate() {
+
+  }
+}
+```
+
+
 ### pkgfiles
 
 Generate `pkg.files` automatically before npm publish, see [ypkgfiles] for detail

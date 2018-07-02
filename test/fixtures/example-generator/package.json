@@ -1,0 +1,7 @@
+{
+  "name": "example-generator",
+  "version": "1.0.0",
+  "egg": {
+    "framework": "duckegg"
+  }
+}
