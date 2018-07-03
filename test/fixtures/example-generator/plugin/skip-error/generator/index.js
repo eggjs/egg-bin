@@ -5,7 +5,7 @@ module.exports = class Generator {
     this.options = options;
   }
 
-  async generate() {
+  * generate() {
     throw new Error('skip-error generator error');
   }
 };

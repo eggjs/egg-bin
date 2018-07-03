@@ -5,7 +5,7 @@ module.exports = class Generator {
     this.options = options;
   }
 
-  async generate() {
+  * generate() {
     console.log('### run genertor from plugin');
   }
 };
