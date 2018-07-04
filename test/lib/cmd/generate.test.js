@@ -4,16 +4,15 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe.only('test/lib/cmd/generator.test.js', () => {
+describe('test/lib/cmd/generate.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
   const cwd = path.join(__dirname, '../../fixtures/example-generator');
 
   afterEach(mm.restore);
 
   it('should startCluster success', () => {
-    mm(process.env, 'NODE_ENV', 'development');
-    return coffee.fork(eggBin, [ 'generator', '--foo=bar' ], { cwd })
-      .debug()
+    return coffee.fork(eggBin, [ 'generate', '--foo=bar' ], { cwd })
+      // .debug()
       .expect('stdout', /### run genertor from plugin/)
       .expect('stdout', /### run genertor from framework/)
       .expect('stdout', /### run genertor from app/)

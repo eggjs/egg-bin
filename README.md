@@ -180,12 +180,12 @@ You can set `COV_EXCLUDES` env to add dir ignore coverage.
 $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 ```
 
-### generator
+### generate
 
 Run generators at `{framework/plugins/app}/generator/index.js` according to the order of loadUnit.
 
 ```bash
-$ egg-bin generator
+$ egg-bin generate
 ```
 
 #### options
