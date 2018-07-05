@@ -6,6 +6,10 @@ module.exports = class Generator {
   }
 
   * generate() {
-    throw new Error('skip-error generator error');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error('skip-error generator error'));
+      }, 100);
+    });
   }
 };

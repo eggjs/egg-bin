@@ -10,7 +10,7 @@ describe('test/lib/cmd/generate.test.js', () => {
 
   afterEach(mm.restore);
 
-  it('should startCluster success', () => {
+  it('should run all generators', () => {
     return coffee.fork(eggBin, [ 'generate', '--foo=bar' ], { cwd })
       // .debug()
       .expect('stdout', /### run genertor from plugin/)
@@ -24,6 +24,17 @@ describe('test/lib/cmd/generate.test.js', () => {
       .expect('stdout', /options\.argv.foo: bar/)
       .expect('stdout', /options\.loadUnit: true/)
       .expect('stdout', /options\.plugins: true/)
+      .expect('stderr', /skip-error generator error/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('should run special generators', () => {
+    return coffee.fork(eggBin, [ 'generate', '--type=test,skipError' ], { cwd })
+      // .debug()
+      .expect('stdout', /### run genertor from plugin/)
+      .notExpect('stdout', /### run genertor from framework/)
+      .notExpect('stdout', /### run genertor from app/)
       .expect('stderr', /skip-error generator error/)
       .expect('code', 0)
       .end();
