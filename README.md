@@ -214,7 +214,7 @@ module.exports = class Generator {
   }
 
   // async function or generator function
-  * generate() {
+  async generate() {
 
   }
 }
