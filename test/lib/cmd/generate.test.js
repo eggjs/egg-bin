@@ -4,7 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 
-describe('test/lib/cmd/generate.test.js', () => {
+describe.only('test/lib/cmd/generate.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
   const cwd = path.join(__dirname, '../../fixtures/example-generator');
 
