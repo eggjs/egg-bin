@@ -22,7 +22,7 @@ describe('test/lib/cmd/generate.test.js', () => {
       .expect('stdout', /options\.config.env: prod/)
       .expect('stdout', /options\.config.test: abc/)
       .expect('stdout', /options\.argv.foo: bar/)
-      .expect('stdout', /options\.loadUnit: true/)
+      .expect('stdout', /options\.loadUnits: true/)
       .expect('stdout', /options\.plugins: true/)
       .expect('stderr', /skip-error generator error/)
       .expect('code', 0)

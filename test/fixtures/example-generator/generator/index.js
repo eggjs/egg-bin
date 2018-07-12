@@ -6,7 +6,7 @@ module.exports = class Generator {
   }
 
   * generate() {
-    const { baseDir, framework, env, config, loadUnit, plugins, argv } = this.options;
+    const { baseDir, framework, env, config, loadUnits, plugins, argv } = this.options;
     console.log('### run genertor from app');
     console.log(`options.baseDir: ${baseDir}`);
     console.log(`options.framework: ${framework}`);
@@ -14,7 +14,7 @@ module.exports = class Generator {
     console.log(`options.config.env: ${config.env}`);
     console.log(`options.config.test: ${config.test}`);
     console.log(`options.argv.foo: ${argv.foo}`);
-    console.log(`options.loadUnit: ${!!loadUnit}`);
+    console.log(`options.loadUnits: ${!!loadUnits}`);
     console.log(`options.plugins: ${!!plugins}`);
   }
 };

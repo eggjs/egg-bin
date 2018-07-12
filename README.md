@@ -204,7 +204,7 @@ module.exports = class Generator {
    * @param {String} options.baseDir - base dir of application
    * @param {String} options.framework - framework path
    * @param {String} options.env - egg server env, prod/local/unittest/...
-   * @param {Array} options.loadUnit - egg loadUnit, [{ path, type }]
+   * @param {Array} options.loadUnits - egg loadUnits, [{ path, type }]
    * @param {Object} options.config - egg config, { name, baseDir, pkg, ...}
    * @param {Object} options.plugins - egg plugin config, { view: { name, package, path }, ... }
    * @param {Object} options.argv - command argv, object style
