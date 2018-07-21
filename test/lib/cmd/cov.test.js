@@ -198,4 +198,15 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('should passthrough nyc args', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    mm(process.env, 'NYC_CWD', cwd);
+    coffee.fork(eggBin, [ 'cov', '--nyc="--reporter=teamcity"' ], { cwd })
+      // .debug()
+      .expect('stdout', /should success/)
+      .expect('stdout', /##teamcity\[blockOpened name='Code Coverage Summary'\]/)
+      .expect('stdout', /##teamcity\[blockClosed name='Code Coverage Summary'\]/)
+      .end(done);
+  });
 });
