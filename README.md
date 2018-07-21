@@ -170,6 +170,12 @@ You can pass any mocha argv.
 - `-x` add dir ignore coverage, support multiple argv
 - `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
 - `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
+- `--nyc` nyc instruments passthrough
+  > This is primaryly for adding additional nyc reporters because `egg-bin cov` calls `nyc` with some fixed params like `-r json -r lcov...`, which overides `reporter` key in `.nycrc`/`package.json`.
+  ```bash
+  egg-bin cov --nyc="--reporter=teamcity -r text"
+  ```
+
 - also support all test params above.
 
 #### environment
