@@ -199,26 +199,14 @@ describe('test/lib/cmd/cov.test.js', () => {
       .end();
   });
 
-  it('should passthrough nyc args', function* () {
+  it('should passthrough nyc args', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
-    const child = coffee.fork(eggBin, [ 'cov', '--nyc="--reporter=teamcity -r text"' ], { cwd })
+    coffee.fork(eggBin, [ 'cov', '--nyc="--reporter=teamcity"' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
-      .expect('stdout', /a\.test\.js/)
-      .expect('stdout', /b[\/|\\]b\.test\.js/)
       .expect('stdout', /##teamcity\[blockOpened name='Code Coverage Summary'\]/)
       .expect('stdout', /##teamcity\[blockClosed name='Code Coverage Summary'\]/)
-      .expect('stdout', /File[ |]*% Stmts[ |]*% Branch[ |]*% Funcs[ |]*% Lines/)
-      .notExpect('stdout', /a.js/);
-
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
-    }
-
-    yield child.expect('code', 0).end();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
+      .end(done);
   });
 });
