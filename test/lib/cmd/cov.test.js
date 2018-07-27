@@ -202,7 +202,7 @@ describe('test/lib/cmd/cov.test.js', () => {
   it('should passthrough nyc args', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'NYC_CWD', cwd);
-    coffee.fork(eggBin, [ 'cov', '--nyc="--reporter=teamcity"' ], { cwd })
+    coffee.fork(eggBin, [ 'cov', '--nyc=-r teamcity -r text' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
       .expect('stdout', /##teamcity\[blockOpened name='Code Coverage Summary'\]/)
