@@ -1,4 +1,10 @@
 
+4.8.0 / 2018-07-31
+==================
+
+  * chore: update deps (#104)
+  * feat(cov): add nyc instrument passthrough (#103)
+
 4.7.1 / 2018-06-29
 ==================
 
