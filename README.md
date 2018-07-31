@@ -171,12 +171,10 @@ You can pass any mocha argv.
 - `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
 - `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
 - `--nyc` nyc instruments passthrough. you can use this to overwrite egg-bin's default nyc instruments and add additional ones.
-  >if you want to add addtional nyc reporters, you need to use this rather than add `reporter` key in `.nycrc` because:
-  >* when same key exists in `.nycrc` and cmd instruments, nyc prefers instrument.
-  >* egg-bin have some default instruments passed to nyc like `-r` and `--temp-directory`
-  ```bash
-  egg-bin cov --nyc="-r teamcity -r text"
-  ```
+  > if you want to add addtional `nyc` reporters, you need to use this rather than add `reporter` key in `.nycrc` because:
+  > - when same key exists in `.nycrc` and cmd instruments, nyc prefers instrument.
+  > - egg-bin have some default instruments passed to nyc like `-r` and `--temp-directory`
+  > - `egg-bin cov --nyc="-r teamcity -r text"`
 
 - also support all test params above.
 

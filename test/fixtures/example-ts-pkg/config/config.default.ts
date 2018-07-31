@@ -1,7 +1,7 @@
 'use strict';
 
 export default () => {
-  const config: any = {};
+  const config = {} as any;
   config.keys = '123456';
   return config;
 };
