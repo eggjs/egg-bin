@@ -4,6 +4,8 @@ import { Controller } from 'egg';
 
 export default class HomeController extends Controller {
   public async index() {
-    this.ctx.body = 'hi, egg';
+    const obj: PlainObject = {};
+    obj.text = 'hi, egg';
+    this.ctx.body = obj.text;
   }
 }
