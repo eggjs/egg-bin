@@ -1,4 +1,10 @@
 
+4.8.2 / 2018-08-23
+==================
+
+**features**
+  * [[`35e89db`](http://github.com/eggjs/egg-bin/commit/35e89dbdbfcb6d2c6cd07f73145ead7c4c5421ce)] - feat: upgrade espower-typescript to 9.0 (#106) (吖猩 <<whxaxes@qq.com>>)
+
 4.8.1 / 2018-08-01
 ==================
 
