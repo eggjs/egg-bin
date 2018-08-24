@@ -74,6 +74,47 @@ describe('test/ts.test.js', () => {
     });
   });
 
+  describe('error stacks', () => {
+    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
+      console.log('skip egg@1');
+      return;
+    }
+
+    before(() => {
+      cwd = path.join(__dirname, './fixtures/example-ts-error-stack');
+    });
+
+    it('should correct error stack line number in starting app', () => {
+      mm(process.env, 'THROW_ERROR', 'true');
+      return coffee.fork(eggBin, [ 'dev' ], { cwd })
+        // .debug()
+        .expect('stderr', /Error: throw error/)
+        .expect('stderr', /at \w+ \(.*\/fixtures\/example-ts-error-stack\/app\.ts:7:11\)/)
+        .expect('code', 1)
+        .end();
+    });
+
+    it('should correct error stack line number in testing app', () => {
+      return coffee.fork(eggBin, [ 'test' ], { cwd })
+        // .debug()
+        .expect('stdout', /error/)
+        .expect('stdout', /at Context\.it \(test\/index\.test\.ts:8:11\)/)
+        .expect('stdout', /at Context\.it \(test\/index\.test\.ts:14:5\)/)
+        .expect('code', 1)
+        .end();
+    });
+
+    it('should correct error stack line number in covering app', () => {
+      return coffee.fork(eggBin, [ 'test' ], { cwd })
+        // .debug()
+        .expect('stdout', /error/)
+        .expect('stdout', /at Context\.it \(test\/index\.test\.ts:8:11\)/)
+        .expect('stdout', /at Context\.it \(test\/index\.test\.ts:14:5\)/)
+        .expect('code', 1)
+        .end();
+    });
+  });
+
   describe('egg.typescript = true', () => {
     if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
       console.log('skip egg@1');
