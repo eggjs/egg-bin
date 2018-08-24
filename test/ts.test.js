@@ -90,7 +90,6 @@ describe('test/ts.test.js', () => {
         // .debug()
         .expect('stderr', /Error: throw error/)
         .expect('stderr', /at \w+ \(.*\/fixtures\/example-ts-error-stack\/app\.ts:7:11\)/)
-        .expect('code', 1)
         .end();
     });
 
@@ -100,7 +99,6 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /error/)
         .expect('stdout', /at Context\.it \(test\/index\.test\.ts:8:11\)/)
         .expect('stdout', /at Context\.it \(test\/index\.test\.ts:14:5\)/)
-        .expect('code', 1)
         .end();
     });
 
@@ -110,7 +108,6 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /error/)
         .expect('stdout', /at Context\.it \(test\/index\.test\.ts:8:11\)/)
         .expect('stdout', /at Context\.it \(test\/index\.test\.ts:14:5\)/)
-        .expect('code', 1)
         .end();
     });
   });
