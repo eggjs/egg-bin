@@ -1,4 +1,10 @@
 
+4.8.3 / 2018-08-27
+==================
+
+**fixes**
+  * [[`ca4f78f`](http://github.com/eggjs/egg-bin/commit/ca4f78f5e7c608fbe9af37577c62a5b64bb2b45c)] - fix: fix source map line number incorrect (#107) (吖猩 <<whxaxes@qq.com>>)
+
 4.8.2 / 2018-08-23
 ==================
 
