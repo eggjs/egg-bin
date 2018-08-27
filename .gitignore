@@ -11,6 +11,7 @@ test/fixtures/ts/node_modules/aliyun-egg/
 !test/fixtures/test-files-glob/**
 !test/fixtures/test-files-stack/node_modules/
 !test/fixtures/example/node_modules/
+!test/fixtures/example-generator/node_modules/
 
 
 **/run/*.json
