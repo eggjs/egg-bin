@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "4.8.3",
+  "version": "4.8.4",
   "description": "egg developer tool",
   "main": "index.js",
   "bin": {
@@ -22,10 +22,10 @@
     "source-map-support": "^0.5.6",
     "mocha": "^5.2.0",
     "mz-modules": "^2.1.0",
-    "nyc": "^12.0.2",
+    "nyc": "^13.0.1",
     "power-assert": "^1.6.0",
     "semver": "^5.5.0",
-    "test-exclude": "^4.2.1",
+    "test-exclude": "^5.0.0",
     "ts-node": "^7.0.0",
     "ypkgfiles": "^1.6.0"
   },
