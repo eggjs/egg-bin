@@ -5,7 +5,7 @@ jobs:
     vmImage: 'xcode9-macos10.13'
     node_version: 8
     install_script: 'npm i -g npminstall && npminstall'
-    test_script: 'EGG_VERSION=2 npm run test-azure-pipelines'
+    test_script: 'npm run test-azure-pipelines'
 
 - template: azure-pipelines.template.yml
   parameters:
@@ -13,7 +13,7 @@ jobs:
     vmImage: 'xcode9-macos10.13'
     node_version: 10
     install_script: 'npm i -g npminstall && npminstall'
-    test_script: 'EGG_VERSION=2 npm run test-azure-pipelines'
+    test_script: 'npm run test-azure-pipelines'
 
 - template: azure-pipelines.template.yml
   parameters:
@@ -21,7 +21,7 @@ jobs:
     vmImage: 'vs2017-win2016'
     node_version: 8
     install_script: 'npm i -g npminstall && npminstall'
-    test_script: 'EGG_VERSION=2 npm run test-azure-pipelines'
+    test_script: 'npm run test-azure-pipelines'
 
 - template: azure-pipelines.template.yml
   parameters:
@@ -29,4 +29,4 @@ jobs:
     vmImage: 'vs2017-win2016'
     node_version: 10
     install_script: 'npm i -g npminstall && npminstall'
-    test_script: 'EGG_VERSION=2 npm run test-azure-pipelines'
+    test_script: 'npm run test-azure-pipelines'
