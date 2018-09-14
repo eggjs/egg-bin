@@ -18,3 +18,8 @@ jobs:
     displayName: 'Install Packages'
   - script: ${{ parameters.test_script }}
     displayName: 'Build & Unit Test'
+
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: JUnit
+      testResultsFile: ./test-results.xml
