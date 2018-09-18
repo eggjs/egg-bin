@@ -133,7 +133,7 @@ You can pass any mocha argv.
 - `--timeout` milliseconds, default to 30000
 - `--full-trace` display the full stack trace, default to false.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
-- `--changed` / `-c` only test changed test files
+- `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
 - see more at https://mochajs.org/#usage
 
 #### environment
