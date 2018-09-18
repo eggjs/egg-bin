@@ -5,6 +5,8 @@ const coffee = require('coffee');
 const mm = require('mm');
 const assert = require('assert');
 const semver = require('semver');
+const changed = require('jest-changed-files');
+const Command = require('../../../lib/cmd/test');
 
 describe('test/lib/cmd/test.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -41,6 +43,16 @@ describe('test/lib/cmd/test.test.js', () => {
       .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .notExpect('stdout', /b\/b.test.js/)
+      .expect('code', 0)
+      .end(done);
+  });
+
+  it('should only test files specified by TESTS with multi pattern', done => {
+    mm(process.env, 'TESTS', 'test/a.test.js,test/b/b.test.js');
+    coffee.fork(eggBin, [ 'test' ], { cwd })
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b\/b.test.js/)
       .expect('code', 0)
       .end(done);
   });
@@ -187,6 +199,36 @@ describe('test/lib/cmd/test.test.js', () => {
           assert(code === 1);
           done(err);
         });
+    });
+  });
+
+  // changed need to mock getChangedFilesForRoots, so we just test formatTestArgs directly
+  describe('changed', () => {
+    it('should return undefined if no test file changed', function* () {
+      const cmd = new Command([ '--changed' ]);
+      mm.data(changed, 'getChangedFilesForRoots', {
+        changedFiles: new Set(),
+      });
+      const args = yield cmd.formatTestArgs(cmd.context);
+      assert(!args);
+    });
+
+    it('should return file changed', function* () {
+      const cmd = new Command([ '--changed' ]);
+      mm.data(changed, 'getChangedFilesForRoots', {
+        changedFiles: new Set([ __filename ]),
+      });
+      const args = yield cmd.formatTestArgs(cmd.context);
+      assert(args.includes('--changed', __filename));
+    });
+
+    it('should filter not test file', function* () {
+      const cmd = new Command([ '--changed' ]);
+      mm.data(changed, 'getChangedFilesForRoots', {
+        changedFiles: new Set([ __filename + '.tmp', 'abc.test.js' ]),
+      });
+      const args = yield cmd.formatTestArgs(cmd.context);
+      assert(!args);
     });
   });
 });
