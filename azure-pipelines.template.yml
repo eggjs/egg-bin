@@ -1,0 +1,25 @@
+# Node.js
+# Build a general Node.js application with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/vsts/pipelines/languages/javascript
+# demo: https://github.com/ryanelian/instapack/blob/master/azure-pipelines.template.yml
+
+jobs:
+- job: ${{ parameters.name }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: ${{ parameters.node_version }}
+    displayName: 'Install Node.js'
+
+  - script: ${{ parameters.install_script }}
+    displayName: 'Install Packages'
+  - script: ${{ parameters.test_script }}
+    displayName: 'Build & Unit Test'
+
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: JUnit
+      testResultsFile: ./test-results.xml

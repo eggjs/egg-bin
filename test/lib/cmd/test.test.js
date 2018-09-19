@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
@@ -24,6 +25,27 @@ describe('test/lib/cmd/test.test.js', () => {
       .notExpect('stdout', /\ba\.js/)
       .expect('code', 0)
       .end(done);
+  });
+
+  it('should support custom mocha report and work with mocha-multi', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    coffee.fork(eggBin, [
+      'test',
+      '--reporter', 'mocha-multi',
+      '--reporter-options', 'spec=-,mocha-junit-reporter=-',
+    ], { cwd })
+      .debug()
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b\/b\.test\.js/)
+      .notExpect('stdout', /\ba\.js/)
+      .expect('code', 0)
+      .end(err => {
+        if (err) return done(err);
+        // test-results.xml should exists
+        assert(fs.existsSync(path.join(cwd, 'test-results.xml')));
+        done();
+      });
   });
 
   it('should ignore node_modules and fixtures', done => {
