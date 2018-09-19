@@ -8,7 +8,7 @@ class TestDebugCommand extends Command {
   }
 
   * run(context) {
-    const testArgs = this.formatTestArgs(context);
+    const testArgs = yield this.formatTestArgs(context);
     console.log('%j', testArgs);
   }
 }
