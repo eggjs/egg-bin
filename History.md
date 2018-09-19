@@ -1,4 +1,13 @@
 
+4.9.0 / 2018-09-19
+==================
+
+**features**
+  * [[`51f93aa`](http://github.com/eggjs/egg-bin/commit/51f93aaa7506c9d0b90e3385c5bb6fa2cb488bc0)] - feat: support egg-bin test --changed (#111) (Yiyu He <<dead_horse@qq.com>>)
+
+**fixes**
+  * [[`a82a87a`](http://github.com/eggjs/egg-bin/commit/a82a87a66939c327b65f394abd99a3d194c860bb)] - fix: debug-test invoke formatTestArgs (dead-horse <<dead_horse@qq.com>>)
+
 4.8.5 / 2018-09-11
 ==================
 
