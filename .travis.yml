@@ -1,8 +1,12 @@
 sudo: false
+os:
+  - 'linux'
+  - 'osx'
 language: node_js
 node_js:
   - '6'
   - '8'
+  - '10'
 env:
   - EGG_VERSION=1
   - EGG_VERSION=2
