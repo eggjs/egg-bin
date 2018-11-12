@@ -130,7 +130,7 @@ You can pass any mocha argv.
 
 - `--require` require the given module
 - `--grep` only run tests matching <pattern>
-- `--timeout` milliseconds, default to 30000
+- `--timeout` milliseconds, default to 60000
 - `--full-trace` display the full stack trace, default to false.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
@@ -152,7 +152,7 @@ And the reporter can set by the `TEST_REPORTER` env, default is `spec`.
 TEST_REPORTER=doc egg-bin test
 ```
 
-The test timeout can set by `TEST_TIMEOUT` env, default is `30000` ms.
+The test timeout can set by `TEST_TIMEOUT` env, default is `60000` ms.
 
 ```bash
 TEST_TIMEOUT=2000 egg-bin test
