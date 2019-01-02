@@ -81,7 +81,7 @@ $ egg-bin dev
 - `--cluster` worker process number, skip this argvs will start only `1` worker, provide this without value will start `cpu` count worker.
 - `--sticky` start a sticky cluster server, default to `false`.
 - `--typescript` / `--ts` enable typescript support, default to `false`. Also support read from `package.json`'s `egg.typescript`.
-- `--require` will add to `execArgv`, support multiple.
+- `--require` will add to `execArgv`, support multiple. Also support read from `package.json`'s `egg.require`
 
 ### debug
 
