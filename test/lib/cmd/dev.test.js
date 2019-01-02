@@ -147,4 +147,15 @@ describe('test/lib/cmd/dev.test.js', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('should support egg.require', () => {
+    mm(process.env, 'NODE_ENV', 'development');
+    return coffee.fork(eggBin, [ 'dev' ], {
+      cwd: path.join(__dirname, '../../fixtures/egg-require'),
+    })
+      // .debug()
+      .expect('stdout', /hey, you require me by --require/)
+      .expect('code', 0)
+      .end();
+  });
 });
