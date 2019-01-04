@@ -1,4 +1,13 @@
 
+4.10.0 / 2019-01-04
+===================
+
+  **features**
+    * [[`904103f`](https://github.com/eggjs/egg-bin/commit/904103fe673e93bdf600f6eace4121cf4bf15d9b)] - feat: support read egg.require from package.json (#121) (吖猩 <<whxaxes@qq.com>>)
+
+  **docs**
+    * [[`0d553f6`](https://github.com/eggjs/egg-bin/commit/0d553f641155bc3ee9cc9d459a0ddff238c6c691)] - docs: test timeout is 6000ms (#115) (BiosSun <<biossun@gmail.com>>)
+
 4.9.0 / 2018-09-19
 ==================
 
