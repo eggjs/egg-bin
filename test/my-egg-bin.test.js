@@ -68,7 +68,7 @@ describe('test/my-egg-bin.test.js', () => {
       .expect('stdout', /"baseDir":".\/dist"/)
       .expect('stdout', /debugPort: 6666/)
       .notExpect('stdout', /"argv: {.*debugBrk":true/)
-      .expect('debugOptions:', /{"debug":true,"debug-brk":5555,"inspect":6666,"inspect-brk":true}/)
+      .expect('stdout', /{"debug":true,"debug-brk":5555,"inspect":6666,"inspect-brk":true}/)
       .expect('stdout', /execArgv: \["--debug","--debug-brk=5555","--expose_debug_as=v8debug","--inspect=6666","--inspect-brk","--es_staging","--harmony","--harmony_default_parameters"]/)
       .expect('code', 0)
       .end(done);
