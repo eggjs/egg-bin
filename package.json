@@ -28,6 +28,7 @@
     "source-map-support": "^0.5.6",
     "test-exclude": "^5.0.0",
     "ts-node": "^7.0.0",
+    "tsconfig-paths": "^3.7.0",
     "ypkgfiles": "^1.6.0"
   },
   "devDependencies": {
