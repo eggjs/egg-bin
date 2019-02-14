@@ -154,7 +154,7 @@ describe('test/ts.test.js', () => {
 
     it('should cov app', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
