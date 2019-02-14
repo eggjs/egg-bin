@@ -14,6 +14,7 @@
     "common-bin": "^2.7.3",
     "debug": "^3.1.0",
     "detect-port": "^1.2.3",
+    "egg-ts-helper": "^1.21.0",
     "egg-utils": "^2.4.0",
     "espower-typescript": "^9.0.1",
     "globby": "^8.0.1",
