@@ -184,7 +184,7 @@ describe('test/ts.test.js', () => {
 
     it('should load egg-ts-helper with dts flag', () => {
       return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /started/)
@@ -197,7 +197,7 @@ describe('test/ts.test.js', () => {
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
 
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /"declarations":true/)
@@ -208,7 +208,7 @@ describe('test/ts.test.js', () => {
 
     it('should not load egg-ts-helper without flag and egg.declarations', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /"typescript":true/)
         .notExpect('stdout', /application log/)
         .notExpect('stdout', /"declarations":true/)
