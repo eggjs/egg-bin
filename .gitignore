@@ -13,6 +13,8 @@ test/fixtures/ts/node_modules/aliyun-egg/
 !test/fixtures/example/node_modules/
 !test/fixtures/example-ts-error-stack/node_modules/
 !test/fixtures/egg-require/node_modules/
+test/fixtures/example-ts-ets/typings/
+!test/fixtures/example-ts-ets/node_modules/
 
 
 **/run/*.json

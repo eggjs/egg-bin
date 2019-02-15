@@ -81,6 +81,7 @@ $ egg-bin dev
 - `--cluster` worker process number, skip this argvs will start only `1` worker, provide this without value will start `cpu` count worker.
 - `--sticky` start a sticky cluster server, default to `false`.
 - `--typescript` / `--ts` enable typescript support, default to `false`. Also support read from `package.json`'s `egg.typescript`.
+- `--declarations` / `--dts` enable [egg-ts-helper](https://github.com/whxaxes/egg-ts-helper) support, default to `false`. Also support read from `package.json`'s `egg.declarations`.
 - `--require` will add to `execArgv`, support multiple. Also support read from `package.json`'s `egg.require`
 
 ### debug
