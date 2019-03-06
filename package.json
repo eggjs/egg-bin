@@ -5,7 +5,8 @@
   "main": "index.js",
   "bin": {
     "egg-bin": "bin/egg-bin.js",
-    "mocha": "bin/mocha.js"
+    "mocha": "bin/mocha.js",
+    "ets": "bin/ets.js"
   },
   "dependencies": {
     "autod": "^3.0.1",

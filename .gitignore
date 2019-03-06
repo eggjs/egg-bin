@@ -24,3 +24,4 @@ test/fixtures/example-ts-ets/typings/
 *.log
 package-lock.json
 .nyc_output
+yarn.lock
