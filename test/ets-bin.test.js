@@ -7,7 +7,7 @@ describe('test/ets-bin.test.js', () => {
   const etsBin = require.resolve('../bin/ets.js');
   const cwd = path.join(__dirname, 'fixtures/example-ts-ets');
 
-  it('should test with mocha', () => {
+  it('should test with ets', () => {
     return coffee.fork(etsBin, [], {
       cwd,
       env: {
