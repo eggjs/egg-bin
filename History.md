@@ -1,4 +1,10 @@
 
+4.11.1 / 2019-03-06
+==================
+
+**fixes**
+  * [[`8f6135e`](http://github.com/eggjs/egg-bin/commit/8f6135edf46584f009633fa82436ed16037f6cc5)] - fix: ets not found (#124) (吖猩 <<whxaxes@qq.com>>)
+
 4.11.0 / 2019-02-15
 ===================
 
