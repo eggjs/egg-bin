@@ -10,10 +10,9 @@ describe('test/ets-bin.test.js', () => {
   it('should test with ets', () => {
     return coffee.fork(etsBin, [], {
       cwd,
-      env: {
-        ...process.env,
+      env: Object.assign({}, process.env, {
         ETS_SILENT: 'false',
-      },
+      }),
     })
       // .debug()
       .expect('stdout', /\[egg-ts-helper\] create/)
