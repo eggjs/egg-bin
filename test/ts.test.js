@@ -185,6 +185,7 @@ describe('test/ts.test.js', () => {
     it('should load egg-ts-helper with dts flag', () => {
       return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
         // .debug()
+        .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /started/)
         .expect('code', 0)
@@ -197,6 +198,7 @@ describe('test/ts.test.js', () => {
 
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         // .debug()
+        .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /"declarations":true/)
         .expect('stdout', /started/)
@@ -208,6 +210,7 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         // .debug()
         .expect('stdout', /"typescript":true/)
+        .notExpect('stdout', /application log/)
         .notExpect('stdout', /"declarations":true/)
         .notExpect('stdout', /started/)
         .expect('code', 1)
