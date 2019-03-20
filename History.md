@@ -1,4 +1,10 @@
 
+4.12.0 / 2019-03-20
+==================
+
+**others**
+  * [[`44854f0`](http://github.com/eggjs/egg-bin/commit/44854f047823a0979b41bf7661e06be2dd5aef83)] - deps: bump ts-node version (#125) (吖猩 <<whxaxes@qq.com>>)
+
 4.11.1 / 2019-03-06
 ==================
 
