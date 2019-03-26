@@ -1,4 +1,10 @@
 
+4.12.1 / 2019-03-26
+==================
+
+**fixes**
+  * [[`d802694`](http://github.com/eggjs/egg-bin/commit/d802694cc1039e0b0a3721917019c63b7599d59e)] - fix: downgrade ts-node (#126) (吖猩 <<whxaxes@qq.com>>)
+
 4.12.0 / 2019-03-20
 ==================
 
