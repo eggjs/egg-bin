@@ -90,6 +90,17 @@ describe('test/lib/cmd/dev.test.js', () => {
       .end(done);
   });
 
+  it('should startCluster with --workers=2', done => {
+    coffee.fork(eggBin, [ 'dev', '--workers=2' ], { cwd })
+      // .debug()
+      .expect('stdout', /"workers":2/)
+      .expect('stdout', /"baseDir":".*?demo-app"/)
+      .expect('stdout', /"framework":".*?aliyun-egg"/)
+      .notExpect('stdout', /"cluster"/)
+      .expect('code', 0)
+      .end(done);
+  });
+
   it('should startCluster with --baseDir=root', done => {
     coffee.fork(eggBin, [ 'dev', `--baseDir=${cwd}` ])
       // .debug()

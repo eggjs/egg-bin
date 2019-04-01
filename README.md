@@ -78,7 +78,7 @@ $ egg-bin dev
 - `--framework` egg web framework root path.
 - `--baseDir` application's root path, default to `process.cwd()`.
 - `--port` server port, default to `7001`.
-- `--cluster` worker process number, skip this argvs will start only `1` worker, provide this without value will start `cpu` count worker.
+- `--workers` worker process number, default to `1` worker at local mode.
 - `--sticky` start a sticky cluster server, default to `false`.
 - `--typescript` / `--ts` enable typescript support, default to `false`. Also support read from `package.json`'s `egg.typescript`.
 - `--declarations` / `--dts` enable [egg-ts-helper](https://github.com/whxaxes/egg-ts-helper) support, default to `false`. Also support read from `package.json`'s `egg.declarations`.
