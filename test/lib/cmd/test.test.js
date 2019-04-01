@@ -107,6 +107,19 @@ describe('test/lib/cmd/test.test.js', () => {
       .end(done);
   });
 
+  it('should not load intelli-espower-loader when debug', done => {
+    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+    coffee.fork(eggBin, [ 'test', '--inspect' ], { cwd })
+      // .coverage(false)
+      .debug()
+      .expect('stderr', /Debugger listening/)
+      .expect('stdout', /-false/)
+      .expect('stdout', /\+true/)
+      .notExpect('stdout', /assert\(1 === 2\)/)
+      .expect('code', 1)
+      .end(done);
+  });
+
   it('should warn when require intelli-espower-loader', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     return coffee.fork(eggBin, [ 'test', '-r', 'intelli-espower-loader' ], { cwd })
