@@ -1,4 +1,11 @@
 
+4.12.2 / 2019-04-04
+==================
+
+**fixes**
+  * [[`3b6819c`](http://github.com/eggjs/egg-bin/commit/3b6819ccdc1f2f6c81482f45097adfe544e6c874)] - fix: should not timeout when debugging (#129) (TZ | 天猪 <<atian25@qq.com>>)
+  * [[`fcae123`](http://github.com/eggjs/egg-bin/commit/fcae1233518d094984aac0efe6890d679da533a0)] - fix: support --workers same as egg-scripts (#127) (TZ | 天猪 <<atian25@qq.com>>)
+
 4.12.1 / 2019-03-26
 ==================
 
