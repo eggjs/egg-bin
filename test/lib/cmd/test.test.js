@@ -234,9 +234,10 @@ describe('test/lib/cmd/test.test.js', () => {
 
   describe('no-timeouts', () => {
     it('should timeout', done => {
+      mm(process.env, 'TEST_TIMEOUT', '5000');
       mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
-        .expect('stdout', /timeout: 60000/)
+        .expect('stdout', /timeout: 5000/)
         .expect('code', 0)
         .end(done);
     });
@@ -244,6 +245,7 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should no-timeout at debug mode', done => {
       mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
       coffee.fork(eggBin, [ 'test', '--inspect' ], { cwd })
+        // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)
         .end(done);
@@ -253,6 +255,7 @@ describe('test/lib/cmd/test.test.js', () => {
       mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
       mm(process.env, 'JB_DEBUG_FILE', __filename);
       coffee.fork(eggBin, [ 'test' ], { cwd })
+        // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)
         .end(done);
