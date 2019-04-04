@@ -231,4 +231,31 @@ describe('test/lib/cmd/test.test.js', () => {
       assert(!args);
     });
   });
+
+  describe('no-timeouts', () => {
+    it('should timeout', done => {
+      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
+      coffee.fork(eggBin, [ 'test' ], { cwd })
+        .expect('stdout', /timeout: 60000/)
+        .expect('code', 0)
+        .end(done);
+    });
+
+    it('should no-timeout at debug mode', done => {
+      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
+      coffee.fork(eggBin, [ 'test', '--inspect' ], { cwd })
+        .expect('stdout', /timeout: 0/)
+        .expect('code', 0)
+        .end(done);
+    });
+
+    it('should no-timeout at WebStorm debug mode', done => {
+      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
+      mm(process.env, 'JB_DEBUG_FILE', __filename);
+      coffee.fork(eggBin, [ 'test' ], { cwd })
+        .expect('stdout', /timeout: 0/)
+        .expect('code', 0)
+        .end(done);
+    });
+  });
 });
