@@ -1,4 +1,13 @@
 
+4.12.3 / 2019-04-09
+==================
+
+**fixes**
+  * [[`819d78f`](http://github.com/eggjs/egg-bin/commit/819d78fb4d8a1c13827f0e64c197e129777fe646)] - fix: debug mode detect (#130) (TZ | 天猪 <<atian25@qq.com>>)
+
+**others**
+  * [[`f85aafb`](http://github.com/eggjs/egg-bin/commit/f85aafb8db6b5be1d1cf9cb88297747cafb96142)] - chore: update deps (#131) (TZ | 天猪 <<atian25@qq.com>>)
+
 4.12.2 / 2019-04-04
 ==================
 
