@@ -84,7 +84,7 @@ describe('test/my-egg-bin.test.js', () => {
     ];
     coffee.fork(eggBin, args, { cwd })
       // .debug()
-      .expect('stdout', /"--no-timeouts",/)
+      .expect('stdout', /"--no-timeout",/)
       .notExpect('stdout', /"--timeout=/)
       .expect('code', 0)
       .end(done);
