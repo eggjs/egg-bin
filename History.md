@@ -1,4 +1,10 @@
 
+4.13.0 / 2019-04-23
+==================
+
+**features**
+  * [[`5c621f6`](http://github.com/eggjs/egg-bin/commit/5c621f6d6119fc0ac03b70e294e6cc18d2f88568)] - feat: should print error stack (#132) (TZ | 天猪 <<atian25@qq.com>>)
+
 4.12.3 / 2019-04-09
 ==================
 
