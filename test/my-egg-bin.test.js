@@ -89,4 +89,13 @@ describe('test/my-egg-bin.test.js', () => {
       .expect('code', 0)
       .end(done);
   });
+
+  it('should log err stack', done => {
+    coffee.fork(eggBin, [ 'error' ], { cwd })
+      .debug()
+      .expect('stderr', /Error: this is an error/)
+      .expect('stderr', /fixtures\/my-egg-bin\/lib\/cmd\/error.js:/)
+      .expect('code', 1)
+      .end(done);
+  });
 });
