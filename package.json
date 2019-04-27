@@ -24,7 +24,7 @@
     "jest-changed-files": "^24.7.0",
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
-    "nyc": "^13.3.0",
+    "nyc": "^14.1.0",
     "power-assert": "^1.6.1",
     "semver": "^6.0.0",
     "test-exclude": "^5.1.0",
@@ -50,7 +50,6 @@
     "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
-    "semver": "^5.4.1",
     "typescript": "^2.7.2"
   },
   "repository": {
