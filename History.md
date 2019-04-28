@@ -1,4 +1,10 @@
 
+4.13.1 / 2019-04-28
+==================
+
+**others**
+  * [[`3665b0d`](http://github.com/eggjs/egg-bin/commit/3665b0d030258283bf8aa150019ae6214c9c85eb)] - deps: cleanup & fix high severity vulnerability (#133) (ZYSzys <<17367077526@163.com>>)
+
 4.13.0 / 2019-04-23
 ==================
 
