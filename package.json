@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "autod": "^3.1.0",
-    "c8": "^3.5.0",
+    "c8": "4.0.0-beta.1",
     "chalk": "^2.4.2",
     "co-mocha": "^1.2.2",
     "common-bin": "^2.8.1",
