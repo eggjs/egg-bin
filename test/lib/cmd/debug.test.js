@@ -47,18 +47,23 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   describe('auto detect available port', () => {
     let server;
+    let port;
     before(done => {
       server = net.createServer();
-      server.listen(7001, done);
+      server.listen(0, err => {
+        if (err) return done(err);
+        port = server.address().port;
+        done();
+      });
     });
 
     after(() => server.close());
 
     it('should auto detect available port', () => {
-      return coffee.fork(eggBin, [ 'debug' ], { cwd })
-      // .debug()
+      return coffee.fork(eggBin, [ 'debug' ], { cwd, env: { EGG_BIN_DEFAULT_PORT: port } })
+        // .debug()
         .expect('stdout', /,"workers":1/)
-        .expect('stderr', /\[egg-bin] server port 7001 is in use/)
+        .expect('stderr', /\[egg-bin] server port \d+ is in use/)
         .expect('code', 0)
         .end();
     });
@@ -66,7 +71,7 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   describe('real egg', () => {
     const cwd = path.join(__dirname, '../../fixtures/example');
-    const newDebugger = semver.gte(process.version, '7.0.0');
+    const newDebugger = semver.gte(process.version, '8.0.0');
 
     it('should proxy', function* () {
       mm(process.env, 'VSCODE_CLI', '');
