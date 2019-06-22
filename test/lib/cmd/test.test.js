@@ -175,7 +175,7 @@ describe('test/lib/cmd/test.test.js', () => {
 
     it('should clean co error stack', done => {
       mm(process.env, 'TESTS', 'test/promise.test.js');
-      coffee.fork(eggBin, [ 'test', '--full-trace' ], { cwd })
+      coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/Error: this is an error/));
@@ -189,7 +189,7 @@ describe('test/lib/cmd/test.test.js', () => {
 
     it('should clean callback error stack', done => {
       mm(process.env, 'TESTS', 'test/sleep.test.js');
-      coffee.fork(eggBin, [ 'test', '--full-trace' ], { cwd })
+      coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/Error: this is an error/));
