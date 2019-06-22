@@ -65,7 +65,7 @@
     "lint": "eslint .",
     "pkgfiles": "node bin/egg-bin.js pkgfiles",
     "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "node bin/egg-bin.js test -t 3600000",
+    "test-local": "DEBUG=coffee node bin/egg-bin.js test -t 3600000",
     "cov": "nyc -r lcov -r text-summary npm run test-local",
     "ci-test-only": "TESTS=test/lib/cmd/cov.test.js npm run test-local",
     "ci": "npm run lint && npm run pkgfiles -- --check && npm run ci-test-only && npm run cov",
