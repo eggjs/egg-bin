@@ -178,8 +178,9 @@ describe('test/lib/cmd/test.test.js', () => {
       mm(process.env, 'TESTS', 'test/promise.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
-        .end(err => {
+        .end((err, inner) => {
           debug(err);
+          debug(inner);
           // assert(stdout.match(/Error: this is an error/));
           // assert(stdout.match(/at Promise .*promise.test.js:\d+:\d+/));
           // assert(stdout.match(/at Context\.<anonymous> .*promise.test.js:\d+:\d+/));
@@ -193,8 +194,9 @@ describe('test/lib/cmd/test.test.js', () => {
       mm(process.env, 'TESTS', 'test/sleep.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
-        .end(err => {
+        .end((err, inner) => {
           debug(err);
+          debug(inner);
           // assert(stdout.match(/Error: this is an error/));
           // assert(stdout.match(/at sleep .*sleep.test.js:\d+:\d+/));
           // assert(stdout.match(/at Timeout.setTimeout .*node_modules.*my-sleep.*index.js:\d+:\d+/));
