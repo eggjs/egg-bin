@@ -208,7 +208,7 @@ describe('test/lib/cmd/test.test.js', () => {
             const { stdout, code } = result;
             assert(stdout.match(/Error: this is an error/));
             assert(stdout.match(/at (sleep )?.*sleep.test.js:\d+:\d+/));
-            assert(stdout.match(/at Timeout.setTimeout .*node_modules.*my-sleep.*index.js:\d+:\d+/));
+            assert(stdout.match(/at Timeout.(setTimeout|_onTimeout) .*node_modules.*my-sleep.*index.js:\d+:\d+/));
             assert(stdout.match(/\bat\s+/g).length === 2);
             assert(code === 1);
           } else {
