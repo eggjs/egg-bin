@@ -155,6 +155,7 @@ describe('test/lib/cmd/test.test.js', () => {
             assert(stdout.match(/\bat\s+/g).length === 3);
           }
           assert(code === 1);
+          debug('===============', err);
           done(err);
         });
     });
