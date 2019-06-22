@@ -2,7 +2,6 @@
 
 const path = require('path');
 const coffee = require('coffee');
-const debug = require('debug')('coffee');
 const mm = require('mm');
 const assert = require('assert');
 const semver = require('semver');
@@ -155,7 +154,6 @@ describe('test/lib/cmd/test.test.js', () => {
             assert(stdout.match(/\bat\s+/g).length === 3);
           }
           assert(code === 1);
-          debug('===============', err);
           done(err);
         });
     });
