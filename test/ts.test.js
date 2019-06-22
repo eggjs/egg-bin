@@ -99,8 +99,8 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:8:11\)/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:14:5\)/)
+        .expect('stdout', /at Context(\.it|\.<anonymous>) .+index\.test\.ts:8:11\)/)
+        .expect('stdout', /at Context(\.it|\.<anonymous>) .+index\.test\.ts:14:5\)/)
         .end();
     });
 
@@ -108,8 +108,8 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:8:11\)/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:14:5\)/)
+        .expect('stdout', /at Context(\.it|\.<anonymous>) .+index\.test\.ts:8:11\)/)
+        .expect('stdout', /at Context(\.it|\.<anonymous>) .+index\.test\.ts:14:5\)/)
         .end();
     });
   });
