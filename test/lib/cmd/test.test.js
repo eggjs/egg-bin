@@ -179,7 +179,7 @@ describe('test/lib/cmd/test.test.js', () => {
         // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/Error: this is an error/));
-          assert(stdout.match(/at Promise .*promise.test.js:\d+:\d+/));
+          assert(stdout.match(/at (Promise )?.*promise.test.js:\d+:\d+/));
           assert(stdout.match(/at Context\.<anonymous> .*promise.test.js:\d+:\d+/));
           assert(stdout.match(/\bat\s+/g).length >= 3);
           assert(code === 1);
@@ -193,9 +193,9 @@ describe('test/lib/cmd/test.test.js', () => {
         // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/Error: this is an error/));
-          assert(stdout.match(/at sleep .*sleep.test.js:\d+:\d+/));
-          assert(stdout.match(/at Timeout.setTimeout .*node_modules.*my-sleep.*index.js:\d+:\d+/));
-          assert(stdout.match(/\bat\s+/g).length === 2);
+          assert(stdout.match(/at (sleep )?.*sleep.test.js:\d+:\d+/));
+          assert(stdout.match(/at Timeout.(setTimeout|_onTimeout) .*node_modules.*my-sleep.*index.js:\d+:\d+/));
+          assert(stdout.match(/\bat\s+/g).length > 0);
           assert(code === 1);
           done(err);
         });
