@@ -78,8 +78,7 @@ describe('test/ts.test.js', () => {
     it.only('should cov app in cluster mod', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
-        // .debug()
-        .expect('stderr', 'log travis err')
+        .debug()
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
