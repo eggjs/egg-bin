@@ -74,6 +74,15 @@ describe('test/ts.test.js', () => {
         .expect('code', 0)
         .end();
     });
+
+    it('should cov app in cluster mod', () => {
+      cwd = path.join(__dirname, './fixtures/example-ts-cluster');
+      return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
+        // .debug()
+        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('code', 0)
+        .end();
+    });
   });
 
   describe('error stacks', () => {
