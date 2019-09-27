@@ -79,6 +79,7 @@ describe('test/ts.test.js', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         // .debug()
+        .expect('stderr', 'log travis err')
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
