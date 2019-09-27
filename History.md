@@ -1,4 +1,10 @@
 
+4.13.2 / 2019-09-27
+==================
+
+**fixes**
+  * [[`3b370ef`](http://github.com/eggjs/egg-bin/commit/3b370ef998b65e1a5f0390a7aa5f0fb4d2e96a7d)] - fix: nyc shim (#138) (dxd <<dxd_sjtu@outlook.com>>)
+
 4.13.1 / 2019-04-28
 ==================
 
