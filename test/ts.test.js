@@ -75,7 +75,7 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
-    it('should cov app in cluster mod', () => {
+    it.only('should cov app in cluster mod', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         // .debug()
