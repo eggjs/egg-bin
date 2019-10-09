@@ -6,7 +6,7 @@ const mm = require('mm');
 const fs = require('fs');
 const rimraf = require('mz-modules/rimraf');
 
-describe('test/ts.test.js', () => {
+describe.only('test/ts.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin');
   let cwd;
 
@@ -75,10 +75,10 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
-    it('should cov app in cluster mod', () => {
+    it.only('should cov app in cluster mod', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
