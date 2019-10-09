@@ -11,7 +11,7 @@ describe("test/index.test.ts", () => {
         execArgv: ["--require", require.resolve("ts-node/register")]
       }
     } as MockOption);
-    app.debug();
+    // app.debug();
     return app.ready();
   });
 
