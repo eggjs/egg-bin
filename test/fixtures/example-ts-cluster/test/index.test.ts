@@ -14,9 +14,9 @@ describe("test/index.test.ts", () => {
     return app.ready();
   });
 
-  it("should work", () => {
+  it("should work", async () => {
     const req = request(`http://127.0.0.1:${app.port}`);
-    req
+    await req
       .get("/")
       .expect("hi, egg")
       .expect(200);
