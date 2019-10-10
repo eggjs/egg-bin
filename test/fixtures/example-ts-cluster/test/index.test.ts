@@ -11,16 +11,15 @@ describe("test/index.test.ts", () => {
         execArgv: ["--require", require.resolve("ts-node/register")]
       }
     } as MockOption);
-    // app.debug();
     return app.ready();
   });
 
-  after(() => app.close());
-  it("should work", async () => {
+  it("should work", () => {
     const req = request(`http://127.0.0.1:${app.port}`);
-    return req
+    req
       .get("/")
       .expect("hi, egg")
       .expect(200);
+    return app.close();
   });
 });
