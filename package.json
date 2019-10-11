@@ -24,7 +24,7 @@
     "jest-changed-files": "^24.7.0",
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
-    "nyc": "^14.1.0",
+    "nyc": "^13.3.0",
     "power-assert": "^1.6.1",
     "semver": "^6.0.0",
     "test-exclude": "^5.1.0",
