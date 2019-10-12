@@ -135,6 +135,7 @@ You can pass any mocha argv.
 - `--full-trace` display the full stack trace, default to false.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
+- `--dry-run` / `-d` whether dry-run the test command, just show the command 
 - see more at https://mochajs.org/#usage
 
 #### environment
