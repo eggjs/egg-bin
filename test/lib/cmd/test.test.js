@@ -150,6 +150,7 @@ describe('test/lib/cmd/test.test.js', () => {
         /--require=.*intelli-espower-loader\.js/,
         /foo\.test\.js/,
       ])
+      .notExpect('stdout', /--dry-run/)
       .expect('code', 0)
       .end();
   });
