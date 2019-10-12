@@ -1,4 +1,17 @@
 
+4.14.0 / 2019-10-12
+==================
+
+**features**
+  * [[`3cc3b0b`](http://github.com/eggjs/egg-bin/commit/3cc3b0bbc56553e66fdd3cc5b87716e61d859bdb)] - feat: test  --dry-run (#145) (Shu Pengfei <<stormslowly@gmail.com>>)
+
+**fixes**
+  * [[`9cb8125`](http://github.com/eggjs/egg-bin/commit/9cb812537f1bc5e046186fe4f167742503a43abb)] - fix: revert nyc (#140) (Haoliang Gao <<sakura9515@gmail.com>>)
+
+**others**
+  * [[`26c7b59`](http://github.com/eggjs/egg-bin/commit/26c7b599c18dee30215f1ffe35e9b6ab03cd3dd7)] - chore(deps): update typescript to "^3" (#144) (waiting <<waiting@xiaozhong.biz>>)
+  * [[`979a1ae`](http://github.com/eggjs/egg-bin/commit/979a1aed424540451412a58e3181ae1e456a73f5)] - ci: fix timeout (#142) (waiting <<waiting@xiaozhong.biz>>)
+
 4.13.2 / 2019-09-27
 ==================
 
