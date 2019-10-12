@@ -17,7 +17,7 @@ describe('test/lib/cmd/test.test.js', () => {
   it('should success', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      // .debug()
+    // .debug()
       .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b\/b\.test\.js/)
@@ -29,7 +29,7 @@ describe('test/lib/cmd/test.test.js', () => {
   it('should ignore node_modules and fixtures', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/test-files-glob') })
-      // .debug()
+    // .debug()
       .expect('stdout', /should test index/)
       .expect('stdout', /should test sub/)
       .notExpect('stdout', /no-load\.test\.js/)
@@ -69,7 +69,7 @@ describe('test/lib/cmd/test.test.js', () => {
 
   it('should exit when not test files', done => {
     coffee.fork(eggBin, [ 'test', 'test/**/*.nth.js' ], { cwd })
-      // .debug()
+    // .debug()
       .expect('stdout', /No test files found/)
       .expect('code', 0)
       .end(done);
@@ -79,7 +79,7 @@ describe('test/lib/cmd/test.test.js', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     mm(process.env, 'TEST_REPORTER', 'json');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      // .debug()
+    // .debug()
       .expect('stdout', /"stats":/)
       .expect('stdout', /"tests":/)
       .expect('code', 0)
@@ -98,8 +98,8 @@ describe('test/lib/cmd/test.test.js', () => {
   it('should fail when test fail with power-assert', done => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     coffee.fork(eggBin, [ 'test' ], { cwd })
-      // .coverage(false)
-      // .debug()
+    // .coverage(false)
+    // .debug()
       .expect('stdout', /1\) should fail/)
       .expect('stdout', /assert\(1 === 2\)/)
       .expect('stdout', /1 failing/)
@@ -110,8 +110,8 @@ describe('test/lib/cmd/test.test.js', () => {
   it('should warn when require intelli-espower-loader', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
     return coffee.fork(eggBin, [ 'test', '-r', 'intelli-espower-loader' ], { cwd })
-      // .coverage(false)
-      // .debug()
+    // .coverage(false)
+    // .debug()
       .expect('stderr', /manually require `intelli-espower-loader`/)
       .expect('stdout', /1\) should fail/)
       .expect('stdout', /assert\(1 === 2\)/)
@@ -138,13 +138,29 @@ describe('test/lib/cmd/test.test.js', () => {
       .end();
   });
 
+  it('run not test with dry-run option', () => {
+    const cwd = path.join(__dirname, '../../fixtures/mocha-test');
+    return coffee.fork(eggBin, [ 'test', '--timeout=12345', '--dry-run' ], { cwd })
+      .expect('stdout', [
+        /_mocha/g,
+        /--timeout=12345/,
+        /--exit/,
+        /--require=.*mocha-clean\.js/,
+        /--require=.*co-mocha\.js/,
+        /--require=.*intelli-espower-loader\.js/,
+        /foo\.test\.js/,
+      ])
+      .expect('code', 0)
+      .end();
+  });
+
   describe('simplify mocha error stack', () => {
     const cwd = path.join(__dirname, '../../fixtures/test-files-stack');
 
     it('should clean assert error stack', done => {
       mm(process.env, 'TESTS', 'test/assert.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+      // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/AssertionError/));
           if (semver.satisfies(process.version, '^6.0.0')) {
@@ -161,7 +177,7 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should should show full stack trace', done => {
       mm(process.env, 'TESTS', 'test/assert.test.js');
       coffee.fork(eggBin, [ 'test', '--full-trace' ], { cwd })
-        // .debug()
+      // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/AssertionError/));
           if (semver.satisfies(process.version, '^6.0.0')) {
@@ -176,7 +192,7 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should clean co error stack', done => {
       mm(process.env, 'TESTS', 'test/promise.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+      // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/Error: this is an error/));
           assert(stdout.match(/at Promise .*promise.test.js:\d+:\d+/));
@@ -190,7 +206,7 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should clean callback error stack', done => {
       mm(process.env, 'TESTS', 'test/sleep.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+      // .debug()
         .end((err, { stdout, code }) => {
           assert(stdout.match(/Error: this is an error/));
           assert(stdout.match(/at sleep .*sleep.test.js:\d+:\d+/));
@@ -245,7 +261,7 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should no-timeout at debug mode', done => {
       mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
       coffee.fork(eggBin, [ 'test', '--inspect' ], { cwd })
-        // .debug()
+      // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)
         .end(done);
@@ -255,7 +271,7 @@ describe('test/lib/cmd/test.test.js', () => {
       mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
       mm(process.env, 'JB_DEBUG_FILE', __filename);
       coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+      // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)
         .end(done);
