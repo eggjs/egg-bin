@@ -122,6 +122,7 @@ describe('test/lib/cmd/test.test.js', () => {
 
   it('should auto require test/.setup.js', () => {
     // example: https://github.com/lelandrichardson/enzyme-example-mocha
+    mm(process.env, 'TESTS', 'test/Foo.test.js');
     return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/enzyme-example-mocha') })
     // .debug()
       .expect('stdout', /before hook: delay 10ms/)
@@ -130,6 +131,16 @@ describe('test/lib/cmd/test.test.js', () => {
       .end();
   });
 
+  it('should auto require test/.setup.ts', () => {
+    // example: https://github.com/lelandrichardson/enzyme-example-mocha
+    mm(process.env, 'TESTS', 'test/a.test.ts');
+    return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd: path.join(__dirname, '../../fixtures/setup-ts') })
+      .expect('stdout', /this is a before function/)
+      .expect('stdout', /hello egg/)
+      .expect('stdout', /is end!/)
+      .expect('code', 0)
+      .end();
+  });
   it('should force exit', () => {
     const cwd = path.join(__dirname, '../../fixtures/no-exit');
     return coffee.fork(eggBin, [ 'test' ], { cwd })
@@ -140,6 +151,7 @@ describe('test/lib/cmd/test.test.js', () => {
 
   it('run not test with dry-run option', () => {
     const cwd = path.join(__dirname, '../../fixtures/mocha-test');
+    mm(process.env, 'TESTS', 'test/foo.test.js');
     return coffee.fork(eggBin, [ 'test', '--timeout=12345', '--dry-run' ], { cwd })
       .expect('stdout', [
         /_mocha/g,
