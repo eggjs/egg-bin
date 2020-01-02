@@ -1,4 +1,10 @@
 
+4.14.1 / 2020-01-02
+==================
+
+**fixes**
+  * [[`00afdf7`](http://github.com/eggjs/egg-bin/commit/00afdf7e0237a42360ffd40513cb0b11467efbb5)] - fix: auto add .setup.ts file (#147) (angleshe <<478647464@qq.com>>)
+
 4.14.0 / 2019-10-12
 ==================
 
