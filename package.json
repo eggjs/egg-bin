@@ -29,7 +29,8 @@
     "semver": "^6.0.0",
     "test-exclude": "^5.1.0",
     "ts-node": "^7",
-    "ypkgfiles": "^1.6.0"
+    "ypkgfiles": "^1.6.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/mocha": "^5.0.0",
@@ -69,7 +70,9 @@
     "cov": "nyc -r lcov -r text-summary npm run test-local",
     "ci-test-only": "TESTS=test/lib/cmd/cov.test.js npm run test-local",
     "ci": "npm run lint && npm run pkgfiles -- --check && npm run ci-test-only && npm run cov",
-    "autod": "node bin/egg-bin.js autod"
+    "autod": "node bin/egg-bin.js autod",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "engines": {
     "node": ">= 6.0.0"
@@ -81,5 +84,6 @@
   ],
   "ci": {
     "version": "6, 8"
-  }
+  },
+  "snyk": true
 }
