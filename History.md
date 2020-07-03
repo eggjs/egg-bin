@@ -1,4 +1,10 @@
 
+4.15.0 / 2020-07-03
+==================
+
+**features**
+  * [[`dcc9b25`](http://github.com/eggjs/egg-bin/commit/dcc9b256843815b6b4f1e505bfd1bf3aeffa4db0)] - feat: expose proc (#152) (TZ | 天猪 <<atian25@qq.com>>)
+
 4.14.1 / 2020-01-02
 ==================
 
