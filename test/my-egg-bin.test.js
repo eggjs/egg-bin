@@ -32,8 +32,9 @@ describe('test/my-egg-bin.test.js', () => {
 
   it('should my-egg-bin dev success', done => {
     coffee.fork(eggBin, [ 'dev' ], { cwd })
-      // .debug()
+      .debug()
       .expect('stdout', /yadan start/)
+      .expect('stdout', /proc: \d+/)
       .expect('code', 0)
       .end(done);
   });
