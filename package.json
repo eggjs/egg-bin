@@ -22,7 +22,7 @@
     "inspector-proxy": "^1.2.1",
     "intelli-espower-loader": "^1.0.1",
     "jest-changed-files": "^24.7.0",
-    "mocha": "^6.0.2",
+    "mocha": "^8.2.0",
     "mz-modules": "^2.1.0",
     "nyc": "^13.3.0",
     "power-assert": "^1.6.1",
