@@ -32,13 +32,13 @@ describe('test/lib/cmd/cov.test.js', () => {
       .notExpect('stdout', /a.js/);
 
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
     }
 
     yield child.expect('code', 0).end();
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
+    if (!process.env.NYC_CONFIG) assertCoverage(cwd);
   });
 
   it('should exit when not test files', done => {
@@ -62,13 +62,13 @@ describe('test/lib/cmd/cov.test.js', () => {
       .notExpect('stdout', /a.js/);
 
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
     }
 
     yield child.expect('code', 0).end();
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
+    if (!process.env.NYC_CONFIG) assertCoverage(cwd);
   });
 
   it('should success with COV_EXCLUDES', function* () {
@@ -82,13 +82,13 @@ describe('test/lib/cmd/cov.test.js', () => {
       .notExpect('stdout', /a.js/);
 
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
     }
 
     yield child.expect('code', 0).end();
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       assertCoverage(cwd);
       const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
       assert(!/ignore[\/|\\]a.js/.test(lcov));
@@ -104,13 +104,13 @@ describe('test/lib/cmd/cov.test.js', () => {
       .notExpect('stdout', /a.js/);
 
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
     }
 
     yield child.expect('code', 0).end();
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       assertCoverage(cwd);
       const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
       assert(!/ignore[\/|\\]a.js/.test(lcov));
@@ -126,13 +126,13 @@ describe('test/lib/cmd/cov.test.js', () => {
       .notExpect('stdout', /a.js/);
 
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
     }
 
     yield child.expect('code', 0).end();
     // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
+    if (!process.env.NYC_CONFIG) {
       assertCoverage(cwd);
       const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
       assert(!/ignore[\/|\\]a.js/.test(lcov));
