@@ -70,7 +70,7 @@ describe('test/ts.test.js', () => {
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
-        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('stdout', process.env.NYC_CONFIG ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
     });
@@ -79,7 +79,7 @@ describe('test/ts.test.js', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
-        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('stdout', process.env.NYC_CONFIG ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
     });
@@ -166,7 +166,7 @@ describe('test/ts.test.js', () => {
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
-        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('stdout', process.env.NYC_CONFIG ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
     });
