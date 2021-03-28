@@ -24,10 +24,10 @@
     "jest-changed-files": "^24.7.0",
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
-    "nyc": "^13.3.0",
+    "nyc": "^15.0.0",
     "power-assert": "^1.6.1",
     "semver": "^6.0.0",
-    "test-exclude": "^5.1.0",
+    "test-exclude": "^6.0.0",
     "ts-node": "^7",
     "ypkgfiles": "^1.6.0"
   },
