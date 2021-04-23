@@ -153,7 +153,21 @@ describe('test/ts.test.js', () => {
     });
 
     it('should start app with other tscompiler without error', () => {
-      return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], { cwd })
+      return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], {
+        cwd: path.join(__dirname, './fixtures/example-ts'),
+      })
+        // .debug()
+        .expect('stdout', /agent.options.typescript = true/)
+        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should start app with other tscompiler in package.json without error', () => {
+      return coffee.fork(eggBin, [ 'dev', '--ts' ], {
+        cwd: path.join(__dirname, './fixtures/example-ts-pkg'),
+      })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
         .expect('stdout', /agent.options.tscompiler = esbuild-register/)
