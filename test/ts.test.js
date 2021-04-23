@@ -106,10 +106,10 @@ describe('test/ts.test.js', () => {
 
     it('should correct error stack line number in testing app', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:8:11\)/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:14:5\)/)
+        .expect('stdout', /test\/index\.test\.ts:8:11\)/)
+        .expect('stdout', /test\/index\.test\.ts:14:5\)/)
         .end();
     });
 
@@ -117,8 +117,8 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:8:11\)/)
-        .expect('stdout', /at Context\.it .+index\.test\.ts:14:5\)/)
+        .expect('stdout', /test\/index\.test\.ts:8:11\)/)
+        .expect('stdout', /test\/index\.test\.ts:14:5\)/)
         .end();
     });
   });
@@ -147,6 +147,30 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'dev', '--no-ts' ], { cwd })
         // .debug()
         .expect('stdout', /agent.options.typescript = false/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should start app with other tscompiler without error', () => {
+      return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], {
+        cwd: path.join(__dirname, './fixtures/example-ts'),
+      })
+        // .debug()
+        .expect('stdout', /agent.options.typescript = true/)
+        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should start app with other tscompiler in package.json without error', () => {
+      return coffee.fork(eggBin, [ 'dev', '--ts' ], {
+        cwd: path.join(__dirname, './fixtures/example-ts-pkg'),
+      })
+        // .debug()
+        .expect('stdout', /agent.options.typescript = true/)
+        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();

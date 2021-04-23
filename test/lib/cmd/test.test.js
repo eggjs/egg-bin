@@ -205,12 +205,13 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should clean co error stack', done => {
       mm(process.env, 'TESTS', 'test/promise.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
-      // .debug()
-        .end((err, { stdout, code }) => {
+        // .debug()
+        .end((err, result) => {
+          if (err) return done(err);
+          const { stdout, code } = result;
           assert(stdout.match(/Error: this is an error/));
-          assert(stdout.match(/at Promise .*promise.test.js:\d+:\d+/));
-          assert(stdout.match(/at Context\.<anonymous> .*promise.test.js:\d+:\d+/));
-          assert(stdout.match(/\bat\s+/g).length >= 3);
+          assert(stdout.match(/test\/promise.test.js:\d+:\d+/));
+          assert(stdout.match(/\bat\s+/g).length);
           assert(code === 1);
           done(err);
         });
@@ -219,12 +220,14 @@ describe('test/lib/cmd/test.test.js', () => {
     it('should clean callback error stack', done => {
       mm(process.env, 'TESTS', 'test/sleep.test.js');
       coffee.fork(eggBin, [ 'test' ], { cwd })
-      // .debug()
-        .end((err, { stdout, code }) => {
+        // .debug()
+        .end((err, result) => {
+          if (err) return done(err);
+          const { stdout, code } = result;
           assert(stdout.match(/Error: this is an error/));
-          assert(stdout.match(/at sleep .*sleep.test.js:\d+:\d+/));
-          assert(stdout.match(/at Timeout.setTimeout .*node_modules.*my-sleep.*index.js:\d+:\d+/));
-          assert(stdout.match(/\bat\s+/g).length === 2);
+          assert(stdout.match(/test\/sleep.test.js:\d+:\d+/));
+          assert(stdout.match(/node_modules\/my-sleep\/index.js:\d+:\d+/));
+          assert(stdout.match(/\bat\s+/g).length);
           assert(code === 1);
           done(err);
         });

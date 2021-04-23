@@ -1,6 +1,7 @@
 {
   "name": "example-ts-pkg",
   "egg": {
-    "typescript": true
+    "typescript": true,
+    "tscompiler": "esbuild-register"
   }
 }
