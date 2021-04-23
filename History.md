@@ -1,4 +1,10 @@
 
+4.16.0 / 2021-04-23
+==================
+
+**features**
+  * [[`a74bae2`](http://github.com/eggjs/egg-bin/commit/a74bae2f604c13b50dadb8468a796867315120c7)] - feat: support switch ts compiler (#158) (吖猩 <<whxaxes@gmail.com>>)
+
 4.15.0 / 2020-07-03
 ==================
 
