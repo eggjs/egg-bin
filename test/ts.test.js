@@ -155,13 +155,13 @@ describe('test/ts.test.js', () => {
     it('should start app with flags in app without eggInfo', async () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-simple');
       await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
 
       await coffee.fork(eggBin, [ 'dev', '--ts', '--tsc=esbuild-register' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
