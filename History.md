@@ -1,4 +1,10 @@
 
+4.16.1 / 2021-04-25
+==================
+
+**fixes**
+  * [[`8666e9e`](http://github.com/eggjs/egg-bin/commit/8666e9eb9ce5016ac61af9f542b5518537a90a6b)] - fix: egginfo is not exists (#159) (吖猩 <<whxaxes@gmail.com>>)
+
 4.16.0 / 2021-04-23
 ==================
 
