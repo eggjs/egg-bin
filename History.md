@@ -1,4 +1,10 @@
 
+4.16.2 / 2021-05-14
+==================
+
+**fixes**
+  * [[`563923a`](http://github.com/eggjs/egg-bin/commit/563923a68c0c0ae09075c4cedb855400deea623f)] - fix: remove espower typescript (#160) (吖猩 <<whxaxes@gmail.com>>)
+
 4.16.1 / 2021-04-25
 ==================
 
