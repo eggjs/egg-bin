@@ -1,6 +1,6 @@
 'use strict';
 
-// import * as assert from 'assert';
+import assert = require('assert');
 
 describe('test/index.test.ts', () => {
   // placeholder comments
