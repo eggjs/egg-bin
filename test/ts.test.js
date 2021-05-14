@@ -110,6 +110,25 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /error/)
         .expect('stdout', /test\/index\.test\.ts:8:11\)/)
         .expect('stdout', /test\/index\.test\.ts:14:5\)/)
+        .expect('stdout', /assert\(obj\.key === '222'\)/)
+        .expect('stdout', /| {3}| {3}|/)
+        .expect('stdout', /| {3}| {3}false/)
+        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /Object\{key:"111"}/)
+        .end();
+    });
+
+    it('should correct error stack line number in testing app with other tscompiler', () => {
+      return coffee.fork(eggBin, [ 'test', '--tscompiler=esbuild-register' ], { cwd })
+        .debug()
+        .expect('stdout', /error/)
+        .expect('stdout', /test\/index\.test\.ts:8:11\)/)
+        .expect('stdout', /test\/index\.test\.ts:14:5\)/)
+        .expect('stdout', /assert\(obj\.key === "222"\)/)
+        .expect('stdout', /| {3}| {3}|/)
+        .expect('stdout', /| {3}| {3}false/)
+        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
 
@@ -119,6 +138,11 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /error/)
         .expect('stdout', /test\/index\.test\.ts:8:11\)/)
         .expect('stdout', /test\/index\.test\.ts:14:5\)/)
+        .expect('stdout', /assert\(obj\.key === '222'\)/)
+        .expect('stdout', /| {3}| {3}|/)
+        .expect('stdout', /| {3}| {3}false/)
+        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
   });
