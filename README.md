@@ -1,7 +1,7 @@
 # egg-bin
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![build status][github-actions]][github-actions-url]
 [![Test coverage][codecov-image]][codecov-url]
 [![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
@@ -9,8 +9,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/egg-bin.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/egg-bin
-[travis-image]: https://img.shields.io/travis/eggjs/egg-bin.svg?style=flat-square
-[travis-url]: https://travis-ci.org/eggjs/egg-bin
+[github-actions]: https://github.com/eggjs/egg-bin/actions/workflows/nodejs.yml/badge.svg?branch=master
+[github-actions-url]: https://github.com/eggjs/egg-bin/actions/workflows/nodejs.yml
 [codecov-image]: https://codecov.io/gh/eggjs/egg-bin/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/eggjs/egg-bin
 [david-image]: https://img.shields.io/david/eggjs/egg-bin.svg?style=flat-square
