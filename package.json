@@ -17,7 +17,7 @@
     "egg-ts-helper": "^1.25.9",
     "egg-utils": "^2.4.1",
     "espower-source": "^2.3.0",
-    "globby": "^10.0.2",
+    "globby": "^9.2.0",
     "inspector-proxy": "^1.2.1",
     "intelli-espower-loader": "^1.1.0",
     "jest-changed-files": "^27.0.2",

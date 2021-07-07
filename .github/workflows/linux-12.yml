@@ -1,4 +1,4 @@
-name: CI
+name: CI-Linux-12
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [10, 12, 14]
+        node-version: [12]
         os: [ubuntu-latest]
 
     steps:

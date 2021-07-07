@@ -210,7 +210,7 @@ describe('test/lib/cmd/test.test.js', () => {
           if (err) return done(err);
           const { stdout, code } = result;
           assert(stdout.match(/Error: this is an error/));
-          assert(stdout.match(/test\/promise.test.js:\d+:\d+/));
+          assert(stdout.match(/test[\/\\]{1}promise.test.js:\d+:\d+/));
           assert(stdout.match(/\bat\s+/g).length);
           assert(code === 1);
           done(err);
@@ -225,8 +225,8 @@ describe('test/lib/cmd/test.test.js', () => {
           if (err) return done(err);
           const { stdout, code } = result;
           assert(stdout.match(/Error: this is an error/));
-          assert(stdout.match(/test\/sleep.test.js:\d+:\d+/));
-          assert(stdout.match(/node_modules\/my-sleep\/index.js:\d+:\d+/));
+          assert(stdout.match(/test[\/\\]{1}sleep.test.js:\d+:\d+/));
+          assert(stdout.match(/node_modules[\/\\]{1}my-sleep[\/\\]{1}index.js:\d+:\d+/));
           assert(stdout.match(/\bat\s+/g).length);
           assert(code === 1);
           done(err);

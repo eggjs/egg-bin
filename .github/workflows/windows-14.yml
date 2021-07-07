@@ -1,4 +1,4 @@
-name: CI
+name: CI-Windows-14
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [10, 12, 14]
-        os: [macos-latest]
+        node-version: [14]
+        os: [windows-latest]
 
     steps:
       - name: Checkout Git Source
