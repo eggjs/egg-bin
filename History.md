@@ -1,4 +1,13 @@
 
+4.16.3 / 2021-07-08
+==================
+
+**fixes**
+  * [[`4a076e6`](http://github.com/eggjs/egg-bin/commit/4a076e606428b7eb80bdaa0e358cf4138a3ab0df)] - fix: ci failed (#162) (hyj1991 <<yeekwanvong@gmail.com>>)
+
+**others**
+  * [[`c915f1a`](http://github.com/eggjs/egg-bin/commit/c915f1a65340e1cfa04cf213a957f7ed9ac1c148)] - chore: update deps (#161) (hyj1991 <<yeekwanvong@gmail.com>>)
+
 4.16.2 / 2021-05-14
 ==================
 
