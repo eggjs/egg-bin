@@ -16,8 +16,8 @@ describe('test/lib/cmd/debug.test.js', () => {
     return coffee.fork(eggBin, [ 'debug' ], { cwd })
       // .debug()
       .expect('stderr', /Debugger listening/)
-      // node 8 missing "chrome-devtools" url
-      // .expect('stderr', /chrome-devtools:/)
+      // node 8 missing "devtools" url
+      // .expect('stderr', /devtools:/)
       .expect('stdout', /"workers":1/)
       .expect('code', 0)
       .end();
@@ -72,7 +72,7 @@ describe('test/lib/cmd/debug.test.js', () => {
       mm(process.env, 'VSCODE_CLI', '');
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
       // app.debug();
-      if (newDebugger) app.expect('stdout', /DevTools → chrome-devtools:.*:9999/);
+      if (newDebugger) app.expect('stdout', /DevTools → devtools:.*:9999/);
       yield app.expect('stderr', /Debugger listening/)
         .expect('stdout', /Debug Proxy online, now you could attach to 9999/)
         .expect('code', 0)
@@ -83,7 +83,7 @@ describe('test/lib/cmd/debug.test.js', () => {
       mm(process.env, 'VSCODE_CLI', '');
       const app = coffee.fork(eggBin, [ 'debug', '--proxy=6666' ], { cwd });
       // app.debug();
-      if (newDebugger) app.expect('stdout', /DevTools → chrome-devtools:.*:6666/);
+      if (newDebugger) app.expect('stdout', /DevTools → devtools:.*:6666/);
       yield app.expect('stderr', /Debugger listening/)
         .expect('stdout', /Debug Proxy online, now you could attach to 6666/)
         .expect('code', 0)
@@ -95,7 +95,7 @@ describe('test/lib/cmd/debug.test.js', () => {
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
       // app.debug();
       yield app.expect('stderr', /Debugger listening/)
-        .notExpect('stdout', /DevTools → chrome-devtools:.*:9999/)
+        .notExpect('stdout', /DevTools → devtools:.*:9999/)
         .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
         .expect('code', 0)
         .end();
@@ -107,7 +107,7 @@ describe('test/lib/cmd/debug.test.js', () => {
       // app.debug();
       yield app.expect('stderr', /Debugger listening/)
         .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .notExpect('stdout', /DevTools → chrome-devtools:.*:9999/)
+        .notExpect('stdout', /DevTools → devtools:.*:9999/)
         .expect('code', 0)
         .end();
     });
@@ -118,7 +118,7 @@ describe('test/lib/cmd/debug.test.js', () => {
       // app.debug();
       yield app.expect('stderr', /Debugger listening/)
         .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .notExpect('stdout', /DevTools → chrome-devtools:.*:9999/)
+        .notExpect('stdout', /DevTools → devtools:.*:9999/)
         .expect('code', 0)
         .end();
     });

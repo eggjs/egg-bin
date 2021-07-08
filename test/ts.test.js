@@ -5,6 +5,7 @@ const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('fs');
 const rimraf = require('mz-modules/rimraf');
+const os = require('os');
 
 describe('test/ts.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin');
@@ -79,7 +80,7 @@ describe('test/ts.test.js', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
-        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('stdout', process.env.NYC_ROOT_ID || os.platform() === 'win32' ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
     });
@@ -108,8 +109,8 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test\/index\.test\.ts:8:11\)/)
-        .expect('stdout', /test\/index\.test\.ts:14:5\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
         .expect('stdout', /assert\(obj\.key === '222'\)/)
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)
@@ -122,8 +123,8 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test', '--tscompiler=esbuild-register' ], { cwd })
         .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test\/index\.test\.ts:8:11\)/)
-        .expect('stdout', /test\/index\.test\.ts:14:5\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
         .expect('stdout', /assert\(obj\.key === "222"\)/)
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)
@@ -136,8 +137,8 @@ describe('test/ts.test.js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test\/index\.test\.ts:8:11\)/)
-        .expect('stdout', /test\/index\.test\.ts:14:5\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
         .expect('stdout', /assert\(obj\.key === '222'\)/)
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)

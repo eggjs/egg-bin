@@ -95,7 +95,7 @@ describe('test/my-egg-bin.test.js', () => {
     coffee.fork(eggBin, [ 'error' ], { cwd })
       .debug()
       .expect('stderr', /Error: this is an error/)
-      .expect('stderr', /fixtures\/my-egg-bin\/lib\/cmd\/error.js:/)
+      .expect('stderr', /fixtures[\/\\]{1}my-egg-bin[\/\\]{1}lib[\/\\]{1}cmd[\/\\]{1}error.js:/)
       .expect('code', 1)
       .end(done);
   });
