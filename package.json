@@ -20,7 +20,7 @@
     "globby": "^9.2.0",
     "inspector-proxy": "^1.2.1",
     "intelli-espower-loader": "^1.1.0",
-    "jest-changed-files": "^27.0.2",
+    "jest-changed-files": "^25.5.0",
     "minimatch": "^3.0.4",
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
