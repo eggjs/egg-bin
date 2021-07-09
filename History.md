@@ -1,4 +1,10 @@
 
+4.16.4 / 2021-07-09
+==================
+
+**others**
+  * [[`0765c4c`](http://github.com/eggjs/egg-bin/commit/0765c4cdc3abc1f4181dec2e31142ce5224a2cdf)] - ci: support node-v8.x (#164) (hyj1991 <<yeekwanvong@gmail.com>>)
+
 4.16.3 / 2021-07-08
 ==================
 
