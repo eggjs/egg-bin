@@ -9,8 +9,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/egg-bin.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/egg-bin
-[github-actions]: https://github.com/eggjs/egg-bin/actions/workflows/nodejs.yml/badge.svg?branch=master
-[github-actions-url]: https://github.com/eggjs/egg-bin/actions/workflows/nodejs.yml
+[github-actions]: https://github.com/eggjs/egg-bin/actions/workflows/linux-14.yml/badge.svg?branch=master
+[github-actions-url]: https://github.com/eggjs/egg-bin/actions/workflows/linux-14.yml
 [codecov-image]: https://codecov.io/gh/eggjs/egg-bin/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/eggjs/egg-bin
 [david-image]: https://img.shields.io/david/eggjs/egg-bin.svg?style=flat-square
@@ -19,6 +19,7 @@
 [snyk-url]: https://snyk.io/test/npm/egg-bin
 [download-image]: https://img.shields.io/npm/dm/egg-bin.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-bin
+
 
 egg developer tool, extends [common-bin].
 
