@@ -24,7 +24,7 @@
     "minimatch": "^3.0.4",
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
-    "nyc": "^13.3.0",
+    "nyc": "^15.0.0",
     "power-assert": "^1.6.1",
     "semver": "^7.3.5",
     "source-map-support": "^0.5.19",
