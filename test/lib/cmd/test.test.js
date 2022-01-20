@@ -120,6 +120,24 @@ describe('test/lib/cmd/test.test.js', () => {
       .end();
   });
 
+  it('should auto require intelli-espower-loader', () => {
+    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+    return coffee.fork(eggBin, [ 'test' ], { cwd })
+    // .coverage(false)
+    // .debug()
+      .expect('stdout', /auto require `intelli-espower-loader`/)
+      .end();
+  });
+
+  it('should no require intelli-espower-loader', () => {
+    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+    return coffee.fork(eggBin, [ 'test', '--intelli-espower-loader=false' ], { cwd })
+    // .coverage(false)
+    // .debug()
+      .expect('stdout', /no require `intelli-espower-loader`/)
+      .end();
+  });
+
   it('should auto require test/.setup.js', () => {
     // example: https://github.com/lelandrichardson/enzyme-example-mocha
     mm(process.env, 'TESTS', 'test/Foo.test.js');
