@@ -137,7 +137,7 @@ You can pass any mocha argv.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
 - `--dry-run` / `-d` whether dry-run the test command, just show the command 
-- `--intelli-espower-loader` / `-i` whether enable intelli-espower-loader, default to `true`, when require intelli-espower-loader manually, this option will be neglect.
+- `--espower` / `-e` whether auto require intelli-espower-loader(js) or espower-typescript(ts) for power-assert, default to `true`.
 - see more at https://mochajs.org/#usage
 
 #### environment

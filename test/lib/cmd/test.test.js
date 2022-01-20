@@ -131,10 +131,19 @@ describe('test/lib/cmd/test.test.js', () => {
 
   it('should no require intelli-espower-loader', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'test', '--intelli-espower-loader=false' ], { cwd })
+    return coffee.fork(eggBin, [ 'test', '--espower=false' ], { cwd })
     // .coverage(false)
     // .debug()
       .expect('stdout', /no require `intelli-espower-loader`/)
+      .end();
+  });
+
+  it('should auto require espower-typescript when typescript', () => {
+    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+    return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
+    // .coverage(false)
+    // .debug()
+      .expect('stdout', /auto require `espower-typescript`/)
       .end();
   });
 
