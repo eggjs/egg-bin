@@ -1,4 +1,10 @@
 
+4.17.0 / 2022-01-21
+==================
+
+**others**
+  * [[`6403b4a`](http://github.com/eggjs/egg-bin/commit/6403b4aac8aa4cd872ecddbaf1ff118e98b0a192)] - support --intelli-espower-loader option (#168) (羊鹿 <<general_up@163.com>>)
+
 4.16.4 / 2021-07-09
 ==================
 
