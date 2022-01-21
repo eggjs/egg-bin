@@ -107,44 +107,56 @@ describe('test/lib/cmd/test.test.js', () => {
       .end(done);
   });
 
-  it('should warn when require intelli-espower-loader', () => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'test', '-r', 'intelli-espower-loader' ], { cwd })
-    // .coverage(false)
-    // .debug()
-      .expect('stderr', /manually require `intelli-espower-loader`/)
-      .expect('stdout', /1\) should fail/)
-      .expect('stdout', /assert\(1 === 2\)/)
-      .expect('stdout', /1 failing/)
-      .expect('code', 1)
-      .end();
-  });
+  describe('intelli-espower-loader', () => {
+    it('should warn when require intelli-espower-loader', () => {
+      mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+      return coffee.fork(eggBin, [ 'test', '-r', 'intelli-espower-loader' ], { cwd })
+      // .coverage(false)
+      // .debug()
+        .expect('stderr', /manually require `intelli-espower-loader`/)
+        .expect('stdout', /1\) should fail/)
+        .expect('stdout', /assert\(1 === 2\)/)
+        .expect('stdout', /1 failing/)
+        .expect('code', 1)
+        .end();
+    });
 
-  it('should auto require intelli-espower-loader', () => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'test' ], { cwd })
-    // .coverage(false)
-    // .debug()
-      .expect('stdout', /auto require `intelli-espower-loader`/)
-      .end();
-  });
+    it('should default require intelli-espower-loader', () => {
+      mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+      return coffee.fork(eggBin, [ 'test', '--dry-run' ], { cwd })
+      // .coverage(false)
+      // .debug()
+        .expect('stdout', /--require=.*intelli-espower-loader\.js/)
+        .end();
+    });
 
-  it('should no require intelli-espower-loader', () => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'test', '--espower=false' ], { cwd })
-    // .coverage(false)
-    // .debug()
-      .expect('stdout', /no require `intelli-espower-loader`/)
-      .end();
-  });
+    it('should not require intelli-espower-loader with --espower=false', () => {
+      mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+      return coffee.fork(eggBin, [ 'test', '--espower=false', '--dry-run' ], { cwd })
+      // .coverage(false)
+      // .debug()
+        .notExpect('stdout', /--require=.*intelli-espower-loader\.js/)
+        .end();
+    });
 
-  it('should auto require espower-typescript when typescript', () => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
-    // .coverage(false)
-    // .debug()
-      .expect('stdout', /auto require `espower-typescript`/)
-      .end();
+    it('should default require espower-typescript when typescript', () => {
+      mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+      return coffee.fork(eggBin, [ 'test', '--typescript', '--dry-run' ], { cwd })
+      // .coverage(false)
+      // .debug()
+        .expect('stdout', /--require=.*espower-typescript\.js/)
+        .end();
+    });
+
+    it('should not require ntelli-espower-loader/espower-typescript when typescript with --espower=false', () => {
+      mm(process.env, 'TESTS', 'test/power-assert-fail.js');
+      return coffee.fork(eggBin, [ 'test', '--typescript', '--espower=false', '--dry-run' ], { cwd })
+      // .coverage(false)
+      // .debug()
+        .notExpect('stdout', /--require=.*intelli-espower-loader\.js/)
+        .notExpect('stdout', /--require=.*espower-typescript\.js/)
+        .end();
+    });
   });
 
   it('should auto require test/.setup.js', () => {
