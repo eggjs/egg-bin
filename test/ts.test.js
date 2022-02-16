@@ -5,7 +5,9 @@ const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('fs');
 const rimraf = require('mz-modules/rimraf');
+const exec = require('mz/child_process').exec;
 const os = require('os');
+const assert = require('assert');
 
 describe('test/ts.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin');
@@ -149,6 +151,17 @@ describe('test/ts.test.js', () => {
   });
 
   describe('egg.typescript = true', () => {
+    const tempNodeModules = path.join(__dirname, './fixtures/node_modules');
+    const tempPackageJson = path.join(__dirname, './fixtures/package.json');
+    afterEach(async () => {
+      if (fs.existsSync(tempNodeModules)) {
+        await rimraf(tempNodeModules);
+      }
+      if (fs.existsSync(tempPackageJson)) {
+        await rimraf(tempPackageJson);
+      }
+    });
+
     if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
       console.log('skip egg@1');
       return;
@@ -190,6 +203,19 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
+    });
+
+    it('should load custom ts compiler', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
+
+      // install custom ts-node
+      await exec('npx cnpm install ts-node@8.10.2', { cwd: path.join(__dirname, './fixtures') });
+
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+        .debug()
+        .end();
+      assert(/ts-node@8\.10\.2/.test(stderr));
+      assert.equal(code, 0);
     });
 
     it('should start app with other tscompiler without error', () => {
