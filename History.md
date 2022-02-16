@@ -1,4 +1,10 @@
 
+4.18.0 / 2022-02-16
+==================
+
+**features**
+  * [[`4a54cec`](http://github.com/eggjs/egg-bin/commit/4a54cec8561595b33984e41982e8d1da96a6bd47)] - feat: allow loading ts compiler from cwd (#169) (Deng Ruoqi <<drqzju@gmail.com>>)
+
 4.17.0 / 2022-01-21
 ==================
 

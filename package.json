@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "4.17.0",
+  "version": "4.18.0",
   "description": "egg developer tool",
   "main": "index.js",
   "bin": {
@@ -46,6 +46,7 @@
     "esbuild-register": "^2.5.0",
     "eslint": "^4.12.1",
     "eslint-config-egg": "^7.3.1",
+    "git-contributor": "^1.0.10",
     "jsdom": "^8.0.1",
     "mm": "^3.2.0",
     "mz": "^2.7.0",
@@ -62,8 +63,9 @@
     "url": "https://github.com/eggjs/egg/issues"
   },
   "homepage": "https://github.com/eggjs/egg-bin",
-  "author": "fengmk2 <fengmk2@gmail.com> (https://fengmk2.com)",
+  "author": "fengmk2 <fengmk2@gmail.com> (https://github.com/fengmk2)",
   "scripts": {
+    "contributor": "git-contributor",
     "lint": "eslint .",
     "pkgfiles": "node bin/egg-bin.js pkgfiles",
     "test": "npm run lint -- --fix && npm run test-local",
