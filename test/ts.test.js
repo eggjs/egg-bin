@@ -209,12 +209,12 @@ describe('test/ts.test.js', () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
 
       // install custom ts-node
-      await exec('npx cnpm install ts-node@10.5.0', { cwd: path.join(__dirname, './fixtures') });
+      await exec('npx cnpm install ts-node@8.10.2', { cwd: path.join(__dirname, './fixtures') });
 
       const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
         .debug()
         .end();
-      assert(/ts-node@10\.5\.0/.test(stderr));
+      assert(/ts-node@8\.10\.2/.test(stderr));
       assert.equal(code, 0);
     });
 
