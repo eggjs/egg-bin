@@ -1,3 +1,6 @@
 {
-  "name": "example-ts-custom-compiler"
+  "name": "example-ts-custom-compiler",
+  "dependencies": {
+    "ts-node": "^8.10.2"
+  }
 }
