@@ -209,10 +209,39 @@ describe('test/ts.test.js', () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
 
       // install custom ts-node
-      await exec('npx cnpm install ts-node@8.10.2 --save', { cwd });
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install', { cwd });
+
+      // create egg symlink
+      await fs.promises.symlink(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
 
       const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
-        .debug()
+        // .debug()
+        .end();
+      assert(/ts-node@8\.10\.2/.test(stderr));
+      assert.equal(code, 0);
+    });
+
+    it('should load custom ts compiler with tscompiler args', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+
+      // create egg symlink
+      await fs.promises.symlink(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stderr, code } = await coffee.fork(eggBin, [
+        'dev', '--ts', '--tscompiler=ts-node/register',
+      ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
         .end();
       assert(/ts-node@8\.10\.2/.test(stderr));
       assert.equal(code, 0);
@@ -224,7 +253,8 @@ describe('test/ts.test.js', () => {
       })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
-        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
+        .expect('stdout', /agent.options.tscompiler =/)
+        .expect('stdout', /esbuild-register/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -236,7 +266,8 @@ describe('test/ts.test.js', () => {
       })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
-        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
+        .expect('stdout', /agent.options.tscompiler =/)
+        .expect('stdout', /esbuild-register/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -249,6 +280,27 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /ts env: true/)
         .expect('code', 0)
         .end();
+    });
+
+    it('should test with custom ts compiler without error', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install', { cwd });
+
+      // create egg symlink
+      await fs.promises.symlink(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
+        .end();
+      assert(/ts-node@8\.10\.2/.test(stdout));
+      assert(!/ts-node@7\.\d+\.\d+/.test(stdout));
+      assert.equal(code, 0);
     });
 
     it('should cov app', () => {
