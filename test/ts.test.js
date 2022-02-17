@@ -247,6 +247,27 @@ describe('test/ts.test.js', () => {
       assert.equal(code, 0);
     });
 
+    it('should not load custom ts compiler without tscompiler args', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+
+      // create egg symlink
+      fs.symlinkSync(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
+        .end();
+      assert(!/ts-node@8\.10\.2/.test(stderr));
+      assert(/ts-node@7\.\d+\.\d+/.test(stderr));
+      assert.equal(code, 0);
+    });
+
     it('should start app with other tscompiler without error', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], {
         cwd: path.join(__dirname, './fixtures/example-ts'),
