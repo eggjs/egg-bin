@@ -213,7 +213,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install', { cwd });
 
       // create egg symlink
-      await fs.promises.symlink(
+      fs.symlinkSync(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
@@ -233,7 +233,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // create egg symlink
-      await fs.promises.symlink(
+      fs.symlinkSync(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
@@ -290,7 +290,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install', { cwd });
 
       // create egg symlink
-      await fs.promises.symlink(
+      fs.symlinkSync(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
