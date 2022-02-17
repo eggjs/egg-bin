@@ -4,7 +4,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('fs');
-const copyDir = require('copy-dir');
+const cpy = require('cpy');
 const rimraf = require('mz-modules/rimraf');
 const exec = require('mz/child_process').exec;
 const os = require('os');
@@ -214,7 +214,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install', { cwd });
 
       // copy egg to node_modules
-      copyDir.sync(
+      await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
@@ -234,7 +234,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // copy egg to node_modules
-      copyDir.sync(
+      await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
@@ -256,7 +256,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // copy egg to node_modules
-      copyDir.sync(
+      await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
@@ -312,7 +312,7 @@ describe('test/ts.test.js', () => {
       await exec('npx cnpm install', { cwd });
 
       // copy egg to node_modules
-      copyDir.sync(
+      await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg')
       );
