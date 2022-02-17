@@ -176,7 +176,7 @@ describe('test/lib/cmd/cov.test.js', () => {
     mm(process.env, 'TESTS', 'noexist.js');
     const cwd = path.join(__dirname, '../../fixtures/prerequire');
     yield coffee.fork(eggBin, [ 'cov' ], { cwd })
-      // .debug()
+      .debug()
       .expect('code', 0)
       .end();
   });
