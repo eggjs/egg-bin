@@ -1,4 +1,10 @@
 
+4.18.1 / 2022-02-18
+==================
+
+**fixes**
+  * [[`662b9e9`](http://github.com/eggjs/egg-bin/commit/662b9e924d8e83959ee44e2ef4b1ac7541378b33)] - fix: using ts-node in app should check tscompiler and deps (#170) (吖猩 <<whxaxes@gmail.com>>),
+
 4.18.0 / 2022-02-16
 ==================
 
