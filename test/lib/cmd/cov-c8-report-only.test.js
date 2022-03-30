@@ -14,8 +14,7 @@ describe('test/lib/cmd/cov-c8-report-only.test.js', () => {
   beforeEach(async () => {
     rimraf(path.join(cwd, 'coverage'));
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'NYC_CWD', cwd);
-    mm(process.env, 'NODE_V8_COVERAGE', 'coverage/tmp');
+    mm(process.env, 'NODE_V8_COVERAGE', 'node_modules/.c8_output');
     const test = coffee.fork(eggBin, [ 'test' ], { cwd });
     await test.expect('code', 0).end();
   });
@@ -28,69 +27,46 @@ describe('test/lib/cmd/cov-c8-report-only.test.js', () => {
   }
 
   it('should success when c8-report-only', function* () {
-    const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true' ], { cwd }).debug();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 100% \( 11[\/|\\]11 \)/);
-    }
+    const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true' ], { cwd })
+      // .debug()
+      .expect('stdout', /Statements {3}: 100% \( 11[\/|\\]11 \)/);
     yield child.expect('code', 0).end();
-    // only test on npm run test
-    console.log(process.env.NYC_ROOT_ID);
-    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
+    assertCoverage(cwd);
   });
 
   it('should success with COV_EXCLUDES', function* () {
     mm(process.env, 'COV_EXCLUDES', 'ignore/*');
     const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true' ], { cwd })
-      .debug();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
-    }
+      // .debug()
+      .expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
     yield child.expect('code', 0).end();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      assertCoverage(cwd);
-      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-      assert(!/ignore[\/|\\]a.js/.test(lcov));
-    }
+    assertCoverage(cwd);
+    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
   it('should success with -x to ignore one dirs', function* () {
-    const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true', '-x', 'ignore/', 'test/**/*.test.js' ], { cwd });
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
-    }
+    const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true', '-x', 'ignore/', 'test/**/*.test.js' ], { cwd })
+      .expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
     yield child.expect('code', 0).end();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      assertCoverage(cwd);
-      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-      assert(!/ignore[\/|\\]a.js/.test(lcov));
-    }
+    assertCoverage(cwd);
+    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
   it('should success with -x to ignore multi dirs', function* () {
-    const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true', '-x', 'ignore2/*', '-x', 'ignore/', 'test/**/*.test.js' ], { cwd });
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
-    }
+    const child = coffee.fork(eggBin, [ 'cov', '--c8-report-only=true', '-x', 'ignore2/*', '-x', 'ignore/', 'test/**/*.test.js' ], { cwd })
+      .expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
     yield child.expect('code', 0).end();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      assertCoverage(cwd);
-      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-      assert(!/ignore[\/|\\]a.js/.test(lcov));
-    }
+    assertCoverage(cwd);
+    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
   it('should passthrough c8 args', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'NYC_CWD', cwd);
     coffee.fork(eggBin, [ 'cov', '--c8-report-only=true', '--c8=-r teamcity -r text' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /##teamcity\[blockOpened name='Code Coverage Summary'\]/)
       .expect('stdout', /##teamcity\[blockClosed name='Code Coverage Summary'\]/)
       .end(done);
