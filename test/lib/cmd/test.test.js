@@ -197,7 +197,6 @@ describe('test/lib/cmd/test.test.js', () => {
         /--timeout=12345/,
         /--exit/,
         /--require=.*mocha-clean\.js/,
-        /--require=.*co-mocha\.js/,
         /--require=.*intelli-espower-loader\.js/,
         /foo\.test\.js/,
       ])
