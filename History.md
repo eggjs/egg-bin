@@ -1,4 +1,28 @@
 
+4.18.1 / 2022-02-18
+==================
+
+**fixes**
+  * [[`662b9e9`](http://github.com/eggjs/egg-bin/commit/662b9e924d8e83959ee44e2ef4b1ac7541378b33)] - fix: using ts-node in app should check tscompiler and deps (#170) (吖猩 <<whxaxes@gmail.com>>),
+
+4.18.0 / 2022-02-16
+==================
+
+**features**
+  * [[`4a54cec`](http://github.com/eggjs/egg-bin/commit/4a54cec8561595b33984e41982e8d1da96a6bd47)] - feat: allow loading ts compiler from cwd (#169) (Deng Ruoqi <<drqzju@gmail.com>>)
+
+4.17.0 / 2022-01-21
+==================
+
+**others**
+  * [[`6403b4a`](http://github.com/eggjs/egg-bin/commit/6403b4aac8aa4cd872ecddbaf1ff118e98b0a192)] - support --intelli-espower-loader option (#168) (羊鹿 <<general_up@163.com>>)
+
+4.16.4 / 2021-07-09
+==================
+
+**others**
+  * [[`0765c4c`](http://github.com/eggjs/egg-bin/commit/0765c4cdc3abc1f4181dec2e31142ce5224a2cdf)] - ci: support node-v8.x (#164) (hyj1991 <<yeekwanvong@gmail.com>>)
+
 4.16.3 / 2021-07-08
 ==================
 

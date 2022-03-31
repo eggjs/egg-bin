@@ -1,12 +1,13 @@
 {
   "name": "egg-bin",
-  "version": "4.16.3",
+  "version": "4.18.1",
   "description": "egg developer tool",
   "main": "index.js",
   "bin": {
     "egg-bin": "bin/egg-bin.js",
     "mocha": "bin/mocha.js",
-    "ets": "bin/ets.js"
+    "ets": "bin/ets.js",
+    "c8": "bin/c8.js"
   },
   "dependencies": {
     "chalk": "^4.1.1",
@@ -25,6 +26,7 @@
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
     "nyc": "^13.3.0",
+    "c8": "^7.11.0",
     "power-assert": "^1.6.1",
     "semver": "^7.3.5",
     "source-map-support": "^0.5.19",
@@ -39,6 +41,7 @@
     "babel-preset-airbnb": "^1.0.1",
     "babel-register": "^6.4.3",
     "coffee": "^5.4.0",
+    "cpy": "^7.0.0",
     "cross-env": "^3.1.3",
     "egg": "^2.29.4",
     "egg-mock": "^4.1.0",
@@ -46,6 +49,7 @@
     "esbuild-register": "^2.5.0",
     "eslint": "^4.12.1",
     "eslint-config-egg": "^7.3.1",
+    "git-contributor": "^1.0.10",
     "jsdom": "^8.0.1",
     "mm": "^3.2.0",
     "mz": "^2.7.0",
@@ -62,8 +66,9 @@
     "url": "https://github.com/eggjs/egg/issues"
   },
   "homepage": "https://github.com/eggjs/egg-bin",
-  "author": "fengmk2 <fengmk2@gmail.com> (https://fengmk2.com)",
+  "author": "fengmk2 <fengmk2@gmail.com> (https://github.com/fengmk2)",
   "scripts": {
+    "contributor": "git-contributor",
     "lint": "eslint .",
     "pkgfiles": "node bin/egg-bin.js pkgfiles",
     "test": "npm run lint -- --fix && npm run test-local",

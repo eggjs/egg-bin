@@ -4,8 +4,11 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('fs');
+const cpy = require('cpy');
 const rimraf = require('mz-modules/rimraf');
+const exec = require('mz/child_process').exec;
 const os = require('os');
+const assert = require('assert');
 
 describe('test/ts.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin');
@@ -149,6 +152,17 @@ describe('test/ts.test.js', () => {
   });
 
   describe('egg.typescript = true', () => {
+    const tempNodeModules = path.join(__dirname, './fixtures/node_modules');
+    const tempPackageJson = path.join(__dirname, './fixtures/package.json');
+    afterEach(async () => {
+      if (fs.existsSync(tempNodeModules)) {
+        await rimraf(tempNodeModules);
+      }
+      if (fs.existsSync(tempPackageJson)) {
+        await rimraf(tempPackageJson);
+      }
+    });
+
     if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
       console.log('skip egg@1');
       return;
@@ -192,13 +206,77 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
+    it('should load custom ts compiler', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install', { cwd });
+
+      // copy egg to node_modules
+      await cpy(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
+        .end();
+      assert(/ts-node@8\.10\.2/.test(stderr));
+      assert.equal(code, 0);
+    });
+
+    it('should load custom ts compiler with tscompiler args', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+
+      // copy egg to node_modules
+      await cpy(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stderr, code } = await coffee.fork(eggBin, [
+        'dev', '--ts', '--tscompiler=ts-node/register',
+      ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
+        .end();
+      assert(/ts-node@8\.10\.2/.test(stderr));
+      assert.equal(code, 0);
+    });
+
+    it('should not load custom ts compiler without tscompiler args', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+
+      // copy egg to node_modules
+      await cpy(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
+        .end();
+      assert(!/ts-node@8\.10\.2/.test(stderr));
+      assert(/ts-node@7\.\d+\.\d+/.test(stderr));
+      assert.equal(code, 0);
+    });
+
     it('should start app with other tscompiler without error', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], {
         cwd: path.join(__dirname, './fixtures/example-ts'),
       })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
-        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
+        .expect('stdout', /agent.options.tscompiler =/)
+        .expect('stdout', /esbuild-register/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -210,7 +288,8 @@ describe('test/ts.test.js', () => {
       })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
-        .expect('stdout', /agent.options.tscompiler = esbuild-register/)
+        .expect('stdout', /agent.options.tscompiler =/)
+        .expect('stdout', /esbuild-register/)
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
@@ -223,6 +302,27 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /ts env: true/)
         .expect('code', 0)
         .end();
+    });
+
+    it('should test with custom ts compiler without error', async () => {
+      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
+
+      // install custom ts-node
+      await rimraf(path.join(cwd, 'node_modules'));
+      await exec('npx cnpm install', { cwd });
+
+      // copy egg to node_modules
+      await cpy(
+        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(cwd, './node_modules/egg')
+      );
+
+      const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+        // .debug()
+        .end();
+      assert(/ts-node@8\.10\.2/.test(stdout));
+      assert(!/ts-node@7\.\d+\.\d+/.test(stdout));
+      assert.equal(code, 0);
     });
 
     it('should cov app', () => {
@@ -256,6 +356,7 @@ describe('test/ts.test.js', () => {
     });
 
     it('should load egg-ts-helper with dts flag', () => {
+      fs.mkdirSync(path.join(cwd, 'typings'));
       return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
         // .debug()
         .expect('stdout', /application log/)
@@ -266,9 +367,9 @@ describe('test/ts.test.js', () => {
     });
 
     it('should load egg-ts-helper with egg.declarations = true', () => {
+      fs.mkdirSync(path.join(cwd, 'typings'));
       pkgJson.egg.declarations = true;
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
-
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         // .debug()
         .expect('stdout', /application log/)
