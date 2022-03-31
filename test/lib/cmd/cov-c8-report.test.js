@@ -8,6 +8,10 @@ const mm = require('mm');
 const rimraf = require('mz-modules/rimraf');
 
 describe('test/lib/cmd/cov-c8-report.test.js', () => {
+  if (parseInt(process.versions.node.split('.')[0]) < 10) {
+    console.log('skip test c8 report when node version < 10');
+    return;
+  }
   const eggBin = require.resolve('../../../bin/egg-bin.js');
   const cwd = path.join(__dirname, '../../fixtures/test-files-c8');
 
