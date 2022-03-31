@@ -161,7 +161,7 @@ TEST_TIMEOUT=2000 egg-bin test
 
 ### cov
 
-Using [nyc] to run code coverage, it support all test params above.
+Using [nyc] or [c8] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
@@ -177,6 +177,10 @@ You can pass any mocha argv.
   > - when same key exists in `.nycrc` and cmd instruments, nyc prefers instrument.
   > - egg-bin have some default instruments passed to nyc like `-r` and `--temp-directory`
   > - `egg-bin cov --nyc="-r teamcity -r text"`
+- `--c8` c8 instruments passthrough. you can use this to overwrite egg-bin's default c8 instruments and add additional ones.
+  > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
+  > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
+- `--c8-report` use c8 to report coverage not nyc, c8 uses native V8 coverage, make sure you're running Node.js >= 10.12.0, default to `false`.
 
 - also support all test params above.
 

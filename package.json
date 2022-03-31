@@ -6,7 +6,8 @@
   "bin": {
     "egg-bin": "bin/egg-bin.js",
     "mocha": "bin/mocha.js",
-    "ets": "bin/ets.js"
+    "ets": "bin/ets.js",
+    "c8": "bin/c8.js"
   },
   "dependencies": {
     "chalk": "^4.1.1",
@@ -25,6 +26,7 @@
     "mocha": "^6.0.2",
     "mz-modules": "^2.1.0",
     "nyc": "^13.3.0",
+    "c8": "^7.11.0",
     "power-assert": "^1.6.1",
     "semver": "^7.3.5",
     "source-map-support": "^0.5.19",
