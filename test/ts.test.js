@@ -355,21 +355,10 @@ describe('test/ts.test.js', () => {
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
     });
 
-    it('should not load egg-ts-helper without flag and egg.declarations', () => {
-      return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        // .debug()
-        .expect('stdout', /"typescript":true/)
-        .notExpect('stdout', /application log/)
-        .notExpect('stdout', /"declarations":true/)
-        .notExpect('stdout', /started/)
-        .expect('code', 1)
-        .end();
-    });
-
     it('should load egg-ts-helper with dts flag', () => {
       fs.mkdirSync(path.join(cwd, 'typings'));
       return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /started/)
@@ -381,14 +370,24 @@ describe('test/ts.test.js', () => {
       fs.mkdirSync(path.join(cwd, 'typings'));
       pkgJson.egg.declarations = true;
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
-
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /"declarations":true/)
         .expect('stdout', /started/)
         .expect('code', 0)
+        .end();
+    });
+
+    it('should not load egg-ts-helper without flag and egg.declarations', () => {
+      return coffee.fork(eggBin, [ 'dev' ], { cwd })
+        // .debug()
+        .expect('stdout', /"typescript":true/)
+        .notExpect('stdout', /application log/)
+        .notExpect('stdout', /"declarations":true/)
+        .notExpect('stdout', /started/)
+        .expect('code', 1)
         .end();
     });
   });
