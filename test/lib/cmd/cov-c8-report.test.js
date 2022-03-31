@@ -29,13 +29,12 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/)
-      .expect('stdout', /Statements/);
+      .expect('stdout', /Statements {3}: 100% \( 11[\/|\\]11 \)/);
     yield child.expect('code', 0).end();
     assertCoverage(cwd);
   });
 
   it('should exit when not test files', done => {
-    mm(process.env, 'NYC_CWD', cwd);
     coffee.fork(eggBin, [ 'cov', '--c8-report=true', 'test/**/*.nth.js' ], { cwd })
       // .debug()
       .expect('stdout', /No test files found/)
@@ -168,7 +167,6 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
 
   it('should passthrough c8 args', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'NYC_CWD', cwd);
     coffee.fork(eggBin, [ 'cov', '--c8-report=true', '--c8=-r teamcity -r text' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
