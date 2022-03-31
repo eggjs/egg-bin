@@ -105,7 +105,7 @@ $ egg-bin debug --debug-port=9229 --proxy=9999
 
 ### test
 
-Using [mocha] with [co-mocha] to run test.
+Using [mocha] with [few-mocha] to run test.
 
 [power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
 
@@ -283,7 +283,7 @@ run nsp check at /foo/bar with {}
 
 
 [mocha]: https://mochajs.org
-[co-mocha]: https://npmjs.com/co-mocha
+[few-mocha]: https://npmjs.com/few-mocha
 [glob]: https://github.com/isaacs/node-glob
 [istanbul]: https://github.com/gotwarlost/istanbul
 [nsp]: https://npmjs.com/nsp
