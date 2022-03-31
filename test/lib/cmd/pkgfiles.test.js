@@ -9,18 +9,20 @@ describe('test/lib/cmd/pkgfiles.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
 
   let cwd;
-  afterEach(() => fs.writeFile(path.join(cwd, 'package.json'), '{}'));
+  afterEach(() => {
+    fs.writeFile(path.join(cwd, 'package.json'), '{}');
+  });
 
-  it('should update pkg.files', function* () {
+  it('should update pkg.files', async function() {
     cwd = path.join(__dirname, '../../fixtures/pkgfiles');
-    yield fs.writeFile(path.join(cwd, 'package.json'), '{}');
+    await fs.writeFile(path.join(cwd, 'package.json'), '{}');
 
-    yield coffee.fork(eggBin, [ 'pkgfiles' ], { cwd })
+    await coffee.fork(eggBin, [ 'pkgfiles' ], { cwd })
       // .debug()
       .expect('code', 0)
       .end();
 
-    const body = yield fs.readFile(path.join(cwd, 'package.json'), 'utf8');
+    const body = await fs.readFile(path.join(cwd, 'package.json'), 'utf8');
     assert.deepEqual(JSON.parse(body).files, [
       'app',
       'config',
@@ -28,11 +30,11 @@ describe('test/lib/cmd/pkgfiles.test.js', () => {
     ]);
   });
 
-  it('should check pkg.files', function* () {
+  it('should check pkg.files', async function() {
     cwd = path.join(__dirname, '../../fixtures/pkgfiles');
-    yield fs.writeFile(path.join(cwd, 'package.json'), '{}');
+    await fs.writeFile(path.join(cwd, 'package.json'), '{}');
 
-    yield coffee.fork(eggBin, [ 'pkgfiles', '--check' ], { cwd })
+    await coffee.fork(eggBin, [ 'pkgfiles', '--check' ], { cwd })
       // .debug()
       .expect('stderr', /pkg.files should equal to \[ app, config, app.js ], but got \[ {2}]/)
       .expect('code', 1)
