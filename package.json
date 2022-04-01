@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.1",
-    "co-mocha": "^1.2.2",
+    "few-mocha": "^0.1.1",
     "common-bin": "^2.9.0",
     "debug": "^4.3.1",
     "detect-port": "^1.3.0",
