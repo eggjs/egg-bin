@@ -1,15 +1,15 @@
 # egg-bin
 
 [![NPM version][npm-image]][npm-url]
-[![build status][github-actions]][github-actions-url]
+[![build status][ci-image]][ci-url]
 [![Test coverage][codecov-image]][codecov-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/egg-bin.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/egg-bin
-[github-actions]: https://github.com/eggjs/egg-bin/actions/workflows/linux-14.yml/badge.svg?branch=master
-[github-actions-url]: https://github.com/eggjs/egg-bin/actions/workflows/linux-14.yml
+[ci-image]: https://github.com/eggjs/egg-bin/actions/workflows/nodejs.yml/badge.svg
+[ci-url]: https://github.com/eggjs/egg-bin/actions/workflows/nodejs.yml
 [codecov-image]: https://codecov.io/gh/eggjs/egg-bin/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/eggjs/egg-bin
 [snyk-image]: https://snyk.io/test/npm/egg-bin/badge.svg?style=flat-square
