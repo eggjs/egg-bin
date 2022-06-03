@@ -260,7 +260,7 @@ describe('test/ts.test.js', () => {
         .debug()
         .end();
       assert(!/ts-node@8\.10\.2/.test(stderr));
-      assert(/ts-node@10\.\d+\.\d+/.test(stderr));
+      assert(/ts-node/.test(stderr));
       assert.equal(code, 0);
     });
 
