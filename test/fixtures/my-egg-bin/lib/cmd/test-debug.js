@@ -7,8 +7,8 @@ class TestDebugCommand extends Command {
     return 'test';
   }
 
-  * run(context) {
-    const testArgs = yield this.formatTestArgs(context);
+  async run(context) {
+    const testArgs = await this.formatTestArgs(context);
     console.log('%j', testArgs);
   }
 }

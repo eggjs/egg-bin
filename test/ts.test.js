@@ -5,8 +5,7 @@ const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('fs');
 const cpy = require('cpy');
-const rimraf = require('mz-modules/rimraf');
-const exec = require('mz/child_process').exec;
+const { execSync } = require('child_process');
 const os = require('os');
 const assert = require('assert');
 
@@ -154,13 +153,9 @@ describe('test/ts.test.js', () => {
   describe('egg.typescript = true', () => {
     const tempNodeModules = path.join(__dirname, './fixtures/node_modules');
     const tempPackageJson = path.join(__dirname, './fixtures/package.json');
-    afterEach(async () => {
-      if (fs.existsSync(tempNodeModules)) {
-        await rimraf(tempNodeModules);
-      }
-      if (fs.existsSync(tempPackageJson)) {
-        await rimraf(tempPackageJson);
-      }
+    afterEach(() => {
+      fs.rmSync(tempNodeModules, { force: true, recursive: true });
+      fs.rmSync(tempPackageJson, { force: true, recursive: true });
     });
 
     if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
@@ -210,8 +205,8 @@ describe('test/ts.test.js', () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
 
       // install custom ts-node
-      await rimraf(path.join(cwd, 'node_modules'));
-      await exec('npx cnpm install', { cwd });
+      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      execSync('npx cnpm install', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -230,8 +225,8 @@ describe('test/ts.test.js', () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
 
       // install custom ts-node
-      await rimraf(path.join(cwd, 'node_modules'));
-      await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      execSync('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -252,8 +247,8 @@ describe('test/ts.test.js', () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
 
       // install custom ts-node
-      await rimraf(path.join(cwd, 'node_modules'));
-      await exec('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      execSync('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -308,8 +303,8 @@ describe('test/ts.test.js', () => {
       const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
 
       // install custom ts-node
-      await rimraf(path.join(cwd, 'node_modules'));
-      await exec('npx cnpm install', { cwd });
+      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      execSync('npx cnpm install', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -348,7 +343,7 @@ describe('test/ts.test.js', () => {
       pkgJson = JSON.parse(fs.readFileSync(path.resolve(cwd, './package.json')).toString());
     });
 
-    beforeEach(() => rimraf(path.resolve(cwd, './typings')));
+    beforeEach(() => fs.rmSync(path.resolve(cwd, './typings'), { force: true, recursive: true }));
 
     afterEach(() => {
       pkgJson.egg.declarations = false;
