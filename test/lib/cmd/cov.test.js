@@ -22,7 +22,6 @@ describe('test/lib/cmd/cov.test.js', () => {
 
   it('should success', async () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'NYC_CWD', cwd);
     const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
@@ -30,10 +29,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/);
 
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
-    }
+    child.expect('stdout', /Statements {3}:/);
 
     await child.expect('code', 0).end();
     // only test on npm run test
@@ -41,7 +37,6 @@ describe('test/lib/cmd/cov.test.js', () => {
   });
 
   it('should exit when not test files', () => {
-    mm(process.env, 'NYC_CWD', cwd);
     return coffee.fork(eggBin, [ 'cov', 'test/**/*.nth.js' ], { cwd })
       // .debug()
       .expect('stdout', /No test files found/)
@@ -51,7 +46,6 @@ describe('test/lib/cmd/cov.test.js', () => {
 
   it('should hotfixSpawnWrap success on mock windows', async () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'NYC_CWD', cwd);
     const child = coffee.fork(eggBin, [ 'cov' ], { cwd })
       // .debug()
       .beforeScript(path.join(__dirname, 'mock-win32.js'))
@@ -60,10 +54,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/);
 
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 80% \( 4[\/|\\]5 \)/);
-    }
+    child.expect('stdout', /Statements {3}:/);
 
     await child.expect('code', 0).end();
     // only test on npm run test
@@ -80,10 +71,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/);
 
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
-    }
+    child.expect('stdout', /Statements {3}:/);
 
     await child.expect('code', 0).end();
     // only test on npm run test
@@ -102,10 +90,7 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/);
 
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
-    }
+    child.expect('stdout', /Statements {3}:/);
 
     await child.expect('code', 0).end();
     // only test on npm run test
@@ -124,18 +109,12 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/);
 
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      child.expect('stdout', /Statements {3}: 75% \( 3[\/|\\]4 \)/);
-    }
+    child.expect('stdout', /Statements {3}:/);
 
     await child.expect('code', 0).end();
-    // only test on npm run test
-    if (!process.env.NYC_ROOT_ID) {
-      assertCoverage(cwd);
-      const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
-      assert(!/ignore[\/|\\]a.js/.test(lcov));
-    }
+    assertCoverage(cwd);
+    const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
+    assert(!/ignore[\/|\\]a.js/.test(lcov));
   });
 
   it('should fail when test fail', () => {
@@ -198,14 +177,12 @@ describe('test/lib/cmd/cov.test.js', () => {
       .end();
   });
 
-  it('should passthrough nyc args', () => {
+  it('should passthrough ignore nyc args', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    mm(process.env, 'NYC_CWD', cwd);
     return coffee.fork(eggBin, [ 'cov', '--nyc=-r teamcity -r text' ], { cwd })
       // .debug()
       .expect('stdout', /should success/)
-      .expect('stdout', /##teamcity\[blockOpened name='Code Coverage Summary'\]/)
-      .expect('stdout', /##teamcity\[blockClosed name='Code Coverage Summary'\]/)
+      .expect('stdout', /Statements/)
       .end();
   });
 });
