@@ -274,30 +274,30 @@ describe('test/lib/cmd/test.test.js', () => {
 
   // changed need to mock getChangedFilesForRoots, so we just test formatTestArgs directly
   describe('changed', () => {
-    it('should return undefined if no test file changed', function* () {
+    it('should return undefined if no test file changed', async () => {
       const cmd = new Command([ '--changed' ]);
       mm.data(changed, 'getChangedFilesForRoots', {
         changedFiles: new Set(),
       });
-      const args = yield cmd.formatTestArgs(cmd.context);
+      const args = await cmd.formatTestArgs(cmd.context);
       assert(!args);
     });
 
-    it('should return file changed', function* () {
+    it('should return file changed', async () => {
       const cmd = new Command([ '--changed' ]);
       mm.data(changed, 'getChangedFilesForRoots', {
         changedFiles: new Set([ __filename ]),
       });
-      const args = yield cmd.formatTestArgs(cmd.context);
+      const args = await cmd.formatTestArgs(cmd.context);
       assert(args.includes('--changed', __filename));
     });
 
-    it('should filter not test file', function* () {
+    it('should filter not test file', async () => {
       const cmd = new Command([ '--changed' ]);
       mm.data(changed, 'getChangedFilesForRoots', {
         changedFiles: new Set([ __filename + '.tmp', 'abc.test.js' ]),
       });
-      const args = yield cmd.formatTestArgs(cmd.context);
+      const args = await cmd.formatTestArgs(cmd.context);
       assert(!args);
     });
   });
