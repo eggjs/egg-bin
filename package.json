@@ -52,7 +52,7 @@
     "egg-mock": "^4.2.1",
     "enzyme": "^2.0.0",
     "esbuild-register": "^2.5.0",
-    "eslint": "^4.12.1",
+    "eslint": "^8.16.0",
     "eslint-config-egg": "^11.1.0",
     "git-contributor": "^1.0.10",
     "jsdom": "^8.0.1",
