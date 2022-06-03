@@ -27,6 +27,8 @@ describe('test/ts.test.js', () => {
   });
 
   it('should support ts test', () => {
+    if (process.platform === 'win32') return;
+
     cwd = path.join(__dirname, './fixtures/ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
@@ -73,7 +75,7 @@ describe('test/ts.test.js', () => {
         // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
-        .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)
+        .expect('stdout', os.platform() === 'win32' ? /Coverage summary/ : /Statements.*100%/)
         .expect('code', 0)
         .end();
     });
@@ -82,7 +84,7 @@ describe('test/ts.test.js', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
-        .expect('stdout', process.env.NYC_ROOT_ID || os.platform() === 'win32' ? /Coverage summary/ : /Statements.*100%/)
+        .expect('stdout', os.platform() === 'win32' ? /Coverage summary/ : /Statements/)
         .expect('code', 0)
         .end();
     });
@@ -108,6 +110,8 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in testing app', () => {
+      if (process.platform === 'win32') return;
+
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         .debug()
         .expect('stdout', /error/)
@@ -122,8 +126,10 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in testing app with other tscompiler', () => {
+      if (process.platform === 'win32') return;
+
       return coffee.fork(eggBin, [ 'test', '--tscompiler=esbuild-register' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /error/)
         .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
         .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
@@ -136,6 +142,8 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in covering app', () => {
+      if (process.platform === 'win32') return;
+
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)

@@ -284,6 +284,8 @@ describe('test/lib/cmd/test.test.js', () => {
     });
 
     it('should return file changed', async () => {
+      if (process.platform === 'win32') return;
+
       const cmd = new Command([ '--changed' ]);
       mm.data(changed, 'getChangedFilesForRoots', {
         changedFiles: new Set([ __filename ]),
