@@ -81,6 +81,9 @@
   "engines": {
     "node": ">= 6.0.0"
   },
+  "publishConfig": {
+    "tag": "latest-4"
+  },
   "files": [
     "index.js",
     "lib",
