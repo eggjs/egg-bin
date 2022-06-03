@@ -257,10 +257,10 @@ describe('test/ts.test.js', () => {
       );
 
       const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
-        // .debug()
+        .debug()
         .end();
       assert(!/ts-node@8\.10\.2/.test(stderr));
-      assert(/ts-node@7\.\d+\.\d+/.test(stderr));
+      assert(/ts-node@10\.\d+\.\d+/.test(stderr));
       assert.equal(code, 0);
     });
 

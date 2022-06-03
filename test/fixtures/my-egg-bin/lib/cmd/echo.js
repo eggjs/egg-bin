@@ -7,7 +7,7 @@ class EchoCommand extends Command {
     return 'echo test';
   }
 
-  * run(context) {
+  async run(context) {
     console.log('argv: %j', context.argv);
     console.log('debugPort: %s', context.debugPort);
     console.log('debugOptions: %j', context.debugOptions);
