@@ -170,16 +170,6 @@ egg-bin node-test [files] [options]
 - `files` is optional, default to `test/**/*.test.js`
 - `test/fixtures`, `test/node_modules` is always exclude.
 
-#### auto require `test/.setup.js`
-
-If `test/.setup.js` file exists, it will be auto require as the first test file.
-
-```js
-test
-  ├── .setup.js
-  └── foo.test.js
-```
-
 #### node-test options
 
 - `--test-only` configures the test runner to only execute top level tests that have the only option set
