@@ -81,10 +81,10 @@ describe('test/ts.test.js', () => {
     });
 
     it('should cov app in cluster mod', () => {
-      // skip on darwin and node v16
+      // skip on darwin
       // https://github.com/eggjs/egg-bin/runs/6735190362?check_suite_focus=true
       // [agent_worker] receive disconnect event on child_process fork mode, exiting with code:110
-      if (process.platform === 'darwin' && process.version.includes('v16.')) return;
+      if (process.platform === 'darwin') return;
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
