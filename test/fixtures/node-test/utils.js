@@ -1,0 +1,3 @@
+exports.foo = () => {
+  return 'bar';
+};

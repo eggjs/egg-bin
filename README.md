@@ -180,9 +180,11 @@ test
   └── foo.test.js
 ```
 
-#### node:test options
+#### node-test options
 
 - `--test-only` configures the test runner to only execute top level tests that have the only option set
+
+TBD: TypeScript not support yet
 
 #### environment
 
@@ -208,11 +210,11 @@ TEST_TIMEOUT=2000 egg-bin node-test
 
 ### cov
 
-Using [c8] to run code coverage, it support all test params above.
+Using [mocha] and [c8] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
-#### options
+#### cov options
 
 You can pass any mocha argv.
 
@@ -224,16 +226,46 @@ You can pass any mocha argv.
   > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
   > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
   >
-- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, make sure you're running Node.js >= 10.12.0, default to `false`.
+- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, default to `false`.
 
 - also support all test params above.
 
-#### environment
+#### cov environment
 
 You can set `COV_EXCLUDES` env to add dir ignore coverage.
 
 ```bash
 COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
+```
+
+### node-test-cov
+
+Using [node:test] and [c8] to run code coverage, it support all test params above.
+
+Coverage reporter will output text-summary, json and lcov.
+
+#### node-test-cov options
+
+You can pass any [node:test] argv.
+
+- `-x` add dir ignore coverage, support multiple argv
+- `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
+- `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
+- `--c8` c8 instruments passthrough. you can use this to overwrite egg-bin's default c8 instruments and add additional ones.
+  >
+  > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
+  > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
+  >
+- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, default to `false`.
+
+- also support all node-test params above.
+
+#### node-test-cov environment
+
+You can set `COV_EXCLUDES` env to add dir ignore coverage.
+
+```bash
+COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin node-test-cov
 ```
 
 ### pkgfiles

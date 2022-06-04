@@ -7,6 +7,7 @@ try {
   test = require('test');
 }
 const assert = require('assert');
+const utils = require('../utils');
 
 test('node-test subtest 1', async t => {
   await t.test('should work', () => {
@@ -30,7 +31,7 @@ test('node-test subtest 2', async t => {
 
 test('synchronous passing test', () => {
   // This test passes because it does not throw an exception.
-  assert.strictEqual(1, 1);
+  assert.strictEqual(utils.foo(), 'bar');
 });
 
 test('synchronous failing test', () => {
