@@ -3,7 +3,7 @@
 const Command = require('../../../../../');
 
 class ErrorCommand extends Command {
-  * run() {
+  async run() {
     const err = new Error('this is an error');
     throw err;
   }

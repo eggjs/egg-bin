@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  app.get('/', function* () {
-    this.body = 'hi, egg';
+  app.get('/', ctx => {
+    ctx.body = 'hi, egg';
   });
 };

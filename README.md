@@ -102,7 +102,7 @@ $ egg-bin debug --debug-port=9229 --proxy=9999
 
 ### test
 
-Using [mocha] with [co-mocha] to run test.
+Using [mocha] to run test.
 
 [power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
 
@@ -161,7 +161,7 @@ TEST_TIMEOUT=2000 egg-bin test
 
 ### cov
 
-Using [nyc] or [c8] to run code coverage, it support all test params above.
+Using [c8] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
@@ -172,15 +172,10 @@ You can pass any mocha argv.
 - `-x` add dir ignore coverage, support multiple argv
 - `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
 - `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
-- `--nyc` nyc instruments passthrough. you can use this to overwrite egg-bin's default nyc instruments and add additional ones.
-  > if you want to add addtional `nyc` reporters, you need to use this rather than add `reporter` key in `.nycrc` because:
-  > - when same key exists in `.nycrc` and cmd instruments, nyc prefers instrument.
-  > - egg-bin have some default instruments passed to nyc like `-r` and `--temp-directory`
-  > - `egg-bin cov --nyc="-r teamcity -r text"`
 - `--c8` c8 instruments passthrough. you can use this to overwrite egg-bin's default c8 instruments and add additional ones.
   > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
   > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
-- `--c8-report` use c8 to report coverage not nyc, c8 uses native V8 coverage, make sure you're running Node.js >= 10.12.0, default to `false`.
+- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, make sure you're running Node.js >= 10.12.0, default to `false`.
 
 - also support all test params above.
 
@@ -298,9 +293,7 @@ This project follows the git-contributor [spec](https://github.com/xudafeng/git-
 <!-- GITCONTRIBUTOR_END -->
 
 [mocha]: https://mochajs.org
-[co-mocha]: https://npmjs.com/co-mocha
 [glob]: https://github.com/isaacs/node-glob
-[istanbul]: https://github.com/gotwarlost/istanbul
 [nsp]: https://npmjs.com/nsp
 [iron-node]: https://github.com/s-a/iron-node
 [intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader

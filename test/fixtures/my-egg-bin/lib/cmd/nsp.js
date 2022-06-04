@@ -7,7 +7,7 @@ class NspCommand extends Command {
     return 'nsp check';
   }
 
-  * run({ cwd, rawArgv }) {
+  async run({ cwd, rawArgv }) {
     console.log('run nsp check at %s with %j', cwd, rawArgv);
   }
 }
