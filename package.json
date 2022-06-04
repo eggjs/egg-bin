@@ -54,14 +54,14 @@
     "enzyme": "^2.0.0",
     "esbuild-register": "^2.5.0",
     "eslint": "^8.16.0",
-    "eslint-config-egg": "^11.1.0",
+    "eslint-config-egg": "^12.0.0",
     "git-contributor": "^1.0.10",
     "jsdom": "^8.0.1",
     "mm": "^3.2.0",
     "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
-    "typescript": "^3"
+    "typescript": "^4.7.2"
   },
   "repository": {
     "type": "git",
