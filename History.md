@@ -1,4 +1,15 @@
 
+5.0.0 / 2022-06-04
+==================
+
+**features**
+  * [[`1e96da2`](http://github.com/eggjs/egg-bin/commit/1e96da2bb68203a5e972645df51ed0aa47ccaa8c)] - feat: support c8 report (#172) (羊鹿 <<general_up@163.com>>)
+
+**others**
+  * [[`6fb02f9`](http://github.com/eggjs/egg-bin/commit/6fb02f94b7d0f2b755a6b7c5eb780dca73cfc53e)] - 📦 NEW: [BREAKING] Only support Node.js 14 (#176) (fengmk2 <<fengmk2@gmail.com>>)
+  * [[`f32030b`](http://github.com/eggjs/egg-bin/commit/f32030b3b763e9f90c7b7f3d2f9f0f0b986051d3)] - Create codeql-analysis.yml (fengmk2 <<fengmk2@gmail.com>>)
+  * [[`c84671c`](http://github.com/eggjs/egg-bin/commit/c84671cc066f6ed7b26b070b4af688676beade2f)] - chore: update build status badge url (#174) (XiaoRui <<xiangwu619@gmail.com>>)
+
 4.18.1 / 2022-02-18
 ==================
 
