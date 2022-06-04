@@ -1,4 +1,10 @@
 
+5.1.0 / 2022-06-04
+==================
+
+**others**
+  * [[`84489fe`](http://github.com/eggjs/egg-bin/commit/84489feb1341fad381e271efa39fe5d33317c776)] - 📦 NEW: Support run test with node:test (#177) (fengmk2 <<fengmk2@gmail.com>>)
+
 5.0.0 / 2022-06-04
 ==================
 
