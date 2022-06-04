@@ -112,7 +112,7 @@ describe('test/lib/cmd/debug.test.js', () => {
         .end();
     });
 
-    it('should not print devtools at webstorm 2019', () => {
+    it.skip('should not print devtools at webstorm 2019', () => {
       mm(process.env, 'JB_DEBUG_FILE', __filename);
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
       // app.debug();
