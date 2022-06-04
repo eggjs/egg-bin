@@ -17,7 +17,6 @@
 [download-image]: https://img.shields.io/npm/dm/egg-bin.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-bin
 
-
 egg developer tool, extends [common-bin].
 
 ---
@@ -25,7 +24,7 @@ egg developer tool, extends [common-bin].
 ## Install
 
 ```bash
-$ npm i egg-bin --save-dev
+npm i egg-bin --save-dev
 ```
 
 ## Usage
@@ -58,7 +57,7 @@ All the commands support these specific v8 options:
 - `--es_staging`
 
 ```bash
-$ egg-bin [command] --debug --es_staging
+egg-bin [command] --debug --es_staging
 ```
 
 if `process.env.NODE_DEBUG_OPTION` is provided (WebStorm etc), will use it as debug options.
@@ -68,7 +67,7 @@ if `process.env.NODE_DEBUG_OPTION` is provided (WebStorm etc), will use it as de
 Start dev cluster on `local` env, it will start a master, an agent and a worker.
 
 ```bash
-$ egg-bin dev
+egg-bin dev
 ```
 
 ##### options
@@ -91,14 +90,13 @@ automatically detect the protocol, use the new `inspector` when the targeted run
 if running without `VSCode` or `WebStorm`, we will use [inspector-proxy](https://github.com/whxaxes/inspector-proxy) to proxy worker debug, so you don't need to worry about reload.
 
 ```bash
-$ egg-bin debug --debug-port=9229 --proxy=9999
+egg-bin debug --debug-port=9229 --proxy=9999
 ```
 
 ##### options
 
 - all `egg-bin dev` options is accepted.
 - `--proxy=9999` worker debug proxy port.
-
 
 ### test
 
@@ -107,7 +105,7 @@ Using [mocha] to run test.
 [power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
 
 ```bash
-$ egg-bin test [files] [options]
+egg-bin test [files] [options]
 ```
 
 - `files` is optional, default to `test/**/*.test.js`
@@ -128,14 +126,14 @@ test
 You can pass any mocha argv.
 
 - `--require` require the given module
-- `--grep` only run tests matching <pattern>
+- `--grep` only run tests matching `<pattern>`
 - `--timeout` milliseconds, default to 60000
 - `--full-trace` display the full stack trace, default to false.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
-- `--dry-run` / `-d` whether dry-run the test command, just show the command 
+- `--dry-run` / `-d` whether dry-run the test command, just show the command
 - `--espower` / `-e` whether auto require intelli-espower-loader(js) or espower-typescript(ts) for power-assert, default to `true`.
-- see more at https://mochajs.org/#usage
+- see more at <https://mochajs.org/#usage>
 
 #### environment
 
@@ -159,13 +157,54 @@ The test timeout can set by `TEST_TIMEOUT` env, default is `60000` ms.
 TEST_TIMEOUT=2000 egg-bin test
 ```
 
+### node-test
+
+Using [node:test] to run test.
+
+[power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
+
+```bash
+egg-bin node-test [files] [options]
+```
+
+- `files` is optional, default to `test/**/*.test.js`
+- `test/fixtures`, `test/node_modules` is always exclude.
+
+#### node-test options
+
+- `--test-only` configures the test runner to only execute top level tests that have the only option set
+
+TBD: TypeScript not support yet
+
+#### environment
+
+Environment is also support, will use it if options not provide.
+
+You can set `TESTS` env to set the tests directory, it support [glob] grammar.
+
+```bash
+TESTS=test/a.test.js egg-bin node-test
+```
+
+And the reporter can set by the `TEST_REPORTER` env, default is `tap`.
+
+```bash
+TEST_REPORTER=doc egg-bin node-test
+```
+
+The test timeout can set by `TEST_TIMEOUT` env, default is `60000` ms.
+
+```bash
+TEST_TIMEOUT=2000 egg-bin node-test
+```
+
 ### cov
 
-Using [c8] to run code coverage, it support all test params above.
+Using [mocha] and [c8] to run code coverage, it support all test params above.
 
 Coverage reporter will output text-summary, json and lcov.
 
-#### options
+#### cov options
 
 You can pass any mocha argv.
 
@@ -173,18 +212,50 @@ You can pass any mocha argv.
 - `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
 - `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
 - `--c8` c8 instruments passthrough. you can use this to overwrite egg-bin's default c8 instruments and add additional ones.
+  >
   > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
   > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
-- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, make sure you're running Node.js >= 10.12.0, default to `false`.
+  >
+- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, default to `false`.
 
 - also support all test params above.
 
-#### environment
+#### cov environment
 
 You can set `COV_EXCLUDES` env to add dir ignore coverage.
 
 ```bash
-$ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
+COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
+```
+
+### node-test-cov
+
+Using [node:test] and [c8] to run code coverage, it support all test params above.
+
+Coverage reporter will output text-summary, json and lcov.
+
+#### node-test-cov options
+
+You can pass any [node:test] argv.
+
+- `-x` add dir ignore coverage, support multiple argv
+- `--prerequire` prerequire files for coverage instrument, you can use this options if load files slowly when call `mm.app` or `mm.cluster`
+- `--typescript` / `--ts` enable typescript support, default to `false`, if true, will auto add `.ts` extension and ignore `typings` and `d.ts`.
+- `--c8` c8 instruments passthrough. you can use this to overwrite egg-bin's default c8 instruments and add additional ones.
+  >
+  > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
+  > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
+  >
+- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, default to `false`.
+
+- also support all node-test params above.
+
+#### node-test-cov environment
+
+You can set `COV_EXCLUDES` env to add dir ignore coverage.
+
+```bash
+COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin node-test-cov
 ```
 
 ### pkgfiles
@@ -192,7 +263,7 @@ $ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 Generate `pkg.files` automatically before npm publish, see [ypkgfiles] for detail
 
 ```bash
-$ egg-bin pkgfiles
+egg-bin pkgfiles
 ```
 
 ### autod
@@ -200,7 +271,7 @@ $ egg-bin pkgfiles
 Generate `pkg.dependencies` and `pkg.devDependencies` automatically, see [autod] for detail
 
 ```bash
-$ egg-bin autod
+egg-bin autod
 ```
 
 ## Custom egg-bin for your team
@@ -293,6 +364,7 @@ This project follows the git-contributor [spec](https://github.com/xudafeng/git-
 <!-- GITCONTRIBUTOR_END -->
 
 [mocha]: https://mochajs.org
+[node:test]: https://nodejs.org/api/test.html
 [glob]: https://github.com/isaacs/node-glob
 [nsp]: https://npmjs.com/nsp
 [iron-node]: https://github.com/s-a/iron-node
