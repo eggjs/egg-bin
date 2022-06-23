@@ -1,4 +1,10 @@
 
+5.1.1 / 2022-06-23
+==================
+
+**fixes**
+  * [[`2e0fecd`](http://github.com/eggjs/egg-bin/commit/2e0fecd06e9c901d370d54542e1aa6dc7b183403)] - fix: fix espwoer-typescript inject logic (#178) (Yiyu He <<dead_horse@qq.com>>)
+
 5.1.0 / 2022-06-04
 ==================
 
