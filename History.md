@@ -1,4 +1,18 @@
 
+4.19.1 / 2022-06-23
+==================
+
+**features**
+  * [[`1e96da2`](http://github.com/eggjs/egg-bin/commit/1e96da2bb68203a5e972645df51ed0aa47ccaa8c)] - feat: support c8 report (#172) (羊鹿 <<general_up@163.com>>)
+
+**fixes**
+  * [[`d7e1eff`](http://github.com/eggjs/egg-bin/commit/d7e1eff4fdb82805fef4395e124b6cfeb3a48b0a)] - fix: fix espwoer-typescript inject logic (#178) (#179) (Yiyu He <<dead_horse@qq.com>>)
+
+**others**
+  * [[`3e6cc45`](http://github.com/eggjs/egg-bin/commit/3e6cc45046bcb9f3237c1b8ac87af84ab44f54bb)] - 📖 DOC: Add 4.x branch (fengmk2 <<fengmk2@gmail.com>>)
+  * [[`f32030b`](http://github.com/eggjs/egg-bin/commit/f32030b3b763e9f90c7b7f3d2f9f0f0b986051d3)] - Create codeql-analysis.yml (fengmk2 <<fengmk2@gmail.com>>)
+  * [[`c84671c`](http://github.com/eggjs/egg-bin/commit/c84671cc066f6ed7b26b070b4af688676beade2f)] - chore: update build status badge url (#174) (XiaoRui <<xiangwu619@gmail.com>>)
+
 4.19.0 / 2022-03-31
 ==================
 
