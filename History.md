@@ -1,4 +1,10 @@
 
+4.19.0 / 2022-03-31
+==================
+
+**features**
+  * [[`1e96da2`](https://github.com/eggjs/egg-bin.git/commit/1e96da2bb68203a5e972645df51ed0aa47ccaa8c)] - feat: support c8 report (#172) (羊鹿 <<general_up@163.com>>)
+
 4.18.1 / 2022-02-18
 ==================
 
