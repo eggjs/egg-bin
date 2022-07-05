@@ -160,6 +160,24 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
+
+    it('should correct error stack line number in mixed app', () => {
+      if (process.platform === 'win32') return;
+
+      const appDir = path.join(__dirname, './fixtures/example-ts-error-stack-mixed');
+      const testFile = path.resolve(appDir, 'test/index.test.js');
+      return coffee.fork(eggBin, [ 'test', testFile ], { cwd: appDir })
+        // .debug()
+        .expect('stdout', /error/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.js:8:11\)/)
+        .expect('stdout', /test[\/\\]{1}index\.test\.js:14:5\)/)
+        .expect('stdout', /assert\(obj\.key === '222'\)/)
+        .expect('stdout', /| {3}| {3}|/)
+        .expect('stdout', /| {3}| {3}false/)
+        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /Object\{key:"111"}/)
+        .end();
+    });
   });
 
   describe('egg.typescript = true', () => {
