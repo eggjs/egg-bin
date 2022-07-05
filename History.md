@@ -1,4 +1,10 @@
 
+5.1.2 / 2022-07-05
+==================
+
+**fixes**
+  * [[`a1ec4f7`](http://github.com/eggjs/egg-bin/commit/a1ec4f7e4857bdbd15cc9a9f0e1948dd7f5c348a)] - fix: conflix source map support (#181) (吖猩 <<whxaxes@gmail.com>>)
+
 5.1.1 / 2022-06-23
 ==================
 
