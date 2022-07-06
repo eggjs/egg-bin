@@ -33,7 +33,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/)
-      .expect('stdout', /Statements {3}: 100% \( 11[\/|\\]11 \)/);
+      .expect('stdout', /Statements {3}: \d+% \( 11[\/|\\]11 \)/);
     yield child.expect('code', 0).end();
     assertCoverage(cwd);
   });
@@ -55,7 +55,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/)
-      .expect('stdout', /Statements {3}: 100% \( 11[\/|\\]11 \)/);
+      .expect('stdout', /Statements {3}: \d+% \( 11[\/|\\]11 \)/);
     yield child.expect('code', 0).end();
     assertCoverage(cwd);
   });
@@ -69,7 +69,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/)
-      .expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
+      .expect('stdout', /Statements {3}: \d+% \( 8[\/|\\]8 \)/);
     yield child.expect('code', 0).end();
     assertCoverage(cwd);
     const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
@@ -83,7 +83,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/)
-      .expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
+      .expect('stdout', /Statements {3}: \d+% \( 8[\/|\\]8 \)/);
 
 
     yield child.expect('code', 0).end();
@@ -101,7 +101,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
       .notExpect('stdout', /a.js/)
-      .expect('stdout', /Statements {3}: 100% \( 8[\/|\\]8 \)/);
+      .expect('stdout', /Statements {3}: \d+% \( 8[\/|\\]8 \)/);
     yield child.expect('code', 0).end();
     assertCoverage(cwd);
     const lcov = fs.readFileSync(path.join(cwd, 'coverage/lcov.info'), 'utf8');
