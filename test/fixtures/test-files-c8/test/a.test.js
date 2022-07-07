@@ -6,6 +6,7 @@ const a = require('../lib/a');
 describe('a.test.js', () => {
   it('should success', () => {
     a(true);
+    a(false);
   });
 
   it('should show tmp', () => {
