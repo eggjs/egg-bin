@@ -1,4 +1,10 @@
 
+4.19.2 / 2022-07-14
+==================
+
+**fixes**
+  * [[`a12dc1a`](http://github.com/eggjs/egg-bin/commit/a12dc1a7277a99fe842bdec2861b58a61769f9e5)] - fix: conflict source map support (#182) (吖猩 <<whxaxes@gmail.com>>)
+
 4.19.1 / 2022-06-23
 ==================
 
