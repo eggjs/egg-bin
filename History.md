@@ -1,4 +1,10 @@
 
+5.2.0 / 2022-07-15
+==================
+
+**features**
+  * [[`f564cbf`](http://github.com/eggjs/egg-bin/commit/f564cbf20be3b7eb7eed61b2fc95a2afa0b5936e)] - feat: support set eggTsHelper (#183) (mansonchor.github.com <<mansonchor1987@gmail.com>>)
+
 5.1.2 / 2022-07-05
 ==================
 
