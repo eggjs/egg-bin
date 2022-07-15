@@ -1,4 +1,10 @@
 
+4.20.0 / 2022-07-15
+==================
+
+**others**
+  * [[`853b84a`](http://github.com/eggjs/egg-bin/commit/853b84af719433482da055c4585a05fed5df3d5a)] - pick master feat: support set eggTsHelper (#183) (#184) (mansonchor.github.com <<mansonchor1987@gmail.com>>)
+
 4.19.2 / 2022-07-14
 ==================
 
