@@ -106,9 +106,9 @@ describe('test/my-egg-bin.test.js', () => {
       '--typescript',
       '--declarations',
     ];
-    coffee.fork(eggBin, args, { cwd })
+    coffee.fork(eggBin, args, { cwd: path.join(__dirname, 'fixtures/my-egg-bin') })
       // .debug()
-      .expect('stdout', /custom-egg-ts-helper\.js/)
+      .expect('stdout', /custom-egg-ts-helper\/register\.js/)
       .expect('code', 0)
       .end(done);
   });
