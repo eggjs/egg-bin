@@ -108,7 +108,7 @@ describe('test/my-egg-bin.test.js', () => {
     ];
     coffee.fork(eggBin, args, { cwd })
       // .debug()
-      .expect('stdout', /my-egg-bin\/lib\/egg-ts-helper\.js/)
+      .expect('stdout', /custom-egg-ts-helper\.js/)
       .expect('code', 0)
       .end(done);
   });
