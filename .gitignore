@@ -17,6 +17,7 @@ test/fixtures/ts/node_modules/aliyun-egg/
 test/fixtures/example-ts-ets/typings/
 !test/fixtures/example-ts-ets/node_modules/
 !test/fixtures/example-ts-simple/node_modules/
+!test/fixtures/test-files/node_modules/
 
 **/run/*.json
 .tmp
