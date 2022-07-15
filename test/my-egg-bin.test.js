@@ -65,7 +65,7 @@ describe('test/my-egg-bin.test.js', () => {
       '--es_staging', '--harmony', '--harmony_default_parameters',
     ];
     coffee.fork(eggBin, args, { cwd })
-      // .debug()
+      .debug()
       .expect('stdout', /"baseDir":".\/dist"/)
       .expect('stdout', /debugPort: 6666/)
       .notExpect('stdout', /"argv: {.*debugBrk":true/)
@@ -97,6 +97,20 @@ describe('test/my-egg-bin.test.js', () => {
       .expect('stderr', /Error: this is an error/)
       .expect('stderr', /fixtures[\/\\]{1}my-egg-bin[\/\\]{1}lib[\/\\]{1}cmd[\/\\]{1}error.js:/)
       .expect('code', 1)
+      .end(done);
+  });
+
+  it('should custom eggTsHelper success', done => {
+    const args = [
+      'echo',
+      '--typescript',
+      '--declarations',
+    ];
+    coffee.fork(eggBin, args, { cwd })
+      // .debug()
+      .expect('stdout', /custom-egg-ts-helper/)
+      .expect('stdout', /register\.js/)
+      .expect('code', 0)
       .end(done);
   });
 });
