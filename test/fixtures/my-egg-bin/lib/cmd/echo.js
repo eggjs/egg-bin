@@ -3,6 +3,19 @@
 const Command = require('../../../../../');
 
 class EchoCommand extends Command {
+  constructor(rawArgv) {
+    super(rawArgv);
+
+    this.options = {
+      eggTsHelper: {
+        description: 'egg-ts-helper register, default use `egg-ts-helper/register`',
+        type: 'string',
+        alias: 'ets',
+        default: require.resolve('../egg-ts-helper'),
+      },
+    };
+  }
+
   get description() {
     return 'echo test';
   }
