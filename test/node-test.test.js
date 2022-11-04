@@ -7,7 +7,7 @@ describe('test/node-test.test.js', () => {
 
   it('should run with node-test mode work', () => {
     return coffee.fork(eggBin, [ 'node-test' ], { cwd })
-      // .debug()
+      .debug()
       .expect('stdout', /# tests 2/)
       .expect('stdout', /# pass 1/)
       .expect('stdout', /# fail 1/)

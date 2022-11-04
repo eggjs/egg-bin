@@ -1,5 +1,3 @@
-'use strict';
-
 let test;
 try {
   test = require('node:test');
