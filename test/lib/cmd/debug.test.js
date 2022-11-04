@@ -106,27 +106,5 @@ describe('test/lib/cmd/debug.test.js', () => {
         .expect('code', 0)
         .end();
     });
-
-    it('should not print devtools at webstorm', () => {
-      mm(process.env, 'NODE_DEBUG_OPTION', '--debug-port=5555');
-      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
-      // app.debug();
-      return app.expect('stderr', /Debugger listening/)
-        .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .notExpect('stdout', /DevTools → devtools:.*:9999/)
-        .expect('code', 0)
-        .end();
-    });
-
-    it.skip('should not print devtools at webstorm 2019', () => {
-      mm(process.env, 'JB_DEBUG_FILE', __filename);
-      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
-      // app.debug();
-      return app.expect('stderr', /Debugger listening/)
-        .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .notExpect('stdout', /DevTools → devtools:.*:9999/)
-        .expect('code', 0)
-        .end();
-    });
   });
 });
