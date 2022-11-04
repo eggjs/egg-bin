@@ -333,4 +333,14 @@ describe('test/lib/cmd/test.test.js', () => {
         .end(done);
     });
   });
+
+  it('test parallel', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    coffee.fork(eggBin, [ 'test', '--parallel' ], { cwd: path.join(__dirname, '../../fixtures/test-demo-app') })
+      // .debug()
+      .expect('stdout', /should work/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('code', 0)
+      .end(done);
+  });
 });
