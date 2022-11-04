@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
@@ -334,13 +332,14 @@ describe('test/lib/cmd/test.test.js', () => {
     });
   });
 
-  it('test parallel', done => {
+  it('test parallel', () => {
+    if (process.platform === 'win32') return;
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    coffee.fork(eggBin, [ 'test', '--parallel' ], { cwd: path.join(__dirname, '../../fixtures/test-demo-app') })
+    return coffee.fork(eggBin, [ 'test', '--parallel' ], { cwd: path.join(__dirname, '../../fixtures/test-demo-app') })
       // .debug()
       .expect('stdout', /should work/)
       .expect('stdout', /a\.test\.js/)
       .expect('code', 0)
-      .end(done);
+      .end();
   });
 });
