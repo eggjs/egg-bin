@@ -84,10 +84,10 @@
     "lint": "eslint .",
     "pkgfiles": "node bin/egg-bin.js pkgfiles",
     "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "node bin/egg-bin.js test -t 3600000",
+    "test-local": "node bin/egg-bin.js test -t 120000 --parallel",
     "cov": "c8 -r lcov -r text-summary npm run test-local",
     "ci-test-only": "npm run test-local -- test/lib/cmd/cov.test.js",
-    "ci": "npm run lint && npm run pkgfiles -- --check && npm run ci-test-only && npm run cov",
+    "ci": "npm run lint && npm run pkgfiles -- --check && npm run ci-test-only && npm run test-local",
     "autod": "node bin/egg-bin.js autod"
   },
   "engines": {

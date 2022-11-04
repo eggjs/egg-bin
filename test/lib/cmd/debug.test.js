@@ -1,10 +1,9 @@
-'use strict';
-
 const path = require('path');
 const coffee = require('coffee');
 const mm = require('egg-mock');
 const net = require('net');
 const semver = require('semver');
+const detect = require('detect-port');
 
 describe('test/lib/cmd/debug.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -47,18 +46,25 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   describe('auto detect available port', () => {
     let server;
-    before(done => {
+    let serverPort;
+    before(async () => {
+      serverPort = await detect(7001);
       server = net.createServer();
-      server.listen(7001, done);
+      await new Promise(resolve => {
+        server.listen(serverPort, resolve);
+      });
     });
 
     after(() => server.close());
 
     it('should auto detect available port', () => {
-      return coffee.fork(eggBin, [ 'debug' ], { cwd })
-      // .debug()
+      return coffee.fork(eggBin, [ 'debug' ], {
+        cwd,
+        env: { ...process.env, EGG_BIN_DEFAULT_PORT: serverPort },
+      })
+        // .debug()
         .expect('stdout', /,"workers":1/)
-        .expect('stderr', /\[egg-bin] server port 7001 is in use/)
+        .expect('stderr', /\[egg-bin] server port \d+ is in use/)
         .expect('code', 0)
         .end();
     });
@@ -97,28 +103,6 @@ describe('test/lib/cmd/debug.test.js', () => {
       return app.expect('stderr', /Debugger listening/)
         .notExpect('stdout', /DevTools → devtools:.*:9999/)
         .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .expect('code', 0)
-        .end();
-    });
-
-    it('should not print devtools at webstorm', () => {
-      mm(process.env, 'NODE_DEBUG_OPTION', '--debug-port=5555');
-      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
-      // app.debug();
-      return app.expect('stderr', /Debugger listening/)
-        .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .notExpect('stdout', /DevTools → devtools:.*:9999/)
-        .expect('code', 0)
-        .end();
-    });
-
-    it.skip('should not print devtools at webstorm 2019', () => {
-      mm(process.env, 'JB_DEBUG_FILE', __filename);
-      const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
-      // app.debug();
-      return app.expect('stderr', /Debugger listening/)
-        .notExpect('stdout', /Debug Proxy online, now you could attach to 9999/)
-        .notExpect('stdout', /DevTools → devtools:.*:9999/)
         .expect('code', 0)
         .end();
     });
