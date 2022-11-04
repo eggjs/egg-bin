@@ -1,9 +1,8 @@
-'use strict';
-
 const path = require('path');
 const coffee = require('coffee');
 const net = require('net');
 const mm = require('mm');
+const detect = require('detect-port');
 
 describe('test/lib/cmd/dev.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -125,17 +124,24 @@ describe('test/lib/cmd/dev.test.js', () => {
 
   describe('auto detect available port', () => {
     let server;
-    before(done => {
+    let serverPort;
+    before(async () => {
+      serverPort = await detect(7001);
       server = net.createServer();
-      server.listen(7001, done);
+      await new Promise(resolve => {
+        server.listen(serverPort, resolve);
+      });
     });
 
     after(() => server.close());
 
     it('should auto detect available port', done => {
-      coffee.fork(eggBin, [ 'dev' ], { cwd })
-      // .debug()
-        .expect('stderr', /\[egg-bin] server port 7001 is in use, now using port \d+/)
+      coffee.fork(eggBin, [ 'dev' ], {
+        cwd,
+        env: { ...process.env, EGG_BIN_DEFAULT_PORT: serverPort },
+      })
+        // .debug()
+        .expect('stderr', /\[egg-bin] server port \d+ is in use, now using port \d+/)
         .expect('code', 0)
         .end(done);
     });
