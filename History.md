@@ -1,4 +1,10 @@
 
+5.3.1 / 2022-11-05
+==================
+
+**fixes**
+  * [[`c5db00e`](http://github.com/eggjs/egg-bin/commit/c5db00eab9846c32d491487ac04cc4388565d9f8)] - fix: ignore eggTsHelper on node-test (#186) (fengmk2 <<fengmk2@gmail.com>>)
+
 5.3.0 / 2022-11-04
 ==================
 

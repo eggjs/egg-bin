@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "description": "egg developer tool",
   "files": [
     "index.js",
