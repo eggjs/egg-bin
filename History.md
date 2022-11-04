@@ -1,4 +1,10 @@
 
+5.3.0 / 2022-11-04
+==================
+
+**features**
+  * [[`78141e8`](http://github.com/eggjs/egg-bin/commit/78141e83a83f69f769470a100688c415a0ae1070)] - feat: impl parallel for mocha parallel mode (#185) (killa <<killa123@126.com>>)
+
 5.2.0 / 2022-07-15
 ==================
 
