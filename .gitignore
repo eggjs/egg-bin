@@ -18,6 +18,7 @@ test/fixtures/example-ts-ets/typings/
 !test/fixtures/example-ts-ets/node_modules/
 !test/fixtures/example-ts-simple/node_modules/
 !test/fixtures/test-files/node_modules/
+!test/fixtures/test-demo-app/node_modules/
 
 **/run/*.json
 .tmp
@@ -28,3 +29,4 @@ package-lock.json
 .nyc_output
 yarn.lock
 .c8_output
+.idea
