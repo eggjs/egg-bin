@@ -1,4 +1,10 @@
 
+5.3.2 / 2022-11-09
+==================
+
+**fixes**
+  * [[`88ba6d5`](http://github.com/eggjs/egg-bin/commit/88ba6d5b2d7dfd3d349d9687a57948d76b757885)] - fix: fix ENABLE_MOCHA_PARALLEL/AUTO_AGENT env (#187) (killa <<killa123@126.com>>)
+
 5.3.1 / 2022-11-05
 ==================
 
