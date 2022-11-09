@@ -342,4 +342,19 @@ describe('test/lib/cmd/test.test.js', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('env should work', async () => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    return coffee.fork(eggBin, [ 'test', '--parallel' ], {
+      cwd: path.join(__dirname, '../../fixtures/test-demo-app'),
+      env: Object.assign({
+        MOCHA_FILE: path.join(__dirname, '../../fixtures/bin/fake_mocha.js'),
+      }, process.env),
+    })
+      // .debug()
+      .expect('stdout', /env\.AUTO_AGENT: true/)
+      .expect('stdout', /env\.ENABLE_MOCHA_PARALLEL: true/)
+      .expect('code', 0)
+      .end();
+  });
 });
