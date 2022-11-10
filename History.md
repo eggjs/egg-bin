@@ -1,4 +1,10 @@
 
+5.3.3 / 2022-11-10
+==================
+
+**fixes**
+  * [[`e18ceda`](http://github.com/eggjs/egg-bin/commit/e18cedaf5482c1c58becc6674e3e7a512139f097)] - fix: fix cov env (#188) (killa <<killa123@126.com>>)
+
 5.3.2 / 2022-11-09
 ==================
 
