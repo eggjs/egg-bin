@@ -1,4 +1,10 @@
 
+5.4.0 / 2022-11-11
+==================
+
+**features**
+  * [[`72e925b`](http://github.com/eggjs/egg-bin/commit/72e925b490fa215432c76e46f6361bf52c169cc6)] - feat: default enable c8 report (#189) (killa <<killa123@126.com>>)
+
 5.3.3 / 2022-11-10
 ==================
 
