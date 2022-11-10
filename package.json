@@ -95,6 +95,7 @@
   },
   "ci": {
     "version": "14, 16, 18",
+    "os": "linux, macos",
     "license": {
       "year": "2017"
     }
