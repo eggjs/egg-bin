@@ -1,4 +1,13 @@
 
+5.4.1 / 2022-11-15
+==================
+
+**fixes**
+  * [[`bfd7fab`](http://github.com/eggjs/egg-bin/commit/bfd7fabffa3ae795ab4ca6494bb3cdc0138d59ff)] - fix: --full-trace should be boolean (#191) (Haoliang Gao <<sakura9515@gmail.com>>)
+
+**others**
+  * [[`85581d2`](http://github.com/eggjs/egg-bin/commit/85581d2e77c9490fb196b1d844b57c4330539a5c)] - 🤖 TEST: Only test on Linux and macOS (#190) (fengmk2 <<fengmk2@gmail.com>>)
+
 5.4.0 / 2022-11-11
 ==================
 
