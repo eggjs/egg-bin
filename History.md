@@ -1,4 +1,10 @@
 
+5.5.0 / 2022-11-19
+==================
+
+**features**
+  * [[`3c326b3`](http://github.com/eggjs/egg-bin/commit/3c326b3a5280a7272c84a248e387b590468500b7)] - 📦 NEW: Support mochawesome reporter (#192) (fengmk2 <<fengmk2@gmail.com>>)
+
 5.4.1 / 2022-11-15
 ==================
 
