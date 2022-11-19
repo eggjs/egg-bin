@@ -20,6 +20,7 @@ test/fixtures/example-ts-ets/typings/
 !test/fixtures/test-files/node_modules/
 !test/fixtures/test-demo-app/node_modules/
 
+.mochawesome-reports
 **/run/*.json
 .tmp
 .vscode

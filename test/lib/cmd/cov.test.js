@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
@@ -27,6 +25,24 @@ describe('test/lib/cmd/cov.test.js', () => {
       .expect('stdout', /should success/)
       .expect('stdout', /a\.test\.js/)
       .expect('stdout', /b[\/|\\]b\.test\.js/)
+      .notExpect('stdout', /a.js/);
+
+    child.expect('stdout', /Statements {3}:/);
+
+    await child.expect('code', 0).end();
+    // only test on npm run test
+    if (!process.env.NYC_ROOT_ID) assertCoverage(cwd);
+  });
+
+  it('should success with --mochawesome', async () => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    const child = coffee.fork(eggBin, [ 'cov', '--mochawesome' ], { cwd })
+      // .debug()
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b[\/|\\]b\.test\.js/)
+      .expect('stdout', /\[mochawesome] Report JSON saved to/)
+      .expect('stdout', /node_modules\/\.mochawesome-reports\/mochawesome\.json/)
       .notExpect('stdout', /a.js/);
 
     child.expect('stdout', /Statements {3}:/);
