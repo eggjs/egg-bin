@@ -24,6 +24,20 @@ describe('test/lib/cmd/test.test.js', () => {
       .end(done);
   });
 
+  it('should success with --mochawesome', done => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    coffee.fork(eggBin, [ 'test', '--mochawesome' ], { cwd })
+      // .debug()
+      .expect('stdout', /should success/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('stdout', /b\/b\.test\.js/)
+      .expect('stdout', /\[mochawesome] Report JSON saved to/)
+      .expect('stdout', /node_modules\/\.mochawesome-reports\/mochawesome\.json/)
+      .notExpect('stdout', /\ba\.js/)
+      .expect('code', 0)
+      .end(done);
+  });
+
   it('should ignore node_modules and fixtures', done => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/test-files-glob') })
