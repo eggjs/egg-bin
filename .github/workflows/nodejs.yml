@@ -2,13 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ master, 5.x ]
 
   pull_request:
-    branches: [ master, main, next, beta, '*.x' ]
-
-  schedule:
-    - cron: '0 2 * * *'
+    branches: [ master, 5.x ]
 
   workflow_dispatch: {}
 
