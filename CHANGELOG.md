@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.7.0](https://github.com/eggjs/egg-bin/compare/v5.6.1...v5.7.0) (2022-12-18)
+
+
+### Features
+
+* disable espower by default ([#196](https://github.com/eggjs/egg-bin/issues/196)) ([5e35438](https://github.com/eggjs/egg-bin/commit/5e3543812854066a72e6ff61fda001b23bf493ad))
+
 ## [5.6.1](https://github.com/eggjs/egg-bin/compare/v5.6.0...v5.6.1) (2022-12-17)
 
 
