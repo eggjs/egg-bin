@@ -31,9 +31,7 @@ describe('test/ts.test.js', () => {
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
       // .debug()
-      .notExpect('stdout', /false == true/)
-      .notExpect('stdout', /should not load js files/)
-      .expect('stdout', /--- \[string\] 'wrong assert ts'/)
+      .expect('stdout', /The expression evaluated to a falsy value/)
       .expect('code', 1)
       .end();
   });
@@ -69,8 +67,8 @@ describe('test/ts.test.js', () => {
     });
 
     it('should cov app', () => {
-      return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
-        // .debug()
+      return coffee.fork(eggBin, [ 'cov', '--ts', '--espower=true' ], { cwd })
+        .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', os.platform() === 'win32' ? /Coverage summary/ : /Statements.*100%/)
@@ -123,7 +121,6 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)
         .expect('stdout', /| {3}"111"/)
-        .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
 
@@ -131,15 +128,13 @@ describe('test/ts.test.js', () => {
       if (process.platform === 'win32') return;
 
       return coffee.fork(eggBin, [ 'test', '--tscompiler=esbuild-register' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /error/)
         .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
         .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
-        .expect('stdout', /assert\(obj\.key === "222"\)/)
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)
         .expect('stdout', /| {3}"111"/)
-        .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
 
@@ -155,7 +150,6 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)
         .expect('stdout', /| {3}"111"/)
-        .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
 
@@ -173,7 +167,6 @@ describe('test/ts.test.js', () => {
         .expect('stdout', /| {3}| {3}|/)
         .expect('stdout', /| {3}| {3}false/)
         .expect('stdout', /| {3}"111"/)
-        .expect('stdout', /Object\{key:"111"}/)
         .end();
     });
   });
@@ -320,7 +313,7 @@ describe('test/ts.test.js', () => {
 
     it('should test app', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('code', 0)
@@ -349,8 +342,8 @@ describe('test/ts.test.js', () => {
     });
 
     it('should cov app', () => {
-      return coffee.fork(eggBin, [ 'cov' ], { cwd })
-        // .debug()
+      return coffee.fork(eggBin, [ 'cov', '--espower=true' ], { cwd })
+        .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', process.env.NYC_ROOT_ID ? /Coverage summary/ : /Statements.*100%/)

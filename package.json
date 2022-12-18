@@ -48,6 +48,7 @@
     }
   },
   "devDependencies": {
+    "@eggjs/tsconfig": "^1.2.0",
     "@types/mocha": "^9.1.1",
     "babel": "^6.3.26",
     "babel-preset-airbnb": "^1.0.1",
@@ -84,6 +85,7 @@
     "pkgfiles": "node bin/egg-bin.js pkgfiles",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "node bin/egg-bin.js test -t 120000 --parallel",
+    "test-single": "node bin/egg-bin.js test -t 120000",
     "test-mochawesome": "npm run test-local -- --mochawesome",
     "cov": "c8 -r lcov -r text-summary npm run test-local",
     "ci-test-only": "npm run test-local -- test/lib/cmd/cov.test.js",
