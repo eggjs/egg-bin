@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.8.0](https://github.com/eggjs/egg-bin/compare/v5.7.0...v5.8.0) (2022-12-18)
+
+
+### Features
+
+* [BREAKING CHANGE] drop espower support ([#197](https://github.com/eggjs/egg-bin/issues/197)) ([1fc3624](https://github.com/eggjs/egg-bin/commit/1fc362449b69502deb87671a7c1aa21bd5070c51))
+
 ## [5.7.0](https://github.com/eggjs/egg-bin/compare/v5.6.1...v5.7.0) (2022-12-18)
 
 
