@@ -36,19 +36,14 @@ describe('test/ts.test.js', () => {
       .end();
   });
 
-  describe('real application', () => {
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-      console.log('skip egg@1');
-      return;
-    }
-
+  describe.only('real application', () => {
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts');
     });
 
     it('should start app', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /hi, egg, 12345/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', /started/)
@@ -57,8 +52,8 @@ describe('test/ts.test.js', () => {
     });
 
     it('should test app', () => {
-      return coffee.fork(eggBin, [ 'test', '--ts' ], { cwd })
-        // .debug()
+      return coffee.fork(eggBin, [ 'test' ], { cwd })
+        .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', /should work/)
@@ -67,19 +62,20 @@ describe('test/ts.test.js', () => {
     });
 
     it('should cov app', () => {
-      return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
+      return coffee.fork(eggBin, [ 'cov' ], { cwd })
         .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
+        .expect('stdout', /should work/)
         .expect('code', 0)
         .end();
     });
 
-    it.skip('should cov app in cluster mod', () => {
+    it('should cov app in cluster mod', () => {
       // skip on darwin
       // https://github.com/eggjs/egg-bin/runs/6735190362?check_suite_focus=true
       // [agent_worker] receive disconnect event on child_process fork mode, exiting with code:110
-      if (process.platform === 'darwin') return;
+      // if (process.platform === 'darwin') return;
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
