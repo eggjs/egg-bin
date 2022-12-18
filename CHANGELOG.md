@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.8.1](https://github.com/eggjs/egg-bin/compare/v5.8.0...v5.8.1) (2022-12-18)
+
+
+### Bug Fixes
+
+* add missing custom require ([#198](https://github.com/eggjs/egg-bin/issues/198)) ([1348220](https://github.com/eggjs/egg-bin/commit/13482208f117d2d3fa7d70334b84ef2791847acd))
+
 ## [5.8.0](https://github.com/eggjs/egg-bin/compare/v5.7.0...v5.8.0) (2022-12-18)
 
 
