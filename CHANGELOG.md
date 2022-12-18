@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.9.0](https://github.com/eggjs/egg-bin/compare/v5.8.1...v5.9.0) (2022-12-18)
+
+
+### Features
+
+* auto require tsconfig-paths/register on typescript command ([#199](https://github.com/eggjs/egg-bin/issues/199)) ([82e3e3e](https://github.com/eggjs/egg-bin/commit/82e3e3ededd68258c5878e728553894fbd001d6d))
+
 ## [5.8.1](https://github.com/eggjs/egg-bin/compare/v5.8.0...v5.8.1) (2022-12-18)
 
 
