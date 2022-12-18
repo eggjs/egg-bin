@@ -76,7 +76,7 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
-    it('should cov app in cluster mod', () => {
+    it.skip('should cov app in cluster mod', () => {
       // skip on darwin
       // https://github.com/eggjs/egg-bin/runs/6735190362?check_suite_focus=true
       // [agent_worker] receive disconnect event on child_process fork mode, exiting with code:110

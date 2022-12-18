@@ -116,7 +116,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
 
   it('should fail when test fail with power-assert', () => {
     mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'cov', '--c8-report=true' ], { cwd })
+    return coffee.fork(eggBin, [ 'cov', '--c8-report=true', '--espower=true' ], { cwd })
       // .debug()
       .expect('stdout', /1\) should fail/)
       .expect('stdout', /1 failing/)
