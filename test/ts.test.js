@@ -36,7 +36,7 @@ describe('test/ts.test.js', () => {
       .end();
   });
 
-  describe.only('real application', () => {
+  describe('real application', () => {
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts');
     });
