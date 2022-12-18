@@ -132,7 +132,7 @@ You can pass any mocha argv.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
 - `--dry-run` / `-d` whether dry-run the test command, just show the command
-- `--espower` / `-e` whether auto require intelli-espower-loader(js) or espower-typescript(ts) for power-assert, default to `true`.
+- `--espower` / `-e` whether auto require intelli-espower-loader(js) or espower-typescript(ts) for power-assert, default to `false`.
 - `--parallel` enable mocha parallel mode, default to `false`.
 - `--auto-agent` auto start agent in mocha master agent.
 - `--jobs` number of jobs to run in parallel, default to `os.cpus().length - 1`.
