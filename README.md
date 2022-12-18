@@ -70,7 +70,7 @@ Start dev cluster on `local` env, it will start a master, an agent and a worker.
 egg-bin dev
 ```
 
-##### options
+#### dev options
 
 - `--framework` egg web framework root path.
 - `--baseDir` application's root path, default to `process.cwd()`.
@@ -93,7 +93,7 @@ if running without `VSCode` or `WebStorm`, we will use [inspector-proxy](https:/
 egg-bin debug --debug-port=9229 --proxy=9999
 ```
 
-##### options
+#### debug options
 
 - all `egg-bin dev` options is accepted.
 - `--proxy=9999` worker debug proxy port.
@@ -101,8 +101,6 @@ egg-bin debug --debug-port=9229 --proxy=9999
 ### test
 
 Using [mocha] to run test.
-
-[power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
 
 ```bash
 egg-bin test [files] [options]
@@ -121,7 +119,7 @@ test
   └── foo.test.js
 ```
 
-#### options
+#### test options
 
 You can pass any mocha argv.
 
@@ -132,14 +130,13 @@ You can pass any mocha argv.
 - `--typescript` / `--ts` enable typescript support, default to `false`.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
 - `--dry-run` / `-d` whether dry-run the test command, just show the command
-- `--espower` / `-e` whether auto require intelli-espower-loader(js) or espower-typescript(ts) for power-assert, default to `false`.
 - `--parallel` enable mocha parallel mode, default to `false`.
 - `--auto-agent` auto start agent in mocha master agent.
 - `--jobs` number of jobs to run in parallel, default to `os.cpus().length - 1`.
 - `--mochawesome` enable [mochawesome](https://github.com/adamgruber/mochawesome) reporter, default to `false`.
 - see more at <https://mochajs.org/#usage>
 
-#### environment
+#### test environment
 
 Environment is also support, will use it if options not provide.
 
@@ -165,8 +162,6 @@ TEST_TIMEOUT=2000 egg-bin test
 
 Using [node:test] to run test.
 
-[power-assert] is the default `assert` library, and [intelli-espower-loader] will be auto required.
-
 ```bash
 egg-bin node-test [files] [options]
 ```
@@ -180,7 +175,7 @@ egg-bin node-test [files] [options]
 
 TBD: TypeScript not support yet
 
-#### environment
+#### node-test environment
 
 Environment is also support, will use it if options not provide.
 
@@ -371,9 +366,6 @@ This project follows the git-contributor [spec](https://github.com/xudafeng/git-
 [node:test]: https://nodejs.org/api/test.html
 [glob]: https://github.com/isaacs/node-glob
 [nsp]: https://npmjs.com/nsp
-[iron-node]: https://github.com/s-a/iron-node
-[intelli-espower-loader]: https://github.com/power-assert-js/intelli-espower-loader
-[power-assert]: https://github.com/power-assert-js/power-assert
 [ypkgfiles]: https://github.com/popomore/ypkgfiles
 [common-bin]: https://github.com/node-modules/common-bin
 [autod]: https://github.com/node-modules/autod

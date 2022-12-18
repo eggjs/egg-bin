@@ -114,29 +114,6 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
       .end();
   });
 
-  it('should fail when test fail with power-assert', () => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'cov', '--c8-report=true', '--espower=true' ], { cwd })
-      // .debug()
-      .expect('stdout', /1\) should fail/)
-      .expect('stdout', /1 failing/)
-      .expect('stdout', /assert\(1 === 2\)/)
-      .expect('code', 1)
-      .end();
-  });
-
-  it('should warn when require intelli-espower-loader', () => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    return coffee.fork(eggBin, [ 'cov', '--c8-report=true', '-r', 'intelli-espower-loader' ], { cwd })
-      // .debug()
-      .expect('stderr', /manually require `intelli-espower-loader`/)
-      .expect('stdout', /1\) should fail/)
-      .expect('stdout', /1 failing/)
-      .expect('stdout', /assert\(1 === 2\)/)
-      .expect('code', 1)
-      .end();
-  });
-
   it('should run cov when no test files', () => {
     mm(process.env, 'TESTS', 'noexist.js');
     const cwd = path.join(__dirname, '../../fixtures/prerequire');

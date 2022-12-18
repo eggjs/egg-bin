@@ -107,18 +107,6 @@ describe('test/lib/cmd/test.test.js', () => {
       .end(done);
   });
 
-  it('should fail when test fail with power-assert', done => {
-    mm(process.env, 'TESTS', 'test/power-assert-fail.js');
-    coffee.fork(eggBin, [ 'test', '--espower=true' ], { cwd })
-    // .coverage(false)
-    // .debug()
-      .expect('stdout', /1\) should fail/)
-      .expect('stdout', /assert\(1 === 2\)/)
-      .expect('stdout', /1 failing/)
-      .expect('code', 1)
-      .end(done);
-  });
-
   it('should auto require test/.setup.js', () => {
     // example: https://github.com/lelandrichardson/enzyme-example-mocha
     mm(process.env, 'TESTS', 'test/Foo.test.js');
