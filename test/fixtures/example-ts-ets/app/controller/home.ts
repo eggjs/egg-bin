@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import DbService from 'app/service/db';
 
 export default class HomeController extends Controller {
   async index() {
@@ -13,5 +14,6 @@ export default class HomeController extends Controller {
     console.info(await app.model.User.get());
     console.info('biz config', ctx.app.config.biz.type);
     ctx.body = 'ok';
+    console.log(DbService);
   }
 }

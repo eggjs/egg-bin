@@ -390,6 +390,21 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
+    it('should auto require tsconfig-paths/register on test', async () => {
+      await coffee.fork(eggBin, [ 'test' ], { cwd })
+        .debug()
+        .expect('stdout', /1 passing/)
+        .expect('code', 0)
+        .end();
+
+      // double require tsconfig-paths/register should work
+      await coffee.fork(eggBin, [ 'test', '-r', 'tsconfig-paths/register' ], { cwd })
+        .debug()
+        .expect('stdout', /1 passing/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should not load egg-ts-helper without flag and egg.declarations', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         // .debug()
