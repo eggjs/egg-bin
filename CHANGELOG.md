@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.10.0](https://github.com/eggjs/egg-bin/compare/v5.9.0...v5.10.0) (2023-01-03)
+
+
+### Features
+
+* use mochawesome-with-mocha and enable mochawesome by default ([#200](https://github.com/eggjs/egg-bin/issues/200)) ([efa6ef5](https://github.com/eggjs/egg-bin/commit/efa6ef58df4756216b7e80adad9fb1c852c8c9f4))
+
 ## [5.9.0](https://github.com/eggjs/egg-bin/compare/v5.8.1...v5.9.0) (2022-12-18)
 
 
