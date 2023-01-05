@@ -11,6 +11,8 @@ if (npmRunRoot) {
   if (fs.existsSync(pkgFile)) {
     const pkg = require(pkgFile);
     if (pkg.egg && pkg.egg.typescript) {
+      // set ETS_CWD
+      process.env.ETS_CWD = npmRunRoot;
       require('egg-ts-helper/dist/bin');
     }
   }
