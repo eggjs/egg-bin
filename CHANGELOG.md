@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.11.1](https://github.com/eggjs/egg-bin/compare/v5.11.0...v5.11.1) (2023-01-05)
+
+
+### Bug Fixes
+
+* should set ETS_CWD  to INIT_CWD on postinstall ([#202](https://github.com/eggjs/egg-bin/issues/202)) ([a57c1d4](https://github.com/eggjs/egg-bin/commit/a57c1d4f5bfe229d1f6d3a6eb1957996d0b115ff))
+
 ## [5.11.0](https://github.com/eggjs/egg-bin/compare/v5.10.0...v5.11.0) (2023-01-05)
 
 
