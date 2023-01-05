@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.11.2](https://github.com/eggjs/egg-bin/compare/v5.11.1...v5.11.2) (2023-01-05)
+
+
+### Bug Fixes
+
+* use node to run postinstall script ([f17347b](https://github.com/eggjs/egg-bin/commit/f17347b670c8d39b32c5c7322e1e30d9c7823b72))
+
 ## [5.11.1](https://github.com/eggjs/egg-bin/compare/v5.11.0...v5.11.1) (2023-01-05)
 
 
