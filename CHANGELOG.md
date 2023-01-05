@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.11.0](https://github.com/eggjs/egg-bin/compare/v5.10.0...v5.11.0) (2023-01-05)
+
+
+### Features
+
+* auto run ets on postinstall ([#201](https://github.com/eggjs/egg-bin/issues/201)) ([3e30c3d](https://github.com/eggjs/egg-bin/commit/3e30c3d6842b9a94dd631b93956c8a2201816025))
+
 ## [5.10.0](https://github.com/eggjs/egg-bin/compare/v5.9.0...v5.10.0) (2023-01-03)
 
 
