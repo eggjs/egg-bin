@@ -77,6 +77,7 @@
   "homepage": "https://github.com/eggjs/egg-bin",
   "author": "fengmk2 <fengmk2@gmail.com> (https://github.com/fengmk2)",
   "scripts": {
+    "postinstall": "bin/postinstall.js",
     "contributor": "git-contributor",
     "lint": "eslint .",
     "pkgfiles": "node bin/egg-bin.js pkgfiles",
