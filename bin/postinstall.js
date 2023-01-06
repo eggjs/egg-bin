@@ -2,9 +2,10 @@
 
 const path = require('path');
 const fs = require('fs');
+const runscript = require('runscript');
 
-// node posintall.js <egg-ts-helper/dist/bin>
-const etsBinName = process.argv[2] || 'egg-ts-helper/dist/bin';
+// node posintall.js </path/to/egg-ts-helper/dist/bin>
+const etsBinFile = process.argv[2] || require.resolve('egg-ts-helper/dist/bin');
 
 // try to use INIT_CWD env https://docs.npmjs.com/cli/v9/commands/npm-run-script
 // npm_rootpath is npminstall
@@ -17,7 +18,8 @@ if (npmRunRoot) {
     if (!pkg.eggModule && pkg.egg && pkg.egg.typescript) {
       // set ETS_CWD
       process.env.ETS_CWD = npmRunRoot;
-      require(etsBinName);
+      console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);
+      runscript(`node ${etsBinFile}`);
     }
   }
 }

@@ -2,7 +2,6 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('egg-mock');
 const net = require('net');
-const semver = require('semver');
 const detect = require('detect-port');
 
 describe('test/lib/cmd/debug.test.js', () => {
@@ -72,13 +71,12 @@ describe('test/lib/cmd/debug.test.js', () => {
 
   describe('real egg', () => {
     const cwd = path.join(__dirname, '../../fixtures/example');
-    const newDebugger = semver.gte(process.version, '7.0.0');
 
     it('should proxy', () => {
       mm(process.env, 'VSCODE_CLI', '');
       const app = coffee.fork(eggBin, [ 'debug' ], { cwd });
       // app.debug();
-      if (newDebugger) app.expect('stdout', /DevTools → devtools:.*:9999/);
+      app.expect('stdout', /DevTools → devtools:.*:9999/);
       return app.expect('stderr', /Debugger listening/)
         .expect('stdout', /Debug Proxy online, now you could attach to 9999/)
         .expect('code', 0)
@@ -89,7 +87,7 @@ describe('test/lib/cmd/debug.test.js', () => {
       mm(process.env, 'VSCODE_CLI', '');
       const app = coffee.fork(eggBin, [ 'debug', '--proxy=6666' ], { cwd });
       // app.debug();
-      if (newDebugger) app.expect('stdout', /DevTools → devtools:.*:6666/);
+      app.expect('stdout', /DevTools → devtools:.*:6666/);
       return app.expect('stderr', /Debugger listening/)
         .expect('stdout', /Debug Proxy online, now you could attach to 6666/)
         .expect('code', 0)
