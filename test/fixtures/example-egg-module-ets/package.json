@@ -1,0 +1,10 @@
+{
+  "name": "example-egg-module-ets",
+  "eggModule": {
+    "name": "foo"
+  },
+  "egg": {
+    "typescript": true,
+    "declarations": false
+  }
+}
