@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.11.3](https://github.com/eggjs/egg-bin/compare/v5.11.2...v5.11.3) (2023-01-06)
+
+
+### Bug Fixes
+
+* ignore egg module on ets ([#203](https://github.com/eggjs/egg-bin/issues/203)) ([dda64a5](https://github.com/eggjs/egg-bin/commit/dda64a5f895aac9787b07f4a9c0285ac7701bdc1))
+
 ## [5.11.2](https://github.com/eggjs/egg-bin/compare/v5.11.1...v5.11.2) (2023-01-05)
 
 
