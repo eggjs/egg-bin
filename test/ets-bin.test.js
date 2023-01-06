@@ -54,4 +54,21 @@ describe('test/ets-bin.test.js', () => {
       .expect('code', 0)
       .end();
   });
+
+  it('should test with postinstall', async () => {
+    const cwd = path.join(__dirname, 'fixtures/example-egg-module-ets');
+    await coffee.spawn('node', [ postinstallScript ], {
+      cwd,
+      env: {
+        ...process.env,
+        ETS_SILENT: 'false',
+        INIT_CWD: cwd,
+      },
+    })
+      .debug()
+      .notExpect('stdout', /\[egg-ts-helper\] create/)
+      .notExpect('stdout', /\[egg-bin:postinstall] run /)
+      .expect('code', 0)
+      .end();
+  });
 });
