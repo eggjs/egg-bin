@@ -220,8 +220,6 @@ describe('test/lib/cmd/test.test.js', () => {
     });
 
     it('should return file changed', async () => {
-      if (process.platform === 'win32') return;
-
       const cmd = new Command([ '--changed' ]);
       mm.data(changed, 'getChangedFilesForRoots', {
         changedFiles: new Set([ __filename ]),
@@ -271,7 +269,6 @@ describe('test/lib/cmd/test.test.js', () => {
   });
 
   it('test parallel', () => {
-    if (process.platform === 'win32') return;
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'test', '--parallel' ], { cwd: path.join(__dirname, '../../fixtures/test-demo-app') })
       // .debug()
