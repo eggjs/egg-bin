@@ -1,6 +1,4 @@
-import { Application } from 'egg';
-
-export default function(app: Application) {
+export default function(app) {
   const { router, controller } = app;
 
   console.info(app.custom.test.abc);

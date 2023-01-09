@@ -2,10 +2,16 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('fs');
-const cpy = require('cpy');
+const fsPromises = require('fs/promises');
 const { execSync } = require('child_process');
-const os = require('os');
 const assert = require('assert');
+
+async function cpy(src, target) {
+  if (typeof fsPromises.cp === 'function') {
+    return await fsPromises.cp(src, target, { force: true, recursive: true });
+  }
+  return execSync(`cp -R ${src} ${target}`);
+}
 
 describe('test/ts.test.js', () => {
   const eggBin = require.resolve('../bin/egg-bin');
@@ -25,12 +31,10 @@ describe('test/ts.test.js', () => {
   });
 
   it('should support ts test', () => {
-    if (process.platform === 'win32') return;
-
     cwd = path.join(__dirname, './fixtures/ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
-      // .debug()
+      .debug()
       .expect('stdout', /The expression evaluated to a falsy value/)
       .expect('code', 1)
       .end();
@@ -79,18 +83,13 @@ describe('test/ts.test.js', () => {
       cwd = path.join(__dirname, './fixtures/example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
-        .expect('stdout', os.platform() === 'win32' ? /Coverage summary/ : /Statements/)
+        .expect('stdout', /Statements/)
         .expect('code', 0)
         .end();
     });
   });
 
   describe('error stacks', () => {
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-      console.log('skip egg@1');
-      return;
-    }
-
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts-error-stack');
     });
@@ -105,8 +104,6 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in testing app', () => {
-      if (process.platform === 'win32') return;
-
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         .debug()
         .expect('stdout', /error/)
@@ -120,8 +117,6 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in testing app with other tscompiler', () => {
-      if (process.platform === 'win32') return;
-
       return coffee.fork(eggBin, [ 'test', '--tscompiler=esbuild-register' ], { cwd })
         .debug()
         .expect('stdout', /error/)
@@ -134,8 +129,6 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in covering app', () => {
-      if (process.platform === 'win32') return;
-
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
@@ -149,8 +142,6 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in mixed app', () => {
-      if (process.platform === 'win32') return;
-
       const appDir = path.join(__dirname, './fixtures/example-ts-error-stack-mixed');
       const testFile = path.resolve(appDir, 'test/index.test.js');
       return coffee.fork(eggBin, [ 'test', testFile ], { cwd: appDir })
@@ -173,11 +164,6 @@ describe('test/ts.test.js', () => {
       fs.rmSync(tempNodeModules, { force: true, recursive: true });
       fs.rmSync(tempPackageJson, { force: true, recursive: true });
     });
-
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-      console.log('skip egg@1');
-      return;
-    }
 
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts-pkg');
@@ -347,11 +333,6 @@ describe('test/ts.test.js', () => {
   });
 
   describe('egg.declarations = true', () => {
-    if (process.env.EGG_VERSION && process.env.EGG_VERSION === '1') {
-      console.log('skip egg@1');
-      return;
-    }
-
     let pkgJson;
     before(() => {
       cwd = path.join(__dirname, './fixtures/example-ts-ets');
@@ -381,7 +362,7 @@ describe('test/ts.test.js', () => {
       pkgJson.egg.declarations = true;
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /application log/)
         .expect('stdout', /"typescript":true/)
         .expect('stdout', /"declarations":true/)
