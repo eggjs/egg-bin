@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.12.0](https://github.com/eggjs/egg-bin/compare/v5.11.3...v5.12.0) (2023-01-09)
+
+
+### Features
+
+* allow require mocha from outside ([#204](https://github.com/eggjs/egg-bin/issues/204)) ([6f59f6e](https://github.com/eggjs/egg-bin/commit/6f59f6effed71e898fe743fc1d29a6537029b1c7))
+
 ## [5.11.3](https://github.com/eggjs/egg-bin/compare/v5.11.2...v5.11.3) (2023-01-06)
 
 
