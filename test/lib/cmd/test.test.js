@@ -270,7 +270,9 @@ describe('test/lib/cmd/test.test.js', () => {
 
   it.only('test parallel', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
-    return coffee.fork(eggBin, [ 'test', '--parallel' ], { cwd: path.join(__dirname, '../../fixtures/test-demo-app') })
+    return coffee.fork(eggBin, [ 'test', '--parallel' ], {
+      cwd: path.join(__dirname, '../../fixtures/test-demo-app'),
+    })
       .debug()
       .expect('stdout', /should work/)
       .expect('stdout', /a\.test\.js/)
@@ -278,7 +280,7 @@ describe('test/lib/cmd/test.test.js', () => {
       .end();
   });
 
-  it('env should work', async () => {
+  it.only('env should work', async () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'test', '--parallel' ], {
       cwd: path.join(__dirname, '../../fixtures/test-demo-app'),
