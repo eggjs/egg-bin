@@ -268,7 +268,7 @@ describe('test/lib/cmd/test.test.js', () => {
     });
   });
 
-  it.only('test parallel', () => {
+  it('test parallel', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'test', '--parallel' ], {
       cwd: path.join(__dirname, '../../fixtures/test-demo-app'),
