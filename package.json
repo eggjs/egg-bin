@@ -79,7 +79,7 @@
     "contributor": "git-contributor",
     "lint": "eslint .",
     "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "NODE_DEBUG=\"egg-mock*\" DEBUG=\"(cluster-client*|detect-port*)\" node bin/egg-bin.js test -t 120000",
+    "test-local": "node bin/egg-bin.js test -t 120000",
     "cov": "c8 -r lcov -r text-summary npm run test-local",
     "ci-test-only": "npm run test-local -- test/lib/cmd/cov.test.js",
     "ci": "npm run lint && npm run ci-test-only && npm run test-local"
