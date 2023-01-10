@@ -7,6 +7,6 @@ describe('a.test.js', () => {
     await app.httpRequest()
       .get('/')
       .expect(200)
-      .expect({});
+      .expect({ foo: 'bar' });
   });
 });

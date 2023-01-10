@@ -388,12 +388,12 @@ describe('test/ts.test.js', () => {
 
     it('should not load egg-ts-helper without flag and egg.declarations', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /"typescript":true/)
-        .notExpect('stdout', /application log/)
+        .expect('stdout', /application log/)
         .notExpect('stdout', /"declarations":true/)
-        .notExpect('stdout', /started/)
-        .expect('code', 1)
+        .expect('stdout', /started/)
+        .expect('code', 0)
         .end();
     });
   });
