@@ -269,7 +269,7 @@ describe('test/lib/cmd/test.test.js', () => {
   });
 
   // fail on github action ubuntu
-  it.skip('test parallel', () => {
+  it('test parallel', () => {
     if (process.platform !== 'darwin') return;
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'test', '--parallel' ], {
