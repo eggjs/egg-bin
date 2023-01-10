@@ -271,7 +271,7 @@ describe('test/lib/cmd/test.test.js', () => {
   it('test parallel', () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'test', '--parallel' ], { cwd: path.join(__dirname, '../../fixtures/test-demo-app') })
-      // .debug()
+      .debug()
       .expect('stdout', /should work/)
       .expect('stdout', /a\.test\.js/)
       .expect('code', 0)
