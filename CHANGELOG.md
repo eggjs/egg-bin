@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.12.1](https://github.com/eggjs/egg-bin/compare/v5.12.0...v5.12.1) (2023-01-10)
+
+
+### Bug Fixes
+
+* use egg-mock/register instead ([#205](https://github.com/eggjs/egg-bin/issues/205)) ([c267288](https://github.com/eggjs/egg-bin/commit/c267288eb1610cd859be66d023d27e4d72671b58))
+
 ## [5.12.0](https://github.com/eggjs/egg-bin/compare/v5.11.3...v5.12.0) (2023-01-09)
 
 
