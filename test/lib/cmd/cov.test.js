@@ -179,6 +179,18 @@ describe('test/lib/cmd/cov.test.js', () => {
       .end();
   });
 
+  it.only('test parallel', () => {
+    mm(process.env, 'TESTS', 'test/**/*.test.js');
+    return coffee.fork(eggBin, [ 'cov', '--parallel' ], {
+      cwd: path.join(__dirname, '../../fixtures/test-demo-app'),
+    })
+      .debug()
+      .expect('stdout', /should work/)
+      .expect('stdout', /a\.test\.js/)
+      .expect('code', 0)
+      .end();
+  });
+
   it('env should work', async () => {
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'cov', '--parallel' ], {
