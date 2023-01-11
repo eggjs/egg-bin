@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.12.2](https://github.com/eggjs/egg-bin/compare/v5.12.1...v5.12.2) (2023-01-11)
+
+
+### Bug Fixes
+
+* dont auto require egg-mock ([#206](https://github.com/eggjs/egg-bin/issues/206)) ([e703507](https://github.com/eggjs/egg-bin/commit/e70350762f76372925c3c4cdbc50e17fa40383a4)), closes [/github.com/eggjs/egg-mock/pull/142#issuecomment-1377450602](https://github.com/eggjs//github.com/eggjs/egg-mock/pull/142/issues/issuecomment-1377450602)
+
 ## [5.12.1](https://github.com/eggjs/egg-bin/compare/v5.12.0...v5.12.1) (2023-01-10)
 
 
