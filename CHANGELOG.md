@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.12.3](https://github.com/eggjs/egg-bin/compare/v5.12.2...v5.12.3) (2023-01-13)
+
+
+### Bug Fixes
+
+* require tscompiler on current process ([#207](https://github.com/eggjs/egg-bin/issues/207)) ([3462835](https://github.com/eggjs/egg-bin/commit/3462835bf9060721a50e04cfeada601bb97cd0dc))
+
 ## [5.12.2](https://github.com/eggjs/egg-bin/compare/v5.12.1...v5.12.2) (2023-01-11)
 
 
