@@ -14,12 +14,18 @@ if (npmRunRoot) {
   const pkgFile = path.join(npmRunRoot, 'package.json');
   if (fs.existsSync(pkgFile)) {
     const pkg = require(pkgFile);
-    // ignore eggModule
-    if (!pkg.eggModule && pkg.egg && pkg.egg.typescript) {
-      // set ETS_CWD
-      process.env.ETS_CWD = npmRunRoot;
-      console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);
-      runscript(`node ${etsBinFile}`);
-    }
+    if (!pkg.egg || !pkg.egg.typescript) return;
+    // ignore eggModule and framework
+    // framework package.json:
+    // "egg": {
+    //   "isFramework": true,
+    //   "typescript": true
+    // }
+    if (pkg.eggModule) return;
+    if (pkg.egg.isFramework) return;
+    // set ETS_CWD
+    process.env.ETS_CWD = npmRunRoot;
+    console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);
+    runscript(`node ${etsBinFile}`);
   }
 }

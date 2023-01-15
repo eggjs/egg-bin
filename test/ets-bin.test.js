@@ -55,8 +55,25 @@ describe('test/ets-bin.test.js', () => {
       .end();
   });
 
-  it('should test with postinstall', async () => {
+  it('should test with postinstall ignore eggModule', async () => {
     const cwd = path.join(__dirname, 'fixtures/example-egg-module-ets');
+    await coffee.spawn('node', [ postinstallScript ], {
+      cwd,
+      env: {
+        ...process.env,
+        ETS_SILENT: 'false',
+        INIT_CWD: cwd,
+      },
+    })
+      .debug()
+      .notExpect('stdout', /\[egg-ts-helper\] create/)
+      .notExpect('stdout', /\[egg-bin:postinstall] run /)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('should test with postinstall ignore egg framework', async () => {
+    const cwd = path.join(__dirname, 'fixtures/example-egg-framework-ets');
     await coffee.spawn('node', [ postinstallScript ], {
       cwd,
       env: {
