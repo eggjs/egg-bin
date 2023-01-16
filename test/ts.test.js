@@ -279,6 +279,38 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
+    it('should skip ts-node on env.EGG_TYPESCRIPT="false"', () => {
+      return coffee.fork(eggBin, [ 'dev', '--tscompiler=esbuild-register' ], {
+        cwd: path.join(__dirname, './fixtures/example-ts'),
+        env: {
+          EGG_TYPESCRIPT: 'false',
+        },
+      })
+        .debug()
+        .expect('stdout', /agent.options.typescript = false/)
+        .expect('stdout', /agent.options.tscompiler =/)
+        .expect('stdout', /esbuild-register/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should enable ts-node on env.EGG_TYPESCRIPT="true"', () => {
+      return coffee.fork(eggBin, [ 'dev', '--tscompiler=esbuild-register' ], {
+        cwd: path.join(__dirname, './fixtures/example-ts'),
+        env: {
+          EGG_TYPESCRIPT: 'true',
+        },
+      })
+        .debug()
+        .expect('stdout', /agent.options.typescript = true/)
+        .expect('stdout', /agent.options.tscompiler =/)
+        .expect('stdout', /esbuild-register/)
+        .expect('stdout', /started/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should start app with other tscompiler in package.json without error', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts' ], {
         cwd: path.join(__dirname, './fixtures/example-ts-pkg'),
