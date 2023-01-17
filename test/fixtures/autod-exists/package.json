@@ -1,6 +1,0 @@
-{
-  "name": "autod-exists",
-  "dependencies": {
-    "urllib": "*"
-  }
-}
