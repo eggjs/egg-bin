@@ -15,7 +15,6 @@
     "c8": "bin/c8.js"
   },
   "dependencies": {
-    "autod": "^3.1.2",
     "c8": "^7.11.3",
     "chalk": "^4.1.2",
     "common-bin": "^3.0.0",
@@ -35,7 +34,7 @@
     "ypkgfiles": "^1.6.0"
   },
   "peerDependencies": {
-    "egg-mock": "^5.8.3"
+    "egg-mock": ">=5.8.3"
   },
   "peerDependenciesMeta": {
     "egg-mock": {
@@ -57,7 +56,7 @@
     "esbuild-register": "^2.5.0",
     "eslint": "^8.16.0",
     "eslint-config-egg": "^12.0.0",
-    "git-contributor": "^1.0.10",
+    "git-contributor": "2",
     "jsdom": "^8.0.1",
     "mm": "^3.2.0",
     "react": "^0.14.7",
