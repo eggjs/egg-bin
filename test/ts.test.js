@@ -216,7 +216,7 @@ describe('test/ts.test.js', () => {
         path.join(cwd, './node_modules/egg')
       );
 
-      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
         // .debug()
         .end();
       assert(/ts-node@8\.10\.2/.test(stderr));
@@ -238,7 +238,7 @@ describe('test/ts.test.js', () => {
 
       const { stderr, code } = await coffee.fork(eggBin, [
         'dev', '--ts', '--tscompiler=ts-node/register',
-      ], { cwd, env: { DEBUG: 'egg-bin' } })
+      ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
         // .debug()
         .end();
       assert(/ts-node@8\.10\.2/.test(stderr));
@@ -258,7 +258,7 @@ describe('test/ts.test.js', () => {
         path.join(cwd, './node_modules/egg')
       );
 
-      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
         .debug()
         .end();
       assert(!/ts-node@8\.10\.2/.test(stderr));
@@ -346,7 +346,7 @@ describe('test/ts.test.js', () => {
         path.join(cwd, './node_modules/egg')
       );
 
-      const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--ts' ], { cwd, env: { DEBUG: 'egg-bin' } })
+      const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
         // .debug()
         .end();
       assert(/ts-node@8\.10\.2/.test(stdout));
