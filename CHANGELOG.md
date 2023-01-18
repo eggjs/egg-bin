@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.13.0](https://github.com/eggjs/egg-bin/compare/v5.12.6...v5.13.0) (2023-01-18)
+
+
+### Features
+
+* use util.debug instead of debug module ([#212](https://github.com/eggjs/egg-bin/issues/212)) ([33c95c2](https://github.com/eggjs/egg-bin/commit/33c95c20b44c7be267bb47399d2ce963214989d0))
+
 ## [5.12.3](https://github.com/eggjs/egg-bin/compare/v5.12.2...v5.12.3) (2023-01-13)
 
 
