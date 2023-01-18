@@ -107,18 +107,16 @@ describe('test/lib/cmd/test.test.js', () => {
   });
 
   it('should auto require test/.setup.js', () => {
-    // example: https://github.com/lelandrichardson/enzyme-example-mocha
-    mm(process.env, 'TESTS', 'test/Foo.test.js');
-    return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/enzyme-example-mocha') })
-    // .debug()
-      .expect('stdout', /before hook: delay 10ms/)
-      .expect('stdout', /3 passing/)
+    mm(process.env, 'TESTS', 'test/a.test.js');
+    return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/setup-js') })
+      .expect('stdout', /this is a before function/)
+      .expect('stdout', /hello egg/)
+      .expect('stdout', /is end!/)
       .expect('code', 0)
       .end();
   });
 
   it('should auto require test/.setup.ts', () => {
-    // example: https://github.com/lelandrichardson/enzyme-example-mocha
     mm(process.env, 'TESTS', 'test/a.test.ts');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd: path.join(__dirname, '../../fixtures/setup-ts') })
       .expect('stdout', /this is a before function/)
