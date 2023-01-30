@@ -4,8 +4,9 @@ const path = require('path');
 const fs = require('fs');
 const runscript = require('runscript');
 
-// node posintall.js </path/to/egg-ts-helper/dist/bin>
+// node posintall.js </path/to/egg-ts-helper/dist/bin> <framework-package-name>
 const etsBinFile = process.argv[2] || require.resolve('egg-ts-helper/dist/bin');
+const frameworkPackageName = process.argv[3] || 'egg';
 
 // try to use INIT_CWD env https://docs.npmjs.com/cli/v9/commands/npm-run-script
 // npm_rootpath is npminstall
@@ -23,6 +24,8 @@ if (npmRunRoot) {
     // }
     if (pkg.eggModule) return;
     if (pkg.egg.isFramework) return;
+    // ignore when the current app don't has a framework dependencies
+    if (!pkg.dependencies || !pkg.dependencies[frameworkPackageName]) return;
     // set ETS_CWD
     process.env.ETS_CWD = npmRunRoot;
     console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);

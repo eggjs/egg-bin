@@ -3,5 +3,8 @@
   "egg": {
     "typescript": true,
     "declarations": false
+  },
+  "dependencies": {
+    "egg": "*"
   }
 }
