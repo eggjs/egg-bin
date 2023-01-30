@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.13.1](https://github.com/eggjs/egg-bin/compare/v5.13.0...v5.13.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* ignore ets when the current app don't has a framework dependencies ([#213](https://github.com/eggjs/egg-bin/issues/213)) ([666a342](https://github.com/eggjs/egg-bin/commit/666a342a28593942fb7e3de6648d4abf66c83ec1))
+
 ## [5.13.0](https://github.com/eggjs/egg-bin/compare/v5.12.6...v5.13.0) (2023-01-18)
 
 
