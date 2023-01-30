@@ -1,5 +1,3 @@
-'use strict';
-
 const { app } = require('egg-mock/bootstrap');
 
 describe('a.test.js', () => {

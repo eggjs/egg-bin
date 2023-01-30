@@ -180,8 +180,6 @@ describe('test/lib/cmd/cov.test.js', () => {
   });
 
   it('test parallel', () => {
-    // FIXME: will timeout on macOS, ignore it
-    if (process.platform === 'darwin') return;
     mm(process.env, 'TESTS', 'test/**/*.test.js');
     return coffee.fork(eggBin, [ 'cov', '--parallel' ], {
       cwd: path.join(__dirname, '../../fixtures/test-demo-app'),
