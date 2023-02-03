@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.13.2](https://github.com/eggjs/egg-bin/compare/v5.13.1...v5.13.2) (2023-02-03)
+
+
+### Bug Fixes
+
+* should set ETS_FRAMEWORK to real framework package name ([#214](https://github.com/eggjs/egg-bin/issues/214)) ([fb3eb6a](https://github.com/eggjs/egg-bin/commit/fb3eb6aa8b0b3cd02eda28e0abce0e688bfdb4b4))
+
 ## [5.13.1](https://github.com/eggjs/egg-bin/compare/v5.13.0...v5.13.1) (2023-01-30)
 
 
