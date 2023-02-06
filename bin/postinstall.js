@@ -26,9 +26,8 @@ if (npmRunRoot) {
     if (pkg.egg.isFramework) return;
     // ignore when the current app don't has a framework dependencies
     if (!pkg.dependencies || !pkg.dependencies[frameworkPackageName]) return;
-    // set ETS_CWD and ETS_FRAMEWORK
+    // set ETS_CWD
     process.env.ETS_CWD = npmRunRoot;
-    process.env.ETS_FRAMEWORK = frameworkPackageName;
     console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);
     runscript(`node ${etsBinFile}`);
   }
