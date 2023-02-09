@@ -28,6 +28,8 @@ if (npmRunRoot) {
     if (!pkg.dependencies || !pkg.dependencies[frameworkPackageName]) return;
     // set ETS_CWD
     process.env.ETS_CWD = npmRunRoot;
+    // https://github.com/eggjs/egg-ts-helper/pull/104
+    process.env.ETS_SCRIPT_FRAMEWORK = frameworkPackageName;
     console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);
     runscript(`node ${etsBinFile}`);
   }
