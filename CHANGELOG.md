@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.13.4](https://github.com/eggjs/egg-bin/compare/v5.13.3...v5.13.4) (2023-02-09)
+
+
+### Bug Fixes
+
+* set ETS_SCRIPT_FRAMEWORK ([#216](https://github.com/eggjs/egg-bin/issues/216)) ([8614367](https://github.com/eggjs/egg-bin/commit/8614367f5b1c21d3ded9fb7f42d19d3189567d6d))
+
 ## [5.13.3](https://github.com/eggjs/egg-bin/compare/v5.13.2...v5.13.3) (2023-02-06)
 
 
