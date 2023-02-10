@@ -1,3 +1,0 @@
-exports.foo = () => {
-  return 'bar';
-};
