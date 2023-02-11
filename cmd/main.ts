@@ -1,8 +1,11 @@
-import { DefineCommand, Command } from '@artus-cli/artus-cli';
+import { DefineCommand, Command, Utils, Inject } from '@artus-cli/artus-cli';
 
 @DefineCommand()
 export class MainCommand extends Command {
+  @Inject()
+  utils: Utils;
+
   async run() {
-    console.info('main');
+    await this.utils.redirect([ '--help' ]);
   }
 }

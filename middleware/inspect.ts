@@ -18,11 +18,11 @@ export default class implements ApplicationLifecycle {
     // https://nodejs.org/dist/latest-v18.x/docs/api/cli.html#--inspect-brkhostport
     this.program.option({
       'inspect-brk': {
-        description: 'Activate inspector on host:port and break at start of user script. Default host:port is 127.0.0.1:9229',
+        description: 'Activate inspector and break at start of user script',
         type: 'boolean',
       },
       inspect: {
-        description: 'Activate inspector on host:port. Default is 127.0.0.1:9229',
+        description: 'Activate inspector',
         type: 'boolean',
       },
     });
