@@ -3,7 +3,7 @@ import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
-import { addNodeOptionsToEnv } from '../lib/utils';
+import { addNodeOptionsToEnv, readPackageJSON } from '../lib/utils';
 
 const debug = debuglog('egg-bin:midddleware:typescript');
 
@@ -22,11 +22,17 @@ export default class implements ApplicationLifecycle {
         alias: 'ts',
         default: undefined,
       },
+      base: {
+        description: 'directory of application, default to `process.cwd()`',
+        type: 'string',
+        alias: 'baseDir',
+        default: process.cwd(),
+      },
     });
 
     this.program.use(async (ctx: CommandContext, next) => {
       if (ctx.args.typescript === undefined) {
-        const pkg = this.program.binInfo.pkgInfo;
+        const pkg = await readPackageJSON(ctx.args.base);
         // try to ready EGG_TYPESCRIPT env first, only accept 'true' or 'false' string
         if (ctx.env.EGG_TYPESCRIPT === 'false') {
           ctx.args.typescript = false;

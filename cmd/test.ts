@@ -7,7 +7,7 @@ import {
   CommandContext,
   Inject,
 } from '@artus-cli/artus-cli';
-import runscript from 'runscript';
+import runscript, { Options as RunScriptOptions } from 'runscript';
 import globby from 'globby';
 import { getChangedFilesForRoots } from 'jest-changed-files';
 import { OPTIONS } from './constant';
@@ -16,7 +16,7 @@ const debug = debuglog('egg-bin:test');
 
 @DefineCommand({
   command: 'test [files...]',
-  description: 'Run the unittest',
+  description: 'Run the test',
   alias: [ 't' ],
 })
 export class TestCommand extends Command {
@@ -26,9 +26,6 @@ export class TestCommand extends Command {
     type: 'string',
   })
   files: string[];
-
-  @Option(OPTIONS.baseDir)
-  baseDir: string;
 
   @Option(OPTIONS.require)
   require: string[];
@@ -93,18 +90,17 @@ export class TestCommand extends Command {
 
   async run() {
     try {
-      await fs.access(this.baseDir, fs.constants.R_OK);
+      await fs.access(this.args.base, fs.constants.R_OK);
     } catch (err) {
-      console.error('baseDir: %o not exists', this.baseDir);
+      console.error('baseDir: %o not exists', this.args.base);
       throw err;
     }
 
     const mochaFile = process.env.MOCHA_FILE || require.resolve('mocha/bin/_mocha');
-    const env = { ...this.ctx.env };
     if (this.parallel) {
-      env.ENABLE_MOCHA_PARALLEL = 'true';
+      this.ctx.env.ENABLE_MOCHA_PARALLEL = 'true';
       if (this.autoAgent) {
-        env.AUTO_AGENT = 'true';
+        this.ctx.env.AUTO_AGENT = 'true';
       }
     }
 
@@ -113,17 +109,20 @@ export class TestCommand extends Command {
     const mochaArgs = await this.formatTestArgs();
     if (!mochaArgs) return;
 
-    const cmd = [
-      'node',
+    const mochaCmd = [
       mochaFile,
-      this.dryRun ? '--dry-run' : '',
       ...mochaArgs,
     ].filter(argv => argv.trim()).join(' ');
+    await this.runNodeCmd(mochaCmd, { env: this.ctx.env, cwd: this.args.base });
+  }
+
+  protected async runNodeCmd(nodeCmd: string, options: RunScriptOptions) {
+    const cmd = `node ${nodeCmd}`;
     debug('%s', cmd);
     if (this.dryRun) {
       console.log('dry run: $ %o', cmd);
     }
-    await runscript(cmd, { env, cwd: this.baseDir });
+    await runscript(cmd, options);
   }
 
   protected async formatTestArgs() {
@@ -154,7 +153,7 @@ export class TestCommand extends Command {
     let pattern = this.files;
     // changed
     if (this.changed) {
-      pattern = await this.getChangedTestFiles(this.baseDir, ext);
+      pattern = await this.getChangedTestFiles(this.args.base, ext);
       if (!pattern.length) {
         console.log('No changed test files');
         return;
@@ -173,7 +172,7 @@ export class TestCommand extends Command {
     pattern = pattern.concat([ '!test/fixtures', '!test/node_modules' ]);
 
     // expand glob and skip node_modules and fixtures
-    const files = globby.sync(pattern);
+    const files = globby.sync(pattern, { cwd: this.args.base });
     files.sort();
 
     if (files.length === 0) {
@@ -182,7 +181,7 @@ export class TestCommand extends Command {
     }
 
     // auto add setup file as the first test file
-    const setupFile = path.join(this.baseDir, `test/.setup.${ext}`);
+    const setupFile = path.join(this.args.base, `test/.setup.${ext}`);
     try {
       await fs.access(setupFile, fs.constants.R_OK);
       files.unshift(setupFile);
@@ -191,6 +190,7 @@ export class TestCommand extends Command {
     }
 
     return [
+      this.dryRun ? '--dry-run' : '',
       // force exit
       '--exit',
       this.timeout === false ? '--no-timeout' : `--timeout ${this.timeout}`,

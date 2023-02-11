@@ -53,11 +53,13 @@ All the commands support these specific options:
 - `--inspect-brk`
 - `--typescript` / `--ts` enable typescript support. Auto detect from `package.json`'s `pkg.egg.typescript`,
   or `pkg.dependencies.typescript`/`pkg.devDependencies.typescript`.
+- `--base` / `--baseDir` application's root path, default to `process.cwd()`.
 
 ```bash
 egg-bin [command] --inspect
 egg-bin [command] --inspect-brk
 egg-bin [command] --typescript
+egg-bin [command] --base /foo/bar
 ```
 
 ### dev
@@ -71,7 +73,6 @@ egg-bin dev
 #### dev options
 
 - `--framework` egg web framework root path.
-- `--baseDir` application's root path, default to `process.cwd()`.
 - `--port` server port, default to `7001`.
 - `--workers` worker process number, default to `1` worker at local mode.
 - `--sticky` start a sticky cluster server, default to `false`.

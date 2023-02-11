@@ -1,3 +1,4 @@
 node_modules/
 coverage/
 bin/postinstall.js
+test/**/*.js

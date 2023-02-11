@@ -1,15 +1,9 @@
-import { DefineCommand, Context, Option, Options, Command, Middleware } from '@artus-cli/artus-cli';
+import { DefineCommand, Option, Options, Command } from '@artus-cli/artus-cli';
 
 @DefineCommand({
   command: 'dev [baseDir]',
   description: 'Run the development server',
   alias: [ 'd' ],
-})
-@Middleware(async (ctx: Context, next) => {
-  console.info('egg-bin dev command prerun');
-  console.log(ctx.input.params);
-  await next();
-  console.info('egg-bin dev command postrun');
 })
 export class DevCommand extends Command {
   @Option({
@@ -35,9 +29,6 @@ export class DevCommand extends Command {
   @Option('Built-in flags in node')
   nodeFlags: string;
 
-  @Option()
-  baseDir: string;
-
   @Options()
   args: any;
 
@@ -45,7 +36,7 @@ export class DevCommand extends Command {
     console.info('port', this.port);
     console.info('inspect', this.inspect);
     console.info('nodeFlags', this.nodeFlags);
-    console.info('baseDir', this.baseDir);
+    console.info('baseDir', this.args.base);
     console.log(this.args);
     return {
       command: 'dev',

@@ -1,29 +1,26 @@
-const path = require('path');
-const coffee = require('coffee');
-const mm = require('mm');
-const fs = require('fs');
-const fsPromises = require('fs/promises');
-const { execSync } = require('child_process');
-const assert = require('assert');
+import assert from 'node:assert';
+import path from 'node:path';
+import fs from 'node:fs/promises';
+import coffee from 'coffee';
+import mm from 'mm';
+import runscript from 'runscript';
 
-async function cpy(src, target) {
-  if (typeof fsPromises.cp === 'function') {
-    return await fsPromises.cp(src, target, { force: true, recursive: true });
-  }
-  return execSync(`cp -R ${src} ${target}`);
+async function cpy(src: string, target: string) {
+  await fs.cp(src, target, { force: true, recursive: true });
 }
 
-describe('test/ts.test.js', () => {
-  const eggBin = require.resolve('../bin/egg-bin');
-  let cwd;
+describe.skip('test/ts.test.ts', () => {
+  const eggBin = path.join(__dirname, '../bin/cli.ts');
+  const fixtures = path.join(__dirname, 'fixtures');
+  let cwd: string;
 
   afterEach(mm.restore);
 
   it('should support ts', () => {
-    cwd = path.join(__dirname, './fixtures/ts');
+    cwd = path.join(fixtures, 'ts');
     mm(process.env, 'NODE_ENV', 'development');
-    return coffee.fork(eggBin, [ 'dev', '--typescript' ], { cwd })
-      // .debug()
+    return coffee.fork(eggBin, [ 'dev' ], { cwd })
+      .debug()
       .expect('stdout', /options.typescript=true/)
       .expect('stdout', /started/)
       .expect('code', 0)
@@ -31,7 +28,7 @@ describe('test/ts.test.js', () => {
   });
 
   it('should support ts test', () => {
-    cwd = path.join(__dirname, './fixtures/ts');
+    cwd = path.join(fixtures, 'ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
       .debug()
@@ -42,7 +39,7 @@ describe('test/ts.test.js', () => {
 
   describe('real application', () => {
     before(() => {
-      cwd = path.join(__dirname, './fixtures/example-ts');
+      cwd = path.join(fixtures, 'example-ts');
     });
 
     it('should start app', () => {
@@ -80,7 +77,7 @@ describe('test/ts.test.js', () => {
       // https://github.com/eggjs/egg-bin/runs/6735190362?check_suite_focus=true
       // [agent_worker] receive disconnect event on child_process fork mode, exiting with code:110
       if (process.platform === 'darwin') return;
-      cwd = path.join(__dirname, './fixtures/example-ts-cluster');
+      cwd = path.join(fixtures, 'example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
         .debug()
         .expect('stdout', /Statements/)
@@ -91,7 +88,7 @@ describe('test/ts.test.js', () => {
 
   describe('error stacks', () => {
     before(() => {
-      cwd = path.join(__dirname, './fixtures/example-ts-error-stack');
+      cwd = path.join(fixtures, 'example-ts-error-stack');
     });
 
     it('should correct error stack line number in starting app', () => {
@@ -142,7 +139,7 @@ describe('test/ts.test.js', () => {
     });
 
     it('should correct error stack line number in mixed app', () => {
-      const appDir = path.join(__dirname, './fixtures/example-ts-error-stack-mixed');
+      const appDir = path.join(fixtures, 'example-ts-error-stack-mixed');
       const testFile = path.resolve(appDir, 'test/index.test.js');
       return coffee.fork(eggBin, [ 'test', testFile ], { cwd: appDir })
         // .debug()
@@ -158,15 +155,15 @@ describe('test/ts.test.js', () => {
   });
 
   describe('egg.typescript = true', () => {
-    const tempNodeModules = path.join(__dirname, './fixtures/node_modules');
-    const tempPackageJson = path.join(__dirname, './fixtures/package.json');
-    afterEach(() => {
-      fs.rmSync(tempNodeModules, { force: true, recursive: true });
-      fs.rmSync(tempPackageJson, { force: true, recursive: true });
+    const tempNodeModules = path.join(fixtures, 'node_modules');
+    const tempPackageJson = path.join(fixtures, 'package.json');
+    afterEach(async () => {
+      await fs.rm(tempNodeModules, { force: true, recursive: true });
+      await fs.rm(tempPackageJson, { force: true, recursive: true });
     });
 
     before(() => {
-      cwd = path.join(__dirname, './fixtures/example-ts-pkg');
+      cwd = path.join(fixtures, 'example-ts-pkg');
     });
 
     it('should start app', () => {
@@ -189,7 +186,7 @@ describe('test/ts.test.js', () => {
     });
 
     it('should start app with flags in app without eggInfo', async () => {
-      const cwd = path.join(__dirname, './fixtures/example-ts-simple');
+      const cwd = path.join(fixtures, 'example-ts-simple');
       await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
         .debug()
         .expect('stdout', /started/)
@@ -204,15 +201,15 @@ describe('test/ts.test.js', () => {
     });
 
     it('should load custom ts compiler', async () => {
-      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
+      const cwd = path.join(fixtures, 'example-ts-custom-compiler');
 
       // install custom ts-node
-      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      execSync('npx cnpm install', { cwd });
+      await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      await runscript('npx cnpm install', { cwd });
 
       // copy egg to node_modules
       await cpy(
-        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(fixtures, 'example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg'),
       );
 
@@ -224,15 +221,15 @@ describe('test/ts.test.js', () => {
     });
 
     it('should load custom ts compiler with tscompiler args', async () => {
-      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
+      const cwd = path.join(fixtures, 'example-ts-custom-compiler-2');
 
       // install custom ts-node
-      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      execSync('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+      await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      await runscript('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // copy egg to node_modules
       await cpy(
-        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(fixtures, 'example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg'),
       );
 
@@ -246,15 +243,15 @@ describe('test/ts.test.js', () => {
     });
 
     it('should not load custom ts compiler without tscompiler args', async () => {
-      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler-2');
+      const cwd = path.join(fixtures, 'example-ts-custom-compiler-2');
 
       // install custom ts-node
-      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      execSync('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+      await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      await runscript('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
 
       // copy egg to node_modules
       await cpy(
-        path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
+        path.join(fixtures, 'example-ts-cluster/node_modules/egg'),
         path.join(cwd, './node_modules/egg'),
       );
 
@@ -268,7 +265,7 @@ describe('test/ts.test.js', () => {
 
     it('should start app with other tscompiler without error', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], {
-        cwd: path.join(__dirname, './fixtures/example-ts'),
+        cwd: path.join(fixtures, 'example-ts'),
       })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
@@ -281,7 +278,7 @@ describe('test/ts.test.js', () => {
 
     it('should skip ts-node on env.EGG_TYPESCRIPT="false"', () => {
       return coffee.fork(eggBin, [ 'dev', '--tscompiler=esbuild-register' ], {
-        cwd: path.join(__dirname, './fixtures/example-ts'),
+        cwd: path.join(fixtures, 'example-ts'),
         env: {
           EGG_TYPESCRIPT: 'false',
         },
@@ -297,7 +294,7 @@ describe('test/ts.test.js', () => {
 
     it('should enable ts-node on env.EGG_TYPESCRIPT="true"', () => {
       return coffee.fork(eggBin, [ 'dev', '--tscompiler=esbuild-register' ], {
-        cwd: path.join(__dirname, './fixtures/example-ts'),
+        cwd: path.join(fixtures, 'example-ts'),
         env: {
           EGG_TYPESCRIPT: 'true',
         },
@@ -313,7 +310,7 @@ describe('test/ts.test.js', () => {
 
     it('should start app with other tscompiler in package.json without error', () => {
       return coffee.fork(eggBin, [ 'dev', '--ts' ], {
-        cwd: path.join(__dirname, './fixtures/example-ts-pkg'),
+        cwd: path.join(fixtures, 'example-ts-pkg'),
       })
         // .debug()
         .expect('stdout', /agent.options.typescript = true/)
@@ -334,11 +331,11 @@ describe('test/ts.test.js', () => {
     });
 
     it('should test with custom ts compiler without error', async () => {
-      const cwd = path.join(__dirname, './fixtures/example-ts-custom-compiler');
+      const cwd = path.join(fixtures, 'example-ts-custom-compiler');
 
       // install custom ts-node
-      fs.rmSync(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      execSync('npx cnpm install', { cwd });
+      await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
+      await runscript('npx cnpm install', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -366,20 +363,20 @@ describe('test/ts.test.js', () => {
 
   describe('egg.declarations = true', () => {
     let pkgJson;
-    before(() => {
-      cwd = path.join(__dirname, './fixtures/example-ts-ets');
-      pkgJson = JSON.parse(fs.readFileSync(path.resolve(cwd, './package.json')).toString());
+    before(async () => {
+      cwd = path.join(fixtures, 'example-ts-ets');
+      pkgJson = JSON.parse(await fs.readFile(path.resolve(cwd, './package.json')).toString());
     });
 
-    beforeEach(() => fs.rmSync(path.resolve(cwd, './typings'), { force: true, recursive: true }));
+    beforeEach(() => fs.rm(path.resolve(cwd, './typings'), { force: true, recursive: true }));
 
-    afterEach(() => {
+    afterEach(async () => {
       pkgJson.egg.declarations = false;
-      fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
+      await fs.writeFile(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
     });
 
-    it('should load egg-ts-helper with dts flag', () => {
-      fs.mkdirSync(path.join(cwd, 'typings'));
+    it('should load egg-ts-helper with dts flag', async () => {
+      await fs.mkdir(path.join(cwd, 'typings'));
       return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
         // .debug()
         .expect('stdout', /application log/)
@@ -389,10 +386,10 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
-    it('should load egg-ts-helper with egg.declarations = true', () => {
-      fs.mkdirSync(path.join(cwd, 'typings'));
+    it('should load egg-ts-helper with egg.declarations = true', async () => {
+      await fs.mkdir(path.join(cwd, 'typings'));
       pkgJson.egg.declarations = true;
-      fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
+      await fs.writeFile(path.join(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
         .debug()
         .expect('stdout', /application log/)

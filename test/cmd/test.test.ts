@@ -10,7 +10,7 @@ describe('test/cmd/test.test.ts', () => {
   afterEach(mm.restore);
 
   describe('egg-bin test', () => {
-    it('should success', () => {
+    it('should success js', () => {
       mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
@@ -18,6 +18,16 @@ describe('test/cmd/test.test.ts', () => {
         .expect('stdout', /a\.test\.js/)
         .expect('stdout', /b\/b\.test\.js/)
         .notExpect('stdout', /\ba\.js/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should success on ts', async () => {
+      const cwd = path.join(fixtures, 'example-ts');
+      await coffee.fork(eggBin, [ 'test' ], { cwd })
+        .debug()
+        .expect('stdout', /should work/)
+        .expect('stdout', /1 passing/)
         .expect('code', 0)
         .end();
     });
