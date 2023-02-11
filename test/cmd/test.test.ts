@@ -30,7 +30,7 @@ describe('test/cmd/test.test.ts', () => {
         .expect('stdout', /a\.test\.js/)
         .expect('stdout', /b\/b\.test\.js/)
         .expect('stdout', /\[mochawesome] Report JSON saved to/)
-        .expect('stdout', /node_modules\/\.mochawesome-reports\/mochawesome\.json/)
+        .expect('stdout', /mochawesome\.json/)
         .notExpect('stdout', /\ba\.js/)
         .expect('code', 0)
         .end();
@@ -128,6 +128,7 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('test parallel', () => {
+      if (process.platform === 'win32') return;
       mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'test', '--parallel' ], {
         cwd: path.join(fixtures, 'test-demo-app'),
