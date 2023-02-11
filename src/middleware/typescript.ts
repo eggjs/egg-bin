@@ -4,7 +4,7 @@ import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
-import { addNodeOptionsToEnv, readPackageJSON, hasTsConfig } from '../lib/utils';
+import { addNodeOptionsToEnv, readPackageJSON, hasTsConfig } from '../utils';
 
 const debug = debuglog('egg-bin:midddleware:typescript');
 

@@ -2,7 +2,7 @@ import path from 'node:path';
 import coffee from './coffee';
 
 describe('test/egg-bin.test.ts', () => {
-  const eggBin = path.join(__dirname, '../bin/cli.ts');
+  const eggBin = path.join(__dirname, '../src/bin/cli.ts');
   const cwd = path.join(__dirname, 'fixtures/test-files');
 
   describe('global options', () => {

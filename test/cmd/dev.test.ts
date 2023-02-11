@@ -5,7 +5,7 @@ import detect from 'detect-port';
 import coffee from '../coffee';
 
 describe('test/cmd/dev.test.ts', () => {
-  const eggBin = path.join(__dirname, '../../bin/cli.ts');
+  const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
   const fixtures = path.join(__dirname, '../fixtures');
   const cwd = path.join(fixtures, 'demo-app');
 

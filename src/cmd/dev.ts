@@ -42,7 +42,7 @@ export class DevCommand extends BaseCommand {
     debug('run dev: %o', this.args);
     this.ctx.env.NODE_ENV = this.ctx.env.NODE_ENV ?? 'development';
     this.ctx.env.EGG_MASTER_CLOSE_TIMEOUT = '1000';
-    const serverBin = path.join(__dirname, '../lib/start-cluster');
+    const serverBin = path.join(__dirname, '../../scripts/start-cluster');
     const args = await this.formatEggStartArgs();
     const serverCmd = `${serverBin} '${JSON.stringify(args)}'`;
     const requires = await this.formatRequires();

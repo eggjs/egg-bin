@@ -3,7 +3,7 @@ import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
-import { addNodeOptionsToEnv } from '../lib/utils';
+import { addNodeOptionsToEnv } from '../utils';
 
 const debug = debuglog('egg-bin:midddleware:inspect');
 

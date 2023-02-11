@@ -7,7 +7,7 @@ import {
   Utils,
 } from '@artus-cli/artus-cli';
 import runscript from 'runscript';
-import { readPackageJSON } from '../lib/utils';
+import { readPackageJSON } from '../utils';
 
 const debug = debuglog('egg-bin:base');
 

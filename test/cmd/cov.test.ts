@@ -6,7 +6,7 @@ import assertFile from 'assert-file';
 import coffee from '../coffee';
 
 describe('test/cmd/cov.test.ts', () => {
-  const eggBin = path.join(__dirname, '../../bin/cli.ts');
+  const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
   const fixtures = path.join(__dirname, '../fixtures');
   const cwd = path.join(fixtures, 'test-files');
 
