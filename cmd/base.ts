@@ -14,6 +14,13 @@ const debug = debuglog('egg-bin:base');
 @DefineCommand()
 export abstract class BaseCommand extends Command {
   @Option({
+    description: 'directory of application, default to `process.cwd()`',
+    type: 'string',
+    alias: 'baseDir',
+  })
+  base: string;
+
+  @Option({
     description: 'whether show full command script only, default is false',
     alias: 'd',
     type: 'boolean',
@@ -43,7 +50,7 @@ export abstract class BaseCommand extends Command {
   }
 
   protected async formatRequires() {
-    const pkg = await readPackageJSON(this.args.base);
+    const pkg = await readPackageJSON(this.base);
     const requires = this.require ?? [];
     const eggRequire = pkg.egg?.require;
     if (Array.isArray(eggRequire)) {
@@ -75,7 +82,7 @@ export abstract class BaseCommand extends Command {
     }
     await runscript(cmd, {
       env: this.ctx.env,
-      cwd: this.args.base,
+      cwd: this.base,
     });
   }
 }

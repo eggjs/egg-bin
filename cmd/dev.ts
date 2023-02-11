@@ -62,10 +62,10 @@ export class DevCommand extends BaseCommand {
     }
     this.framework = utils.getFrameworkPath({
       framework: this.framework,
-      baseDir: this.args.base,
+      baseDir: this.base,
     });
     return {
-      baseDir: this.args.base,
+      baseDir: this.base,
       workers: this.workers,
       port: this.port,
       framework: this.framework,

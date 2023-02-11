@@ -27,11 +27,6 @@ export default class implements ApplicationLifecycle {
         type: 'string',
         alias: 'tsc',
       },
-      base: {
-        description: 'directory of application, default to `process.cwd()`',
-        type: 'string',
-        alias: 'baseDir',
-      },
     });
 
     this.program.use(async (ctx: CommandContext, next) => {

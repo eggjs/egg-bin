@@ -78,9 +78,9 @@ export class TestCommand extends BaseCommand {
 
   async run() {
     try {
-      await fs.access(this.args.base, fs.constants.R_OK);
+      await fs.access(this.base, fs.constants.R_OK);
     } catch (err) {
-      console.error('baseDir: %o not exists', this.args.base);
+      console.error('baseDir: %o not exists', this.base);
       throw err;
     }
 
@@ -132,7 +132,7 @@ export class TestCommand extends BaseCommand {
     let pattern = this.files;
     // changed
     if (this.changed) {
-      pattern = await this.getChangedTestFiles(this.args.base, ext);
+      pattern = await this.getChangedTestFiles(this.base, ext);
       if (!pattern.length) {
         console.log('No changed test files');
         return;
@@ -151,7 +151,7 @@ export class TestCommand extends BaseCommand {
     pattern = pattern.concat([ '!test/fixtures', '!test/node_modules' ]);
 
     // expand glob and skip node_modules and fixtures
-    const files = globby.sync(pattern, { cwd: this.args.base });
+    const files = globby.sync(pattern, { cwd: this.base });
     files.sort();
 
     if (files.length === 0) {
@@ -160,7 +160,7 @@ export class TestCommand extends BaseCommand {
     }
 
     // auto add setup file as the first test file
-    const setupFile = path.join(this.args.base, `test/.setup.${ext}`);
+    const setupFile = path.join(this.base, `test/.setup.${ext}`);
     try {
       await fs.access(setupFile, fs.constants.R_OK);
       files.unshift(setupFile);

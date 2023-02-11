@@ -59,7 +59,7 @@ export class CovCommand extends TestCommand {
       this.c8,
     ];
     if (this.args.typescript) {
-      this.ctx.env.SPAWN_WRAP_SHIM_ROOT = path.join(this.args.base, 'node_modules');
+      this.ctx.env.SPAWN_WRAP_SHIM_ROOT = path.join(this.base, 'node_modules');
       c8Args.push('--extension .ts');
     }
 
@@ -73,9 +73,9 @@ export class CovCommand extends TestCommand {
     }
 
     const c8File = require.resolve('c8/bin/c8.js');
-    const outputDir = path.join(this.args.base, 'node_modules/.c8_output');
+    const outputDir = path.join(this.base, 'node_modules/.c8_output');
     await fs.rm(outputDir, { force: true, recursive: true });
-    const coverageDir = path.join(this.args.base, 'coverage');
+    const coverageDir = path.join(this.base, 'coverage');
     await fs.rm(coverageDir, { force: true, recursive: true });
     nodeCmd = `${c8File} ${c8Args.join(' ')} ${nodeCmd}`;
     await super.runNodeCmd(nodeCmd);
