@@ -47,12 +47,17 @@ Add `egg-bin` to `package.json` scripts:
 
 ## Command
 
-All the commands support these specific v8 options:
+All the commands support these specific options:
 
 - `--inspect`
+- `--inspect-brk`
+- `--typescript` / `--ts` enable typescript support. Auto detect from `package.json`'s `pkg.egg.typescript`,
+  or `pkg.dependencies.typescript`/`pkg.devDependencies.typescript`.
 
 ```bash
 egg-bin [command] --inspect
+egg-bin [command] --inspect-brk
+egg-bin [command] --typescript
 ```
 
 ### dev
@@ -70,7 +75,6 @@ egg-bin dev
 - `--port` server port, default to `7001`.
 - `--workers` worker process number, default to `1` worker at local mode.
 - `--sticky` start a sticky cluster server, default to `false`.
-- `--typescript` / `--ts` enable typescript support, default to `false`. Also support read from `package.json`'s `egg.typescript`.
 - `--declarations` / `--dts` enable [egg-ts-helper](https://github.com/whxaxes/egg-ts-helper) support, default to `false`. Also support read from `package.json`'s `egg.declarations`.
 - `--require` will add to `execArgv`, support multiple. Also support read from `package.json`'s `egg.require`
 
@@ -115,7 +119,6 @@ You can pass any mocha argv.
 
 - `--require` require the given module
 - `--timeout` milliseconds, default to 60000
-- `--typescript` / `--ts` enable typescript support.
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
 - `--dry-run` / `-d` whether dry-run the test command, just show the command
 - `--parallel` enable mocha parallel mode, default to `false`.
