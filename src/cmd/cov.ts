@@ -18,7 +18,7 @@ export class CovCommand extends TestCommand {
   prerequire: boolean;
 
   @Option({
-    description: 'istanbul coverage ignore, one or more fileset patterns`',
+    description: 'coverage ignore, one or more fileset patterns`',
     array: true,
     default: [],
   })

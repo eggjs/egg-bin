@@ -75,9 +75,9 @@
     "cov": "c8 -r lcov -r text-summary npm run test-local",
     "ci-test-only": "npm run test-local -- test/lib/cmd/cov.test.js",
     "ci": "npm run lint && npm run test-local && npm run tsc",
-    "prepublishOnly": "npm run tsc",
+    "prepublishOnly": "npm run clean && npm run tsc",
     "tsc": "tsc",
-    "clean": "tsc -b --clean"
+    "clean": "rm -rf dist"
   },
   "engines": {
     "node": ">= 16.19.0"
