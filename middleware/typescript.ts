@@ -1,6 +1,8 @@
 import { debuglog } from 'node:util';
-import { Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit } from '@artus-cli/artus-cli';
-import { Program, CommandContext } from '@artus-cli/artus-cli';
+import {
+  Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
+  Program, CommandContext,
+} from '@artus-cli/artus-cli';
 
 const debug = debuglog('egg-bin:midddleware:typescript');
 
@@ -27,14 +29,21 @@ export default class implements ApplicationLifecycle {
         // try to ready EGG_TYPESCRIPT env first, only accept 'true' or 'false' string
         if (ctx.env.EGG_TYPESCRIPT === 'false') {
           ctx.args.typescript = false;
+          debug('detect typescript=%o from EGG_TYPESCRIPT=%o', false, ctx.env.EGG_TYPESCRIPT);
         } else if (ctx.env.EGG_TYPESCRIPT === 'true') {
           ctx.args.typescript = true;
+          debug('detect typescript=%o from EGG_TYPESCRIPT=%o', true, ctx.env.EGG_TYPESCRIPT);
         } else if (typeof pkg.egg?.typescript === 'boolean') {
           // read `egg.typescript` from package.json if not pass argv
           ctx.args.typescript = pkg.egg.typescript;
-        } else if (pkg.dependencies?.typescript || pkg.devDependencies?.typescript) {
+          debug('detect typescript=%o from pkg.egg.typescript=%o', true, pkg.egg.typescript);
+        } else if (pkg.dependencies?.typescript) {
           // auto detect pkg.dependencies.typescript or pkg.devDependencies.typescript
           ctx.args.typescript = true;
+          debug('detect typescript=%o from pkg.dependencies.typescript=%o', true, pkg.dependencies.typescript);
+        } else if (pkg.devDependencies?.typescript) {
+          ctx.args.typescript = true;
+          debug('detect typescript=%o from pkg.devDependencies.typescript=%o', true, pkg.devDependencies.typescript);
         }
       }
       if (ctx.args.typescript) {
