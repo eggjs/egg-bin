@@ -3,6 +3,7 @@ import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
+import { addNodeOptionsToEnv } from '../lib/utils';
 
 const debug = debuglog('egg-bin:midddleware:typescript');
 
@@ -52,14 +53,7 @@ export default class implements ApplicationLifecycle {
         // e.g.: dev command will execute egg loader to find configs and plugins
         require(tsNodeRegister);
         // let child process auto require ts-node too
-        const requireOptions = `--require ${tsNodeRegister}`;
-        if (ctx.env.NODE_OPTIONS) {
-          if (!ctx.env.NODE_OPTIONS.includes(requireOptions)) {
-            ctx.env.NODE_OPTIONS = `${ctx.env.NODE_OPTIONS} ${requireOptions}`;
-          }
-        } else {
-          ctx.env.NODE_OPTIONS = requireOptions;
-        }
+        addNodeOptionsToEnv(`--require ${tsNodeRegister}`, ctx.env);
         debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
         // tell egg loader to load ts file
         // see https://github.com/eggjs/egg-core/blob/master/lib/loader/egg_loader.js#L443
@@ -69,7 +63,7 @@ export default class implements ApplicationLifecycle {
         // load files from tsconfig on startup
         ctx.env.TS_NODE_FILES = process.env.TS_NODE_FILES || 'true';
       }
-      await next(); 
+      await next();
     });
   }
 }

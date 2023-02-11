@@ -213,7 +213,7 @@ describe('test/ts.test.js', () => {
       // copy egg to node_modules
       await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
-        path.join(cwd, './node_modules/egg')
+        path.join(cwd, './node_modules/egg'),
       );
 
       const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
@@ -233,7 +233,7 @@ describe('test/ts.test.js', () => {
       // copy egg to node_modules
       await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
-        path.join(cwd, './node_modules/egg')
+        path.join(cwd, './node_modules/egg'),
       );
 
       const { stderr, code } = await coffee.fork(eggBin, [
@@ -255,7 +255,7 @@ describe('test/ts.test.js', () => {
       // copy egg to node_modules
       await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
-        path.join(cwd, './node_modules/egg')
+        path.join(cwd, './node_modules/egg'),
       );
 
       const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
@@ -343,7 +343,7 @@ describe('test/ts.test.js', () => {
       // copy egg to node_modules
       await cpy(
         path.join(__dirname, './fixtures/example-ts-cluster/node_modules/egg'),
-        path.join(cwd, './node_modules/egg')
+        path.join(cwd, './node_modules/egg'),
       );
 
       const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })

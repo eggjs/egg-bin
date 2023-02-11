@@ -1,4 +1,4 @@
-import { Context } from 'egg';
+import 'egg';
 
 // extend egg
 declare module 'egg' {

@@ -34,14 +34,6 @@ export class TestCommand extends Command {
   require: string[];
 
   @Option({
-    description: 'only run tests matching <pattern>',
-    alias: 'g',
-    array: true,
-    default: [],
-  })
-  grep: string[];
-
-  @Option({
     description: 'set test-case timeout in milliseconds, default is 60000',
     alias: 't',
     default: process.env.TEST_TIMEOUT ?? 60000,
@@ -101,28 +93,13 @@ export class TestCommand extends Command {
 
   async run() {
     try {
-      await fs.access(this.baseDir, fs.constants.R_OK)
+      await fs.access(this.baseDir, fs.constants.R_OK);
     } catch (err) {
       console.error('baseDir: %o not exists', this.baseDir);
       throw err;
     }
 
     const mochaFile = process.env.MOCHA_FILE || require.resolve('mocha/bin/_mocha');
-
-    if (this.dryRun) {
-      debug('test with dry-run');
-      console.log(mochaFile);
-      console.info('test baseDir', this.baseDir);
-      console.info('test files', this.files);
-      console.info('test require', this.require);
-      console.info('test timeout', this.timeout);
-      console.info('test autoAgent', this.autoAgent);
-      console.info('test mochawesome', this.mochawesome);
-      console.info('test parallel', this.parallel);
-      console.info('test jobs', this.jobs);
-      console.info('test args: %o', this.args);
-      return;
-    }
     const env = { ...this.ctx.env };
     if (this.parallel) {
       env.ENABLE_MOCHA_PARALLEL = 'true';
@@ -131,23 +108,25 @@ export class TestCommand extends Command {
       }
     }
 
-    const mochaArgs = await this.formatTestArgs();
-    const cmd = `${process.execPath} ${mochaFile} ${mochaArgs}`;
     debug('run test: %s %o', mochaFile, this.args);
 
+    const mochaArgs = await this.formatTestArgs();
     if (!mochaArgs) return;
+
+    const cmd = [
+      'node',
+      mochaFile,
+      this.dryRun ? '--dry-run' : '',
+      ...mochaArgs,
+    ].filter(argv => argv.trim()).join(' ');
     debug('%s', cmd);
+    if (this.dryRun) {
+      console.log('dry run: $ %o', cmd);
+    }
     await runscript(cmd, { env, cwd: this.baseDir });
   }
 
   protected async formatTestArgs() {
-    // whether is debug mode, if pass --inspect then `debugOptions` is valid
-    // others like WebStorm 2019 will pass NODE_OPTIONS, and egg-bin itself will be debug, so could detect `process.env.JB_DEBUG_FILE`.
-    // if (debugOptions || process.env.JB_DEBUG_FILE) {
-    //   // --no-timeout
-    //   testArgv.timeout = false;
-    // }
-
     // collect require
     const requires = this.require;
     try {
@@ -214,12 +193,14 @@ export class TestCommand extends Command {
     return [
       // force exit
       '--exit',
-      this.timeout === false ? `--no-timeout` : `--timeout ${this.timeout}`,
+      this.timeout === false ? '--no-timeout' : `--timeout ${this.timeout}`,
+      this.parallel ? '--parallel' : '',
+      this.parallel && this.jobs ? `--jobs ${this.jobs}` : '',
       reporter ? `--reporter ${reporter}` : '',
       reporterOptions ? `--reporter-options ${reporterOptions}` : '',
       ...requires.map(r => `--require ${r}`),
       ...files,
-    ].filter(argv => argv.trim()).join(' ');
+    ];
   }
 
   protected async getChangedTestFiles(dir: string, ext: string) {

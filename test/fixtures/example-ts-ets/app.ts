@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-export default (app) => {
+export default app => {
   let directory = path.resolve(app.baseDir, './app/model');
   app.loader.loadToApp(directory, 'model', {
     caseStyle: 'upper',

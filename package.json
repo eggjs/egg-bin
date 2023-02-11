@@ -68,7 +68,7 @@
   "scripts": {
     "postinstall": "node bin/postinstall.js",
     "contributor": "git-contributor",
-    "lint": "eslint .",
+    "lint": "eslint . --cache --ext ts",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "ts-node bin/cli.ts test",
     "cov": "c8 -r lcov -r text-summary npm run test-local",
