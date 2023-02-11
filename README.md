@@ -35,7 +35,6 @@ Add `egg-bin` to `package.json` scripts:
 {
   "scripts": {
     "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
     "test-local": "egg-bin test",
     "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov",
@@ -55,6 +54,7 @@ All the commands support these specific options:
   or `pkg.dependencies.typescript`/`pkg.devDependencies.typescript`.
 - `--base` / `--baseDir` application's root path, default to `process.cwd()`.
 - `--require` will add to `execArgv`, support multiple. Also support read from `package.json`'s `pkg.egg.require`
+- `--dry-run` / `-d` whether dry-run the test command, just show the command
 
 ```bash
 egg-bin [command] --inspect
@@ -78,19 +78,49 @@ egg-bin dev
 - `--workers` worker process number, default to `1` worker at local mode.
 - `--sticky` start a sticky cluster server, default to `false`.
 
-### debug
+#### debug/inspect on VSCode
 
-Debug egg app with [Inspector Integration](https://nodejs.org/en/docs/guides/debugging-getting-started/).
+Create `.vscode/launch.json` file:
 
-if running without `VSCode` or `WebStorm`, we will use [inspector-proxy](https://github.com/whxaxes/inspector-proxy) to proxy worker debug, so you don't need to worry about reload.
-
-```bash
-egg-bin debug
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Egg Debug",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--inspect-brk"
+      ],
+      "console": "integratedTerminal",
+      "restart": true,
+      "protocol": "auto",
+      "port": 9229,
+      "autoAttachChildProcesses": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Egg Test",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "test-local",
+        "--",
+        "--inspect-brk"
+      ],
+      "protocol": "auto",
+      "port": 9229,
+      "autoAttachChildProcesses": true
+    }
+  ]
+}
 ```
-
-#### debug options
-
-- all `egg-bin dev` options is accepted.
 
 ### test
 
@@ -117,10 +147,8 @@ test
 
 You can pass any mocha argv.
 
-- `--require` require the given module
 - `--timeout` milliseconds, default to 60000
 - `--changed` / `-c` only test changed test files(test files means files that match `${pwd}/test/**/*.test.(js|ts)`)
-- `--dry-run` / `-d` whether dry-run the test command, just show the command
 - `--parallel` enable mocha parallel mode, default to `false`.
 - `--auto-agent` auto start agent in mocha master agent.
 - `--jobs` number of jobs to run in parallel, default to `os.cpus().length - 1`.
