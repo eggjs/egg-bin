@@ -1,7 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { DefineCommand, Option } from '@artus-cli/artus-cli';
-import { Options as RunScriptOptions } from 'runscript';
 import { TestCommand } from './test';
 
 @DefineCommand({
@@ -48,9 +47,9 @@ export class CovCommand extends TestCommand {
     ];
   }
 
-  protected async runNodeCmd(nodeCmd: string, options: RunScriptOptions) {
+  protected async runNodeCmd(nodeCmd: string) {
     if (this.prerequire) {
-      options.env!.EGG_BIN_PREREQUIRE = 'true';
+      this.ctx.env.EGG_BIN_PREREQUIRE = 'true';
     }
 
     // add c8 args
@@ -79,6 +78,6 @@ export class CovCommand extends TestCommand {
     const coverageDir = path.join(this.args.base, 'coverage');
     await fs.rm(coverageDir, { force: true, recursive: true });
     nodeCmd = `${c8File} ${c8Args.join(' ')} ${nodeCmd}`;
-    await super.runNodeCmd(nodeCmd, options);
+    await super.runNodeCmd(nodeCmd);
   }
 }

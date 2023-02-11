@@ -54,6 +54,7 @@ All the commands support these specific options:
 - `--typescript` / `--ts` enable typescript support. Auto detect from `package.json`'s `pkg.egg.typescript`,
   or `pkg.dependencies.typescript`/`pkg.devDependencies.typescript`.
 - `--base` / `--baseDir` application's root path, default to `process.cwd()`.
+- `--require` will add to `execArgv`, support multiple. Also support read from `package.json`'s `pkg.egg.require`
 
 ```bash
 egg-bin [command] --inspect
@@ -76,8 +77,6 @@ egg-bin dev
 - `--port` server port, default to `7001`.
 - `--workers` worker process number, default to `1` worker at local mode.
 - `--sticky` start a sticky cluster server, default to `false`.
-- `--declarations` / `--dts` enable [egg-ts-helper](https://github.com/whxaxes/egg-ts-helper) support, default to `false`. Also support read from `package.json`'s `egg.declarations`.
-- `--require` will add to `execArgv`, support multiple. Also support read from `package.json`'s `egg.require`
 
 ### debug
 
@@ -167,8 +166,6 @@ You can pass any mocha argv.
   > - egg-bin have some default instruments passed to c8 like `-r` and `--temp-directory`
   > - `egg-bin cov --c8="-r teamcity -r text" --c8-report=true`
   >
-- `--c8-report` use c8 to report coverage, c8 uses native V8 coverage, default to `false`.
-
 - also support all test params above.
 
 #### cov environment

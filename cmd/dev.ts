@@ -1,46 +1,66 @@
-import { DefineCommand, Option, Options, Command } from '@artus-cli/artus-cli';
+import { debuglog } from 'node:util';
+import path from 'node:path';
+import { DefineCommand, Option } from '@artus-cli/artus-cli';
+import utils from 'egg-utils';
+import detect from 'detect-port';
+import { BaseCommand } from './base';
+
+const debug = debuglog('egg-bin:dev');
 
 @DefineCommand({
-  command: 'dev [baseDir]',
-  description: 'Run the development server',
+  command: 'dev',
+  description: 'Start server at local dev mode',
   alias: [ 'd' ],
 })
-export class DevCommand extends Command {
+export class DevCommand extends BaseCommand {
   @Option({
-    description: 'whether enable typescript support, will load tscompiler on startup',
-    alias: 'ts',
-    default: undefined,
-  })
-  typescript: boolean;
-
-  @Option({
+    description: 'listening port, default to 7001',
     alias: 'p',
-    default: 3000,
-    description: 'Start A Server',
   })
   port: number;
 
   @Option({
-    default: false,
-    description: 'Debug with node-inspector',
+    description: 'numbers of app workers, default to 1 at local mode',
+    alias: [ 'c', 'cluster' ],
+    default: 1,
   })
-  inspect: boolean;
+  workers: number;
 
-  @Option('Built-in flags in node')
-  nodeFlags: string;
-
-  @Options()
-  args: any;
+  @Option({
+    description: 'specify framework that can be absolute path or npm package, default is egg',
+  })
+  framework: string;
 
   async run() {
-    console.info('port', this.port);
-    console.info('inspect', this.inspect);
-    console.info('nodeFlags', this.nodeFlags);
-    console.info('baseDir', this.args.base);
-    console.log(this.args);
+    debug('run dev: %o', this.args);
+    this.ctx.env.NODE_ENV = 'development';
+    this.ctx.env.EGG_MASTER_CLOSE_TIMEOUT = '1000';
+    const serverBin = path.join(__dirname, '../lib/start-cluster');
+    const args = await this.formatEggStartArgs();
+    const serverCmd = `${serverBin} '${JSON.stringify(args)}'`;
+    debug('%o', serverCmd);
+    await this.runNodeCmd(serverCmd);
+  }
+
+  protected async formatEggStartArgs() {
+    if (!this.port) {
+      const defaultPort = process.env.EGG_BIN_DEFAULT_PORT ?? 7001;
+      debug('detect available port');
+      this.port = await detect(defaultPort);
+      if (this.port !== defaultPort) {
+        console.warn('[egg-bin] server port %o is in use, now using port %o', defaultPort, this.port);
+      }
+      debug(`use available port ${this.port}`);
+    }
+    this.framework = utils.getFrameworkPath({
+      framework: this.framework,
+      baseDir: this.args.base,
+    });
     return {
-      command: 'dev',
-      args: this.args,
+      port: this.port,
+      framework: this.framework,
+      typescript: this.args.typescript,
+      tscompiler: this.args.tscompiler,
     };
   }
 }

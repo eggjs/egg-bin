@@ -3,14 +3,13 @@ import os from 'node:os';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {
-  DefineCommand, Option, Options, Command,
+  DefineCommand, Option, Options,
   CommandContext,
   Inject,
 } from '@artus-cli/artus-cli';
-import runscript, { Options as RunScriptOptions } from 'runscript';
 import globby from 'globby';
 import { getChangedFilesForRoots } from 'jest-changed-files';
-import { OPTIONS } from './constant';
+import { BaseCommand } from './base';
 
 const debug = debuglog('egg-bin:test');
 
@@ -19,16 +18,13 @@ const debug = debuglog('egg-bin:test');
   description: 'Run the test',
   alias: [ 't' ],
 })
-export class TestCommand extends Command {
+export class TestCommand extends BaseCommand {
   @Option({
     default: [],
     array: true,
     type: 'string',
   })
   files: string[];
-
-  @Option(OPTIONS.require)
-  require: string[];
 
   @Option({
     description: 'set test-case timeout in milliseconds, default is 60000',
@@ -44,14 +40,6 @@ export class TestCommand extends Command {
     default: false,
   })
   changed: boolean;
-
-  @Option({
-    description: 'whether show test command, no test will be executed, default is false',
-    alias: 'd',
-    type: 'boolean',
-    default: false,
-  })
-  dryRun: boolean;
 
   @Option({
     description: 'mocha parallel mode, default is false',
@@ -106,28 +94,19 @@ export class TestCommand extends Command {
 
     debug('run test: %s %o', mochaFile, this.args);
 
-    const mochaArgs = await this.formatTestArgs();
+    const mochaArgs = await this.formatMochaArgs();
     if (!mochaArgs) return;
 
     const mochaCmd = [
       mochaFile,
       ...mochaArgs,
     ].filter(argv => argv.trim()).join(' ');
-    await this.runNodeCmd(mochaCmd, { env: this.ctx.env, cwd: this.args.base });
+    await this.runNodeCmd(mochaCmd);
   }
 
-  protected async runNodeCmd(nodeCmd: string, options: RunScriptOptions) {
-    const cmd = `node ${nodeCmd}`;
-    debug('%s', cmd);
-    if (this.dryRun) {
-      console.log('dry run: $ %o', cmd);
-    }
-    await runscript(cmd, options);
-  }
-
-  protected async formatTestArgs() {
+  protected async formatMochaArgs() {
     // collect require
-    const requires = this.require;
+    const requires = this.require ?? [];
     try {
       const eggMockRegister = require.resolve('egg-mock/register');
       requires.push(eggMockRegister);

@@ -20,3 +20,13 @@ export async function readPackageJSON(baseDir: string) {
     return {};
   }
 }
+
+export async function hasTsConfig(baseDir: string) {
+  const pkgFile = path.join(baseDir, 'tsconfig.json');
+  try {
+    await fs.access(pkgFile);
+    return true;
+  } catch {
+    return false;
+  }
+}

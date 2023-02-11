@@ -1,9 +1,9 @@
 import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import coffee from 'coffee';
 import mm from 'mm';
 import assertFile from 'assert-file';
+import coffee from '../coffee';
 
 describe('test/cmd/cov.test.ts', () => {
   const eggBin = path.join(__dirname, '../../bin/cli.ts');

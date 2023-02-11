@@ -1,4 +1,4 @@
 node_modules/
 coverage/
-bin/postinstall.js
-test/**/*.js
+*.js
+lib/start-cluster

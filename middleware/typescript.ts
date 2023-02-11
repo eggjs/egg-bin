@@ -1,9 +1,10 @@
 import { debuglog } from 'node:util';
+import path from 'node:path';
 import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
-import { addNodeOptionsToEnv, readPackageJSON } from '../lib/utils';
+import { addNodeOptionsToEnv, readPackageJSON, hasTsConfig } from '../lib/utils';
 
 const debug = debuglog('egg-bin:midddleware:typescript');
 
@@ -20,19 +21,30 @@ export default class implements ApplicationLifecycle {
         description: 'whether enable typescript support',
         type: 'boolean',
         alias: 'ts',
-        default: undefined,
+      },
+      tscompiler: {
+        description: 'ts compiler, like ts-node/register, ts-node/register/transpile-only, @swc-node/register, esbuild-register etc',
+        type: 'string',
+        alias: 'tsc',
       },
       base: {
         description: 'directory of application, default to `process.cwd()`',
         type: 'string',
         alias: 'baseDir',
-        default: process.cwd(),
       },
     });
 
     this.program.use(async (ctx: CommandContext, next) => {
+      if (!ctx.args.base) {
+        ctx.args.base = ctx.cwd;
+      }
+      if (!path.isAbsolute(ctx.args.base)) {
+        ctx.args.base = path.join(ctx.cwd, ctx.args.base);
+      }
+      debug('baseDir: %o', ctx.args.base);
+      const pkg = await readPackageJSON(ctx.args.base);
+      const tscompiler = ctx.args.tscompiler ?? ctx.env.TS_COMPILER ?? pkg.egg?.tscompiler;
       if (ctx.args.typescript === undefined) {
-        const pkg = await readPackageJSON(ctx.args.base);
         // try to ready EGG_TYPESCRIPT env first, only accept 'true' or 'false' string
         if (ctx.env.EGG_TYPESCRIPT === 'false') {
           ctx.args.typescript = false;
@@ -51,11 +63,27 @@ export default class implements ApplicationLifecycle {
         } else if (pkg.devDependencies?.typescript) {
           ctx.args.typescript = true;
           debug('detect typescript=%o from pkg.devDependencies.typescript=%o', true, pkg.devDependencies.typescript);
+        } else if (await hasTsConfig(ctx.args.base)) {
+          // tsconfig.json exists
+          ctx.args.typescript = true;
+          debug('detect typescript=%o cause tsconfig.json exists', true);
+        } else if (tscompiler) {
+          ctx.args.typescript = true;
+          debug('detect typescript=%o from --tscompiler=%o', true, tscompiler);
         }
       }
+
       if (ctx.args.typescript) {
-        const tsNodeRegister = require.resolve('ts-node/register');
-        // should require argv.tscompiler on current process, let it can require *.ts files
+        const findPaths = [ path.dirname(__dirname) ];
+        if (tscompiler) {
+          // try app baseDir first on custom tscompiler
+          findPaths.unshift(ctx.args.base);
+        }
+        ctx.args.tscompiler = tscompiler ?? 'ts-node/register';
+        const tsNodeRegister = require.resolve(ctx.args.tscompiler, {
+          paths: findPaths,
+        });
+        // should require tsNodeRegister on current process, let it can require *.ts files
         // e.g.: dev command will execute egg loader to find configs and plugins
         require(tsNodeRegister);
         // let child process auto require ts-node too

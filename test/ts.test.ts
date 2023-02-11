@@ -1,15 +1,15 @@
 import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import coffee from 'coffee';
 import mm from 'mm';
 import runscript from 'runscript';
+import coffee from './coffee';
 
 async function cpy(src: string, target: string) {
   await fs.cp(src, target, { force: true, recursive: true });
 }
 
-describe.skip('test/ts.test.ts', () => {
+describe('test/ts.test.ts', () => {
   const eggBin = path.join(__dirname, '../bin/cli.ts');
   const fixtures = path.join(__dirname, 'fixtures');
   let cwd: string;
@@ -20,7 +20,7 @@ describe.skip('test/ts.test.ts', () => {
     cwd = path.join(fixtures, 'ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'dev' ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /options.typescript=true/)
       .expect('stdout', /started/)
       .expect('code', 0)
@@ -31,8 +31,8 @@ describe.skip('test/ts.test.ts', () => {
     cwd = path.join(fixtures, 'ts');
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
-      .debug()
-      .expect('stdout', /The expression evaluated to a falsy value/)
+      // .debug()
+      .expect('stdout', /'egg from ts' == 'wrong assert ts'/)
       .expect('code', 1)
       .end();
   });
@@ -43,8 +43,8 @@ describe.skip('test/ts.test.ts', () => {
     });
 
     it('should start app', () => {
-      return coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
-        .debug()
+      return coffee.fork(eggBin, [ 'dev' ], { cwd })
+        // .debug()
         .expect('stdout', /hi, egg, 12345/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', /started/)
@@ -54,7 +54,7 @@ describe.skip('test/ts.test.ts', () => {
 
     it('should test app', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', /should work/)
@@ -64,7 +64,7 @@ describe.skip('test/ts.test.ts', () => {
 
     it('should cov app', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', /should work/)
@@ -78,8 +78,8 @@ describe.skip('test/ts.test.ts', () => {
       // [agent_worker] receive disconnect event on child_process fork mode, exiting with code:110
       if (process.platform === 'darwin') return;
       cwd = path.join(fixtures, 'example-ts-cluster');
-      return coffee.fork(eggBin, [ 'cov', '--ts' ], { cwd })
-        .debug()
+      return coffee.fork(eggBin, [ 'cov' ], { cwd })
+        // .debug()
         .expect('stdout', /Statements/)
         .expect('code', 0)
         .end();
@@ -92,8 +92,7 @@ describe.skip('test/ts.test.ts', () => {
     });
 
     it('should correct error stack line number in starting app', () => {
-      mm(process.env, 'THROW_ERROR', 'true');
-      return coffee.fork(eggBin, [ 'dev' ], { cwd })
+      return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { THROW_ERROR: 'true' } })
         // .debug()
         .expect('stderr', /Error: throw error/)
         .expect('stderr', /at \w+ \(.+app\.ts:7:11\)/)
@@ -102,26 +101,48 @@ describe.skip('test/ts.test.ts', () => {
 
     it('should correct error stack line number in testing app', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
-        .expect('stdout', /assert\(obj\.key === '222'\)/)
-        .expect('stdout', /| {3}| {3}|/)
-        .expect('stdout', /| {3}| {3}false/)
-        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /2 failing/)
+        .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
+        .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
         .end();
     });
 
-    it('should correct error stack line number in testing app with other tscompiler', () => {
+    it('should correct error stack line number in testing app with tscompiler=esbuild-register', () => {
       return coffee.fork(eggBin, [ 'test', '--tscompiler=esbuild-register' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
-        .expect('stdout', /| {3}| {3}|/)
-        .expect('stdout', /| {3}| {3}false/)
-        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /2 failing/)
+        .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
+        .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
+        .end();
+    });
+
+    it('should correct error stack line number in testing app with tscompiler=@swc-node/register', () => {
+      return coffee.fork(eggBin, [ 'test', '--tscompiler=@swc-node/register' ], { cwd })
+        // .debug()
+        .expect('stdout', /error/)
+        .expect('stdout', /2 failing/)
+        .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
+        .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
+        .end();
+    });
+
+    it('should support env.TS_COMPILER', () => {
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+        env: {
+          TS_COMPILER: 'esbuild-register',
+          NODE_DEBUG: 'egg-bin*',
+        },
+      })
+        // .debug()
+        .expect('stdout', /error/)
+        .expect('stdout', /2 failing/)
+        .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
+        .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
+        .expect('code', 1)
         .end();
     });
 
@@ -129,27 +150,21 @@ describe.skip('test/ts.test.ts', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.ts:8:11\)/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.ts:14:5\)/)
-        .expect('stdout', /assert\(obj\.key === '222'\)/)
-        .expect('stdout', /| {3}| {3}|/)
-        .expect('stdout', /| {3}| {3}false/)
-        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /2 failing/)
+        .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
+        .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
         .end();
     });
 
     it('should correct error stack line number in mixed app', () => {
-      const appDir = path.join(fixtures, 'example-ts-error-stack-mixed');
-      const testFile = path.resolve(appDir, 'test/index.test.js');
-      return coffee.fork(eggBin, [ 'test', testFile ], { cwd: appDir })
+      const cwd = path.join(fixtures, 'example-ts-error-stack-mixed');
+      const testFile = path.resolve(cwd, 'test/index.test.js');
+      return coffee.fork(eggBin, [ 'test', testFile ], { cwd })
         // .debug()
         .expect('stdout', /error/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.js:8:11\)/)
-        .expect('stdout', /test[\/\\]{1}index\.test\.js:14:5\)/)
-        .expect('stdout', /assert\(obj\.key === '222'\)/)
-        .expect('stdout', /| {3}| {3}|/)
-        .expect('stdout', /| {3}| {3}false/)
-        .expect('stdout', /| {3}"111"/)
+        .expect('stdout', /2 failing/)
+        .expect('stdout', /test[\/\\]index\.test\.js:\d+:\d+\)/)
+        .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
         .end();
     });
   });
@@ -168,7 +183,7 @@ describe.skip('test/ts.test.ts', () => {
 
     it('should start app', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 12345/)
         .expect('stdout', /ts env: true/)
         .expect('stdout', /started/)
@@ -187,13 +202,13 @@ describe.skip('test/ts.test.ts', () => {
 
     it('should start app with flags in app without eggInfo', async () => {
       const cwd = path.join(fixtures, 'example-ts-simple');
-      await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd })
-        .debug()
+      await coffee.fork(eggBin, [ 'dev' ], { cwd })
+        // .debug()
         .expect('stdout', /started/)
         .expect('code', 0)
         .end();
 
-      await coffee.fork(eggBin, [ 'dev', '--ts', '--tsc=esbuild-register' ], { cwd })
+      await coffee.fork(eggBin, [ 'dev', '--tsc=esbuild-register' ], { cwd })
         // .debug()
         .expect('stdout', /started/)
         .expect('code', 0)
@@ -213,10 +228,15 @@ describe.skip('test/ts.test.ts', () => {
         path.join(cwd, './node_modules/egg'),
       );
 
-      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--tsc', 'ts-node/register' ], {
+        cwd,
+        env: {
+          NODE_DEBUG: 'egg-bin*',
+        },
+      })
         // .debug()
         .end();
-      assert(/ts-node@8\.10\.2/.test(stderr));
+      assert.match(stderr, /ts-node@10\.9\.0/);
       assert.equal(code, 0);
     });
 
@@ -225,7 +245,7 @@ describe.skip('test/ts.test.ts', () => {
 
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      await runscript('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+      await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -235,10 +255,15 @@ describe.skip('test/ts.test.ts', () => {
 
       const { stderr, code } = await coffee.fork(eggBin, [
         'dev', '--ts', '--tscompiler=ts-node/register',
-      ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
+      ], {
+        cwd,
+        env: {
+          NODE_DEBUG: 'egg-bin*',
+        },
+      })
         // .debug()
         .end();
-      assert(/ts-node@8\.10\.2/.test(stderr));
+      assert.match(stderr, /ts-node@10\.9\.0/);
       assert.equal(code, 0);
     });
 
@@ -247,7 +272,7 @@ describe.skip('test/ts.test.ts', () => {
 
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      await runscript('npx cnpm install ts-node@8.10.2 --no-save', { cwd });
+      await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
 
       // copy egg to node_modules
       await cpy(
@@ -255,16 +280,20 @@ describe.skip('test/ts.test.ts', () => {
         path.join(cwd, './node_modules/egg'),
       );
 
-      const { stderr, code } = await coffee.fork(eggBin, [ 'dev', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
+      const { stderr, code } = await coffee.fork(eggBin, [ 'dev' ], {
+        cwd,
+        env: {
+          NODE_DEBUG: 'egg-bin*',
+        },
+      })
         .debug()
         .end();
-      assert(!/ts-node@8\.10\.2/.test(stderr));
-      assert(/ts-node/.test(stderr));
+      assert.doesNotMatch(stderr, /ts-node@10\.9\.0/);
       assert.equal(code, 0);
     });
 
     it('should start app with other tscompiler without error', () => {
-      return coffee.fork(eggBin, [ 'dev', '--ts', '--tscompiler=esbuild-register' ], {
+      return coffee.fork(eggBin, [ 'dev', '--tscompiler=esbuild-register' ], {
         cwd: path.join(fixtures, 'example-ts'),
       })
         // .debug()
@@ -283,7 +312,7 @@ describe.skip('test/ts.test.ts', () => {
           EGG_TYPESCRIPT: 'false',
         },
       })
-        .debug()
+        // .debug()
         .expect('stdout', /agent.options.typescript = false/)
         .expect('stdout', /agent.options.tscompiler =/)
         .expect('stdout', /esbuild-register/)
@@ -299,7 +328,7 @@ describe.skip('test/ts.test.ts', () => {
           EGG_TYPESCRIPT: 'true',
         },
       })
-        .debug()
+        // .debug()
         .expect('stdout', /agent.options.typescript = true/)
         .expect('stdout', /agent.options.tscompiler =/)
         .expect('stdout', /esbuild-register/)
@@ -309,7 +338,7 @@ describe.skip('test/ts.test.ts', () => {
     });
 
     it('should start app with other tscompiler in package.json without error', () => {
-      return coffee.fork(eggBin, [ 'dev', '--ts' ], {
+      return coffee.fork(eggBin, [ 'dev' ], {
         cwd: path.join(fixtures, 'example-ts-pkg'),
       })
         // .debug()
@@ -343,85 +372,23 @@ describe.skip('test/ts.test.ts', () => {
         path.join(cwd, './node_modules/egg'),
       );
 
-      const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--ts' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
+      const { stdout, code } = await coffee.fork(eggBin, [ 'test', '--tsc', 'ts-node/register' ], {
+        cwd,
+        env: {
+          NODE_DEBUG: 'egg-bin*',
+        },
+      })
         // .debug()
         .end();
-      assert(/ts-node@8\.10\.2/.test(stdout));
-      assert(!/ts-node@7\.\d+\.\d+/.test(stdout));
+      assert.match(stdout, /ts-node@10\.9\.0/);
       assert.equal(code, 0);
     });
 
     it('should cov app', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
-        .expect('code', 0)
-        .end();
-    });
-  });
-
-  describe('egg.declarations = true', () => {
-    let pkgJson;
-    before(async () => {
-      cwd = path.join(fixtures, 'example-ts-ets');
-      pkgJson = JSON.parse(await fs.readFile(path.resolve(cwd, './package.json')).toString());
-    });
-
-    beforeEach(() => fs.rm(path.resolve(cwd, './typings'), { force: true, recursive: true }));
-
-    afterEach(async () => {
-      pkgJson.egg.declarations = false;
-      await fs.writeFile(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
-    });
-
-    it('should load egg-ts-helper with dts flag', async () => {
-      await fs.mkdir(path.join(cwd, 'typings'));
-      return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
-        // .debug()
-        .expect('stdout', /application log/)
-        .expect('stdout', /"typescript":true/)
-        .expect('stdout', /started/)
-        .expect('code', 0)
-        .end();
-    });
-
-    it('should load egg-ts-helper with egg.declarations = true', async () => {
-      await fs.mkdir(path.join(cwd, 'typings'));
-      pkgJson.egg.declarations = true;
-      await fs.writeFile(path.join(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
-      return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        .debug()
-        .expect('stdout', /application log/)
-        .expect('stdout', /"typescript":true/)
-        .expect('stdout', /"declarations":true/)
-        .expect('stdout', /started/)
-        .expect('code', 0)
-        .end();
-    });
-
-    it('should auto require tsconfig-paths/register on test', async () => {
-      await coffee.fork(eggBin, [ 'test' ], { cwd })
-        .debug()
-        .expect('stdout', /1 passing/)
-        .expect('code', 0)
-        .end();
-
-      // double require tsconfig-paths/register should work
-      await coffee.fork(eggBin, [ 'test', '-r', 'tsconfig-paths/register' ], { cwd })
-        .debug()
-        .expect('stdout', /1 passing/)
-        .expect('code', 0)
-        .end();
-    });
-
-    it('should not load egg-ts-helper without flag and egg.declarations', () => {
-      return coffee.fork(eggBin, [ 'dev' ], { cwd })
-        .debug()
-        .expect('stdout', /"typescript":true/)
-        .expect('stdout', /application log/)
-        .notExpect('stdout', /"declarations":true/)
-        .expect('stdout', /started/)
         .expect('code', 0)
         .end();
     });

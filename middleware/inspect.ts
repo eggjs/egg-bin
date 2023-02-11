@@ -32,15 +32,9 @@ export default class implements ApplicationLifecycle {
       if (ctx.args.inspect === true) {
         addNodeOptionsToEnv('--inspect', ctx.env);
         hasInspectOption = true;
-      } else if (ctx.args.inspect) {
-        addNodeOptionsToEnv(`--inspect=${ctx.args.inspect}`, ctx.env);
-        hasInspectOption = true;
       }
       if (ctx.args['inspect-brk'] === true) {
         addNodeOptionsToEnv('--inspect-brk', ctx.env);
-        hasInspectOption = true;
-      } else if (ctx.args['inspect-brk']) {
-        addNodeOptionsToEnv(`--inspect-brk=${ctx.args['inspect-brk']}`, ctx.env);
         hasInspectOption = true;
       }
       if (hasInspectOption) {

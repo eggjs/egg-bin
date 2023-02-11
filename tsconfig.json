@@ -1,8 +1,5 @@
 {
   "extends": "@eggjs/tsconfig",
-  "compilerOptions": {
-    "emitDecoratorMetadata": true,
-  },
   "exclude": [
     "test"
   ]
