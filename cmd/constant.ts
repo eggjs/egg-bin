@@ -12,10 +12,4 @@ export const OPTIONS = {
     array: true,
     default: [],
   },
-  typescript: {
-    description: 'whether enable typescript support, default is true',
-    type: 'boolean',
-    alias: 'ts',
-    default: true,
-  },
 } satisfies Record<string, OptionProps>;

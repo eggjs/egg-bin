@@ -20,6 +20,17 @@ describe('test/egg-bin.test.ts', () => {
         .expect('stdout', /Usage: egg-bin/)
         .expect('stdout', /Available Commands/)
         .expect('stdout', /test \[files\.\.\.]\s+Run the unittest/)
+        .expect('stdout', /-ts, --typescript\s+whether enable typescript support/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should show egg-bin test help', () => {
+      return coffee.fork(eggBin, [ 'test', '-h' ], { cwd })
+        .debug()
+        .expect('stdout', /Usage: egg-bin test \[files\.\.\.]/)
+        .expect('stdout', /-ts, --typescript\s+whether enable typescript support/)
+        .expect('stdout', /--full-trace\s+display the full stack trace, default is false/)
         .expect('code', 0)
         .end();
     });

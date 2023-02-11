@@ -5,6 +5,10 @@
   "files": [
     "bin",
     "cmd",
+    "lib",
+    "config",
+    "middleware",
+    "index.js",
     "meta.json"
   ],
   "main": "index.js",

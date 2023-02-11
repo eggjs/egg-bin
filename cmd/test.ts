@@ -1,7 +1,11 @@
-import { debuglog } from 'util';
-import os from 'os';
-import fs from 'fs/promises';
-import { DefineCommand, Option, Options, Command, Middleware, Context } from '@artus-cli/artus-cli';
+import { debuglog } from 'node:util';
+import os from 'node:os';
+import fs from 'node:fs/promises';
+import {
+  DefineCommand, Option, Options, Command,
+  Middleware, CommandContext,
+  Inject,
+} from '@artus-cli/artus-cli';
 import runscript from 'runscript';
 import globby from 'globby';
 import { OPTIONS } from './constant';
@@ -24,9 +28,6 @@ export class TestCommand extends Command {
   @Option(OPTIONS.baseDir)
   baseDir: string;
 
-  @Option(OPTIONS.typescript)
-  typescript: boolean;
-
   @Option(OPTIONS.require)
   require: string[];
 
@@ -41,7 +42,7 @@ export class TestCommand extends Command {
   @Option({
     description: 'set test-case timeout in milliseconds, default is 60000',
     alias: 't',
-    default: 60000,
+    default: process.env.TEST_TIMEOUT ?? 60000,
   })
   timeout: number;
 
@@ -100,8 +101,11 @@ export class TestCommand extends Command {
   @Options()
   args: any;
 
+  @Inject()
+  ctx: CommandContext;
+
   @Middleware([
-    async (_ctx: Context, next) => {
+    async (_ctx: CommandContext, next) => {
       console.info('test command middleware 2');
       // console.log(_ctx);
       // console.log(_ctx.input);
@@ -141,21 +145,11 @@ export class TestCommand extends Command {
       console.info('test args: %o', this.args);
       return;
     }
-    const env = { ...process.env };
+    const env = { ...this.ctx.env };
     if (this.parallel) {
       env.ENABLE_MOCHA_PARALLEL = 'true';
       if (this.autoAgent) {
         env.AUTO_AGENT = 'true';
-      }
-    }
-    if (this.typescript) {
-      const requireOptions = `--require ${require.resolve('ts-node/register')}`;
-      if (env.NODE_OPTIONS) {
-        if (!env.NODE_OPTIONS.includes(requireOptions)) {
-          env.NODE_OPTIONS = `${env.NODE_OPTIONS} ${requireOptions}`;
-        }
-      } else {
-        env.NODE_OPTIONS = requireOptions;
       }
     }
 
@@ -230,7 +224,7 @@ export class TestCommand extends Command {
 
     // collect test files
     if (!pattern.length) {
-      pattern = [ `test/**/*.test.${this.typescript ? 'ts' : 'js'}` ];
+      pattern = [ `test/**/*.test.${this.args.typescript ? 'ts' : 'js'}` ];
     }
     pattern = pattern.concat([ '!test/fixtures', '!test/node_modules' ]);
 
