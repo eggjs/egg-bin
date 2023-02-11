@@ -73,7 +73,7 @@
     "test-local-with-esbuild": "node -r esbuild-register bin/cli.ts test",
     "cov": "c8 -r lcov -r text-summary npm run test-local",
     "ci-test-only": "npm run test-local -- test/lib/cmd/cov.test.js",
-    "ci": "npm run lint && npm run test-local && npm run tsc",
+    "ci": "npm run lint && npm run cov && npm run tsc",
     "tsc": "tsc",
     "clean": "tsc -b --clean"
   },
