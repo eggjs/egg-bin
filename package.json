@@ -3,17 +3,12 @@
   "version": "5.13.4",
   "description": "egg developer tool",
   "files": [
-    "bin",
-    "cmd",
-    "lib",
-    "config",
-    "middleware",
-    "index.js",
+    "dist",
     "meta.json"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "bin": {
-    "egg-bin": "bin/cli.js"
+    "egg-bin": "dist/bin/cli.js"
   },
   "dependencies": {
     "@artus-cli/artus-cli": "^0.2.1",

@@ -31,15 +31,23 @@ export class DevCommand extends BaseCommand {
   })
   framework: string;
 
+  @Option({
+    description: 'start a sticky cluster server, default to false',
+    type: 'boolean',
+    default: false,
+  })
+  sticky: boolean;
+
   async run() {
     debug('run dev: %o', this.args);
-    this.ctx.env.NODE_ENV = 'development';
+    this.ctx.env.NODE_ENV = this.ctx.env.NODE_ENV ?? 'development';
     this.ctx.env.EGG_MASTER_CLOSE_TIMEOUT = '1000';
     const serverBin = path.join(__dirname, '../lib/start-cluster');
     const args = await this.formatEggStartArgs();
     const serverCmd = `${serverBin} '${JSON.stringify(args)}'`;
-    debug('%o', serverCmd);
-    await this.runNodeCmd(serverCmd);
+    const requires = await this.formatRequires();
+    debug('%o, requires: %o', serverCmd, requires);
+    await this.runNodeCmd(serverCmd, requires);
   }
 
   protected async formatEggStartArgs() {
@@ -48,7 +56,7 @@ export class DevCommand extends BaseCommand {
       debug('detect available port');
       this.port = await detect(defaultPort);
       if (this.port !== defaultPort) {
-        console.warn('[egg-bin] server port %o is in use, now using port %o', defaultPort, this.port);
+        console.warn('[egg-bin] server port %s is in use, now using port %o', defaultPort, this.port);
       }
       debug(`use available port ${this.port}`);
     }
@@ -57,10 +65,13 @@ export class DevCommand extends BaseCommand {
       baseDir: this.args.base,
     });
     return {
+      baseDir: this.args.base,
+      workers: this.workers,
       port: this.port,
       framework: this.framework,
       typescript: this.args.typescript,
       tscompiler: this.args.tscompiler,
+      sticky: this.sticky,
     };
   }
 }

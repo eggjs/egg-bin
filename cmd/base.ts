@@ -1,13 +1,17 @@
 import { debuglog } from 'node:util';
 import {
+  DefineCommand,
   Options, Option, Command,
   CommandContext,
   Inject,
+  Utils,
 } from '@artus-cli/artus-cli';
 import runscript from 'runscript';
+import { readPackageJSON } from '../lib/utils';
 
 const debug = debuglog('egg-bin:base');
 
+@DefineCommand()
 export abstract class BaseCommand extends Command {
   @Option({
     description: 'whether show full command script only, default is false',
@@ -31,9 +35,40 @@ export abstract class BaseCommand extends Command {
   @Inject()
   ctx: CommandContext;
 
-  protected async runNodeCmd(nodeCmd: string) {
-    const cmd = `node ${nodeCmd}`;
-    debug('%s', cmd);
+  @Inject()
+  utils: Utils;
+
+  async run() {
+    await this.utils.redirect([ '--help' ]);
+  }
+
+  protected async formatRequires() {
+    const pkg = await readPackageJSON(this.args.base);
+    const requires = this.require ?? [];
+    const eggRequire = pkg.egg?.require;
+    if (Array.isArray(eggRequire)) {
+      for (const r of eggRequire) {
+        requires.push(r);
+      }
+    } else if (typeof eggRequire === 'string' && eggRequire) {
+      requires.push(eggRequire);
+    }
+    return requires;
+  }
+
+  protected async runNodeCmd(nodeCmd: string, nodeRequires?: string[]) {
+    const parts = [
+      'node',
+    ];
+    if (nodeRequires) {
+      for (const r of nodeRequires) {
+        parts.push('--require');
+        parts.push(`'${r}'`);
+      }
+    }
+    parts.push(nodeCmd);
+    const cmd = parts.join(' ');
+    debug('runscript: %o', cmd);
     if (this.dryRun) {
       console.log('dry run: $ %o', cmd);
       return;

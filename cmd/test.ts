@@ -106,7 +106,7 @@ export class TestCommand extends BaseCommand {
 
   protected async formatMochaArgs() {
     // collect require
-    const requires = this.require ?? [];
+    const requires = await this.formatRequires();
     try {
       const eggMockRegister = require.resolve('egg-mock/register');
       requires.push(eggMockRegister);
