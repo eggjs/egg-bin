@@ -1,9 +1,3 @@
 {
-  "extends": "@eggjs/tsconfig",
-  "compilerOptions": {
-    "declaration": false,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "useUnknownInCatchVariables": false
-  }
+  "extends": "@eggjs/tsconfig"
 }

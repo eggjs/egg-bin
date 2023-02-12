@@ -9,21 +9,17 @@ test/fixtures/ts/node_modules/aliyun-egg/
 !test/fixtures/ts/node_modules/aliyun-egg/node_modules/
 
 !test/fixtures/test-files-glob/**
-!test/fixtures/test-files-stack/node_modules/
 !test/fixtures/example/node_modules/
 !test/fixtures/example-ts-cluster/node_modules/
 !test/fixtures/example-ts-error-stack/node_modules/
 !test/fixtures/egg-require/node_modules/
-test/fixtures/example-ts-ets/typings/
-!test/fixtures/example-ts-ets/node_modules/
 !test/fixtures/example-ts-simple/node_modules/
 !test/fixtures/test-files/node_modules/
 !test/fixtures/test-demo-app/node_modules/
 
 .mochawesome-reports
-**/run/*.json
+run
 .tmp
-.vscode
 .cache
 *.log
 package-lock.json
@@ -31,3 +27,9 @@ package-lock.json
 yarn.lock
 .c8_output
 .idea
+
+bin/*.js
+cmd/*.js
+!bin/postinstall.js
+.eslintcache
+dist

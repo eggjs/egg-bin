@@ -1,0 +1,13 @@
+{
+  "extends": "@eggjs/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "incremental": false
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "test"
+  ]
+}

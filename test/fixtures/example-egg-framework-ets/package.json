@@ -1,7 +1,0 @@
-{
-  "name": "example-egg-framework-ets",
-  "egg": {
-    "typescript": true,
-    "isFramework": true
-  }
-}
