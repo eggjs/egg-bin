@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/eggjs/egg-bin/compare/v5.13.4...v6.0.0) (2023-02-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Node.js 14 support and more deprecated features
+
+### Features
+
+* use @artus-cli/artus-cli ([#217](https://github.com/eggjs/egg-bin/issues/217)) ([2b801e9](https://github.com/eggjs/egg-bin/commit/2b801e99d3be6b7dc27b46cc1992cec4089759ad))
+
 ## [5.13.4](https://github.com/eggjs/egg-bin/compare/v5.13.3...v5.13.4) (2023-02-09)
 
 
