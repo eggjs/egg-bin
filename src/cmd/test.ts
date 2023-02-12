@@ -91,7 +91,9 @@ export class TestCommand extends BaseCommand {
         this.ctx.env.AUTO_AGENT = 'true';
       }
     }
-
+    // set NODE_ENV=test, let egg application load unittest logic
+    // https://eggjs.org/basics/env#difference-from-node_env
+    this.ctx.env.NODE_ENV = 'test';
     debug('run test: %s %o', mochaFile, this.args);
 
     const mochaArgs = await this.formatMochaArgs();
@@ -108,11 +110,13 @@ export class TestCommand extends BaseCommand {
     // collect require
     const requires = await this.formatRequires();
     try {
-      const eggMockRegister = require.resolve('egg-mock/register');
+      const eggMockRegister = require.resolve('egg-mock/register', { paths: [ this.base ] });
       requires.push(eggMockRegister);
       debug('auto register egg-mock: %o', eggMockRegister);
-    } catch {
+    } catch (err) {
       // ignore egg-mock not exists
+      debug('auto register egg-mock fail, can not require egg-mock on %o, error: %s',
+        this.base, (err as Error).message);
     }
 
     // handle mochawesome enable

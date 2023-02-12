@@ -168,6 +168,7 @@ describe('test/cmd/test.test.ts', () => {
         },
       })
         // .debug()
+        .expect('stdout', /env\.NODE_ENV: test/)
         .expect('stdout', /env\.AUTO_AGENT: true/)
         .expect('stdout', /env\.ENABLE_MOCHA_PARALLEL: true/)
         .expect('code', 0)
