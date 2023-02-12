@@ -284,7 +284,7 @@ describe('test/ts.test.ts', () => {
           NODE_DEBUG: 'egg-bin*',
         },
       })
-        .debug()
+        // .debug()
         .end();
       assert.doesNotMatch(stderr, /ts-node@10\.9\.0/);
       assert.equal(code, 0);
@@ -350,7 +350,7 @@ describe('test/ts.test.ts', () => {
 
     it('should test app', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /hi, egg, 123456/)
         .expect('stdout', /ts env: true/)
         .expect('code', 0)

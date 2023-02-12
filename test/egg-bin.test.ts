@@ -19,7 +19,7 @@ describe('test/egg-bin.test.ts', () => {
         // .debug()
         .expect('stdout', /Usage: egg-bin/)
         .expect('stdout', /Available Commands/)
-        .expect('stdout', /test \[files\.\.\.]\s+Run the unittest/)
+        .expect('stdout', /test \[files\.\.\.]\s+Run the test/)
         .expect('stdout', /-ts, --typescript\s+whether enable typescript support/)
         .expect('code', 0)
         .end();
@@ -30,7 +30,7 @@ describe('test/egg-bin.test.ts', () => {
         // .debug()
         .expect('stdout', /Usage: egg-bin/)
         .expect('stdout', /Available Commands/)
-        .expect('stdout', /test \[files\.\.\.]\s+Run the unittest/)
+        .expect('stdout', /test \[files\.\.\.]\s+Run the test/)
         .expect('stdout', /-ts, --typescript\s+whether enable typescript support/)
         .expect('code', 0)
         .end();
@@ -48,7 +48,7 @@ describe('test/egg-bin.test.ts', () => {
     it('should show help when command not exists', () => {
       return coffee.fork(eggBin, [ 'not-exists' ], { cwd })
         // .debug()
-        .expect('stderr', /Command is not found: 'egg-bin not-exists', try 'egg-bin --help' for more information\./)
+        .expect('stderr', /Command is not found: 'egg-bin not-exists', try 'egg-bin --help' for more information/)
         .expect('code', 1)
         .end();
     });

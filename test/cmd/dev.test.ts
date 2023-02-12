@@ -122,7 +122,7 @@ describe('test/cmd/dev.test.ts', () => {
   it('should support --require', () => {
     const script = path.join(fixtures, 'require-script');
     return coffee.fork(eggBin, [ 'dev', '--require', script ], { cwd })
-      .debug()
+      // .debug()
       .expect('stdout', /hey, you require me by --require/)
       .expect('code', 0)
       .end();
