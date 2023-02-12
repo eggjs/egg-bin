@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "6.0.0-beta.2",
+  "version": "6.0.0-beta.3",
   "publishConfig": {
     "tag": "next"
   },
