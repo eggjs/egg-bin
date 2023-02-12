@@ -1,7 +1,0 @@
-{
-  "name": "example-missing-egg-deps-ets",
-  "egg": {
-    "typescript": true
-  },
-  "dependencies": {}
-}
