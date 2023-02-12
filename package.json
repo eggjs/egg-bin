@@ -74,7 +74,7 @@
     "test-local-with-swc": "node -r @swc-node/register src/bin/cli.ts test",
     "test-local-with-esbuild": "node -r esbuild-register src/bin/cli.ts test",
     "test-tsc": "npm run clean && npm run tsc && rm -rf src && node dist/bin/cli.js && node dist/bin/cli.js test --base test/fixtures/example-ts",
-    "cov": "c8 -r lcov -r text-summary npm run test-local",
+    "cov": "c8 -r lcov -r text-summary npm run test-local -- --timeout 120000",
     "ci-test-only": "npm run test-local -- test/cmd/cov.test.ts",
     "ci": "npm run lint && npm run cov && npm run test-tsc",
     "prepublishOnly": "npm run clean && npm run tsc",
