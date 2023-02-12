@@ -218,7 +218,12 @@ describe('test/ts.test.ts', () => {
 
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      await runscript('npx cnpm install', { cwd });
+      if (process.env.CI) {
+        // dont use npmmirror.com on CI
+        await runscript('npx npminstall', { cwd });
+      } else {
+        await runscript('npx cnpm install', { cwd });
+      }
 
       // copy egg to node_modules
       await cpy(
@@ -243,7 +248,12 @@ describe('test/ts.test.ts', () => {
 
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+      if (process.env.CI) {
+        // dont use npmmirror.com on CI
+        await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
+      } else {
+        await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+      }
 
       // copy egg to node_modules
       await cpy(
@@ -270,7 +280,12 @@ describe('test/ts.test.ts', () => {
 
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+      if (process.env.CI) {
+        // dont use npmmirror.com on CI
+        await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
+      } else {
+        await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+      }
 
       // copy egg to node_modules
       await cpy(
@@ -362,7 +377,12 @@ describe('test/ts.test.ts', () => {
 
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
-      await runscript('npx cnpm install', { cwd });
+      if (process.env.CI) {
+        // dont use npmmirror.com on CI
+        await runscript('npx npminstall', { cwd });
+      } else {
+        await runscript('npx cnpm install', { cwd });
+      }
 
       // copy egg to node_modules
       await cpy(
