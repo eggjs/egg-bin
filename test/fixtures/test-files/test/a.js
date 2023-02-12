@@ -1,5 +1,3 @@
-'use strict';
-
 const a = require('../lib/a');
 
 describe('a.js', () => {

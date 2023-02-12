@@ -6,7 +6,7 @@ import {
 } from '@artus-cli/artus-cli';
 import { addNodeOptionsToEnv, readPackageJSON, hasTsConfig } from '../utils';
 
-const debug = debuglog('egg-bin:midddleware:typescript');
+const debug = debuglog('egg-bin:midddleware:global_options');
 
 @LifecycleHookUnit()
 export default class implements ApplicationLifecycle {
@@ -17,6 +17,11 @@ export default class implements ApplicationLifecycle {
   async configDidLoad() {
     // add global options
     this.program.option({
+      base: {
+        description: 'directory of application, default to `process.cwd()`',
+        type: 'string',
+        alias: 'baseDir',
+      },
       typescript: {
         description: 'whether enable typescript support',
         type: 'boolean',
@@ -32,12 +37,14 @@ export default class implements ApplicationLifecycle {
     this.program.use(async (ctx: CommandContext, next) => {
       if (!ctx.args.base) {
         ctx.args.base = ctx.cwd;
+        debug('ctx.args.base not set, auto set it to cwd: %o', ctx.cwd);
       }
       if (!path.isAbsolute(ctx.args.base)) {
         ctx.args.base = path.join(ctx.cwd, ctx.args.base);
       }
-      debug('baseDir: %o', ctx.args.base);
+      debug('matched cmd: %o, ctx.args.base: %o', ctx.matched?.cmd, ctx.args.base);
       const pkg = await readPackageJSON(ctx.args.base);
+      ctx.args.pkg = pkg;
       const tscompiler = ctx.args.tscompiler ?? ctx.env.TS_COMPILER ?? pkg.egg?.tscompiler;
       if (ctx.args.typescript === undefined) {
         // try to ready EGG_TYPESCRIPT env first, only accept 'true' or 'false' string

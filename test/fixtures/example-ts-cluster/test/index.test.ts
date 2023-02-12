@@ -1,7 +1,5 @@
-'use strict';
-
 import mm, { MockOption } from 'egg-mock';
-import request = require('supertest');
+import request from 'supertest';
 
 describe('test/index.test.ts', () => {
   let app: any;

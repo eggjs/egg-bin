@@ -3,7 +3,8 @@ import coffee from './coffee';
 
 describe('test/egg-bin.test.ts', () => {
   const eggBin = path.join(__dirname, '../src/bin/cli.ts');
-  const cwd = path.join(__dirname, 'fixtures/test-files');
+  const fixtures = path.join(__dirname, 'fixtures');
+  const cwd = path.join(fixtures, 'test-files');
 
   describe('global options', () => {
     it('should show version', () => {

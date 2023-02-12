@@ -7,19 +7,11 @@ import {
   Utils,
 } from '@artus-cli/artus-cli';
 import runscript from 'runscript';
-import { readPackageJSON } from '../utils';
 
 const debug = debuglog('egg-bin:base');
 
 @DefineCommand()
 export abstract class BaseCommand extends Command {
-  @Option({
-    description: 'directory of application, default to `process.cwd()`',
-    type: 'string',
-    alias: 'baseDir',
-  })
-  base: string;
-
   @Option({
     description: 'whether show full command script only, default is false',
     alias: 'd',
@@ -45,12 +37,20 @@ export abstract class BaseCommand extends Command {
   @Inject()
   utils: Utils;
 
+  // FIXME: should has a better way to init global args default value
+  protected get base() {
+    return this.ctx.args.base;
+  }
+  protected get pkg() {
+    return this.ctx.args.pkg;
+  }
+
   async run() {
     await this.utils.redirect([ '--help' ]);
   }
 
   protected async formatRequires() {
-    const pkg = await readPackageJSON(this.base);
+    const pkg = this.pkg;
     const requires = this.require ?? [];
     const eggRequire = pkg.egg?.require;
     if (Array.isArray(eggRequire)) {

@@ -18,9 +18,8 @@ test/fixtures/ts/node_modules/aliyun-egg/
 !test/fixtures/test-demo-app/node_modules/
 
 .mochawesome-reports
-**/run/*.json
+run
 .tmp
-.vscode
 .cache
 *.log
 package-lock.json
