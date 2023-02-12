@@ -133,12 +133,14 @@ describe('test/cmd/cov.test.ts', () => {
       await coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd, env: { TESTS: 'test/**/*.test.js' } })
         // .debug()
         .expect('stdout', /EGG_BIN_PREREQUIRE undefined/)
+        .expect('stdout', /NODE_ENV test/)
         .expect('code', 0)
         .end();
 
       await coffee.fork(eggBin, [ 'cov', '--prerequire', '--ts=false' ], { cwd })
         // .debug()
         .expect('stdout', /EGG_BIN_PREREQUIRE true/)
+        .expect('stdout', /NODE_ENV test/)
         .expect('code', 0)
         .end();
     });
