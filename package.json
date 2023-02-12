@@ -1,6 +1,9 @@
 {
   "name": "egg-bin",
   "version": "5.13.4",
+  "publishConfig": {
+    "tag": "latest-5"
+  },
   "description": "egg developer tool",
   "files": [
     "index.js",
