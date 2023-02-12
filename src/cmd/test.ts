@@ -78,7 +78,7 @@ export class TestCommand extends BaseCommand {
 
   async run() {
     try {
-      await fs.access(this.base, fs.constants.R_OK);
+      await fs.access(this.base);
     } catch (err) {
       console.error('baseDir: %o not exists', this.base);
       throw err;
@@ -166,7 +166,7 @@ export class TestCommand extends BaseCommand {
     // auto add setup file as the first test file
     const setupFile = path.join(this.base, `test/.setup.${ext}`);
     try {
-      await fs.access(setupFile, fs.constants.R_OK);
+      await fs.access(setupFile);
       files.unshift(setupFile);
     } catch {
       // ignore
