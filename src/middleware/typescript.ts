@@ -83,14 +83,17 @@ export default class implements ApplicationLifecycle {
         require(tsNodeRegister);
         // let child process auto require ts-node too
         addNodeOptionsToEnv(`--require ${tsNodeRegister}`, ctx.env);
-        debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
         // tell egg loader to load ts file
         // see https://github.com/eggjs/egg-core/blob/master/lib/loader/egg_loader.js#L443
         ctx.env.EGG_TYPESCRIPT = 'true';
         // set current process.env.EGG_TYPESCRIPT too
         process.env.EGG_TYPESCRIPT = 'true';
         // load files from tsconfig on startup
-        ctx.env.TS_NODE_FILES = process.env.TS_NODE_FILES || 'true';
+        ctx.env.TS_NODE_FILES = process.env.TS_NODE_FILES ?? 'true';
+        // keep same logic with egg-core, test cmd load files need it
+        // see https://github.com/eggjs/egg-core/blob/master/lib/loader/egg_loader.js#L49
+        addNodeOptionsToEnv(`--require ${require.resolve('tsconfig-paths/register')}`, ctx.env);
+        debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
       }
       await next();
     });
