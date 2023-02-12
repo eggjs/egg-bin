@@ -41,18 +41,14 @@ export abstract class BaseCommand extends Command {
   protected get base() {
     return this.ctx.args.base;
   }
-  protected get pkg() {
-    return this.ctx.args.pkg;
-  }
 
   async run() {
     await this.utils.redirect([ '--help' ]);
   }
 
   protected async formatRequires() {
-    const pkg = this.pkg;
     const requires = this.require ?? [];
-    const eggRequire = pkg.egg?.require;
+    const eggRequire = this.ctx.args.pkgEgg.require;
     if (Array.isArray(eggRequire)) {
       for (const r of eggRequire) {
         requires.push(r);

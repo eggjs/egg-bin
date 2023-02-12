@@ -35,6 +35,7 @@ export default class implements ApplicationLifecycle {
     });
 
     this.program.use(async (ctx: CommandContext, next) => {
+      debug('before next');
       if (!ctx.args.base) {
         ctx.args.base = ctx.cwd;
         debug('ctx.args.base not set, auto set it to cwd: %o', ctx.cwd);
@@ -44,8 +45,8 @@ export default class implements ApplicationLifecycle {
       }
       debug('matched cmd: %o, ctx.args.base: %o', ctx.matched?.cmd, ctx.args.base);
       const pkg = await readPackageJSON(ctx.args.base);
-      ctx.args.pkg = pkg;
-      const tscompiler = ctx.args.tscompiler ?? ctx.env.TS_COMPILER ?? pkg.egg?.tscompiler;
+      ctx.args.pkgEgg = pkg.egg ?? {};
+      const tscompiler = ctx.args.tscompiler ?? ctx.env.TS_COMPILER ?? ctx.args.pkgEgg.tscompiler;
       if (ctx.args.typescript === undefined) {
         // try to ready EGG_TYPESCRIPT env first, only accept 'true' or 'false' string
         if (ctx.env.EGG_TYPESCRIPT === 'false') {
@@ -54,10 +55,10 @@ export default class implements ApplicationLifecycle {
         } else if (ctx.env.EGG_TYPESCRIPT === 'true') {
           ctx.args.typescript = true;
           debug('detect typescript=%o from EGG_TYPESCRIPT=%o', true, ctx.env.EGG_TYPESCRIPT);
-        } else if (typeof pkg.egg?.typescript === 'boolean') {
+        } else if (typeof ctx.args.pkgEgg.typescript === 'boolean') {
           // read `egg.typescript` from package.json if not pass argv
-          ctx.args.typescript = pkg.egg.typescript;
-          debug('detect typescript=%o from pkg.egg.typescript=%o', true, pkg.egg.typescript);
+          ctx.args.typescript = ctx.args.pkgEgg.typescript;
+          debug('detect typescript=%o from pkg.egg.typescript=%o', true, ctx.args.pkgEgg.typescript);
         } else if (pkg.dependencies?.typescript) {
           // auto detect pkg.dependencies.typescript or pkg.devDependencies.typescript
           ctx.args.typescript = true;
@@ -102,7 +103,10 @@ export default class implements ApplicationLifecycle {
         addNodeOptionsToEnv(`--require ${require.resolve('tsconfig-paths/register')}`, ctx.env);
         debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
       }
+      debug('ctx.args: %o', ctx.args);
+      debug('enter next');
       await next();
+      debug('after next');
     });
   }
 }

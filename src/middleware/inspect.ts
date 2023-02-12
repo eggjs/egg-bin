@@ -28,6 +28,7 @@ export default class implements ApplicationLifecycle {
     });
 
     this.program.use(async (ctx: CommandContext, next) => {
+      debug('before next');
       let hasInspectOption = false;
       if (ctx.args.inspect === true) {
         addNodeOptionsToEnv('--inspect', ctx.env);
@@ -45,7 +46,9 @@ export default class implements ApplicationLifecycle {
         ctx.args.timeout = false;
         debug('set timeout = false when process.env.JB_DEBUG_FILE=%o', process.env.JB_DEBUG_FILE);
       }
+      debug('enter next');
       await next();
+      debug('after next');
     });
   }
 }
