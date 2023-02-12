@@ -11,7 +11,6 @@ describe('test/cmd/test.test.ts', () => {
 
   describe('egg-bin test', () => {
     it('should success js', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'test' ], { cwd })
         // .debug()
         .expect('stdout', /should success/)
@@ -25,7 +24,7 @@ describe('test/cmd/test.test.ts', () => {
     it('should success on ts', async () => {
       const cwd = path.join(fixtures, 'example-ts');
       await coffee.fork(eggBin, [ 'test' ], { cwd })
-        .debug()
+        // .debug()
         .expect('stdout', /should work/)
         .expect('stdout', /1 passing/)
         .expect('code', 0)
@@ -33,7 +32,6 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should success with --mochawesome', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'test', '--mochawesome' ], { cwd })
         // .debug()
         .expect('stdout', /should success/)
@@ -47,7 +45,6 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should ignore node_modules and fixtures', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(fixtures, 'test-files-glob') })
       // .debug()
         .expect('stdout', /should test index/)
@@ -58,31 +55,34 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should only test files specified by TESTS', () => {
-      mm(process.env, 'TESTS', 'test/a.test.js');
-      return coffee.fork(eggBin, [ 'test' ], { cwd })
+      return coffee.fork(eggBin, [ 'test' ], { cwd, env: { TESTS: 'test/a.test.js' } })
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
-        .notExpect('stdout', /b\/b.test.js/)
+        .notExpect('stdout', /b[\/\\]b.test.js/)
         .expect('code', 0)
         .end();
     });
 
     it('should only test files specified by TESTS with multi pattern', () => {
-      mm(process.env, 'TESTS', 'test/a.test.js,test/b/b.test.js');
-      return coffee.fork(eggBin, [ 'test' ], { cwd })
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+        env: { TESTS: 'test/a.test.js,test/b/b.test.js' },
+      })
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
-        .expect('stdout', /b\/b.test.js/)
+        .expect('stdout', /b[\/\\]b.test.js/)
         .expect('code', 0)
         .end();
     });
 
     it('should only test files specified by TESTS argv', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
-      return coffee.fork(eggBin, [ 'test', 'test/a.test.js' ], { cwd })
+      return coffee.fork(eggBin, [ 'test', 'test/a.test.js' ], {
+        cwd,
+        env: { TESTS: 'test/**/*.test.js' },
+      })
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
-        .notExpect('stdout', /b\/b.test.js/)
+        .notExpect('stdout', /b[\/\\]b.test.js/)
         .expect('code', 0)
         .end();
     });
@@ -96,9 +96,13 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should use process.env.TEST_REPORTER', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
-      mm(process.env, 'TEST_REPORTER', 'json');
-      return coffee.fork(eggBin, [ 'test' ], { cwd })
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+        env: {
+          TESTS: 'test/**/*.test.js',
+          TEST_REPORTER: 'json',
+        },
+      })
         // .debug()
         .expect('stdout', /"stats":/)
         .expect('stdout', /"tests":/)
@@ -107,9 +111,12 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should use process.env.TEST_TIMEOUT', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
-      mm(process.env, 'TEST_TIMEOUT', '60000');
-      return coffee.fork(eggBin, [ 'test' ], { cwd })
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+        env: {
+          TEST_TIMEOUT: '60000',
+        },
+      })
         .expect('stdout', /should success/)
         .expect('code', 0)
         .end();
@@ -118,15 +125,19 @@ describe('test/cmd/test.test.ts', () => {
     it('should force exit', () => {
       const cwd = path.join(fixtures, 'no-exit');
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        .debug()
+        // .debug()
         .expect('code', 0)
         .end();
     });
 
     it('run not test with dry-run option', () => {
       const cwd = path.join(fixtures, 'mocha-test');
-      mm(process.env, 'TESTS', 'test/foo.test.js');
-      return coffee.fork(eggBin, [ 'test', '--timeout=12345', '--dry-run' ], { cwd })
+      return coffee.fork(eggBin, [ 'test', '--timeout=12345', '--dry-run' ], {
+        cwd,
+        env: {
+          TESTS: 'test/foo.test.js',
+        },
+      })
         // .debug()
         .expect('stdout', /_mocha /)
         .expect('stdout', / --timeout 12345 /)
@@ -139,26 +150,24 @@ describe('test/cmd/test.test.ts', () => {
 
     it('test parallel', () => {
       if (process.platform === 'win32') return;
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'test', '--parallel' ], {
         cwd: path.join(fixtures, 'test-demo-app'),
       })
-        .debug()
+        // .debug()
         .expect('stdout', /should work/)
         .expect('stdout', /a\.test\.js/)
         .expect('code', 0)
         .end();
     });
 
-    it('env.MOCHA_FILE should work', async () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
+    it('env.MOCHA_FILE should work', () => {
       return coffee.fork(eggBin, [ 'test', '--parallel' ], {
         cwd: path.join(fixtures, 'test-demo-app'),
-        env: Object.assign({
+        env: {
           MOCHA_FILE: path.join(fixtures, 'bin/fake_mocha.js'),
-        }, process.env),
+        },
       })
-        .debug()
+        // .debug()
         .expect('stdout', /env\.AUTO_AGENT: true/)
         .expect('stdout', /env\.ENABLE_MOCHA_PARALLEL: true/)
         .expect('code', 0)
@@ -168,9 +177,13 @@ describe('test/cmd/test.test.ts', () => {
 
   describe('run test/.setup.js|ts first', () => {
     it('should auto require test/.setup.js', () => {
-      mm(process.env, 'TESTS', 'test/a.test.js');
-      return coffee.fork(eggBin, [ 'test', '--no-typescript' ], { cwd: path.join(__dirname, '../fixtures/setup-js') })
-        .debug()
+      return coffee.fork(eggBin, [ 'test', '--no-typescript' ], {
+        cwd: path.join(fixtures, 'setup-js'),
+        env: {
+          TESTS: 'test/a.test.js',
+        },
+      })
+        // .debug()
         .expect('stdout', /this is a before function/)
         .expect('stdout', /hello egg/)
         .expect('stdout', /is end!/)
@@ -179,9 +192,13 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should auto require test/.setup.ts', () => {
-      mm(process.env, 'TESTS', 'test/a.test.ts');
-      return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd: path.join(__dirname, '../fixtures/setup-ts') })
-        .debug()
+      return coffee.fork(eggBin, [ 'test', '--typescript' ], {
+        cwd: path.join(fixtures, 'setup-ts'),
+        env: {
+          TESTS: 'test/a.test.ts',
+        },
+      })
+        // .debug()
         .expect('stdout', /this is a before function/)
         .expect('stdout', /hello egg/)
         .expect('stdout', /is end!/)
@@ -192,9 +209,13 @@ describe('test/cmd/test.test.ts', () => {
 
   describe('no-timeouts', () => {
     it('should timeout', () => {
-      mm(process.env, 'TEST_TIMEOUT', '5000');
-      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
-      return coffee.fork(eggBin, [ 'test' ], { cwd })
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+        env: {
+          TEST_TIMEOUT: '5000',
+          TESTS: 'test/**/no-timeouts.test.js',
+        },
+      })
         // .debug()
         .expect('stdout', /timeout: 5000/)
         .expect('code', 0)
@@ -202,9 +223,13 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should support --no-timeout', () => {
-      mm(process.env, 'TEST_TIMEOUT', '5000');
-      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
-      return coffee.fork(eggBin, [ 'test', '--no-timeout' ], { cwd })
+      return coffee.fork(eggBin, [ 'test', '--no-timeout' ], {
+        cwd,
+        env: {
+          TEST_TIMEOUT: '5000',
+          TESTS: 'test/**/no-timeouts.test.js',
+        },
+      })
         // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)
@@ -212,18 +237,26 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should no-timeout at inspect mode', () => {
-      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
-      return coffee.fork(eggBin, [ 'test', '--inspect' ], { cwd })
-        .debug()
+      return coffee.fork(eggBin, [ 'test', '--inspect' ], {
+        cwd,
+        env: {
+          TESTS: 'test/**/no-timeouts.test.js',
+        },
+      })
+        // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)
         .end();
     });
 
     it('should no-timeout at WebStorm debug mode', () => {
-      mm(process.env, 'TESTS', 'test/**/no-timeouts.test.js');
-      mm(process.env, 'JB_DEBUG_FILE', __filename);
-      return coffee.fork(eggBin, [ 'test' ], { cwd })
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+        env: {
+          TESTS: 'test/**/no-timeouts.test.js',
+          JB_DEBUG_FILE: __filename,
+        },
+      })
         // .debug()
         .expect('stdout', /timeout: 0/)
         .expect('code', 0)

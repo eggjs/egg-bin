@@ -21,8 +21,7 @@ describe('test/cmd/cov.test.ts', () => {
 
   describe('egg-bin cov', () => {
     it('should success on js', async () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
-      await coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd })
+      await coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd, env: { TESTS: 'test/**/*.test.js' } })
         // .debug()
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
@@ -51,9 +50,10 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('should success with COV_EXCLUDES', async () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
-      mm(process.env, 'COV_EXCLUDES', 'ignore/*');
-      await coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd })
+      await coffee.fork(eggBin, [ 'cov', '--ts=false' ], {
+        cwd,
+        env: { TESTS: 'test/**/*.test.js', COV_EXCLUDES: 'ignore/*' },
+      })
         // .debug()
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
@@ -112,8 +112,7 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('should fail when test fail', () => {
-      mm(process.env, 'TESTS', 'test/fail.js');
-      return coffee.fork(eggBin, [ 'cov' ], { cwd })
+      return coffee.fork(eggBin, [ 'cov' ], { cwd, env: { TESTS: 'test/fail.js' } })
         // .debug()
         .expect('stdout', /1\) should fail/)
         .expect('stdout', /1 failing/)
@@ -122,18 +121,16 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('should run cov when no test files', () => {
-      mm(process.env, 'TESTS', 'noexist.js');
       const cwd = path.join(fixtures, 'prerequire');
-      return coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd })
+      return coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd, env: { TESTS: 'noexist.js' } })
         // .debug()
         .expect('code', 0)
         .end();
     });
 
     it('should set EGG_BIN_PREREQUIRE', async () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
       const cwd = path.join(fixtures, 'prerequire');
-      await coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd })
+      await coffee.fork(eggBin, [ 'cov', '--ts=false' ], { cwd, env: { TESTS: 'test/**/*.test.js' } })
         // .debug()
         .expect('stdout', /EGG_BIN_PREREQUIRE undefined/)
         .expect('code', 0)
@@ -147,9 +144,9 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('test parallel', () => {
-      mm(process.env, 'TESTS', 'test/**/*.test.js');
       return coffee.fork(eggBin, [ 'cov', '--parallel', '--ts=false' ], {
         cwd: path.join(fixtures, 'test-demo-app'),
+        env: { TESTS: 'test/**/*.test.js' },
       })
         // .debug()
         .expect('stdout', /should work/)

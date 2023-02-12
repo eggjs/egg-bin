@@ -18,8 +18,7 @@ describe('test/ts.test.ts', () => {
 
   it('should support ts', () => {
     cwd = path.join(fixtures, 'ts');
-    mm(process.env, 'NODE_ENV', 'development');
-    return coffee.fork(eggBin, [ 'dev' ], { cwd })
+    return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { NODE_ENV: 'development' } })
       // .debug()
       .expect('stdout', /options.typescript=true/)
       .expect('stdout', /started/)
@@ -29,8 +28,7 @@ describe('test/ts.test.ts', () => {
 
   it('should support ts test', () => {
     cwd = path.join(fixtures, 'ts');
-    mm(process.env, 'NODE_ENV', 'development');
-    return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd })
+    return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd, env: { NODE_ENV: 'development' } })
       // .debug()
       .expect('stdout', /'egg from ts' == 'wrong assert ts'/)
       .expect('code', 1)

@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const coffee = require('coffee');
 const mm = require('mm');
@@ -11,8 +9,7 @@ describe('test/my-egg-bin.test.js', () => {
   afterEach(mm.restore);
 
   it('should my-egg-bin test success', done => {
-    mm(process.env, 'TESTS', 'test/**/*.test.js');
-    coffee.fork(eggBin, [ 'test' ], { cwd })
+    coffee.fork(eggBin, [ 'test' ], { cwd, env: { TESTS: 'test/**/*.test.js' } })
       // .debug()
       .expect('stdout', /should success/)
       .expect('stdout', /a.test.js/)
