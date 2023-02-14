@@ -1,0 +1,6 @@
+{
+  "extends": "@eggjs/tsconfig",
+  "ts-node": {
+    "swc": true
+  }
+}
