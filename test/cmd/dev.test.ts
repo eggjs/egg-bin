@@ -1,6 +1,5 @@
 import path from 'node:path';
 import net from 'node:net';
-import mm from 'mm';
 import detect from 'detect-port';
 import coffee from '../coffee';
 
@@ -8,8 +7,6 @@ describe('test/cmd/dev.test.ts', () => {
   const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
   const fixtures = path.join(__dirname, '../fixtures');
   const cwd = path.join(fixtures, 'demo-app');
-
-  afterEach(mm.restore);
 
   it('should startCluster success', () => {
     return coffee.fork(eggBin, [ 'dev' ], { cwd })

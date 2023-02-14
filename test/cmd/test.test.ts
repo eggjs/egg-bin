@@ -1,13 +1,10 @@
 import path from 'node:path';
-import mm from 'mm';
 import coffee from '../coffee';
 
 describe('test/cmd/test.test.ts', () => {
   const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
   const fixtures = path.join(__dirname, '../fixtures');
   const cwd = path.join(fixtures, 'test-files');
-
-  afterEach(mm.restore);
 
   describe('egg-bin test', () => {
     it('should success js', () => {

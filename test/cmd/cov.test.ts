@@ -1,7 +1,6 @@
 import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import mm from 'mm';
 import assertFile from 'assert-file';
 import coffee from '../coffee';
 
@@ -16,8 +15,6 @@ describe('test/cmd/cov.test.ts', () => {
     assertFile(path.join(baseDir, 'coverage/lcov-report/index.html'));
     assertFile(path.join(baseDir, 'coverage/lcov.info'));
   }
-
-  afterEach(mm.restore);
 
   describe('egg-bin cov', () => {
     it('should success on js', async () => {

@@ -1,7 +1,6 @@
 import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import mm from 'mm';
 import runscript from 'runscript';
 import coffee from './coffee';
 
@@ -13,8 +12,6 @@ describe('test/ts.test.ts', () => {
   const eggBin = path.join(__dirname, '../src/bin/cli.ts');
   const fixtures = path.join(__dirname, 'fixtures');
   let cwd: string;
-
-  afterEach(mm.restore);
 
   it('should support ts', () => {
     cwd = path.join(fixtures, 'ts');
