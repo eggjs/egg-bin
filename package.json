@@ -52,7 +52,6 @@
     "eslint": "^8.16.0",
     "eslint-config-egg": "^12.0.0",
     "git-contributor": "2",
-    "mm": "^3.2.0",
     "typescript": "^4.9.5"
   },
   "repository": {
@@ -73,7 +72,7 @@
     "test-local-with-ts-node-transpile-only": "node -r ts-node/register/transpile-only src/bin/cli.ts test",
     "test-local-with-swc": "node -r @swc-node/register src/bin/cli.ts test",
     "test-local-with-esbuild": "node -r esbuild-register src/bin/cli.ts test",
-    "test-tsc": "npm run clean && npm run tsc && node dist/bin/cli.js && node dist/bin/cli.js test --base test/fixtures/example-ts",
+    "test-tsc": "npm run clean && npm run tsc && node dist/bin/cli.js && node dist/bin/cli.js test --base test/fixtures/example-ts && node dist/bin/cli.js dev --base test/fixtures/example-ts",
     "cov": "c8 -r lcov -r text-summary -x 'test/**' npm run test-local -- --timeout 120000",
     "ci-test-only": "npm run test-local -- test/cmd/cov.test.ts",
     "ci": "npm run lint && npm run cov && npm run test-tsc",
