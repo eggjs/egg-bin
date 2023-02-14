@@ -113,11 +113,14 @@ describe('test/cmd/cov.test.ts', () => {
 
     it('should fail when test fail', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd, env: { TESTS: 'test/fail.js' } })
-        // .debug()
+        .debug()
         .expect('stdout', /1\) should fail/)
         .expect('stdout', /1 failing/)
-        .expect('code', 1)
-        .end();
+        .end((err, { stdout, code }) => {
+          assert(err);
+          assert(stdout.match(/AssertionError/));
+          assert(code === 1);
+        });
     });
 
     it('should run cov when no test files', () => {

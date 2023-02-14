@@ -34,6 +34,15 @@ export class TestCommand extends BaseCommand {
   timeout: number | boolean;
 
   @Option({
+    description: 'only run tests matching <pattern>',
+    alias: 'g',
+    type: 'string',
+    array: true,
+    default: [],
+  })
+  grep: string[];
+
+  @Option({
     description: 'only test with changed files and match test/**/*.test.(js|ts), default is false',
     alias: 'c',
     type: 'boolean',
@@ -176,6 +185,7 @@ export class TestCommand extends BaseCommand {
       this.dryRun ? '--dry-run' : '',
       // force exit
       '--exit',
+      this.grep.map(pattern => `--grep='${pattern}'`).join(' '),
       this.timeout === false ? '--no-timeout' : `--timeout ${this.timeout}`,
       this.parallel ? '--parallel' : '',
       this.parallel && this.jobs ? `--jobs ${this.jobs}` : '',
