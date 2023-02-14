@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const debug = require('util').debuglog('egg-bin:lib:start-cluster');
 
 debug('argv: %o', process.argv);

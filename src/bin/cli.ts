@@ -2,4 +2,6 @@
 
 import { start } from '@artus-cli/artus-cli';
 
-start();
+start({
+  exclude: [ 'scripts', 'bin', 'test', 'coverage' ],
+});

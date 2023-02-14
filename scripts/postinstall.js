@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+const debug = require('node:util').debuglog('egg-bin:postinstall');
 const path = require('node:path');
 const fs = require('node:fs');
 const runscript = require('runscript');
@@ -11,6 +10,14 @@ const frameworkPackageName = process.argv[3] || 'egg';
 // try to use INIT_CWD env https://docs.npmjs.com/cli/v9/commands/npm-run-script
 // npm_rootpath is npminstall
 const npmRunRoot = process.env.INIT_CWD || process.env.npm_rootpath;
+
+debug('process.argv: %o', process.argv);
+debug('process.env.INIT_CWD: %o', process.env.INIT_CWD);
+debug('process.env.npm_rootpath: %o', process.env.npm_rootpath);
+debug('etsBinFile: %o', etsBinFile);
+debug('frameworkPackageName: %o', frameworkPackageName);
+debug('npmRunRoot: %o', npmRunRoot);
+
 if (npmRunRoot) {
   const pkgFile = path.join(npmRunRoot, 'package.json');
   if (fs.existsSync(pkgFile)) {
