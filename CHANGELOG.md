@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.0](https://github.com/eggjs/egg-bin/compare/v6.0.0...v6.1.0) (2023-02-14)
+
+
+### Features
+
+* support grep pattern in 6.x ([#220](https://github.com/eggjs/egg-bin/issues/220)) ([7fedc6d](https://github.com/eggjs/egg-bin/commit/7fedc6d2fd2108b9b2aace04687a9bae03e634a6))
+
 ## [6.0.0](https://github.com/eggjs/egg-bin/compare/v5.13.4...v6.0.0) (2023-02-12)
 
 
