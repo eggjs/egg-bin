@@ -92,7 +92,7 @@ describe('test/cmd/test.test.ts', () => {
         cwd,
         env: { TMPDIR: '/abc' },
       })
-        .debug()
+        // .debug()
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
         .notExpect('stdout', /\/abc/)

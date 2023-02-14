@@ -31,8 +31,11 @@ describe('test/ts.test.ts', () => {
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd, env: { NODE_ENV: 'development' } })
       // .debug()
       .expect('stdout', /'egg from ts' == 'wrong assert ts'/)
-      .expect('code', 1)
-      .end();
+      .end((err, { stdout, code }) => {
+        assert(err);
+        assert(stdout.match(/AssertionError/));
+        assert(code === 1);
+      });
   });
 
   describe('real application', () => {
@@ -140,8 +143,11 @@ describe('test/ts.test.ts', () => {
         .expect('stdout', /2 failing/)
         .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
         .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
-        .expect('code', 1)
-        .end();
+        .end((err, { stdout, code }) => {
+          assert(err);
+          assert(stdout.match(/AssertionError/));
+          assert(code === 1);
+        });
     });
 
     it('should correct error stack line number in covering app', () => {
