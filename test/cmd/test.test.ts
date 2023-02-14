@@ -87,6 +87,18 @@ describe('test/cmd/test.test.ts', () => {
         .end();
     });
 
+    it('should grep pattern without error', () => {
+      return coffee.fork(eggBin, [ 'test', 'test/a.test.js', '--grep', 'should success' ], {
+        cwd,
+      })
+        // .debug()
+        .expect('stdout', /should success/)
+        .expect('stdout', /a\.test\.js/)
+        .notExpect('stdout', /should show tmp/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should exit when not test files', () => {
       return coffee.fork(eggBin, [ 'test', 'test/**/*.nth.js' ], { cwd })
         // .debug()

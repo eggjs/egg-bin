@@ -111,13 +111,28 @@ describe('test/cmd/cov.test.ts', () => {
         .end();
     });
 
+    it('should grep pattern without error', () => {
+      return coffee.fork(eggBin, [ 'cov', 'test/a.test.js', '--grep', 'should success' ], {
+        cwd,
+      })
+        // .debug()
+        .expect('stdout', /should success/)
+        .expect('stdout', /a\.test\.js/)
+        .notExpect('stdout', /should show tmp/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should fail when test fail', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd, env: { TESTS: 'test/fail.js' } })
         // .debug()
         .expect('stdout', /1\) should fail/)
         .expect('stdout', /1 failing/)
-        .expect('code', 1)
-        .end();
+        .end((err, { stdout, code }) => {
+          assert(err);
+          assert(stdout.match(/AssertionError/));
+          assert(code === 1);
+        });
     });
 
     it('should run cov when no test files', () => {
