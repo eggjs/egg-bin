@@ -113,7 +113,7 @@ describe('test/cmd/cov.test.ts', () => {
 
     it('should fail when test fail', () => {
       return coffee.fork(eggBin, [ 'cov' ], { cwd, env: { TESTS: 'test/fail.js' } })
-        .debug()
+        // .debug()
         .expect('stdout', /1\) should fail/)
         .expect('stdout', /1 failing/)
         .end((err, { stdout, code }) => {
