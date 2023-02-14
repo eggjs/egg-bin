@@ -90,12 +90,11 @@ describe('test/cmd/test.test.ts', () => {
     it('should grep pattern without error', () => {
       return coffee.fork(eggBin, [ 'test', 'test/a.test.js', '--grep', 'should success' ], {
         cwd,
-        env: { TMPDIR: '/abc' },
       })
         // .debug()
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
-        .notExpect('stdout', /\/abc/)
+        .notExpect('stdout', /should show tmp/)
         .expect('code', 0)
         .end();
     });
