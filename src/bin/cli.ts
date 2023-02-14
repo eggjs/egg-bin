@@ -2,6 +2,4 @@
 
 import { start } from '@artus-cli/artus-cli';
 
-start({
-  strictOptions: false,
-});
+start();
