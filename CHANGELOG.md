@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.1](https://github.com/eggjs/egg-bin/compare/v6.1.0...v6.1.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* add scripts dir to exclude ([#219](https://github.com/eggjs/egg-bin/issues/219)) ([0fb74f7](https://github.com/eggjs/egg-bin/commit/0fb74f7bb85db47f6dd03697fd500d518e4907e5))
+
 ## [6.1.0](https://github.com/eggjs/egg-bin/compare/v6.0.0...v6.1.0) (2023-02-14)
 
 
