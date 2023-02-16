@@ -228,7 +228,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall', { cwd });
       } else {
-        await runscript('npx cnpm install', { cwd });
+        await runscript('npx npminstall -c', { cwd });
       }
 
       // copy egg to node_modules
@@ -259,7 +259,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
       } else {
-        await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall -c ts-node@10.9.0 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -291,7 +291,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
       } else {
-        await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall -c ts-node@10.9.0 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -388,7 +388,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall', { cwd });
       } else {
-        await runscript('npx cnpm install', { cwd });
+        await runscript('npx npminstall -c', { cwd });
       }
 
       // copy egg to node_modules
