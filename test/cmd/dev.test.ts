@@ -9,7 +9,7 @@ describe.only('test/cmd/dev.test.ts', () => {
   const cwd = path.join(fixtures, 'demo-app');
 
   it('should startCluster success', () => {
-    return coffee.fork(eggBin, [ 'dev' ], { cwd })
+    return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
       .debug()
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)

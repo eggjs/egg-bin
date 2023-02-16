@@ -44,8 +44,7 @@ export class DevCommand extends BaseCommand {
     this.ctx.env.EGG_MASTER_CLOSE_TIMEOUT = '1000';
     const serverBin = path.join(__dirname, '../../scripts/start-cluster.js');
     const args = await this.formatEggStartArgs();
-    // add encodeURIComponent to support Windows cmd args
-    const serverCmd = `${serverBin} '${encodeURIComponent(JSON.stringify(args))}'`;
+    const serverCmd = `${serverBin} '${JSON.stringify(args)}'`;
     const requires = await this.formatRequires();
     debug('%o, requires: %o', serverCmd, requires);
     await this.runNodeCmd(serverCmd, requires);
