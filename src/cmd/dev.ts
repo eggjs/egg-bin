@@ -43,14 +43,18 @@ export class DevCommand extends BaseCommand {
     this.ctx.env.NODE_ENV = this.ctx.env.NODE_ENV ?? 'development';
     this.ctx.env.EGG_MASTER_CLOSE_TIMEOUT = '1000';
     const serverBin = path.join(__dirname, '../../scripts/start-cluster.js');
-    const args = await this.formatEggStartArgs();
-    const serverCmd = `${serverBin} '${JSON.stringify(args)}'`;
+    const eggStartOptions = await this.formatEggStartOptions();
+    const args = [ JSON.stringify(eggStartOptions) ];
     const requires = await this.formatRequires();
-    debug('%o, requires: %o', serverCmd, requires);
-    await this.runNodeCmd(serverCmd, requires);
+    const execArgv: string[] = [];
+    for (const r of requires) {
+      execArgv.push('--require');
+      execArgv.push(r);
+    }
+    await this.forkNode(serverBin, args, { execArgv });
   }
 
-  protected async formatEggStartArgs() {
+  protected async formatEggStartOptions() {
     if (!this.port) {
       const defaultPort = process.env.EGG_BIN_DEFAULT_PORT ?? 7001;
       debug('detect available port');

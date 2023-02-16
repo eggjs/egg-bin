@@ -47,7 +47,7 @@ export class CovCommand extends TestCommand {
     ];
   }
 
-  protected async runNodeCmd(nodeCmd: string) {
+  protected async forkNode(modulePath: string, args: string[]) {
     if (this.prerequire) {
       this.ctx.env.EGG_BIN_PREREQUIRE = 'true';
     }
@@ -60,7 +60,7 @@ export class CovCommand extends TestCommand {
     ];
     if (this.args.typescript) {
       this.ctx.env.SPAWN_WRAP_SHIM_ROOT = path.join(this.base, 'node_modules');
-      c8Args.push('--extension .ts');
+      c8Args.push('--extension=.ts');
     }
 
     const excludes = new Set([
@@ -69,15 +69,14 @@ export class CovCommand extends TestCommand {
       ...this.x,
     ]);
     for (const exclude of excludes) {
-      c8Args.push(`-x '${exclude}'`);
+      c8Args.push(`-x='${exclude}'`);
     }
-
     const c8File = require.resolve('c8/bin/c8.js');
     const outputDir = path.join(this.base, 'node_modules/.c8_output');
     await fs.rm(outputDir, { force: true, recursive: true });
     const coverageDir = path.join(this.base, 'coverage');
     await fs.rm(coverageDir, { force: true, recursive: true });
-    nodeCmd = `${c8File} ${c8Args.join(' ')} ${nodeCmd}`;
-    await super.runNodeCmd(nodeCmd);
+
+    await super.forkNode(c8File, [ ...c8Args, modulePath, ...args ]);
   }
 }

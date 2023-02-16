@@ -1,4 +1,5 @@
 import { debuglog } from 'node:util';
+import { fork, ForkOptions, ChildProcess } from 'node:child_process';
 import {
   DefineCommand,
   Options, Option, Command,
@@ -6,9 +7,45 @@ import {
   Inject,
   Utils,
 } from '@artus-cli/artus-cli';
-import runscript from 'runscript';
 
 const debug = debuglog('egg-bin:base');
+
+// only hook once and only when ever start any child.
+const childs = new Set<ChildProcess>();
+let hadHook = false;
+function gracefull(proc: ChildProcess) {
+  // save child ref
+  childs.add(proc);
+
+  // only hook once
+  /* c8 ignore else */
+  if (!hadHook) {
+    hadHook = true;
+    let signal: NodeJS.Signals;
+    [ 'SIGINT', 'SIGQUIT', 'SIGTERM' ].forEach(event => {
+      process.once(event, () => {
+        signal = event as NodeJS.Signals;
+        process.exit(0);
+      });
+    });
+
+    process.once('exit', (code: number) => {
+      // had test at my-helper.test.js, but coffee can't collect coverage info.
+      for (const child of childs) {
+        debug('process exit code: %o, kill child %o with %o', code, child.pid, signal);
+        child.kill(signal);
+      }
+    });
+  }
+}
+
+class ForkError extends Error {
+  code: number | null;
+  constructor(message: string, code: number | null) {
+    super(message);
+    this.code = code;
+  }
+}
 
 @DefineCommand()
 export abstract class BaseCommand extends Command {
@@ -59,26 +96,34 @@ export abstract class BaseCommand extends Command {
     return requires;
   }
 
-  protected async runNodeCmd(nodeCmd: string, nodeRequires?: string[]) {
-    const parts = [
-      'node',
-    ];
-    if (nodeRequires) {
-      for (const r of nodeRequires) {
-        parts.push('--require');
-        parts.push(`'${r}'`);
-      }
-    }
-    parts.push(nodeCmd);
-    const cmd = parts.join(' ');
-    debug('runscript: %o', cmd);
+  protected async forkNode(modulePath: string, args: string[], options: ForkOptions = {}) {
     if (this.dryRun) {
-      console.log('dry run: $ %o', cmd);
+      console.log('dry run: $ %o', `${process.execPath} ${modulePath} ${args.join(' ')}`);
       return;
     }
-    await runscript(cmd, {
+
+    options = {
+      stdio: 'inherit',
       env: this.ctx.env,
       cwd: this.base,
+      ...options,
+    };
+    const proc = fork(modulePath, args, options);
+    debug('Run fork pid: %o, `%s %s %s`',
+      proc.pid, process.execPath, modulePath, args.join(' '));
+    gracefull(proc);
+
+    return new Promise<void>((resolve, reject) => {
+      proc.once('exit', code => {
+        debug('fork pid: %o exit code %o', proc.pid, code);
+        childs.delete(proc);
+        if (code !== 0) {
+          const err = new ForkError(modulePath + ' ' + args + ' exit with code ' + code, code);
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
     });
   }
 }
