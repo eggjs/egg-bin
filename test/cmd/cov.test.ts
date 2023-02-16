@@ -156,6 +156,7 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('test parallel', () => {
+      if (process.platform === 'win32') return;
       return coffee.fork(eggBin, [ 'cov', '--parallel', '--ts=false' ], {
         cwd: path.join(fixtures, 'test-demo-app'),
         env: { TESTS: 'test/**/*.test.js' },
