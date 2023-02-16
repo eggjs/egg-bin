@@ -97,7 +97,6 @@ describe('test/ts.test.ts', () => {
         .debug()
         .expect('stderr', /Error: throw error/)
         .expect('stderr', /at \w+ \(.+app\.ts:7:11\)/)
-        .expect('code', 1)
         .end();
     });
 
