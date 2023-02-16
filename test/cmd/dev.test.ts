@@ -3,13 +3,16 @@ import net from 'node:net';
 import detect from 'detect-port';
 import coffee from '../coffee';
 
-describe.only('test/cmd/dev.test.ts', () => {
+describe('test/cmd/dev.test.ts', () => {
   const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
   const fixtures = path.join(__dirname, '../fixtures');
   const cwd = path.join(fixtures, 'demo-app');
 
   it('should startCluster success', () => {
-    return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { NODE_DEBUG: 'egg-bin*' } })
+    return coffee.fork(eggBin, [ 'dev' ], {
+      cwd,
+      // env: { NODE_DEBUG: 'egg-bin*' },
+    })
       .debug()
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)
