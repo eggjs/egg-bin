@@ -79,6 +79,14 @@ export class TestCommand extends BaseCommand {
   })
   mochawesome: boolean;
 
+  @Option({
+    description: 'bbort ("bail") after first test failure',
+    alias: 'b',
+    type: 'boolean',
+    default: false,
+  })
+  bail: boolean;
+
   @Options()
   args: any;
 
@@ -180,6 +188,7 @@ export class TestCommand extends BaseCommand {
       this.dryRun ? '--dry-run' : '',
       // force exit
       '--exit',
+      this.bail ? '--bail' : '',
       this.grep.map(pattern => `--grep='${pattern}'`).join(' '),
       this.timeout === false ? '--no-timeout' : `--timeout=${this.timeout}`,
       this.parallel ? '--parallel' : '',

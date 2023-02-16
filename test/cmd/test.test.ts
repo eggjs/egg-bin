@@ -41,6 +41,17 @@ describe('test/cmd/test.test.ts', () => {
         .end();
     });
 
+    it('should success with --bail', () => {
+      return coffee.fork(eggBin, [ 'test', '--bail' ], { cwd })
+        // .debug()
+        .expect('stdout', /should success/)
+        .expect('stdout', /a\.test\.js/)
+        .expect('stdout', /b\/b\.test\.js/)
+        .notExpect('stdout', /\ba\.js/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should ignore node_modules and fixtures', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(fixtures, 'test-files-glob') })
       // .debug()
@@ -149,7 +160,7 @@ describe('test/cmd/test.test.ts', () => {
       })
         // .debug()
         .expect('stdout', /_mocha /)
-        .expect('stdout', / --timeout 12345 /)
+        .expect('stdout', / --timeout=12345 /)
         .expect('stdout', / --exit /)
         .expect('stdout', /foo\.test\.js/)
         .expect('stdout', /--dry-run/)

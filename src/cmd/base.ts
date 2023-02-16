@@ -30,7 +30,6 @@ function gracefull(proc: ChildProcess) {
     });
 
     process.once('exit', (code: number) => {
-      // had test at my-helper.test.js, but coffee can't collect coverage info.
       for (const child of childs) {
         debug('process exit code: %o, kill child %o with %o', code, child.pid, signal);
         child.kill(signal);
@@ -118,7 +117,7 @@ export abstract class BaseCommand extends Command {
         debug('fork pid: %o exit code %o', proc.pid, code);
         childs.delete(proc);
         if (code !== 0) {
-          const err = new ForkError(modulePath + ' ' + args + ' exit with code ' + code, code);
+          const err = new ForkError(modulePath + ' ' + args.join(' ') + ' exit with code ' + code, code);
           reject(err);
         } else {
           resolve();

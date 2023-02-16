@@ -56,11 +56,12 @@ export class CovCommand extends TestCommand {
     // https://github.com/eggjs/egg/issues/3930
     const c8Args = [
       // '--show-process-tree',
-      this.c8,
+      ...this.c8.split(' ').filter(a => a.trim()),
     ];
     if (this.args.typescript) {
       this.ctx.env.SPAWN_WRAP_SHIM_ROOT = path.join(this.base, 'node_modules');
-      c8Args.push('--extension=.ts');
+      c8Args.push('--extension');
+      c8Args.push('.ts');
     }
 
     const excludes = new Set([
@@ -69,7 +70,8 @@ export class CovCommand extends TestCommand {
       ...this.x,
     ]);
     for (const exclude of excludes) {
-      c8Args.push(`-x='${exclude}'`);
+      c8Args.push('-x');
+      c8Args.push(`'${exclude}'`);
     }
     const c8File = require.resolve('c8/bin/c8.js');
     const outputDir = path.join(this.base, 'node_modules/.c8_output');
