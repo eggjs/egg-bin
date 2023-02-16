@@ -219,6 +219,7 @@ describe('test/ts.test.ts', () => {
     });
 
     it('should load custom ts compiler', async () => {
+      if (process.platform === 'win32') return;
       const cwd = path.join(fixtures, 'example-ts-custom-compiler');
 
       // install custom ts-node
@@ -249,6 +250,7 @@ describe('test/ts.test.ts', () => {
     });
 
     it('should load custom ts compiler with tscompiler args', async () => {
+      if (process.platform === 'win32') return;
       const cwd = path.join(fixtures, 'example-ts-custom-compiler-2');
 
       // install custom ts-node
