@@ -94,7 +94,7 @@ describe('test/ts.test.ts', () => {
 
     it('should correct error stack line number in starting app', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { THROW_ERROR: 'true' } })
-        // .debug()
+        .debug()
         .expect('stderr', /Error: throw error/)
         .expect('stderr', /at \w+ \(.+app\.ts:7:11\)/)
         .expect('code', 1)
@@ -163,8 +163,7 @@ describe('test/ts.test.ts', () => {
 
     it('should correct error stack line number in mixed app', () => {
       const cwd = path.join(fixtures, 'example-ts-error-stack-mixed');
-      const testFile = path.resolve(cwd, 'test/index.test.js');
-      return coffee.fork(eggBin, [ 'test', testFile ], { cwd })
+      return coffee.fork(eggBin, [ 'test', '--ts', 'false' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
         .expect('stdout', /2 failing/)
