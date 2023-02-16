@@ -13,7 +13,7 @@ describe('test/cmd/dev.test.ts', () => {
       cwd,
       // env: { NODE_DEBUG: 'egg-bin*' },
     })
-      .debug()
+      // .debug()
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)
       .expect('stdout', /"framework":".*?aliyun-egg"/)
@@ -24,7 +24,7 @@ describe('test/cmd/dev.test.ts', () => {
 
   it('should dev start with custom NODE_ENV', () => {
     return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { NODE_ENV: 'prod' } })
-      .debug()
+      // .debug()
       .expect('stdout', /"workers":1/)
       .expect('stdout', /"baseDir":".*?demo-app"/)
       .expect('stdout', /"framework":".*?aliyun-egg"/)
