@@ -79,6 +79,14 @@ export class TestCommand extends BaseCommand {
   })
   mochawesome: boolean;
 
+  @Option({
+    description: 'bbort ("bail") after first test failure',
+    alias: 'b',
+    type: 'boolean',
+    default: false,
+  })
+  bail: boolean;
+
   @Options()
   args: any;
 
@@ -107,12 +115,7 @@ export class TestCommand extends BaseCommand {
 
     const mochaArgs = await this.formatMochaArgs();
     if (!mochaArgs) return;
-
-    const mochaCmd = [
-      mochaFile,
-      ...mochaArgs,
-    ].filter(argv => argv.trim()).join(' ');
-    await this.runNodeCmd(mochaCmd);
+    await this.forkNode(mochaFile, mochaArgs);
   }
 
   protected async formatMochaArgs() {
@@ -185,15 +188,16 @@ export class TestCommand extends BaseCommand {
       this.dryRun ? '--dry-run' : '',
       // force exit
       '--exit',
+      this.bail ? '--bail' : '',
       this.grep.map(pattern => `--grep='${pattern}'`).join(' '),
-      this.timeout === false ? '--no-timeout' : `--timeout ${this.timeout}`,
+      this.timeout === false ? '--no-timeout' : `--timeout=${this.timeout}`,
       this.parallel ? '--parallel' : '',
-      this.parallel && this.jobs ? `--jobs ${this.jobs}` : '',
-      reporter ? `--reporter ${reporter}` : '',
-      reporterOptions ? `--reporter-options ${reporterOptions}` : '',
-      ...requires.map(r => `--require ${r}`),
+      this.parallel && this.jobs ? `--jobs=${this.jobs}` : '',
+      reporter ? `--reporter=${reporter}` : '',
+      reporterOptions ? `--reporter-options=${reporterOptions}` : '',
+      ...requires.map(r => `--require=${r}`),
       ...files,
-    ];
+    ].filter(a => a.trim());
   }
 
   protected async getChangedTestFiles(dir: string, ext: string) {

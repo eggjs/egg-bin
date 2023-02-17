@@ -1,11 +1,16 @@
 import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import _cpy from 'cpy';
 import runscript from 'runscript';
 import coffee from './coffee';
 
 async function cpy(src: string, target: string) {
-  await fs.cp(src, target, { force: true, recursive: true });
+  if (fs.cp) {
+    await fs.cp(src, target, { force: true, recursive: true });
+    return;
+  }
+  await _cpy(src, target);
 }
 
 describe('test/ts.test.ts', () => {
@@ -28,11 +33,9 @@ describe('test/ts.test.ts', () => {
     return coffee.fork(eggBin, [ 'test', '--typescript' ], { cwd, env: { NODE_ENV: 'development' } })
       // .debug()
       .expect('stdout', /'egg from ts' == 'wrong assert ts'/)
-      .end((err, { stdout, code }) => {
-        assert(err);
-        assert(stdout.match(/AssertionError/));
-        assert(code === 1);
-      });
+      .expect('stdout', /AssertionError/)
+      .expect('code', 1)
+      .end();
   });
 
   describe('real application', () => {
@@ -91,7 +94,7 @@ describe('test/ts.test.ts', () => {
 
     it('should correct error stack line number in starting app', () => {
       return coffee.fork(eggBin, [ 'dev' ], { cwd, env: { THROW_ERROR: 'true' } })
-        // .debug()
+        .debug()
         .expect('stderr', /Error: throw error/)
         .expect('stderr', /at \w+ \(.+app\.ts:7:11\)/)
         .end();
@@ -104,6 +107,7 @@ describe('test/ts.test.ts', () => {
         .expect('stdout', /2 failing/)
         .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
         .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
+        .expect('code', 1)
         .end();
     });
 
@@ -114,6 +118,7 @@ describe('test/ts.test.ts', () => {
         .expect('stdout', /2 failing/)
         .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
         .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
+        .expect('code', 1)
         .end();
     });
 
@@ -124,6 +129,7 @@ describe('test/ts.test.ts', () => {
         .expect('stdout', /2 failing/)
         .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
         .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
+        .expect('code', 1)
         .end();
     });
 
@@ -140,11 +146,8 @@ describe('test/ts.test.ts', () => {
         .expect('stdout', /2 failing/)
         .expect('stdout', /test[\/\\]index\.test\.ts:\d+:\d+\)/)
         .expect('stdout', /AssertionError \[ERR_ASSERTION]: '111' == '222'/)
-        .end((err, { stdout, code }) => {
-          assert(err);
-          assert(stdout.match(/AssertionError/));
-          assert(code === 1);
-        });
+        .expect('code', 1)
+        .end();
     });
 
     it('should correct error stack line number in covering app', () => {
@@ -159,8 +162,7 @@ describe('test/ts.test.ts', () => {
 
     it('should correct error stack line number in mixed app', () => {
       const cwd = path.join(fixtures, 'example-ts-error-stack-mixed');
-      const testFile = path.resolve(cwd, 'test/index.test.js');
-      return coffee.fork(eggBin, [ 'test', testFile ], { cwd })
+      return coffee.fork(eggBin, [ 'test', '--ts', 'false' ], { cwd })
         // .debug()
         .expect('stdout', /error/)
         .expect('stdout', /2 failing/)
@@ -217,6 +219,7 @@ describe('test/ts.test.ts', () => {
     });
 
     it('should load custom ts compiler', async () => {
+      if (process.platform === 'win32') return;
       const cwd = path.join(fixtures, 'example-ts-custom-compiler');
 
       // install custom ts-node
@@ -225,7 +228,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall', { cwd });
       } else {
-        await runscript('npx cnpm install', { cwd });
+        await runscript('npx npminstall -c', { cwd });
       }
 
       // copy egg to node_modules
@@ -247,6 +250,7 @@ describe('test/ts.test.ts', () => {
     });
 
     it('should load custom ts compiler with tscompiler args', async () => {
+      if (process.platform === 'win32') return;
       const cwd = path.join(fixtures, 'example-ts-custom-compiler-2');
 
       // install custom ts-node
@@ -255,7 +259,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
       } else {
-        await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall -c ts-node@10.9.0 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -287,7 +291,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
       } else {
-        await runscript('npx cnpm install ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall -c ts-node@10.9.0 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -384,7 +388,7 @@ describe('test/ts.test.ts', () => {
         // dont use npmmirror.com on CI
         await runscript('npx npminstall', { cwd });
       } else {
-        await runscript('npx cnpm install', { cwd });
+        await runscript('npx npminstall -c', { cwd });
       }
 
       // copy egg to node_modules

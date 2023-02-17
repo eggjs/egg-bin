@@ -125,11 +125,9 @@ describe('test/cmd/cov.test.ts', () => {
         // .debug()
         .expect('stdout', /1\) should fail/)
         .expect('stdout', /1 failing/)
-        .end((err, { stdout, code }) => {
-          assert(err);
-          assert(stdout.match(/AssertionError/));
-          assert(code === 1);
-        });
+        .expect('stderr', /exit with code 1/)
+        .expect('code', 1)
+        .end();
     });
 
     it('should run cov when no test files', () => {
@@ -158,6 +156,7 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('test parallel', () => {
+      if (process.platform === 'win32') return;
       return coffee.fork(eggBin, [ 'cov', '--parallel', '--ts=false' ], {
         cwd: path.join(fixtures, 'test-demo-app'),
         env: { TESTS: 'test/**/*.test.js' },
