@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.2](https://github.com/eggjs/egg-bin/compare/v6.1.1...v6.1.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* should support windows and Node.js 14 ([#223](https://github.com/eggjs/egg-bin/issues/223)) ([8f1b709](https://github.com/eggjs/egg-bin/commit/8f1b709961475c10dbbc4d8c51ed2c54af8a39ce))
+
 ## [6.1.1](https://github.com/eggjs/egg-bin/compare/v6.1.0...v6.1.1) (2023-02-14)
 
 
