@@ -3,9 +3,7 @@ import os from 'node:os';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {
-  DefineCommand, Option, Options,
-  CommandContext,
-  Inject,
+  DefineCommand, Option,
 } from '@artus-cli/artus-cli';
 import globby from 'globby';
 import { getChangedFilesForRoots } from 'jest-changed-files';
@@ -87,12 +85,6 @@ export class TestCommand extends BaseCommand {
   })
   bail: boolean;
 
-  @Options()
-  args: any;
-
-  @Inject()
-  ctx: CommandContext;
-
   async run() {
     try {
       await fs.access(this.base);
@@ -111,7 +103,7 @@ export class TestCommand extends BaseCommand {
     // set NODE_ENV=test, let egg application load unittest logic
     // https://eggjs.org/basics/env#difference-from-node_env
     this.ctx.env.NODE_ENV = 'test';
-    debug('run test: %s %o', mochaFile, this.args);
+    debug('run test: %s %o', mochaFile, this.ctx.args);
 
     const mochaArgs = await this.formatMochaArgs();
     if (!mochaArgs) return;
@@ -144,7 +136,7 @@ export class TestCommand extends BaseCommand {
       }
     }
 
-    const ext = this.args.typescript ? 'ts' : 'js';
+    const ext = this.ctx.args.typescript ? 'ts' : 'js';
     let pattern = this.files;
     // changed
     if (this.changed) {

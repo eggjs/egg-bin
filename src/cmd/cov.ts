@@ -58,7 +58,7 @@ export class CovCommand extends TestCommand {
       // '--show-process-tree',
       ...this.c8.split(' ').filter(a => a.trim()),
     ];
-    if (this.args.typescript) {
+    if (this.ctx.args.typescript) {
       this.ctx.env.SPAWN_WRAP_SHIM_ROOT = path.join(this.base, 'node_modules');
       c8Args.push('--extension');
       c8Args.push('.ts');

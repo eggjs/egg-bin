@@ -2,7 +2,7 @@ import { debuglog } from 'node:util';
 import { fork, ForkOptions, ChildProcess } from 'node:child_process';
 import {
   DefineCommand,
-  Options, Option, Command,
+  Option, Command,
   CommandContext,
   Inject,
   Utils,
@@ -63,9 +63,6 @@ export abstract class BaseCommand extends Command {
     default: [],
   })
   require: string[];
-
-  @Options()
-  args: any;
 
   @Inject()
   ctx: CommandContext;

@@ -14,7 +14,7 @@
     "egg-bin": "dist/bin/cli.js"
   },
   "dependencies": {
-    "@artus-cli/artus-cli": "^0.2.1",
+    "@artus-cli/artus-cli": "^0.2.5",
     "@artus-cli/plugin-autocomplete": "^0.1.1",
     "@artus-cli/plugin-version": "^1.0.1",
     "c8": "^7.12.0",
@@ -70,7 +70,7 @@
     "contributor": "git-contributor",
     "lint": "eslint . --cache --ext ts",
     "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "ts-node --swc src/bin/cli.ts test",
+    "test-local": "npm run tsc && node dist/bin/cli.js test",
     "test-local-with-ts-node-transpile-only": "node -r ts-node/register/transpile-only src/bin/cli.ts test",
     "test-local-with-swc": "node -r @swc-node/register src/bin/cli.ts test",
     "test-local-with-esbuild": "node -r esbuild-register src/bin/cli.ts test",
