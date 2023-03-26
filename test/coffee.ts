@@ -1,4 +1,4 @@
-import { ForkOptions } from 'child_process';
+import { ForkOptions } from 'node:child_process';
 import coffee from 'coffee';
 
 export default {

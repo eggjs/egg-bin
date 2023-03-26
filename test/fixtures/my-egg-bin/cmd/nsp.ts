@@ -7,6 +7,6 @@ import { BaseCommand } from '../../../../src/index';
 })
 export class NspCommand extends BaseCommand {
   async run() {
-    console.log('run nsp check at baseDir: %s, with %o', this.base, this.args);
+    console.log('run nsp check at baseDir: %s, with %o', this.base, this.ctx.args);
   }
 }

@@ -1,8 +1,8 @@
 {
   "extends": "@eggjs/tsconfig",
   "compilerOptions": {
-    "outDir": "dist",
-    "incremental": false
+    "target": "ES2021",
+    "outDir": "dist"
   },
   "include": [
     "src"

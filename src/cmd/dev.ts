@@ -39,7 +39,7 @@ export class DevCommand extends BaseCommand {
   sticky: boolean;
 
   async run() {
-    debug('run dev: %o', this.args);
+    debug('run dev: %o', this.ctx.args);
     this.ctx.env.NODE_ENV = this.ctx.env.NODE_ENV ?? 'development';
     this.ctx.env.EGG_MASTER_CLOSE_TIMEOUT = '1000';
     const serverBin = path.join(__dirname, '../../scripts/start-cluster.js');
@@ -73,8 +73,8 @@ export class DevCommand extends BaseCommand {
       workers: this.workers,
       port: this.port,
       framework: this.framework,
-      typescript: this.args.typescript,
-      tscompiler: this.args.tscompiler,
+      typescript: this.ctx.args.typescript,
+      tscompiler: this.ctx.args.tscompiler,
       sticky: this.sticky,
     };
   }

@@ -1,4 +1,4 @@
-import assert from 'assert';
+import assert from 'node:assert';
 
 describe('test/index.test.ts', () => {
   // placeholder comments
