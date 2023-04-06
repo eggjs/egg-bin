@@ -14,7 +14,7 @@
     "egg-bin": "dist/bin/cli.js"
   },
   "dependencies": {
-    "@artus-cli/artus-cli": "^0.2.5",
+    "@artus-cli/artus-cli": "^0.2.9",
     "@artus-cli/plugin-autocomplete": "^0.1.1",
     "@artus-cli/plugin-version": "^1.0.1",
     "c8": "^7.12.0",
