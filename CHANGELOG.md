@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.3.0](https://github.com/eggjs/egg-bin/compare/v6.2.0...v6.3.0) (2023-04-06)
+
+
+### Features
+
+* tsc target to ES2022 ([#225](https://github.com/eggjs/egg-bin/issues/225)) ([9d6f835](https://github.com/eggjs/egg-bin/commit/9d6f83549b78a1040230645eee9efe2ec2bdecb6))
+
 ## [6.1.2](https://github.com/eggjs/egg-bin/compare/v6.1.1...v6.1.2) (2023-02-17)
 
 
