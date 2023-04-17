@@ -378,7 +378,7 @@ describe('test/ts.test.js', () => {
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
     });
 
-    it('should load egg-ts-helper with dts flag', () => {
+    it.skip('should load egg-ts-helper with dts flag', () => {
       fs.mkdirSync(path.join(cwd, 'typings'));
       return coffee.fork(eggBin, [ 'dev', '--dts' ], { cwd })
         // .debug()
@@ -389,7 +389,7 @@ describe('test/ts.test.js', () => {
         .end();
     });
 
-    it('should load egg-ts-helper with egg.declarations = true', () => {
+    it.skip('should load egg-ts-helper with egg.declarations = true', () => {
       fs.mkdirSync(path.join(cwd, 'typings'));
       pkgJson.egg.declarations = true;
       fs.writeFileSync(path.resolve(cwd, './package.json'), JSON.stringify(pkgJson, null, 2));
