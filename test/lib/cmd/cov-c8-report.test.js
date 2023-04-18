@@ -23,6 +23,7 @@ describe('test/lib/cmd/cov-c8-report.test.js', () => {
     assert.ok(fs.existsSync(path.join(cwd, 'coverage/coverage-summary.json')));
     assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov-report/index.html')));
     assert.ok(fs.existsSync(path.join(cwd, 'coverage/lcov.info')));
+    assert.ok(fs.existsSync(path.join(cwd, 'coverage/cobertura-coverage.xml')));
   }
 
   it('should success when c8-report', function* () {
