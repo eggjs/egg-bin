@@ -1,4 +1,11 @@
 # Changelog
+## [6.4.0](https://github.com/eggjs/egg-bin/compare/v6.3.0...v6.4.0) (2023-04-18)
+
+
+### Features
+
+* append cobertura to support diff line coverage ([#227](https://github.com/eggjs/egg-bin/issues/227)) ([ddf732f](https://github.com/eggjs/egg-bin/commit/ddf732fba211b2123da568bbb1ee6d84d046c083))
+* output cobertura report by default ([#228](https://github.com/eggjs/egg-bin/issues/228)) ([8818a3d](https://github.com/eggjs/egg-bin/commit/8818a3ded5e40ced3c1f72f384a14beded595f35))
 
 ## [6.3.0](https://github.com/eggjs/egg-bin/compare/v6.2.0...v6.3.0) (2023-04-06)
 
