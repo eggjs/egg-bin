@@ -26,7 +26,7 @@ export class CovCommand extends TestCommand {
 
   @Option({
     description: 'c8 instruments passthrough`',
-    default: '--temp-directory node_modules/.c8_output -r text-summary -r json-summary -r json -r lcov',
+    default: '--temp-directory node_modules/.c8_output -r text-summary -r json-summary -r json -r lcov -r cobertura',
   })
   c8: string;
 
@@ -50,6 +50,10 @@ export class CovCommand extends TestCommand {
   protected async forkNode(modulePath: string, args: string[]) {
     if (this.prerequire) {
       this.ctx.env.EGG_BIN_PREREQUIRE = 'true';
+    }
+    // append cobertura
+    if (this.c8) {
+      this.c8 += ' -r cobertura';
     }
 
     // add c8 args
