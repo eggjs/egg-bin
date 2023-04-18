@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    branches: [ master ]
+    branches: [ master, 5.x ]
 
   workflow_dispatch: {}
 
