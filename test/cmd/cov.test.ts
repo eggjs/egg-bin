@@ -14,6 +14,7 @@ describe('test/cmd/cov.test.ts', () => {
     assertFile(path.join(baseDir, 'coverage/coverage-summary.json'));
     assertFile(path.join(baseDir, 'coverage/lcov-report/index.html'));
     assertFile(path.join(baseDir, 'coverage/lcov.info'));
+    assertFile(path.join(baseDir, 'coverage/cobertura-coverage.xml'));
   }
 
   describe('egg-bin cov', () => {
