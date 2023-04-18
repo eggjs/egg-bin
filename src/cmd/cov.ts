@@ -26,7 +26,7 @@ export class CovCommand extends TestCommand {
 
   @Option({
     description: 'c8 instruments passthrough`',
-    default: '--temp-directory node_modules/.c8_output -r text-summary -r json-summary -r json -r lcov',
+    default: '--temp-directory node_modules/.c8_output -r text-summary -r json-summary -r json -r lcov -r cobertura',
   })
   c8: string;
 
