@@ -206,7 +206,7 @@ COV_EXCLUDES="app/plugins/c*,app/autocreate/**" egg-bin cov
 
 ## Custom egg-bin for your team
 
-See <https://www.yuque.com/atian25/blog/artus-cli>
+See <https://artus-cli.github.io>
 
 ## License
 
