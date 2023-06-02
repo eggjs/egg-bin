@@ -78,7 +78,7 @@ export class TestCommand extends BaseCommand {
   mochawesome: boolean;
 
   @Option({
-    description: 'bbort ("bail") after first test failure',
+    description: 'abort ("bail") after first test failure',
     alias: 'b',
     type: 'boolean',
     default: false,

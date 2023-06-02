@@ -41,7 +41,7 @@ export default class implements ApplicationLifecycle {
         debug('ctx.args.base not set, auto set it to cwd: %o', ctx.cwd);
       }
       if (!path.isAbsolute(ctx.args.base)) {
-        ctx.args.base = path.join(ctx.cwd, ctx.args.base);
+        ctx.args.base = path.resolve(ctx.cwd, ctx.args.base);
       }
       debug('matched cmd: %o, ctx.args.base: %o', ctx.matched?.cmd, ctx.args.base);
       const pkg = await readPackageJSON(ctx.args.base);
