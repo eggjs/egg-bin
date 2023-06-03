@@ -152,7 +152,7 @@ export class TestCommand extends BaseCommand {
       pattern = process.env.TESTS.split(',');
     }
 
-    // collect test files
+    // collect test files when nothing is changed
     if (!pattern.length) {
       pattern = [ `test/**/*.test.${ext}` ];
     }
@@ -196,10 +196,15 @@ export class TestCommand extends BaseCommand {
     const res = await getChangedFilesForRoots([ path.join(dir, 'test') ], {});
     const changedFiles = res.changedFiles;
     const files: string[] = [];
-    for (const file of changedFiles) {
+    for (let cf of changedFiles) {
       // only find test/**/*.test.(js|ts)
-      if (file.endsWith(`.test.${ext}`)) {
-        files.push(file);
+      if (cf.endsWith(`.test.${ext}`)) {
+        // Patterns MUST use forward slashes (not backslashes)
+        // This should be converted on Windows
+        if (process.platform === 'win32') {
+          cf = cf.replace(/\\/g, '/');
+        }
+        files.push(cf);
       }
     }
     return files;
