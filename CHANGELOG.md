@@ -1,4 +1,12 @@
 # Changelog
+
+## [6.4.1](https://github.com/eggjs/egg-bin/compare/v6.4.0...v6.4.1) (2023-06-03)
+
+
+### Bug Fixes
+
+* detect file changes on Windows ([#234](https://github.com/eggjs/egg-bin/issues/234)) ([38f1c6c](https://github.com/eggjs/egg-bin/commit/38f1c6ccc642e941f65f5b2b370116804827801b))
+
 ## [6.4.0](https://github.com/eggjs/egg-bin/compare/v6.3.0...v6.4.0) (2023-04-18)
 
 
