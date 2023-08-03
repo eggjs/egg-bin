@@ -107,7 +107,13 @@ export class TestCommand extends BaseCommand {
 
     const mochaArgs = await this.formatMochaArgs();
     if (!mochaArgs) return;
-    await this.forkNode(mochaFile, mochaArgs);
+    await this.forkNode(mochaFile, mochaArgs, {
+      execArgv: [
+        ...process.execArgv,
+        // https://github.com/mochajs/mocha/issues/2640#issuecomment-1663388547
+        '--unhandled-rejections=strict',
+      ],
+    });
   }
 
   protected async formatMochaArgs() {
