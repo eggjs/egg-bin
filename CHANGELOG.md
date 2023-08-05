@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.4.2](https://github.com/eggjs/egg-bin/compare/v6.4.1...v6.4.2) (2023-08-05)
+
+
+### Bug Fixes
+
+* convert unhandled rejection to uncaught exception ([#235](https://github.com/eggjs/egg-bin/issues/235)) ([1e25880](https://github.com/eggjs/egg-bin/commit/1e25880848849cb5fee63fd7e9982afbf09301da))
+
 ## [6.4.1](https://github.com/eggjs/egg-bin/compare/v6.4.0...v6.4.1) (2023-06-03)
 
 
