@@ -291,6 +291,13 @@ describe('test/lib/cmd/test.test.js', () => {
       .expect('stdout', /env\.AUTO_AGENT: true/)
       .expect('stdout', /env\.ENABLE_MOCHA_PARALLEL: true/)
       .expect('code', 0)
+  });
+
+  it('should failed with unhandled rejection', () => {
+    return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(__dirname, '../../fixtures/test-unhandled-rejection') })
+      .debug()
+      .expect('stdout', / Uncaught Error: mock error/)
+      .expect('code', 1)
       .end();
   });
 });
