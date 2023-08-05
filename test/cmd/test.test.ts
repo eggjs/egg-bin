@@ -168,6 +168,14 @@ describe('test/cmd/test.test.ts', () => {
         .end();
     });
 
+    it('should success js', () => {
+      return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(fixtures, 'test-unhandled-rejection') })
+        // .debug()
+        .expect('stdout', / Uncaught Error: mock error/)
+        .expect('code', 1)
+        .end();
+    });
+
     it('test parallel', () => {
       if (process.platform === 'win32') return;
       return coffee.fork(eggBin, [ 'test', '--parallel' ], {
