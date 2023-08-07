@@ -290,7 +290,7 @@ describe('test/lib/cmd/test.test.js', () => {
       // .debug()
       .expect('stdout', /env\.AUTO_AGENT: true/)
       .expect('stdout', /env\.ENABLE_MOCHA_PARALLEL: true/)
-      .expect('code', 0)
+      .expect('code', 0);
   });
 
   it('should failed with unhandled rejection', () => {
