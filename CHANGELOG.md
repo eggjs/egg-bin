@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.14.2](https://github.com/eggjs/egg-bin/compare/v5.14.1...v5.14.2) (2023-08-25)
+
+
+### Bug Fixes
+
+* NODE_OPTIONS should set to process.env/context.env ([#237](https://github.com/eggjs/egg-bin/issues/237)) ([8e2f437](https://github.com/eggjs/egg-bin/commit/8e2f437298e7e29a9bc9fbe395815103e6041e96))
+
 ## [5.14.1](https://github.com/eggjs/egg-bin/compare/v5.14.0...v5.14.1) (2023-08-07)
 
 
