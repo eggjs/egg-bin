@@ -168,5 +168,17 @@ describe('test/cmd/cov.test.ts', () => {
         .expect('code', 0)
         .end();
     });
+
+    it('should run cov on ts-esm module', () => {
+      const cwd = path.join(fixtures, 'mocha-test-ts-esm');
+      return coffee.fork(eggBin, [ 'cov' ], {
+        cwd,
+      })
+        .debug()
+        .expect('stdout', /should work/)
+        .expect('stdout', /2 passing/)
+        .expect('code', 0)
+        .end();
+    });
   });
 });

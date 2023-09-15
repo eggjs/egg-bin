@@ -101,8 +101,13 @@ export default class implements ApplicationLifecycle {
         // keep same logic with egg-core, test cmd load files need it
         // see https://github.com/eggjs/egg-core/blob/master/lib/loader/egg_loader.js#L49
         addNodeOptionsToEnv(`--require ${require.resolve('tsconfig-paths/register')}`, ctx.env);
-        debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
       }
+      if (pkg.type === 'module') {
+        // use ts-node/esm loader on esm
+        addNodeOptionsToEnv('--loader ts-node/esm', ctx.env);
+      }
+
+      debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
       debug('ctx.args: %o', ctx.args);
       debug('enter next');
       await next();
