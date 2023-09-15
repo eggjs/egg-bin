@@ -1,6 +1,6 @@
 {
   "name": "egg-bin",
-  "version": "6.4.2",
+  "version": "6.5.0",
   "publishConfig": {
     "tag": "latest"
   },

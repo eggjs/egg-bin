@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.5.0](https://github.com/eggjs/egg-bin/compare/v6.4.2...v6.5.0) (2023-09-15)
+
+
+### Features
+
+* support run test/cov on esm package ([#239](https://github.com/eggjs/egg-bin/issues/239)) ([6ae1044](https://github.com/eggjs/egg-bin/commit/6ae10444af01cccfac19b2e4210f7fb06382e728))
+
 ## [6.4.2](https://github.com/eggjs/egg-bin/compare/v6.4.1...v6.4.2) (2023-08-05)
 
 
