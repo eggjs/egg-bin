@@ -168,6 +168,18 @@ describe('test/cmd/test.test.ts', () => {
         .end();
     });
 
+    it('should run test on ts-esm module', () => {
+      const cwd = path.join(fixtures, 'mocha-test-ts-esm');
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd,
+      })
+        .debug()
+        .expect('stdout', /should work/)
+        .expect('stdout', /2 passing/)
+        .expect('code', 0)
+        .end();
+    });
+
     it('should success js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(fixtures, 'test-unhandled-rejection') })
         // .debug()
