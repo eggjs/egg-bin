@@ -104,7 +104,7 @@ export default class implements ApplicationLifecycle {
       }
       if (pkg.type === 'module') {
         // use ts-node/esm loader on esm
-        addNodeOptionsToEnv('--loader ts-node/esm', ctx.env);
+        addNodeOptionsToEnv(`--loader ${require.resolve('ts-node/esm')}`, ctx.env);
       }
 
       debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
