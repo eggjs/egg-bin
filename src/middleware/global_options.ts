@@ -112,6 +112,8 @@ export default class implements ApplicationLifecycle {
           // https://nodejs.org/api/url.html#url_url_pathtofileurl_path
           esmLoader = pathToFileURL(esmLoader).href;
         }
+        // wait for https://github.com/nodejs/node/issues/40940
+        addNodeOptionsToEnv('--no-warnings', ctx.env);
         addNodeOptionsToEnv(`--loader ${esmLoader}`, ctx.env);
       }
 
