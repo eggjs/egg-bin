@@ -1,5 +1,6 @@
 import { debuglog } from 'node:util';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
@@ -108,7 +109,8 @@ export default class implements ApplicationLifecycle {
         if (process.platform === 'win32') {
           // ES Module loading with abolute path fails on windows
           // https://github.com/nodejs/node/issues/31710#issuecomment-583916239
-          esmLoader = `file://${esmLoader}`;
+          // https://nodejs.org/api/url.html#url_url_pathtofileurl_path
+          esmLoader = pathToFileURL(esmLoader).href;
         }
         addNodeOptionsToEnv(`--loader ${esmLoader}`, ctx.env);
       }
