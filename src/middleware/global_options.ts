@@ -104,7 +104,13 @@ export default class implements ApplicationLifecycle {
       }
       if (pkg.type === 'module') {
         // use ts-node/esm loader on esm
-        addNodeOptionsToEnv(`--loader ${require.resolve('ts-node/esm')}`, ctx.env);
+        let esmLoader = require.resolve('ts-node/esm');
+        if (process.platform === 'win32') {
+          // ES Module loading with abolute path fails on windows
+          // https://github.com/nodejs/node/issues/31710#issuecomment-583916239
+          esmLoader = `file://${esmLoader}`;
+        }
+        addNodeOptionsToEnv(`--loader ${esmLoader}`, ctx.env);
       }
 
       debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
