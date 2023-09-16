@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.5.2](https://github.com/eggjs/egg-bin/compare/v6.5.1...v6.5.2) (2023-09-16)
+
+
+### Bug Fixes
+
+* ignore ExperimentalWarning on esm module ([#241](https://github.com/eggjs/egg-bin/issues/241)) ([6a2521a](https://github.com/eggjs/egg-bin/commit/6a2521a2c11ac9416a21b01b37aad50f50c9ff49))
+
 ## [6.5.1](https://github.com/eggjs/egg-bin/compare/v6.5.0...v6.5.1) (2023-09-16)
 
 
