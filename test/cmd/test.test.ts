@@ -176,6 +176,7 @@ describe('test/cmd/test.test.ts', () => {
         .debug()
         .expect('stdout', /should work/)
         .expect('stdout', /2 passing/)
+        .notExpect('stderr', /ExperimentalWarning/)
         .expect('code', 0)
         .end();
     });
