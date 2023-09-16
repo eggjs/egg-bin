@@ -1,5 +1,6 @@
 import { debuglog } from 'node:util';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
@@ -104,7 +105,14 @@ export default class implements ApplicationLifecycle {
       }
       if (pkg.type === 'module') {
         // use ts-node/esm loader on esm
-        addNodeOptionsToEnv('--loader ts-node/esm', ctx.env);
+        let esmLoader = require.resolve('ts-node/esm');
+        if (process.platform === 'win32') {
+          // ES Module loading with abolute path fails on windows
+          // https://github.com/nodejs/node/issues/31710#issuecomment-583916239
+          // https://nodejs.org/api/url.html#url_url_pathtofileurl_path
+          esmLoader = pathToFileURL(esmLoader).href;
+        }
+        addNodeOptionsToEnv(`--loader ${esmLoader}`, ctx.env);
       }
 
       debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
