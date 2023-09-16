@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.5.1](https://github.com/eggjs/egg-bin/compare/v6.5.0...v6.5.1) (2023-09-16)
+
+
+### Bug Fixes
+
+* use ts-node inside the egg-bin deps ([#240](https://github.com/eggjs/egg-bin/issues/240)) ([f13df56](https://github.com/eggjs/egg-bin/commit/f13df56a1dfd4e69822392c4ad47c6aa785f1cac))
+
 ## [6.5.0](https://github.com/eggjs/egg-bin/compare/v6.4.2...v6.5.0) (2023-09-15)
 
 
