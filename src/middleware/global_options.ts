@@ -5,12 +5,13 @@ import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
+import runscript from 'runscript';
 import { addNodeOptionsToEnv, readPackageJSON, hasTsConfig } from '../utils';
 
 const debug = debuglog('egg-bin:midddleware:global_options');
 
 @LifecycleHookUnit()
-export default class implements ApplicationLifecycle {
+export default class GlobalOptions implements ApplicationLifecycle {
   @Inject()
   private readonly program: Program;
 
@@ -22,6 +23,11 @@ export default class implements ApplicationLifecycle {
         description: 'directory of application, default to `process.cwd()`',
         type: 'string',
         alias: 'baseDir',
+      },
+      declarations: {
+        description: 'whether create typings, will add `--require egg-ts-helper/register`',
+        type: 'boolean',
+        alias: 'dts',
       },
       typescript: {
         description: 'whether enable typescript support',
@@ -115,6 +121,19 @@ export default class implements ApplicationLifecycle {
         // wait for https://github.com/nodejs/node/issues/40940
         addNodeOptionsToEnv('--no-warnings', ctx.env);
         addNodeOptionsToEnv(`--loader ${esmLoader}`, ctx.env);
+      }
+
+      if (ctx.args.declarations === undefined) {
+        if (typeof ctx.args.pkgEgg.declarations === 'boolean') {
+          // read `egg.declarations` from package.json if not pass argv
+          ctx.args.declarations = ctx.args.pkgEgg.declarations;
+          debug('detect declarations from pkg.egg.declarations=%o', ctx.args.pkgEgg.declarations);
+        }
+      }
+      if (ctx.args.declarations) {
+        const etsBin = require.resolve('egg-ts-helper/dist/bin');
+        debug('run ets first: %o', etsBin);
+        await runscript(`node ${etsBin}`);
       }
 
       debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
