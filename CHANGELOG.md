@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.6.0](https://github.com/eggjs/egg-bin/compare/v6.5.2...v6.6.0) (2024-01-07)
+
+
+### Features
+
+* should run ets on pkg.egg.declarations = true ([#248](https://github.com/eggjs/egg-bin/issues/248)) ([018801a](https://github.com/eggjs/egg-bin/commit/018801a241324626748c0d9ea90573349cd3d2fa))
+
 ## [6.5.2](https://github.com/eggjs/egg-bin/compare/v6.5.1...v6.5.2) (2023-09-16)
 
 
