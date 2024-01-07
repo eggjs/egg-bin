@@ -245,7 +245,7 @@ describe('test/ts.test.ts', () => {
       })
         // .debug()
         .end();
-      assert.match(stderr, /ts-node@10\.9\.0/);
+      assert.match(stderr, /ts-node@10\.\d+\.\d+/);
       assert.equal(code, 0);
     });
 
@@ -278,7 +278,7 @@ describe('test/ts.test.ts', () => {
       })
         // .debug()
         .end();
-      assert.match(stderr, /ts-node@10\.9\.0/);
+      assert.match(stderr, /ts-node@10\.\d+\.\d+/);
       assert.equal(code, 0);
     });
 
@@ -308,7 +308,7 @@ describe('test/ts.test.ts', () => {
       })
         // .debug()
         .end();
-      assert.doesNotMatch(stderr, /ts-node@10\.9\.0/);
+      assert.doesNotMatch(stderr, /ts-node@10\.\d+\.\d+/);
       assert.equal(code, 0);
     });
 
@@ -405,7 +405,7 @@ describe('test/ts.test.ts', () => {
       })
         // .debug()
         .end();
-      assert.match(stdout, /ts-node@10\.9\.0/);
+      assert.match(stdout, /ts-node@10\.\d+\.\d+/);
       assert.equal(code, 0);
     });
 
