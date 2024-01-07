@@ -50,7 +50,10 @@ describe('test/cmd/cov.test.ts', () => {
     it('should success with COV_EXCLUDES', async () => {
       await coffee.fork(eggBin, [ 'cov', '--ts=false' ], {
         cwd,
-        env: { TESTS: 'test/**/*.test.js', COV_EXCLUDES: 'ignore/*' },
+        env: {
+          TESTS: 'test/**/*.test.js',
+          COV_EXCLUDES: 'ignore/*',
+        },
       })
         // .debug()
         .expect('stdout', /should success/)

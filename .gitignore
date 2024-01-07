@@ -33,3 +33,5 @@ cmd/*.js
 !bin/postinstall.js
 .eslintcache
 dist
+test/fixtures/example-declarations/typings/
+!test/fixtures/example-declarations/node_modules

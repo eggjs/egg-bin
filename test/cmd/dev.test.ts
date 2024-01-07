@@ -33,6 +33,18 @@ describe('test/cmd/dev.test.ts', () => {
       .end();
   });
 
+  it('should dev start work with declarations = true', () => {
+    const cwd = path.join(fixtures, 'example-declarations');
+    return coffee.fork(eggBin, [ 'dev' ], { cwd })
+      .debug()
+      .expect('stdout', /"workers":1/)
+      .expect('stdout', /"baseDir":".*?example-declarations"/)
+      .expect('stdout', /"framework":".*?egg"/)
+      .expect('stdout', /\[egg-ts-helper\] create typings/)
+      .expect('code', 0)
+      .end();
+  });
+
   it('should startCluster with --port', () => {
     return coffee.fork(eggBin, [ 'dev', '--port', '6001' ], { cwd })
       // .debug()

@@ -15,8 +15,6 @@
         "--",
         "--inspect-brk"
       ],
-      "protocol": "auto",
-      "port": 9229,
       "autoAttachChildProcesses": true
     }
   ]

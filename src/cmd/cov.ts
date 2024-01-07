@@ -75,7 +75,7 @@ export class CovCommand extends TestCommand {
     ]);
     for (const exclude of excludes) {
       c8Args.push('-x');
-      c8Args.push(`'${exclude}'`);
+      c8Args.push(exclude);
     }
     const c8File = require.resolve('c8/bin/c8.js');
     const outputDir = path.join(this.base, 'node_modules/.c8_output');
