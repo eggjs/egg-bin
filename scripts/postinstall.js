@@ -20,9 +20,12 @@ debug('npmRunRoot: %o', npmRunRoot);
 
 if (npmRunRoot) {
   const pkgFile = path.join(npmRunRoot, 'package.json');
-  if (fs.existsSync(pkgFile)) {
+  const pkgFileExists = fs.existsSync(pkgFile);
+  debug('pkgFile: %o exists: %o', pkgFile, pkgFileExists);
+  if (pkgFileExists) {
     const pkg = require(pkgFile);
-    if (!pkg.egg || !pkg.egg.typescript) return;
+    // should set pkg.egg.declarations = true or pkg.egg.typescript = true
+    if (!pkg.egg?.typescript && !pkg.egg?.declarations) return;
     // ignore eggModule and framework
     // framework package.json:
     // "egg": {
