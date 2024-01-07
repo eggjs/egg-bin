@@ -257,9 +257,9 @@ describe('test/ts.test.ts', () => {
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
       if (process.env.CI) {
         // dont use npmmirror.com on CI
-        await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall ts-node@10.9.2 --no-save', { cwd });
       } else {
-        await runscript('npx npminstall -c ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall -c ts-node@10.9.2 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -278,7 +278,7 @@ describe('test/ts.test.ts', () => {
       })
         // .debug()
         .end();
-      assert.match(stderr, /ts-node@10\.\d+\.\d+/);
+      assert.match(stderr, /ts-node@10\.9\.2/);
       assert.equal(code, 0);
     });
 
@@ -289,9 +289,9 @@ describe('test/ts.test.ts', () => {
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
       if (process.env.CI) {
         // dont use npmmirror.com on CI
-        await runscript('npx npminstall ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall ts-node@10.9.2 --no-save', { cwd });
       } else {
-        await runscript('npx npminstall -c ts-node@10.9.0 --no-save', { cwd });
+        await runscript('npx npminstall -c ts-node@10.9.2 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -308,7 +308,7 @@ describe('test/ts.test.ts', () => {
       })
         // .debug()
         .end();
-      assert.doesNotMatch(stderr, /ts-node@10\.\d+\.\d+/);
+      assert.doesNotMatch(stderr, /ts-node@10\.9\.2/);
       assert.equal(code, 0);
     });
 
