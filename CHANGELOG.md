@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.7.0](https://github.com/eggjs/egg-bin/compare/v6.6.0...v6.7.0) (2024-01-09)
+
+
+### Features
+
+* egg-ts-helper 1.30.3 to 2.1.0 ([#249](https://github.com/eggjs/egg-bin/issues/249)) ([34e3b92](https://github.com/eggjs/egg-bin/commit/34e3b928a2bb5114a8128429b29286d3dca5274d))
+
 ## [6.6.0](https://github.com/eggjs/egg-bin/compare/v6.5.2...v6.6.0) (2024-01-07)
 
 
