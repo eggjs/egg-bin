@@ -55,19 +55,33 @@ export class DevCommand extends BaseCommand {
   }
 
   protected async formatEggStartOptions() {
-    if (!this.port) {
-      const defaultPort = process.env.EGG_BIN_DEFAULT_PORT ?? 7001;
-      debug('detect available port');
-      this.port = await detect(defaultPort);
-      if (this.port !== defaultPort) {
-        console.warn('[egg-bin] server port %s is in use, now using port %o', defaultPort, this.port);
-      }
-      debug(`use available port ${this.port}`);
-    }
     this.framework = utils.getFrameworkPath({
       framework: this.framework,
       baseDir: this.base,
     });
+
+    if (!this.port) {
+      const configuration = utils.getConfig({
+        framework: this.framework,
+        baseDir: this.base,
+        env: 'local',
+      });
+      const configuredPort = configuration?.cluster?.listen?.port;
+
+      if (configuredPort) {
+        this.port = configuredPort;
+        debug(`use port ${this.port} from configuration file`);
+      } else {
+        const defaultPort = process.env.EGG_BIN_DEFAULT_PORT ?? 7001;
+        debug('detect available port');
+        this.port = await detect(defaultPort);
+        if (this.port !== defaultPort) {
+          console.warn('[egg-bin] server port %s is in use, now using port %o', defaultPort, this.port);
+        }
+        debug(`use available port ${this.port}`);
+      }
+    }
+
     return {
       baseDir: this.base,
       workers: this.workers,
