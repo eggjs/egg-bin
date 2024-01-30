@@ -74,7 +74,7 @@ egg-bin dev
 #### dev options
 
 - `--framework` egg web framework root path.
-- `--port` server port, default to `7001`.
+- `--port` server port. If not specified, the port is obtained in the following order: [_egg.js_ configuration](https://www.eggjs.org/basics/config) `config/config.*.js` > `process.env.EGG_BIN_DEFAULT_PORT` > 7001 > other available ports.
 - `--workers` worker process number, default to `1` worker at local mode.
 - `--sticky` start a sticky cluster server, default to `false`.
 
