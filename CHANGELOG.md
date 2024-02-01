@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.8.0](https://github.com/eggjs/egg-bin/compare/v6.7.0...v6.8.0) (2024-02-01)
+
+
+### Features
+
+* supports retrieving the port from the configuration file ([#251](https://github.com/eggjs/egg-bin/issues/251)) ([07e150f](https://github.com/eggjs/egg-bin/commit/07e150f0f1cae2a75353428c9d10b4e9a16fd0db))
+
 ## [6.7.0](https://github.com/eggjs/egg-bin/compare/v6.6.0...v6.7.0) (2024-01-09)
 
 
