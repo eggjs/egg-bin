@@ -61,12 +61,15 @@ export class DevCommand extends BaseCommand {
     });
 
     if (!this.port) {
-      const configuration = utils.getConfig({
-        framework: this.framework,
-        baseDir: this.base,
-        env: 'local',
-      });
-      const configuredPort = configuration?.cluster?.listen?.port;
+      let configuredPort;
+      try {
+        const configuration = utils.getConfig({
+          framework: this.framework,
+          baseDir: this.base,
+          env: 'local',
+        });
+        configuredPort = configuration?.cluster?.listen?.port;
+      } catch (_) { /** skip when failing to read the configuration */ }
 
       if (configuredPort) {
         this.port = configuredPort;
