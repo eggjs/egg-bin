@@ -174,4 +174,16 @@ describe('test/cmd/dev.test.ts', () => {
         .end(done);
     });
   });
+
+  describe('obtain the port from config.*.js', () => {
+    const cwd = path.join(fixtures, 'example-port');
+    it('should obtain the port from config.default.js', () => {
+      coffee.fork(eggBin, [ 'dev' ], {
+        cwd,
+      })
+        .expect('stdout', /"port":6001/)
+        .expect('code', 0)
+        .end();
+    });
+  });
 });
