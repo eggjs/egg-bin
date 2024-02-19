@@ -3,6 +3,7 @@ const coffee = require('coffee');
 const net = require('net');
 const mm = require('mm');
 const detect = require('detect-port');
+const version = Number(process.version.substring(1, 3));
 
 describe('test/lib/cmd/dev.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -172,6 +173,18 @@ describe('test/lib/cmd/dev.test.js', () => {
     })
       // .debug()
       .expect('stdout', /hey, you require me by --require/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('should support egg.revert', () => {
+    if (version < 18) return;
+    mm(process.env, 'NODE_ENV', 'development');
+    return coffee.fork(eggBin, [ 'dev' ], {
+      cwd: path.join(__dirname, '../../fixtures/egg-revert'),
+    })
+      // .debug()
+      .expect('stdout', /SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding/)
       .expect('code', 0)
       .end();
   });
