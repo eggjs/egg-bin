@@ -300,4 +300,14 @@ describe('test/lib/cmd/test.test.js', () => {
       .expect('code', 1)
       .end();
   });
+
+  it('should support egg.revert', () => {
+    return coffee.fork(eggBin, [ 'test' ], {
+      cwd: path.join(__dirname, '../../fixtures/egg-revert'),
+    })
+      .debug()
+      .expect('stdout', /SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding/)
+      .expect('code', 0)
+      .end();
+  });
 });
