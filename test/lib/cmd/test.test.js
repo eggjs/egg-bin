@@ -4,6 +4,7 @@ const mm = require('mm');
 const assert = require('assert');
 const changed = require('jest-changed-files');
 const Command = require('../../../lib/cmd/test');
+const version = Number(process.version.substring(1, 3));
 
 describe('test/lib/cmd/test.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -302,6 +303,7 @@ describe('test/lib/cmd/test.test.js', () => {
   });
 
   it('should support egg.revert', () => {
+    if (version < 18) return;
     return coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, '../../fixtures/egg-revert'),
     })
