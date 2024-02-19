@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.15.0](https://github.com/eggjs/egg-bin/compare/v5.14.2...v5.15.0) (2024-02-19)
+
+
+### Features
+
+* support configure egg.revert in package.json ([#252](https://github.com/eggjs/egg-bin/issues/252)) ([8409536](https://github.com/eggjs/egg-bin/commit/8409536cd1b927e8c81d9c44b224bff12d6ad719))
+
+
+### Bug Fixes
+
+* release.yml ([#253](https://github.com/eggjs/egg-bin/issues/253)) ([090e765](https://github.com/eggjs/egg-bin/commit/090e765d11e226ca0521d973b0378939359e9c9c))
+
 ## [5.14.2](https://github.com/eggjs/egg-bin/compare/v5.14.1...v5.14.2) (2023-08-25)
 
 
