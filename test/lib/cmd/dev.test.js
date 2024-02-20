@@ -177,7 +177,7 @@ describe('test/lib/cmd/dev.test.js', () => {
       .end();
   });
 
-  it.only('should support egg.revert', () => {
+  it('should support egg.revert', () => {
     if (version < 18) return;
     mm(process.env, 'NODE_ENV', 'development');
     return coffee.fork(eggBin, [ 'dev' ], {
