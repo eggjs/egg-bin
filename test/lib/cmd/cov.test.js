@@ -3,6 +3,7 @@ const path = require('path');
 const assert = require('assert');
 const coffee = require('coffee');
 const mm = require('mm');
+const version = Number(process.version.substring(1, 3));
 
 describe('test/lib/cmd/cov.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -203,6 +204,19 @@ describe('test/lib/cmd/cov.test.js', () => {
       // .debug()
       .expect('stdout', /env\.AUTO_AGENT: true/)
       .expect('stdout', /env\.ENABLE_MOCHA_PARALLEL: true/)
+      .expect('code', 0)
+      .end();
+  });
+
+  it('should support egg.revert', () => {
+    if (version < 18) return;
+    mm(process.env, 'NODE_ENV', 'development');
+    return coffee.fork(eggBin, [ 'cov' ], {
+      cwd: path.join(__dirname, '../../fixtures/egg-revert'),
+    })
+      .debug()
+      .expect('stdout', /SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding/)
+      .expect('stdout', /1 passing/)
       .expect('code', 0)
       .end();
   });
