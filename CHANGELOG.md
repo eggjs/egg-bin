@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.15.1](https://github.com/eggjs/egg-bin/compare/v5.15.0...v5.15.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* fix execArgv not work in cov ([#254](https://github.com/eggjs/egg-bin/issues/254)) ([a31f9b4](https://github.com/eggjs/egg-bin/commit/a31f9b46a304531ba48545c5320a6cce709375c0))
+
 ## [5.15.0](https://github.com/eggjs/egg-bin/compare/v5.14.2...v5.15.0) (2024-02-19)
 
 
