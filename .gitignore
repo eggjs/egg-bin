@@ -11,6 +11,7 @@ test/fixtures/ts/node_modules/aliyun-egg/
 !test/fixtures/test-files-glob/**
 !test/fixtures/example/node_modules/
 !test/fixtures/example-ts-cluster/node_modules/
+!test/fixtures/egg-revert/node_modules/
 !test/fixtures/example-ts-error-stack/node_modules/
 !test/fixtures/egg-require/node_modules/
 !test/fixtures/example-ts-simple/node_modules/

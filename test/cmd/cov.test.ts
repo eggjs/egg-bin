@@ -2,7 +2,11 @@ import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import assertFile from 'assert-file';
+import mm from 'mm';
+
 import coffee from '../coffee';
+
+const version = Number(process.version.substring(1, 3));
 
 describe('test/cmd/cov.test.ts', () => {
   const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
@@ -180,6 +184,19 @@ describe('test/cmd/cov.test.ts', () => {
         .debug()
         .expect('stdout', /should work/)
         .expect('stdout', /2 passing/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should support egg.revert', () => {
+      if (version < 18) return;
+      mm(process.env, 'NODE_ENV', 'development');
+      return coffee.fork(eggBin, [ 'cov' ], {
+        cwd: path.join(__dirname, '../fixtures/egg-revert'),
+      })
+        .debug()
+        .expect('stdout', /SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding/)
+        .expect('stdout', /1 passing/)
         .expect('code', 0)
         .end();
     });

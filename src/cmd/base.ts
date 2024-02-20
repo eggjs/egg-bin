@@ -97,12 +97,17 @@ export abstract class BaseCommand extends Command {
       console.log('dry run: $ %o', `${process.execPath} ${modulePath} ${args.join(' ')}`);
       return;
     }
+    const forkExecArgv = [
+      ...this.ctx.args.execArgv || [],
+      ...options.execArgv || [],
+    ];
 
     options = {
       stdio: 'inherit',
       env: this.ctx.env,
       cwd: this.base,
       ...options,
+      execArgv: forkExecArgv,
     };
     const proc = fork(modulePath, args, options);
     debug('Run fork pid: %o, `%s %s %s`',
