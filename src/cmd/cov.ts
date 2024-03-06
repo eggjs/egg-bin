@@ -83,6 +83,6 @@ export class CovCommand extends TestCommand {
     const coverageDir = path.join(this.base, 'coverage');
     await fs.rm(coverageDir, { force: true, recursive: true });
 
-    await super.forkNode(c8File, [ ...c8Args, modulePath, ...args ]);
+    await super.forkNode(c8File, [ ...c8Args, process.execPath, ...this.ctx.args.execArgv || [], modulePath, ...args ]);
   }
 }

@@ -1,7 +1,10 @@
 import path from 'node:path';
 import net from 'node:net';
 import detect from 'detect-port';
+import mm from 'mm';
 import coffee from '../coffee';
+
+const version = Number(process.version.substring(1, 3));
 
 describe('test/cmd/dev.test.ts', () => {
   const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
@@ -185,5 +188,17 @@ describe('test/cmd/dev.test.ts', () => {
         .expect('code', 0)
         .end();
     });
+  });
+
+  it('should support egg.revert', () => {
+    if (version < 18) return;
+    mm(process.env, 'NODE_ENV', 'development');
+    return coffee.fork(eggBin, [ 'dev' ], {
+      cwd: path.join(__dirname, '../fixtures/egg-revert'),
+    })
+      // .debug()
+      .expect('stdout', /SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding/)
+      .expect('code', 0)
+      .end();
   });
 });

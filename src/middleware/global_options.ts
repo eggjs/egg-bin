@@ -136,6 +136,14 @@ export default class GlobalOptions implements ApplicationLifecycle {
         await runscript(`node ${etsBin}`);
       }
 
+      if (ctx.args.pkgEgg.revert) {
+        ctx.args.execArgv = ctx.args.execArgv || [];
+        const reverts = Array.isArray(ctx.args.pkgEgg.revert) ? ctx.args.pkgEgg.revert : [ ctx.args.pkgEgg.revert ];
+        for (const revert of reverts) {
+          ctx.args.execArgv.push(`--security-revert=${revert}`);
+        }
+      }
+
       debug('set NODE_OPTIONS: %o', ctx.env.NODE_OPTIONS);
       debug('ctx.args: %o', ctx.args);
       debug('enter next');

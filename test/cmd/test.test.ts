@@ -1,6 +1,8 @@
 import path from 'node:path';
 import coffee from '../coffee';
 
+const version = Number(process.version.substring(1, 3));
+
 describe('test/cmd/test.test.ts', () => {
   const eggBin = path.join(__dirname, '../../src/bin/cli.ts');
   const fixtures = path.join(__dirname, '../fixtures');
@@ -301,6 +303,17 @@ describe('test/cmd/test.test.ts', () => {
       })
         // .debug()
         .expect('stdout', /timeout: 0/)
+        .expect('code', 0)
+        .end();
+    });
+
+    it('should support egg.revert', () => {
+      if (version < 18) return;
+      return coffee.fork(eggBin, [ 'test' ], {
+        cwd: path.join(__dirname, '../fixtures/egg-revert'),
+      })
+        .debug()
+        .expect('stdout', /SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding/)
         .expect('code', 0)
         .end();
     });
