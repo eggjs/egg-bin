@@ -334,6 +334,16 @@ $ my-egg-bin nsp
 run nsp check at /foo/bar with {}
 ```
 
+### dal
+
+Generate code for @eggjs/tegg-dal-plugin
+
+```bash
+egg-bin dal gen
+```
+
+dal document please read [tegg doc](https://github.com/eggjs/tegg/tree/master/plugin/dal).
+
 ## License
 
 [MIT](LICENSE)
