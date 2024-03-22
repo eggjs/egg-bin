@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.16.0](https://github.com/eggjs/egg-bin/compare/v5.15.1...v5.16.0) (2024-03-22)
+
+
+### Features
+
+* impl egg-bin dal gen ([#257](https://github.com/eggjs/egg-bin/issues/257)) ([7195aef](https://github.com/eggjs/egg-bin/commit/7195aef2e903df3228f146e8797b52823a28884e))
+
 ## [5.15.1](https://github.com/eggjs/egg-bin/compare/v5.15.0...v5.15.1) (2024-02-20)
 
 
