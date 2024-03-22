@@ -342,7 +342,7 @@ Generate code for @eggjs/tegg-dal-plugin
 egg-bin dal gen
 ```
 
-dal document please read [tegg doc](https://github.com/eggjs/tegg/tree/master/plugin/dal).
+Dal document please read [tegg doc](https://github.com/eggjs/tegg/tree/master/plugin/dal).
 
 ## License
 
