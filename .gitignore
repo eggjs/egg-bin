@@ -32,3 +32,4 @@ package-lock.json
 yarn.lock
 .c8_output
 .idea
+.eslintcache

@@ -33,7 +33,12 @@
     "test": "^3.0.0",
     "ts-node": "^10.8.0",
     "tsconfig-paths": "^4.1.1",
-    "ypkgfiles": "^1.6.0"
+    "ypkgfiles": "^1.6.0",
+    "@eggjs/tegg-common-util": "^3.33.0",
+    "@eggjs/dal-runtime": "^3.33.0",
+    "@eggjs/dal-decorator": "^3.33.0",
+    "@eggjs/tegg-loader": "^3.33.0",
+    "@eggjs/tegg": "^3.33.0"
   },
   "peerDependencies": {
     "egg-mock": ">=5.8.3"
@@ -56,7 +61,7 @@
     "eslint-config-egg": "^12.0.0",
     "git-contributor": "2",
     "mm": "^3.2.0",
-    "typescript": "^4.7.2"
+    "typescript": "^5.0.4"
   },
   "repository": {
     "type": "git",
