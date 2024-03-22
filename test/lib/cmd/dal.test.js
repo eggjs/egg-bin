@@ -35,7 +35,7 @@ describe('test/lib/cmd/dal.test.js', () => {
         'app/modules/dal/dal/structure/Foo.json',
         'app/modules/dal/dal/structure/Foo.sql',
       ]) {
-        assert.ok(fs.stat(path.join(cwd, file)));
+        assert.ok(await fs.stat(path.join(cwd, file)));
       }
     });
   });
