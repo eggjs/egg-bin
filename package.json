@@ -33,22 +33,27 @@
     "test": "^3.0.0",
     "ts-node": "^10.8.0",
     "tsconfig-paths": "^4.1.1",
-    "ypkgfiles": "^1.6.0",
-    "@eggjs/tegg-common-util": "^3.33.0",
-    "@eggjs/dal-runtime": "^3.33.0",
-    "@eggjs/dal-decorator": "^3.33.0",
-    "@eggjs/tegg-loader": "^3.33.0",
-    "@eggjs/tegg": "^3.33.0"
+    "ypkgfiles": "^1.6.0"
   },
   "peerDependencies": {
-    "egg-mock": ">=5.8.3"
+    "egg-mock": ">=5.8.3",
+    "@eggjs/tegg": "^3.33.0",
+    "@eggjs/dal-runtime": "^3.33.0"
   },
   "peerDependenciesMeta": {
     "egg-mock": {
       "optional": true
+    },
+    "@eggjs/tegg": {
+      "optional": true
+    },
+    "@eggjs/dal-runtime": {
+      "optional": true
     }
   },
   "devDependencies": {
+    "@eggjs/dal-runtime": "^3.33.0",
+    "@eggjs/tegg": "^3.33.0",
     "@eggjs/tsconfig": "^1.2.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^14.18.36",
