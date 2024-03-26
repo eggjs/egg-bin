@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.16.0](https://github.com/eggjs/egg-bin/compare/v5.15.1...v5.16.0) (2024-03-26)
+
+
+### Features
+
+* impl egg-bin dal gen ([#257](https://github.com/eggjs/egg-bin/issues/257)) ([7195aef](https://github.com/eggjs/egg-bin/commit/7195aef2e903df3228f146e8797b52823a28884e))
+
+
+### Bug Fixes
+
+* move tegg to optional peer deps ([#260](https://github.com/eggjs/egg-bin/issues/260)) ([843fcd0](https://github.com/eggjs/egg-bin/commit/843fcd0fc6f1ee886578c9049f43965afb933357))
+
 ## [5.16.0](https://github.com/eggjs/egg-bin/compare/v5.15.1...v5.16.0) (2024-03-22)
 
 
