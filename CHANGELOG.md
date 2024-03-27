@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.17.1](https://github.com/eggjs/egg-bin/compare/v5.17.0...v5.17.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* fork dalgen with baseDir ([#262](https://github.com/eggjs/egg-bin/issues/262)) ([f9398f4](https://github.com/eggjs/egg-bin/commit/f9398f4f4778d640b5ea238971e57b0fab6677eb))
+
 ## [5.17.0](https://github.com/eggjs/egg-bin/compare/v5.16.0...v5.17.0) (2024-03-27)
 
 
