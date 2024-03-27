@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.17.0](https://github.com/eggjs/egg-bin/compare/v5.16.0...v5.17.0) (2024-03-27)
+
+
+### Features
+
+* dal gen support pkg alias ([#261](https://github.com/eggjs/egg-bin/issues/261)) ([5876faf](https://github.com/eggjs/egg-bin/commit/5876fafcc7a29b9e59b7e79a75e995e2e219992e))
+
 ## [5.16.0](https://github.com/eggjs/egg-bin/compare/v5.15.1...v5.16.0) (2024-03-26)
 
 
