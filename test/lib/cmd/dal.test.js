@@ -18,7 +18,7 @@ describe('test/lib/cmd/dal.test.js', () => {
     });
 
     it('egg-bin dal gen should work', async () => {
-      await coffee.fork(eggBin, [ 'dal', 'gen' ], { cwd })
+      await coffee.fork(eggBin, [ 'dal', 'gen', '--teggPkgName', '@eggjs/xianyadan', '--teggDalPkgName', '@eggjs/xianyadan/dal' ], { cwd })
         .debug()
         .expect('code', 0)
         .end();
@@ -37,6 +37,10 @@ describe('test/lib/cmd/dal.test.js', () => {
       ]) {
         assert.ok(await fs.stat(path.join(cwd, file)));
       }
+
+      const content = await fs.readFile(path.join(cwd, 'app/modules/dal/dal/dao/base/BaseFooDAO.ts'), 'utf8');
+      assert(/import type { InsertResult, UpdateResult, DeleteResult } from '@eggjs\/xianyadan\/dal';/.test(content));
+      assert(/import { SingletonProto, AccessLevel, Inject } from '@eggjs\/xianyadan';/.test(content));
     });
   });
 });
