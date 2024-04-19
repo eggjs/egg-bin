@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.18.0](https://github.com/eggjs/egg-bin/compare/v5.17.1...v5.18.0) (2024-04-19)
+
+
+### Features
+
+* ignore ts error in dalgen ([#264](https://github.com/eggjs/egg-bin/issues/264)) ([b33f309](https://github.com/eggjs/egg-bin/commit/b33f3099c705429e4810af228bedef3507d01e77))
+
 ## [5.17.1](https://github.com/eggjs/egg-bin/compare/v5.17.0...v5.17.1) (2024-03-27)
 
 
