@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.18.1](https://github.com/eggjs/egg-bin/compare/v5.18.0...v5.18.1) (2024-04-29)
+
+
+### Bug Fixes
+
+* use TS_NODE_TYPE_CHECK insteadof TS_NODE_TRANSPILE ([#266](https://github.com/eggjs/egg-bin/issues/266)) ([735cc2f](https://github.com/eggjs/egg-bin/commit/735cc2f1c7eb8ce84e324903bd85ee01961fbaba))
+
 ## [5.18.0](https://github.com/eggjs/egg-bin/compare/v5.17.1...v5.18.0) (2024-04-19)
 
 
