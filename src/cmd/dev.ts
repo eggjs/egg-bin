@@ -1,7 +1,7 @@
 import { debuglog } from 'node:util';
 import path from 'node:path';
 import { DefineCommand, Option } from '@artus-cli/artus-cli';
-import utils from 'egg-utils';
+import utils from '@eggjs/utils';
 import detect from 'detect-port';
 import { BaseCommand } from './base';
 
