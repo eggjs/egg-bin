@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.10.0](https://github.com/eggjs/egg-bin/compare/v6.9.0...v6.10.0) (2024-06-11)
+
+
+### Features
+
+* [Snyk] Security upgrade c8 from 9.1.0 to 10.0.0 ([#272](https://github.com/eggjs/egg-bin/issues/272)) ([2535a8e](https://github.com/eggjs/egg-bin/commit/2535a8e57e2ae7482516bac2309d04cf69bac22d))
+
 ## [6.9.0](https://github.com/eggjs/egg-bin/compare/v6.8.1...v6.9.0) (2024-05-08)
 
 
