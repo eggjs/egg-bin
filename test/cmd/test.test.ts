@@ -11,7 +11,7 @@ describe('test/cmd/test.test.ts', () => {
   describe('egg-bin test', () => {
     it('should success js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
         .expect('stdout', /b\/b\.test\.js/)
@@ -185,7 +185,7 @@ describe('test/cmd/test.test.ts', () => {
 
     it('should success js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(fixtures, 'test-unhandled-rejection') })
-        // .debug()
+        .debug()
         .expect('stdout', / Uncaught Error: mock error/)
         .expect('code', 1)
         .end();
