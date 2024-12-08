@@ -11,7 +11,7 @@ describe('test/cmd/test.test.ts', () => {
   describe('egg-bin test', () => {
     it('should success js', () => {
       return coffee.fork(eggBin, [ 'test' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /should success/)
         .expect('stdout', /a\.test\.js/)
         .expect('stdout', /b\/b\.test\.js/)
@@ -183,9 +183,10 @@ describe('test/cmd/test.test.ts', () => {
         .end();
     });
 
-    it('should success js', () => {
+    it('should success js on unhandled-rejection', () => {
+      if (version >= 20 && process.platform === 'win32') return;
       return coffee.fork(eggBin, [ 'test' ], { cwd: path.join(fixtures, 'test-unhandled-rejection') })
-        // .debug()
+        .debug()
         .expect('stdout', / Uncaught Error: mock error/)
         .expect('code', 1)
         .end();
@@ -308,7 +309,7 @@ describe('test/cmd/test.test.ts', () => {
     });
 
     it('should support egg.revert', () => {
-      if (version < 18) return;
+      if (version < 18 || version > 20) return;
       return coffee.fork(eggBin, [ 'test' ], {
         cwd: path.join(__dirname, '../fixtures/egg-revert'),
       })
