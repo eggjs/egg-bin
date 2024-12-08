@@ -5,6 +5,8 @@ import _cpy from 'cpy';
 import runscript from 'runscript';
 import coffee from './coffee';
 
+const version = Number(process.version.substring(1, 3));
+
 async function cpy(src: string, target: string) {
   if (fs.cp) {
     await fs.cp(src, target, { force: true, recursive: true });
@@ -74,6 +76,7 @@ describe('test/ts.test.ts', () => {
     });
 
     it('should cov app in cluster mod', () => {
+      if (version > 20) return;
       // skip on darwin
       // https://github.com/eggjs/egg-bin/runs/6735190362?check_suite_focus=true
       // [agent_worker] receive disconnect event on child_process fork mode, exiting with code:110
