@@ -80,7 +80,7 @@ describe('test/ts.test.ts', () => {
       if (process.platform === 'darwin') return;
       cwd = path.join(fixtures, 'example-ts-cluster');
       return coffee.fork(eggBin, [ 'cov' ], { cwd })
-        // .debug()
+        .debug()
         .expect('stdout', /Statements/)
         .expect('code', 0)
         .end();

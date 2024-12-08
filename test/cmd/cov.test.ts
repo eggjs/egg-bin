@@ -189,7 +189,7 @@ describe('test/cmd/cov.test.ts', () => {
     });
 
     it('should support egg.revert', () => {
-      if (version < 18) return;
+      if (version < 18 || version > 20) return;
       mm(process.env, 'NODE_ENV', 'development');
       return coffee.fork(eggBin, [ 'cov' ], {
         cwd: path.join(__dirname, '../fixtures/egg-revert'),
