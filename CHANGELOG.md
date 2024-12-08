@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.11.0](https://github.com/eggjs/egg-bin/compare/v6.10.0...v6.11.0) (2024-12-08)
+
+
+### Features
+
+* use detect-port v2 ([#275](https://github.com/eggjs/egg-bin/issues/275)) ([4816db4](https://github.com/eggjs/egg-bin/commit/4816db4d0e111d9f46d8547a17b6cf430a89d225))
+
 ## [6.10.0](https://github.com/eggjs/egg-bin/compare/v6.9.0...v6.10.0) (2024-06-11)
 
 
