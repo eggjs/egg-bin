@@ -1,9 +1,9 @@
 const debug = require('node:util').debuglog('egg-bin:postinstall');
 const path = require('node:path');
 const fs = require('node:fs');
-const runscript = require('runscript');
+const { runScript } = require('runscript');
 
-// node posintall.js </path/to/egg-ts-helper/dist/bin> <framework-package-name>
+// node postintall.js </path/to/egg-ts-helper/dist/bin> <framework-package-name>
 const etsBinFile = process.argv[2] || require.resolve('egg-ts-helper/dist/bin');
 const frameworkPackageName = process.argv[3] || 'egg';
 
@@ -41,6 +41,6 @@ if (npmRunRoot) {
     // https://github.com/eggjs/egg-ts-helper/pull/104
     process.env.ETS_SCRIPT_FRAMEWORK = frameworkPackageName;
     console.log('[egg-bin:postinstall] run %s on %s', etsBinFile, npmRunRoot);
-    runscript(`node ${etsBinFile}`);
+    runScript(`node ${etsBinFile}`);
   }
 }

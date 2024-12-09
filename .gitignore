@@ -36,3 +36,4 @@ cmd/*.js
 dist
 test/fixtures/example-declarations/typings/
 !test/fixtures/example-declarations/node_modules
+.package-lock.json
