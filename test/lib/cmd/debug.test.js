@@ -2,7 +2,7 @@ const path = require('path');
 const coffee = require('coffee');
 const mm = require('egg-mock');
 const net = require('net');
-const detect = require('detect-port');
+const { detect } = require('detect-port');
 
 describe('test/lib/cmd/debug.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');

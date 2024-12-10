@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const runscript = require('runscript');
+const { runscript } = require('runscript');
 
 // node posintall.js </path/to/egg-ts-helper/dist/bin> <framework-package-name>
 const etsBinFile = process.argv[2] || require.resolve('egg-ts-helper/dist/bin');

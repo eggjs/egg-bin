@@ -348,19 +348,11 @@ Dal document please read [tegg doc](https://github.com/eggjs/tegg/tree/master/pl
 
 [MIT](LICENSE)
 
-<!-- GITCONTRIBUTOR_START -->
-
 ## Contributors
 
-|[<img src="https://avatars.githubusercontent.com/u/156269?v=4" width="100px;"/><br/><sub><b>fengmk2</b></sub>](https://github.com/fengmk2)<br/>|[<img src="https://avatars.githubusercontent.com/u/227713?v=4" width="100px;"/><br/><sub><b>atian25</b></sub>](https://github.com/atian25)<br/>|[<img src="https://avatars.githubusercontent.com/u/360661?v=4" width="100px;"/><br/><sub><b>popomore</b></sub>](https://github.com/popomore)<br/>|[<img src="https://avatars.githubusercontent.com/u/5856440?v=4" width="100px;"/><br/><sub><b>whxaxes</b></sub>](https://github.com/whxaxes)<br/>|[<img src="https://avatars.githubusercontent.com/u/32174276?v=4" width="100px;"/><br/><sub><b>semantic-release-bot</b></sub>](https://github.com/semantic-release-bot)<br/>|[<img src="https://avatars.githubusercontent.com/u/985607?v=4" width="100px;"/><br/><sub><b>dead-horse</b></sub>](https://github.com/dead-horse)<br/>|
-| :---: | :---: | :---: | :---: | :---: | :---: |
-|[<img src="https://avatars.githubusercontent.com/u/6897780?v=4" width="100px;"/><br/><sub><b>killagu</b></sub>](https://github.com/killagu)<br/>|[<img src="https://avatars.githubusercontent.com/u/19908330?v=4" width="100px;"/><br/><sub><b>hyj1991</b></sub>](https://github.com/hyj1991)<br/>|[<img src="https://avatars.githubusercontent.com/u/2160731?v=4" width="100px;"/><br/><sub><b>mansonchor</b></sub>](https://github.com/mansonchor)<br/>|[<img src="https://avatars.githubusercontent.com/u/5243774?v=4" width="100px;"/><br/><sub><b>ngot</b></sub>](https://github.com/ngot)<br/>|[<img src="https://avatars.githubusercontent.com/u/1763067?v=4" width="100px;"/><br/><sub><b>waitingsong</b></sub>](https://github.com/waitingsong)<br/>|[<img src="https://avatars.githubusercontent.com/u/16103358?v=4" width="100px;"/><br/><sub><b>onlylovermb</b></sub>](https://github.com/onlylovermb)<br/>|
-|[<img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="100px;"/><br/><sub><b>snyk-bot</b></sub>](https://github.com/snyk-bot)<br/>|[<img src="https://avatars.githubusercontent.com/u/2755933?v=4" width="100px;"/><br/><sub><b>BiosSun</b></sub>](https://github.com/BiosSun)<br/>|[<img src="https://avatars.githubusercontent.com/u/1474688?v=4" width="100px;"/><br/><sub><b>luckydrq</b></sub>](https://github.com/luckydrq)<br/>|[<img src="https://avatars.githubusercontent.com/u/415655?v=4" width="100px;"/><br/><sub><b>stormslowly</b></sub>](https://github.com/stormslowly)<br/>|[<img src="https://avatars.githubusercontent.com/u/52845048?v=4" width="100px;"/><br/><sub><b>snapre</b></sub>](https://github.com/snapre)<br/>|[<img src="https://avatars.githubusercontent.com/u/23313266?v=4" width="100px;"/><br/><sub><b>ZYSzys</b></sub>](https://github.com/ZYSzys)<br/>|
-[<img src="https://avatars.githubusercontent.com/u/25807379?v=4" width="100px;"/><br/><sub><b>angleshe</b></sub>](https://github.com/angleshe)<br/>|[<img src="https://avatars.githubusercontent.com/u/26563778?v=4" width="100px;"/><br/><sub><b>ahungrynoob</b></sub>](https://github.com/ahungrynoob)<br/>|[<img src="https://avatars.githubusercontent.com/u/863430?v=4" width="100px;"/><br/><sub><b>yinseny</b></sub>](https://github.com/yinseny)<br/>|[<img src="https://avatars.githubusercontent.com/u/2127199?v=4" width="100px;"/><br/><sub><b>okoala</b></sub>](https://github.com/okoala)<br/>
+[![Contributors](https://contrib.rocks/image?repo=eggjs/egg-bin)](https://github.com/eggjs/egg-bin/graphs/contributors)
 
-This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Wed Jan 18 2023 00:01:48 GMT+0800`.
-
-<!-- GITCONTRIBUTOR_END -->
+Made with [contributors-img](https://contrib.rocks).
 
 [mocha]: https://mochajs.org
 [node:test]: https://nodejs.org/api/test.html
