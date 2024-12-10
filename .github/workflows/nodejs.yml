@@ -1,13 +1,10 @@
-name: CI
+name: CI for 5.x
 
 on:
   push:
-    branches: [ master, 5.x ]
-
+    branches: [ 5.x ]
   pull_request:
-    branches: [ master, 5.x ]
-
-  workflow_dispatch: {}
+    branches: [ 5.x ]
 
 jobs:
   Job:
@@ -15,4 +12,4 @@ jobs:
     uses: node-modules/github-actions/.github/workflows/node-test.yml@master
     with:
       os: 'ubuntu-latest, macos-latest'
-      version: '14, 16, 18, 20'
+      version: '14, 16, 18, 20, 22'

@@ -2,7 +2,7 @@ const path = require('path');
 const coffee = require('coffee');
 const net = require('net');
 const mm = require('mm');
-const detect = require('detect-port');
+const { detect } = require('detect-port');
 const version = Number(process.version.substring(1, 3));
 
 describe('test/lib/cmd/dev.test.js', () => {
