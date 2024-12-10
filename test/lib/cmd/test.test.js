@@ -303,7 +303,7 @@ describe('test/lib/cmd/test.test.js', () => {
   });
 
   it('should support egg.revert', () => {
-    if (version < 18) return;
+    if (version < 18 && version > 20) return;
     return coffee.fork(eggBin, [ 'test' ], {
       cwd: path.join(__dirname, '../../fixtures/egg-revert'),
     })
