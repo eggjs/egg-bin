@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import _cpy from 'cpy';
-import runscript from 'runscript';
+import { runScript } from 'runscript';
 import coffee from './coffee';
 
 const version = Number(process.version.substring(1, 3));
@@ -228,10 +228,10 @@ describe('test/ts.test.ts', () => {
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
       if (process.env.CI) {
-        // dont use npmmirror.com on CI
-        await runscript('npx npminstall', { cwd });
+        // don't use npmmirror.com on CI
+        await runScript('npx npminstall', { cwd });
       } else {
-        await runscript('npx npminstall -c', { cwd });
+        await runScript('npx npminstall -c', { cwd });
       }
 
       // copy egg to node_modules
@@ -260,9 +260,9 @@ describe('test/ts.test.ts', () => {
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
       if (process.env.CI) {
         // dont use npmmirror.com on CI
-        await runscript('npx npminstall ts-node@10.9.2 --no-save', { cwd });
+        await runScript('npx npminstall ts-node@10.9.2 --no-save', { cwd });
       } else {
-        await runscript('npx npminstall -c ts-node@10.9.2 --no-save', { cwd });
+        await runScript('npx npminstall -c ts-node@10.9.2 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -291,10 +291,10 @@ describe('test/ts.test.ts', () => {
       // install custom ts-node
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
       if (process.env.CI) {
-        // dont use npmmirror.com on CI
-        await runscript('npx npminstall ts-node@10.9.2 --no-save', { cwd });
+        // don't use npmmirror.com on CI
+        await runScript('npx npminstall ts-node@10.9.2 --no-save', { cwd });
       } else {
-        await runscript('npx npminstall -c ts-node@10.9.2 --no-save', { cwd });
+        await runScript('npx npminstall -c ts-node@10.9.2 --no-save', { cwd });
       }
 
       // copy egg to node_modules
@@ -389,9 +389,9 @@ describe('test/ts.test.ts', () => {
       await fs.rm(path.join(cwd, 'node_modules'), { force: true, recursive: true });
       if (process.env.CI) {
         // dont use npmmirror.com on CI
-        await runscript('npx npminstall', { cwd });
+        await runScript('npx npminstall', { cwd });
       } else {
-        await runscript('npx npminstall -c', { cwd });
+        await runScript('npx npminstall -c', { cwd });
       }
 
       // copy egg to node_modules

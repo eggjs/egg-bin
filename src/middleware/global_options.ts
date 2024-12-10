@@ -5,7 +5,7 @@ import {
   Inject, ApplicationLifecycle, LifecycleHook, LifecycleHookUnit,
   Program, CommandContext,
 } from '@artus-cli/artus-cli';
-import runscript from 'runscript';
+import { runScript } from 'runscript';
 import { addNodeOptionsToEnv, readPackageJSON, hasTsConfig } from '../utils';
 
 const debug = debuglog('egg-bin:midddleware:global_options');
@@ -133,7 +133,7 @@ export default class GlobalOptions implements ApplicationLifecycle {
       if (ctx.args.declarations) {
         const etsBin = require.resolve('egg-ts-helper/dist/bin');
         debug('run ets first: %o', etsBin);
-        await runscript(`node ${etsBin}`);
+        await runScript(`node ${etsBin}`);
       }
 
       if (ctx.args.pkgEgg.revert) {
