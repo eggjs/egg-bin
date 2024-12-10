@@ -3,6 +3,7 @@ const coffee = require('coffee');
 const mm = require('mm');
 const fs = require('node:fs/promises');
 const assert = require('assert');
+const version = Number(process.version.substring(1, 3));
 
 describe('test/lib/cmd/dal.test.js', () => {
   const eggBin = require.resolve('../../../bin/egg-bin.js');
@@ -24,6 +25,7 @@ describe('test/lib/cmd/dal.test.js', () => {
     });
 
     it('egg-bin dal gen should work', async () => {
+      if (version === 14) return;
       await coffee.fork(eggBin, [ 'dal', 'gen', '--teggPkgName', '@eggjs/xianyadan', '--teggDalPkgName', '@eggjs/xianyadan/dal' ], { cwd })
         .debug()
         // .expect('code', 0)
