@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.19.0](https://github.com/eggjs/egg-bin/compare/v5.18.1...v5.19.0) (2024-12-10)
+
+
+### Features
+
+* use runscript v2 ([#277](https://github.com/eggjs/egg-bin/issues/277)) ([2445006](https://github.com/eggjs/egg-bin/commit/244500687276fc273f526b08a170a1eb36fd229d))
+
 ## [5.18.1](https://github.com/eggjs/egg-bin/compare/v5.18.0...v5.18.1) (2024-04-29)
 
 
