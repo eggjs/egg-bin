@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.13.0](https://github.com/eggjs/egg-bin/compare/v6.12.0...v6.13.0) (2024-12-11)
+
+
+### Features
+
+* use @eggjs/utils v4 ([#278](https://github.com/eggjs/egg-bin/issues/278)) ([aedf803](https://github.com/eggjs/egg-bin/commit/aedf803a863b082dc41ee9f6ed41b500dbfc902e))
+
 ## [6.12.0](https://github.com/eggjs/egg-bin/compare/v6.11.0...v6.12.0) (2024-12-10)
 
 
