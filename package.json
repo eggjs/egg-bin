@@ -17,7 +17,7 @@
     "@artus-cli/artus-cli": "^0.2.9",
     "@artus-cli/plugin-autocomplete": "^0.1.1",
     "@artus-cli/plugin-version": "^1.0.1",
-    "@eggjs/utils": "^3.0.1",
+    "@eggjs/utils": "^4.0.2",
     "c8": "^10.0.0",
     "detect-port": "^2.0.0",
     "egg-ts-helper": "^2.1.0",

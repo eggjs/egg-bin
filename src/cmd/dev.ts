@@ -61,16 +61,19 @@ export class DevCommand extends BaseCommand {
     });
 
     if (!this.port) {
-      let configuredPort;
+      let configuredPort: number | undefined;
       try {
-        const configuration = utils.getConfig({
+        const configuration = await utils.getConfig({
           framework: this.framework,
           baseDir: this.base,
           env: 'local',
         });
         configuredPort = configuration?.cluster?.listen?.port;
-      } catch (_) { /** skip when failing to read the configuration */ }
-
+      } catch (err) {
+        /** skip when failing to read the configuration */
+        debug('getConfig error: %s, framework: %o, baseDir: %o, env: local',
+          err, this.framework, this.base);
+      }
       if (configuredPort) {
         this.port = configuredPort;
         debug(`use port ${this.port} from configuration file`);
@@ -79,7 +82,8 @@ export class DevCommand extends BaseCommand {
         debug('detect available port');
         this.port = await detect(defaultPort);
         if (this.port !== defaultPort) {
-          console.warn('[egg-bin] server port %s is in use, now using port %o', defaultPort, this.port);
+          console.warn('[egg-bin] server port %s is in use, now using port %o',
+            defaultPort, this.port);
         }
         debug(`use available port ${this.port}`);
       }
