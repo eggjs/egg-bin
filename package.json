@@ -30,7 +30,7 @@
     "tsconfig-paths": "^4.1.2"
   },
   "peerDependencies": {
-    "egg-mock": ">=5.10.2"
+    "egg-mock": "beta"
   },
   "peerDependenciesMeta": {
     "egg-mock": {
@@ -46,8 +46,8 @@
     "assert-file": "^1.0.0",
     "coffee": "^5.4.0",
     "cpy": "^8.1.2",
-    "egg": "^3.9.1",
-    "egg-mock": "^5.10.2",
+    "egg": "beta",
+    "egg-mock": "beta",
     "esbuild": "^0.17.7",
     "esbuild-register": "^3.4.2",
     "eslint": "^8.16.0",
